@@ -75,3 +75,75 @@ html{
     font: normal 600 16px/16px Inter;
     margin-bottom: 5px;
 }
+
+.enjoy{
+    max-width: 1360px;
+    height: 644px;
+    display: flex;
+    background-image: url(image/imagesIndex/EnjoyBackground.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-radius: 40px;
+    margin: 20px auto;
+}
+
+.enjoy__container{
+    width: 100%;
+    padding: 100px;
+}
+
+.infoBlock{
+    width: 530px;
+    height: 444px;
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    gap: 40px;
+}
+
+.infoBlock__title>span{
+    font: italic 600 72px/75.6px Inter;
+    color: #B0907A;
+}
+
+.infoBlock__title{
+    font: normal 600 72px/75.6px Inter;
+    color: #E1D4C9;
+}
+
+.infoBlock__offer{
+    font: normal 400 16px/24px Inter;
+    color: #B0907A;
+}
+
+.infoBlock__button-menu{
+    width: 200px;
+    height: 64px;
+    position: relative;
+    text-align: center;
+    background-color: #E1D4C9;;
+    color:#403F3D;
+    font: normal 600 16px/16px Inter;
+    border-radius: 100px;
+    border: 1px solid #E1D4C9;;
+    padding: 23px 78px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.infoBlock__button-menu__svg{
+    position: absolute;
+    right: 63px;
+    top: 20px;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.infoBlock__button-menu:hover{
+    padding-left: 53px;
+}
+
+.infoBlock__button-menu:hover .infoBlock__button-menu__svg{
+    opacity: 1;
+}
