@@ -245,3 +245,62 @@ html{
 .macchiato{
     display: none;
 }
+
+.about{
+    max-width: 1360px;
+    padding-top: 100px;
+}
+
+.about__title>span{
+   color:#B0907A;
+   font: italic 600 60px/125% Inter;
+}
+
+.about__title{
+    color:#403F3D;
+    font: normal 600 60px/125% Inter;
+}
+
+.about__image__container{
+    max-height: 1060px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.about__image{
+    width: 100%;
+    max-width: 660px;
+    background-size: calc(110%);
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.image1{
+    height: 590px;
+    background-image: url(image/imagesIndex/about-1.jpg);
+
+}
+.image2{
+    height: 430px;
+    background-image: url(image/imagesIndex/about-2.jpg);
+
+}
+.image3{
+    height: 430px;
+    background-image: url(image/imagesIndex/about-3.jpg);
+
+}
+.image4{
+    height: 590px;
+    background-image: url(image/imagesIndex/about-4.jpg);
+}
+
+.about__image:hover{
+    background-size: calc(100%);
+}
