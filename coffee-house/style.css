@@ -76,6 +76,10 @@ html{
     margin-bottom: 5px;
 }
 
+.header__link-onMenu{
+    text-decoration: none;
+}
+
 .enjoy{
     max-width: 1360px;
     height: 644px;
@@ -115,6 +119,10 @@ html{
 .infoBlock__offer{
     font: normal 400 16px/24px Inter;
     color: #B0907A;
+}
+
+.infoBlock__link-onMenu{
+    text-decoration: none;
 }
 
 .infoBlock__button-menu{
