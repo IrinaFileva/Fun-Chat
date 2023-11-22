@@ -473,3 +473,12 @@ html{
 .list-contacts__item__link:hover::before{
     width: 100%;
 }
+
+/* menu */
+.header__link-onHome{
+    text-decoration: none;
+}
+
+.header__button-menu-menu{
+    pointer-events: none;
+}
