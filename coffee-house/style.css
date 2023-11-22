@@ -482,10 +482,88 @@ html{
 .header__button-menu-menu{
     pointer-events: none;
     margin-top: 5px;
-    padding-bottom: 5px;
+    padding-bottom: 6px;
     border-bottom: 3px solid #403F3D;
 }
 
 .nav-menu{
     margin-bottom: 3px;
+}
+
+.main-menu{
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+
+.menu__offer__text{
+    color:#403F3D;
+    font: normal 600 60px/125% Inter;
+}
+
+.menu__offer__text > span{
+    color:#B0907A;
+    font-style: italic;
+}
+
+.menu__offer__buttons__container{
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 40px;
+}
+
+.menu__offer__button{
+    height: 46px;
+    color:#403F3D;
+    font: normal 600 16px/150% Inter;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #E1D4C9;
+    border: 1px solid #C1B6AD;
+    border-radius: 100px;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.menu__offer__button__container-svg{
+    width: 30px;
+    height: 30px;
+    padding: 3px 7px;
+    border-radius: 100%;
+    background-color: #C1B6AD;
+}
+
+.menu__offer__button:hover{
+    background-color:#665F55;
+    border-color: #665F55;
+    color:#E1D4C9;
+    transition: all 0.5s;
+}
+
+.active_button_menu{
+    background-color:#665F55;
+    border-color: #665F55;
+    color:#E1D4C9;
+    pointer-events: none;
+}
+
+.menu__offer__button__svg{
+    width: 17px;
+    height: 24px;
+}
+
+.button__coffee{
+    width: 115px;
+}
+
+.button-tea{
+    width: 90px;
+}
+
+.button-deserts{
+    width: 124px;
 }
