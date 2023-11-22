@@ -481,4 +481,11 @@ html{
 
 .header__button-menu-menu{
     pointer-events: none;
+    margin-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 3px solid #403F3D;
+}
+
+.nav-menu{
+    margin-bottom: 3px;
 }
