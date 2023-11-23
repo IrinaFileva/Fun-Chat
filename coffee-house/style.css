@@ -567,3 +567,91 @@ html{
 .button-deserts{
     width: 124px;
 }
+
+.menu__product-cards__wrapper{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.product-card__container{
+    width: 310px;
+    height: 507px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 40px;
+    border: 1px solid #C1B6AD;
+    text-align: left;
+    cursor: pointer;
+    
+}
+
+.product__image{
+    width: 100%;
+    max-width: 340px;
+    height: 313px;
+    background-size: calc(110%);
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 40px;
+    transition: 0.5s;
+}
+
+.product-card__container:hover .product__image{
+    background-size: calc(101%);
+    transition: 0,5s;
+}
+
+.irish-coffee{
+    background-image: url(image/imagesMenu/coffee-1.png);
+}
+.kahlua-coffee{
+    background-image: url(image/imagesMenu/coffee-2.jpg);
+}
+.honey-raf{
+    background-image: url(image/imagesMenu/coffee-3.jpg);
+}
+.ice-cappuccino{
+    background-image: url(image/imagesMenu/coffee-4.jpg);
+}
+.espresso{
+    background-image: url(image/imagesMenu/coffee-5.jpg);
+}
+.latte{
+    background-image: url(image/imagesMenu/coffee-6.jpg);
+}
+.latte-macchiato{
+    background-image: url(image/imagesMenu/coffee-7.jpg);
+}
+.coffee-with-cognac{
+    background-image: url(image/imagesMenu/coffee-8.jpg);
+}   
+
+.product__description{
+    height: 197px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px 19px 19px 19px;
+}
+
+.product__description__name{
+    color: #403F3D;
+    font: normal 400 16px/150% Inter;
+}
+
+.product__description__name > h2{
+    font: normal 600 24px/20px Inter;
+}
+
+.product__description__name > p{
+    margin-top: 17px;
+}
+
+.product__description__price{
+    color: #403F3D;
+    font: normal 600 24px/125% Inter;
+}
