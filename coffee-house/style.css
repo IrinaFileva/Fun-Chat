@@ -74,6 +74,7 @@ html{
     gap: 8px;
     font: normal 600 16px/16px Inter;
     margin-bottom: 5px;
+    padding-bottom: 3px;
 }
 
 .header__link-onMenu{
