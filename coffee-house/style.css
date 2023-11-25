@@ -190,15 +190,19 @@ html{
     border-radius: 100%;
     width: 60px;
     height: 60px;
-    cursor: pointer;
 }
 
 .slider__arron__container:hover{
     background-color: #665F55;
 }
 
+.arron__container{
+    cursor: pointer;
+}
+
 .slider__arron__container:hover .slider__arron-right{
     stroke: #E1D4C9;
+
 }
 .slider__arron__container:hover .slider__arron-left{
     stroke: #E1D4C9;
@@ -454,7 +458,6 @@ html{
     gap: 8px;
     color: #E1D4C9;
     font: normal 600 16px/150% Inter;
-    cursor: pointer;
     text-decoration: none;
 }
 
@@ -470,8 +473,10 @@ html{
     transition: width 0.5s ease-out;
     transform: translateX(-50%);
 }
+
 .list-contacts__item__link:hover::before{
     width: 100%;
+    cursor: pointer;
 }
 
 /* menu */
@@ -585,8 +590,7 @@ html{
     border-radius: 40px;
     border: 1px solid #C1B6AD;
     text-align: left;
-    cursor: pointer;
-    
+    cursor: pointer;   
 }
 
 .product__image{
