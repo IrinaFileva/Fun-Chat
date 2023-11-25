@@ -345,6 +345,10 @@ html{
     font: normal 400 16px/150% Inter;
 }
 
+.link-with-stub{
+    text-decoration: none;
+}
+
 .mobileApp__context__buttons{
     display: flex;
     gap: 20px;
