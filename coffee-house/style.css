@@ -124,6 +124,7 @@ html{
 
 .infoBlock__link-onMenu{
     text-decoration: none;
+    width: 200px;
 }
 
 .infoBlock__button-menu{
@@ -185,15 +186,18 @@ html{
 }
 
 .slider__arron__container{
+    background-color: #E1D4C9;
     padding: 16px;
     border: 1px solid #665F55;
     border-radius: 100%;
     width: 60px;
     height: 60px;
+    transition: all 0.5s;
 }
 
 .slider__arron__container:hover{
     background-color: #665F55;
+    transition: all 0.5s;
 }
 
 .arron__container{
@@ -202,10 +206,12 @@ html{
 
 .slider__arron__container:hover .slider__arron-right{
     stroke: #E1D4C9;
+    transition: all 0.5s;
 
 }
 .slider__arron__container:hover .slider__arron-left{
     stroke: #E1D4C9;
+    transition: all 0.5s;
 }
 
 .slider__item{
