@@ -710,6 +710,7 @@ html{
 }
 
 .menu__offer__button-updates{
+    display: none;
     width: 60px;
     height: 60px;
     border-radius: 100%;
@@ -811,5 +812,9 @@ html{
     .product7,
     .product8{
         display: none;
+    }
+    .menu__offer__button-updates{
+        display: block;
+        margin: 40px auto 0 ;
     }
 }
