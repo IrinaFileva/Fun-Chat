@@ -103,7 +103,7 @@ html{
 
 .enjoy{
     max-width: 1360px;
-    height: 644px;
+    height: auto;
     display: flex;
     background-image: url(image/imagesIndex/EnjoyBackground.jpg);
     background-size: cover;
@@ -128,12 +128,12 @@ html{
 }
 
 .infoBlock__title>span{
-    font: italic 600 72px/75.6px Inter;
+    font: italic 600 72px/115% Inter;
     color: #B0907A;
 }
 
 .infoBlock__title{
-    font: normal 600 72px/75.6px Inter;
+    font: normal 600 72px/115% Inter;
     color: #E1D4C9;
 }
 
@@ -435,6 +435,7 @@ html{
 }
 
 .left-side__offer{
+    max-width: 530px;
     color:#E1D4C9;
     font: normal 600 60px/125% Inter;
 }
@@ -719,6 +720,7 @@ html{
     margin-top: 40px;
 }
 
+
 @media(max-width: 1100px){
     .about__image__containers{
         margin-right: 15px;
@@ -732,7 +734,7 @@ html{
         max-width: 688px;
     }
     .mobileApp__image{
-        margin-left: 30px;
+        margin: auto;
     }
 }
 
@@ -815,6 +817,95 @@ html{
     }
     .menu__offer__button-updates{
         display: block;
-        margin: 40px auto 0 ;
+        margin: 40px auto 0;
+    }
+}
+
+@media(max-width: 690px){
+    .infoBlock__title{
+        font-size: 68px;
+    }
+    .infoBlock__title>span{
+        font-size: 68px;
+    }
+    .enjoy__container{
+        padding: 60px 30px;
+    }
+    .mobileApp__image{
+       width: 100%;
+       height: auto;
+    }
+}
+
+@media(max-width: 645px){
+    .body__wrapper{
+        padding: 16px 16px 40px 16px;
+    }
+    .frappuccino{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .slider__item__img{
+        width: 100%;
+    }
+    .content__buttons{
+        flex-direction: column;
+    }
+    
+    .infoBlock{
+        width: 100%;
+    }
+    .infoBlock__title{
+        font-size: 42px;
+    }
+    .infoBlock__title>span{
+        font-size: 42px;
+
+    }
+}
+
+@media(max-width: 390px){
+    .enjoy__container{
+        padding: 60px 16px 48px;
+    }
+    .about__title,
+    .left-side__offer,
+    .menu__offer__text,
+    .favoriteCoffee__title,
+    .mobileApp__context__title{
+        font-size: 32px;
+    }
+    .about__title>span,
+    .left-side__offer>span,
+    .menu__offer__text.span,
+    .favoriteCoffee__title>span,
+    .mobileApp__context__title>span{
+        font-size: 32px;
+    }
+    .slider__item__title{
+        padding-top: 20px;
+    }
+    .slider__arron__container{
+        display: none;
+    }
+    .mobileApp{
+        gap: 40px;
+    }
+    .footer{
+        padding: 60px 16px 31px;
+        gap: 10px;
+    }
+    .main-menu{
+        margin-top: 17px;
+    }
+    .menu__offer__buttons__container{
+        gap: 8px;
+    }
+    .menu__product-cards__wrapper{
+        margin-top: 39px;
+    }
+    .product-card__container{
+        height: 506px;
     }
 }
