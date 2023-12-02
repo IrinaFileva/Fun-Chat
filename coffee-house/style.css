@@ -124,12 +124,12 @@ html{
 }
 
 .infoBlock__title>span{
-    font: italic 600 72px/115% Inter;
+    font: italic 600 72px/105% Inter;
     color: #B0907A;
 }
 
 .infoBlock__title{
-    font: normal 600 72px/115% Inter;
+    font: normal 600 72px/105% Inter;
     color: #E1D4C9;
 }
 
@@ -377,7 +377,7 @@ html{
     max-width: 1360px;
     width: 100%;
     display: flex;
-    gap: 103px;
+    gap: 68px;
     background-color:#665F55;
     padding: 100px;
     border-radius: 40px;
@@ -860,10 +860,11 @@ html{
     }
     .infoBlock__title{
         font-size: 42px;
+        line-height: 115%;
     }
     .infoBlock__title>span{
         font-size: 42px;
-
+        line-height: 115%;
     }
 }
 
