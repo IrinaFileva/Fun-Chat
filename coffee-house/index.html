@@ -22,12 +22,16 @@
               <li><a class="nav__item" href="#contactUsHome">Contact us</a></li>
             </ul>
           </nav>
-          <a class="header__link-onMenu" href="menu.html">
+          <a class="header__link-onMenu button-menuInHeader" href="menu.html">
             <div class="header__button-menu nav__item">
               <p class="header__button-menu__title">Menu</p>
               <img class="header__button-menu__icon-cup" src="image/icons/coffee-cup.svg" alt="coffee-cup">
             </div>
           </a>
+          <div class="header__button-menuBurger">
+            <span class="button-menuBurger__line"></span>
+            <span class="button-menuBurger__line"></span>
+          </div>
         </div>
       </header>
       <main class="main main-home">
@@ -115,23 +119,35 @@
           <h2 class="about__title">
             Resource is<span> the perfect and cozy place</span> where you can enjoy a variety of hot beverages, relax, catch up with friends, or get some work done.
           </h2>
-          <div class="about__image__container">
-            <div class="about__image image1"></div>
-            <div class="about__image image2"></div>
-            <div class="about__image image3"></div>
-            <div class="about__image image4"></div>
+          <div class="about__image__containers">
+            <div class="about__image__container-left">
+              <div class="about__image image-big">
+                <img class="image1" src="image/imagesIndex/about-1.jpg" alt="about-image1">
+              </div>
+              <div class="about__image image-small">
+                <img class="image2" src="image/imagesIndex/about-2.jpg" alt="about-image2">
+              </div>
+            </div>
+            <div class="about__image__container-right">
+              <div class="about__image image-small">
+                <img class="image3" src="image/imagesIndex/about-3.jpg" alt="about-image3">
+              </div>
+              <div class="about__image image-big">
+                <img class="image4" src="image/imagesIndex/about-4.jpg" alt="about-image4">
+              </div>
+            </div>
           </div>
         </section>
         <section class="main-home__mobileApp mobileApp" id="mobileApp">
           <div class="mobileApp__context">
             <h2 class="mobileApp__context__title">
-              <span>Download</span> our apps<br> to start ordering
+              <span>Download</span> our apps to start ordering
             </h2>
             <p class="mobileApp__context__offer">
-              Download the Resource app today and experience the comfort of ordering your<br>favorite coffee from wherever you are
+              Download the Resource app today and experience the comfort of ordering your favorite coffee from wherever you are
             </p>
             <div class="mobileApp__context__buttons content__buttons">
-            <a class="link-with-stub" href="#">
+            <a class="link-with-stub" href="#!">
               <div class="content__button button-app">
                   <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
                     <path class="button__icon" d="M26.7063 18.6307C26.6694 14.6324 30.0641 12.6872 30.2193 12.5966C28.2967 9.86366 25.3169 9.49026 24.2697 9.46048C21.767 9.20369 19.3393 10.9206 18.0644 10.9206C16.764 10.9206 14.8008 9.48529 12.6848 9.52747C9.96196 9.56841 7.41468 11.1055 6.01762 13.4923C3.13444 18.359 5.28474 25.5108 8.04705 29.4446C9.42884 31.3712 11.0435 33.5223 13.1569 33.4466C15.2245 33.3635 15.9968 32.1614 18.4919 32.1614C20.9641 32.1614 21.6893 33.4466 23.8447 33.3983C26.0637 33.3635 27.4608 31.463 28.7942 29.519C30.3911 27.3108 31.0323 25.1362 31.0578 25.0245C31.0056 25.0071 26.7483 23.4229 26.7063 18.6307Z" fill="#403F3D"/>
@@ -143,7 +159,7 @@
                   </span>
               </div>
             </a>
-            <a class="link-with-stub" href="#">
+            <a class="link-with-stub" href="#!">
               <div class="content__button button-app">
                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
                   <path class="button__icon" d="M3.7558 3.20297C3.39335 3.57289 3.18359 4.14884 3.18359 4.89471V31.4994C3.18359 32.2453 3.39335 32.8212 3.7558 33.1911L3.84525 33.2723L19.1359 18.37V18.0181L3.84525 3.11575L3.7558 3.20297Z" fill="#403F3D"/>
@@ -165,18 +181,18 @@
       <footer class="footer" id="contactUsHome">
         <div class="footer__left-side left-side">
           <h3 class="left-side__offer">
-            Sip, Savor, Smile.<br>
+            Sip, Savor, Smile.
               <span> It’s coffee time!</span>
           </h3>
           <div class="left-side__buttons-socialMedia">
-            <a class="link-with-stub" href="#">
+            <a class="link-with-stub" href="#!">
             <div class="button-socialMedia__container">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path class="button-socialMedia__svg" d="M23 3.01006C23 3.01006 20.9821 4.20217 19.86 4.54006C19.2577 3.84757 18.4573 3.35675 17.567 3.13398C16.6767 2.91122 15.7395 2.96725 14.8821 3.29451C14.0247 3.62177 13.2884 4.20446 12.773 4.96377C12.2575 5.72309 11.9877 6.62239 12 7.54006V8.54006C10.2426 8.58562 8.50127 8.19587 6.93101 7.4055C5.36074 6.61513 4.01032 5.44869 3 4.01006C3 4.01006 -1 13.0101 8 17.0101C5.94053 18.408 3.48716 19.109 1 19.0101C10 24.0101 21 19.0101 21 7.51006C20.9991 7.23151 20.9723 6.95365 20.92 6.68006C21.9406 5.67355 23 3.01006 23 3.01006Z" stroke="#E1D4C9" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             </a>
-            <a class="link-with-stub" href="#">
+            <a class="link-with-stub" href="#!">
             <div class="button-socialMedia__container">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path class="button-socialMedia__svg" d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" stroke="#E1D4C9" stroke-linecap="round" stroke-linejoin="round"/>
@@ -185,7 +201,7 @@
               </svg>
             </div>
             </a>
-            <a class="link-with-stub" href="#">
+            <a class="link-with-stub" href="#!">
             <div class="button-socialMedia__container">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path class="button-socialMedia__svg" d="M17 2H14C12.6739 2 11.4021 2.52678 10.4645 3.46447C9.52678 4.40215 9 5.67392 9 7V10H6V14H9V22H13V14H16L17 10H13V7C13 6.73478 13.1054 6.48043 13.2929 6.29289C13.4804 6.10536 13.7348 6 14 6H17V2Z" stroke="#E1D4C9" stroke-linecap="round" stroke-linejoin="round"/>
