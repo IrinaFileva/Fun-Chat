@@ -637,6 +637,7 @@ html{
     background-color: #E1D4C9;
     border: 1px solid #665F55;
     margin-top: 40px;
+    cursor: pointer;
 }
 @media(hover:none) {
     .infoBlock__button-menu{
@@ -726,6 +727,9 @@ html{
     .product-card__container:hover .product__image{
         background-size: calc(101%);
         transition: 0,5s;
+    }
+    .menu__offer__button-updates:hover{
+        background-color:#665F55 ;
     }
 }
 
