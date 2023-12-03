@@ -638,6 +638,15 @@ html{
     border: 1px solid #665F55;
     margin-top: 40px;
 }
+@media(hover:none) {
+    .infoBlock__button-menu{
+        padding-left: 53px;
+    }
+
+    .infoBlock__button-menu__svg{
+        opacity: 1;
+    }
+}
 
 @media(hover: hover) and (pointer: fine){  
     .nav__item:hover::after{
@@ -651,6 +660,7 @@ html{
     .infoBlock__button-menu:hover .infoBlock__button-menu__svg{
         opacity: 1;
     }
+   
      
     .slider__arron__container:hover{
         background-color: #665F55;
@@ -784,12 +794,6 @@ html{
     .enjoy__container{
         padding-left: 60px;
     }
-    .infoBlock__button-menu{
-        padding-left: 50px;
-    }
-    .infoBlock__button-menu__svg{
-        opacity: 1;
-    }
     .favoriteCoffee{
         padding-left: 0;
         padding-right: 0;
@@ -866,12 +870,6 @@ html{
         font-size: 42px;
         line-height: 115%;
     }
-}
-
-@media(max-width: 390px){
-    .enjoy__container{
-        padding: 60px 16px 48px;
-    }
     .about__title,
     .left-side__offer,
     .menu__offer__text,
@@ -886,6 +884,13 @@ html{
     .mobileApp__context__title>span{
         font-size: 32px;
     }
+}
+
+@media(max-width: 390px){
+    .enjoy__container{
+        padding: 60px 16px 48px;
+    }
+
     .slider__item__title{
         padding-top: 20px;
     }
