@@ -9,6 +9,7 @@ html{
 }
 
 .body{
+    position: relative;
     background-color: #E1D4C9;
 }
 
@@ -88,15 +89,17 @@ html{
     width: 44px;
     height: 44px;
     display: none;
-    position: relative;
+    position: absolute;
+    top: 28px;
+    right: 40px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 6px;
     border-radius: 100%;
     border: 1px solid #665F55;
-    margin-top: 4px;
     cursor: pointer;
+    z-index: 7;
 }
 
 .button-menuBurger__line{
@@ -807,8 +810,6 @@ html{
         justify-content: flex-start;
         gap: 60px;
         z-index: 2;
-   
-       
     }
     .header__button-menu-menu,
     .nav__item{

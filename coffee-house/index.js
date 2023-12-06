@@ -7,8 +7,9 @@ const burgerMenu = document.querySelector('.header__nav-plus-button');
 const listNavInBurgerMenu = document.querySelector('.nav__list');
 const buttonMenu = document.querySelector('.header__button-menu');
 const body = document.querySelector('.body');
-const navItemsInBurger =document.querySelectorAll('.nav__item');
-const buttonMenuInactive = document.querySelector('.header__button-menu-menu');
+const navItemsInBurger = document.querySelectorAll('.nav__item');
+const buttonMenuInactive = document.querySelector('.header__button-menu');
+const header = document.querySelector('.header');
 
 function removeClass(){
     lineTopInButtonBurger.classList.remove('rotate-top');
@@ -16,8 +17,7 @@ function removeClass(){
     burgerMenu.classList.remove('burger__open');
     buttonMenu.classList.remove('button-menu__inBurger');
     body.classList.remove('overflow');
-}
-
+};
 
 buttonBurgerMenu.addEventListener('click', () => {
     lineTopInButtonBurger.classList.toggle('rotate-top');
@@ -30,9 +30,13 @@ buttonBurgerMenu.addEventListener('click', () => {
 navItemsInBurger.forEach((elem) =>{
     elem.addEventListener('click', () => {
         removeClass();
-    })
-})
+    });
+});
+
+header.addEventListener('click', () => {
+    removeClass();
+});
 
 buttonMenuInactive.addEventListener('click', () => {
     removeClass();
-})
+});
