@@ -36,6 +36,7 @@ html{
 .header__logo{
     margin-top: 4px;
     cursor: pointer;
+    margin-right: 30px;
 }
 
 .header__nav-plus-button{
@@ -970,6 +971,7 @@ html{
     display: flex;
     right: 0;
     transition: all 0.8s;
+    overflow: scroll;
 }
 
 .overflow{
