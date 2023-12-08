@@ -202,9 +202,10 @@ html{
 }
 
 .slider{
+    width: 100%;
     display: flex;
     align-items: center;
-    width: 100%;
+    justify-content: space-between;
 }
 
 .slider__arron__container{
@@ -218,8 +219,25 @@ html{
     cursor: pointer;
 }
 
-.slider__item{
+.slider__wrapper{
+    max-width: 1620px;
     width: 100%;
+    display: flex;
+    gap: 60px;
+}
+
+.slider__window{
+    max-width: 490px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.slider__item{
+    max-width: 480px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 0 auto;
 }
 
@@ -229,13 +247,13 @@ html{
 }
 
 .slider__item__title{
+    width: 100%;
     color: #403F3D;
     font: normal 600 24px/125% Inter;
     padding-top: 18px;
 }
 
 .slider__item__offer{
-    max-width: 480px;
     color: #403F3D;
     font: normal 400 16px/150% Inter;
     margin: 0 auto;
@@ -255,18 +273,21 @@ html{
 }
 
 .control{
+    display: flex;
     width: 40px;
     height: 4px;
     background-color:#C1B6AD;
+    border-radius: 100px;
 }
 
+.control-right,
+.control-center,
 .control-left{
+    display: inline-flex;
+    height: 4px;
+    border-radius: 100px;
     background-color: #665F55;
-}
-
-.iceCoffee,
-.macchiato{
-    display: none;
+    transition-duration: 0.8s;
 }
 
 .about{
@@ -653,6 +674,22 @@ html{
     margin-top: 40px;
     cursor: pointer;
 }
+
+.left {
+    transform: translateX(0);
+    transition-duration: 1.5s;
+}
+
+.center {
+    transform: translateX(-110%);
+    transition-duration: 1.5s;
+}
+
+.right {
+    transform: translateX(-220%);
+    transition-duration: 1.5s;
+}
+
 @media(hover:none) {
     .infoBlock__button-menu{
         padding-left: 53px;
@@ -871,6 +908,9 @@ html{
     .infoBlock__title>span{
         font-size: 68px;
     }
+    .slider__wrapper{
+        gap: 7.5vw;
+    }
     .enjoy__container{
         padding: 60px 30px;
     }
@@ -884,18 +924,9 @@ html{
     .body__wrapper{
         padding: 16px 16px 40px 16px;
     }
-    .frappuccino{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .slider__item__img{
-        width: 100%;
-    }
     .content__buttons{
         flex-direction: column;
     }
-    
     .infoBlock{
         width: 100%;
     }
@@ -927,7 +958,13 @@ html{
     .enjoy__container{
         padding: 60px 16px 48px;
     }
-
+    .slider__wrapper{
+        width: 100%;
+        gap: 9vw;
+    }
+    .slider__item__img{
+        width: 348px;
+    }
     .slider__item__title{
         padding-top: 20px;
     }
@@ -977,4 +1014,3 @@ html{
 .overflow{
     overflow: hidden;
 }
-
