@@ -497,8 +497,7 @@ html{
 .header__button-menu-menu{
     margin-top: 5px;
     padding-bottom: 6px;
-    border-bottom: 2px solid #403F3D;
-    
+    border-bottom: 2px solid #403F3D; 
 }
 
 .nav-menu{
@@ -554,14 +553,14 @@ html{
     background-color: #C1B6AD;
 }
 
-.active_button_menu{
+.menu__offer__button:focus{
     background-color:#665F55;
     border-color: #665F55;
     color:#E1D4C9;
-    pointer-events: none;
+    outline: none;
 }
 
-.active_button_menu > span{
+.menu__offer__button:focus > span{
     background-color:#E1D4C9;
 }
 
@@ -588,6 +587,9 @@ html{
     justify-content: center;
     gap: 40px;
     margin-top: 40px;
+    opacity: 0; 
+    transition: opacity 1s; 
+    visibility: visible;
 }
 
 .product-card__container{
@@ -600,7 +602,7 @@ html{
     border-radius: 40px;
     border: 1px solid #C1B6AD;
     text-align: left;
-    cursor: pointer;   
+    cursor: pointer;
 }
 
 .product__image{
@@ -611,32 +613,8 @@ html{
     background-repeat: no-repeat;
     border-radius: 40px;
     transition: 0.5s;
+    background-image: none;
 }
-
-.irish-coffee{
-    background-image: url(image/imagesMenu/coffee-1.png);
-}
-.kahlua-coffee{
-    background-image: url(image/imagesMenu/coffee-2.jpg);
-}
-.honey-raf{
-    background-image: url(image/imagesMenu/coffee-3.jpg);
-}
-.ice-cappuccino{
-    background-image: url(image/imagesMenu/coffee-4.jpg);
-}
-.espresso{
-    background-image: url(image/imagesMenu/coffee-5.jpg);
-}
-.latte{
-    background-image: url(image/imagesMenu/coffee-6.jpg);
-}
-.latte-macchiato{
-    background-image: url(image/imagesMenu/coffee-7.jpg);
-}
-.coffee-with-cognac{
-    background-image: url(image/imagesMenu/coffee-8.jpg);
-}   
 
 .product__description{
     height: 197px;
@@ -651,11 +629,11 @@ html{
     font: normal 400 16px/150% Inter;
 }
 
-.product__description__name > h2{
+.product__description__name-title{
     font: normal 600 24px/20px Inter;
 }
 
-.product__description__name > p{
+.product__description__name-offer{
     margin-top: 17px;
 }
 
@@ -888,16 +866,15 @@ html{
         width: 100%;
     }
     .image2,
-    .image3,
-    .product5,
-    .product6,
-    .product7,
-    .product8{
+    .image3{
         display: none;
     }
     .menu__offer__button-updates{
         display: block;
         margin: 40px auto 0;
+    }
+    .card__none{
+        display: none;
     }
 }
 
@@ -1014,3 +991,5 @@ html{
 .overflow{
     overflow: hidden;
 }
+
+
