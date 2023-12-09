@@ -93,18 +93,19 @@ buttonDessert.addEventListener('click', () => {
 
 window.addEventListener('resize', () => {
     const cardsProducts = document.querySelectorAll('.product-card__container');
-    if (window.innerWidth <= 768 && cardsProducts.length !== 4){
+    if (window.innerWidth <= 768 && cardsProducts.length > 4){
         updatesButton.classList.remove('card__none');
         for(let i = 4; i <= cardsProducts.length; i++){
-            cardsProducts[i].className = 'product-card__container card__none';
-        };  
-    }else{
+            cardsProducts[i].style.display = 'none';
+        };   
+    }else {
         updatesButton.classList.add('card__none');
+        cardsProducts.forEach((x) => x.style.display = 'flex');
     };
 });
 
 updatesButton.addEventListener('click', () =>{
     const cardsProducts = document.querySelectorAll('.product-card__container');
-    cardsProducts.forEach((x) => x.classList.remove('card__none'));
+    cardsProducts.forEach((x) => x.style.display = 'flex');
     updatesButton.classList.add('card__none');
 });
