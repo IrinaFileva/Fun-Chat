@@ -14,28 +14,36 @@
       <header class="header">
         <div class="header__container">
           <img class="header__logo" src="image/icons/logoHeader.png" alt="logo">
-          <nav class="header__nav nav">
-            <ul class="nav__list">
-              <li><a class="nav__item" href="#favoriteCoffee">Favorite coffee</a></li>
-              <li><a class="nav__item" href="#about">About</a></li>
-              <li><a class="nav__item" href="#mobileApp">Mobile app</a></li>
-              <li><a class="nav__item" href="#contactUsHome">Contact us</a></li>
-            </ul>
-          </nav>
-          <a class="header__link-onMenu button-menuInHeader" href="menu.html">
-            <div class="header__button-menu nav__item">
-              <p class="header__button-menu__title">Menu</p>
-              <img class="header__button-menu__icon-cup" src="image/icons/coffee-cup.svg" alt="coffee-cup">
-            </div>
-          </a>
-          <div class="header__button-menuBurger">
-            <span class="button-menuBurger__line"></span>
-            <span class="button-menuBurger__line"></span>
+          <div class="header__nav-plus-button">
+            <nav class="header__nav nav">
+              <ul class="nav__list">
+                <li><a class="nav__item" href="#favoriteCoffee">Favorite coffee</a></li>
+                <li><a class="nav__item" href="#about">About</a></li>
+                <li><a class="nav__item" href="#mobileApp">Mobile app</a></li>
+                <li><a class="nav__item" href="#contactUsHome">Contact us</a></li>
+              </ul>
+            </nav>
+            <a class="header__link-onMenu button-menuInHeader" href="menu.html">
+              <div class="header__button-menu nav__item">
+                <p class="header__button-menu__title">Menu</p>
+                <img class="header__button-menu__icon-cup" src="image/icons/coffee-cup.svg" alt="coffee-cup">
+              </div>
+            </a>
           </div>
         </div>
       </header>
+      <div class="header__button-menuBurger">
+        <span class="button-menuBurger__line line-top"></span>
+        <span class="button-menuBurger__line line-bottom"></span>
+      </div>
       <main class="main main-home">
         <section class="main-home__enjoy enjoy">
+          <div class="enjoy__container-video">
+            <video loop="" muted="" autoplay="" poster="video/plane.jpg" class="enjoy__video">
+              <source src="video/video (2160p).mp4" type="video/mp4">
+              <source src="video/video-_2160p_.webm" type="video/webm">
+            </video>
+          </div>
           <div class="enjoy__container">
             <div class="enjoy__infoBlock infoBlock">
               <h1 class="infoBlock__title">
@@ -62,11 +70,13 @@
             Choose your <span>favorite</span> coffee
           </h2>
           <div class="favoriteCoffee__slider slider">
-            <button class="slider__arron__container">
+            <button class="slider__arron__container arron__left">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path class="slider__arron-left" d="M18.5 12H6M6 12L12 6M6 12L12 18" stroke="#403F3D" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
+            <div class="slider__window">
+            <div class="slider__wrapper">
             <div class="slider__item frappuccino">
               <img class="slider__item__img" src="image/imagesIndex/coffee-slider-1.png" alt="S’mores Frappuccino">
               <h3 class="slider__item__title">
@@ -103,16 +113,24 @@
                 $4.50
               </p>
             </div>
-            <button class="slider__arron__container arron__container">
+            </div>
+          </div>
+            <button class="slider__arron__container arron__right">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path class="slider__arron-right" d="M6 12H18.5M18.5 12L12.5 6M18.5 12L12.5 18" stroke="#403F3D" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
           </div>
           <div class="favoriteCoffee__slider__controls">
-            <span class="control control-left"></span>
-            <span class="control control-center"></span>
-            <span class="control control-right"></span>
+            <span class="control">
+              <span class="control-left"></span>
+            </span>
+            <span class="control">
+              <span class="control-center"></span>
+            </span>
+            <span class="control">
+              <span class="control-right"></span>
+            </span>
           </div>
         </section>
         <section class="main-home__about about" id="about">
@@ -241,5 +259,7 @@
         </div>
       </footer>
     </div>
+    <script src="JS/index.js"></script>
+    <script src="JS/burgerMenu.js"></script>
   </body>
 </html>
