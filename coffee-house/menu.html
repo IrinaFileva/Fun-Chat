@@ -43,7 +43,7 @@
             <span>amazing surprise</span>
           </h1>
           <div class="menu__offer__buttons__container">
-            <button class="menu__offer__button button__coffee" autofocus>
+            <button class="menu__offer__button button__coffee menu__offer__button_active" disabled="disabled">
               <span class="menu__offer__button__container-svg">
                 <img class="menu__offer__button__svg" src="image/icons/cupOfCoffee(menu).svg" alt="coffee">
               </span>
@@ -135,7 +135,62 @@
         </div>
       </footer>
     </div>
-    <script src="JS/menu.js" type="module"></script>
-    <script src="JS/burgerMenu.js"></script>
+    <div class="modal__wrapper">
+      <div class="modal-product">
+        <div class="modal-product__container-image">
+          <img class="modal-product__image" src="" alt="coffee">
+        </div>
+        <div class="modal-product__description">
+          <p class="modal-product__title"></p>
+          <span class="modal-product__offer"></span>
+          <div class="modal-product__size size">
+            <span>Size</span>
+            <div class="size__buttons__container">
+              <button class="size__button button__s modal__button_active" type="button" disabled="disabled">
+                <span class="size__button__circle">S</span>
+                <span class="size__button__text"></span>
+              </button>
+              <button class="size__button button__m" type="button">
+                <span class="size__button__circle">M</span>
+                <span class="size__button__text"></span>
+              </button>
+              <button class="size__button button__l" type="button">
+                <span class="size__button__circle">L</span>
+                <span class="size__button__text"></span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-product__size additives">Additives
+            <div class="additives__buttons__container">
+              <button class="additives__button button__1" type="button">
+                <span class="additives__button__circle">1</span>
+                <span class="additives__button__text"></span>
+              </button>
+              <button class="additives__button button__2" type="button">
+                <span class="additives__button__circle">2</span>
+                <span class="additives__button__text"></span>
+              </button>
+              <button class="additives__button button__3" type="button">
+                <span class="additives__button__circle">3</span>
+                <span class="additives__button__text"></span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-product__total-sum">
+            <span class="modal-product__total-sum_text">Total:</span>
+            <span class="modal-product__total-sum_result"></span>
+          </div>
+          <div class="modal-product__info">
+            <img src="image/icons/info-empty.svg" alt="info"></img>
+            The cost is not final. Download our mobile app to see the final price and place your order. Earn loyalty points and enjoy your favorite coffee with up to 20% discount.
+          </div>
+          <button class="modal-product__button-close">
+            Close
+          </button>
+       </div>
+      </div>
+     </div>
+  <script src="JS/menu.js" type="module"></script>
+  <script src="JS/burgerMenu.js"></script>
 </body>
 </html>

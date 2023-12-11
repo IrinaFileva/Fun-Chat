@@ -553,14 +553,15 @@ html{
     background-color: #C1B6AD;
 }
 
-.menu__offer__button:focus{
+.menu__offer__button_active{
     background-color:#665F55;
     border-color: #665F55;
     color:#E1D4C9;
     outline: none;
+    cursor: default;
 }
 
-.menu__offer__button:focus > span{
+.menu__offer__button_active > span{
     background-color:#E1D4C9;
 }
 
@@ -667,6 +668,188 @@ html{
     transform: translateX(-220%);
     transition-duration: 1.5s;
 }
+.rotate-top{
+    position: absolute;
+    top: 20px;
+    rotate: 45deg;
+    transition: all 1s;
+}
+
+.rotate-bottom{
+    rotate: -45deg;
+    transition: all 0.8s;
+}
+
+.burger__open{
+    display: flex;
+    right: 0;
+    transition: all 0.8s;
+    overflow: scroll;
+}
+
+.overflow{
+    overflow: hidden;
+}
+
+.modal__wrapper{
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(64, 63, 61, 0.80);
+    z-index: 0;
+}
+
+.modal-product{
+    position: absolute;
+    top: 46.9vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 800px;
+    width: 100%;
+    height: auto;
+    display: none;
+    justify-content: space-between;
+    background-color: #E1D4C9;
+    color: #403F3D;
+    padding: 16px;
+    border-radius: 40px;
+    z-index: 15;
+}
+
+.modal-product__container-image{
+    max-width: 310px;
+    width: 100%;
+    height: 310px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+    overflow: hidden;
+}
+
+.modal-product__image{
+    transform: scale(1);
+    transition: all 0.5s;
+}
+
+.modal-product__description{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 20px;
+}
+
+.modal-product__title{
+    font: normal 600 24px/125% Inter;
+}
+
+.modal-product__offer{
+    display: inline-flex;
+    font: normal 400 16px/150% Inter;
+    margin-bottom: 12px;
+}
+
+.modal-product__size{
+    font: normal 400 16px/150% Inter;
+}
+
+.additives{
+    margin-top: 10px;
+}
+
+.additives__buttons__container,
+.size__buttons__container{
+    padding-top: 7px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.additives__button,
+.size__button{
+    max-width: 117px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border-radius: 100px;
+    border: 1px solid #C1B6AD;
+    padding: 8px 14px 8px 7px;
+    background-color: #E1D4C9;
+    font: normal 600 16px/150% Inter;
+    cursor: pointer;
+}
+
+.additives__button{
+    margin-top: 2px;
+    max-width: 141px;
+}
+
+.additives__button__circle,
+.size__button__circle{
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: 1px solid #C1B6AD;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #C1B6AD;
+}
+
+.modal__button_active{
+    color: #E1D4C9;
+    background-color: #665F55;
+    outline: none;
+}
+
+.button__s:disabled,
+.button__m:disabled,
+.button__l:disabled{
+    cursor: default;
+}
+
+.modal__button_active .size__button__circle,
+.modal__button_active .additives__button__circle{
+    background-color:#E1D4C9;
+    color: #665F55;
+}
+
+.modal-product__total-sum{
+    display: flex;
+    justify-content: space-between;
+    font: normal 600 24px/125% Inter;
+    margin-top: 10px;
+}
+
+.modal-product__info{
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 8px;
+    font: normal 600 10px/140% Inter;
+    padding: 11px 0;
+    border-top: 1px solid #C1B6AD;
+    margin-top: 10px;
+}
+
+.modal-product__button-close{
+    width: 100%;
+    height: 44px;
+    font: normal 600 16px/150% Inter;
+    background-color: #E1D4C9;
+    border-radius: 100px;
+    border: 1px solid #665F55;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.modal__open{
+    display: flex;
+}
 
 @media(hover:none) {
     .infoBlock__button-menu{
@@ -691,7 +874,6 @@ html{
         opacity: 1;
     }
    
-     
     .slider__arron__container:hover{
         background-color: #665F55;
         transition: all 0.5s;
@@ -760,6 +942,29 @@ html{
     .menu__offer__button-updates:hover{
         background-color:#665F55 ;
     }
+
+    .size__button:hover,
+    .additives__button:hover{
+        color: #E1D4C9;
+        background-color: #665F55;
+        outline: none;
+    }
+    
+    .size__button:hover .size__button__circle,
+    .additives__button:hover .additives__button__circle{
+        background-color:#E1D4C9;
+        color: #665F55;
+    }
+
+    .modal-product__button-close:hover{
+        background-color: #665F55;
+        color: #E1D4C9;
+    }
+
+    .modal-product__image:hover{
+        transform: scale(0.91);
+        transition: all 0.5s;
+    }
 }
 
 
@@ -796,6 +1001,14 @@ html{
     }
     .right-side__title{
         padding-bottom: 2px;
+    }
+    .modal-product{
+        max-width: 688px;
+        width: 100%;
+    }
+    .modal-product__description{
+        width: 50%;
+        padding-left: 2px;
     }
 }
 
@@ -869,6 +1082,16 @@ html{
     .image3{
         display: none;
     }
+    .modal-product__container-image{
+        width: 100%;
+    
+    }
+    .additives__buttons__container{
+        max-width: 280px;
+    }
+    .size__buttons__container{
+        max-width: 326px;
+    }
     .menu__offer__button-updates{
         display: block;
         margin: 40px auto 0;
@@ -894,6 +1117,19 @@ html{
     .mobileApp__image{
        width: 100%;
        height: auto;
+    }
+    .modal-product{
+        max-width: 342px;
+        padding-top: 0px;
+    }
+    .modal-product__description{
+        width: 100%;  
+    }
+    .modal-product__container-image{
+        display: none;
+    }
+    .modal-product__title{
+        margin-top: 16px;
     }
 }
 
@@ -968,28 +1204,3 @@ html{
         height: 506px;
     }
 }
-
-.rotate-top{
-    position: absolute;
-    top: 20px;
-    rotate: 45deg;
-    transition: all 1s;
-}
-
-.rotate-bottom{
-    rotate: -45deg;
-    transition: all 0.8s;
-}
-
-.burger__open{
-    display: flex;
-    right: 0;
-    transition: all 0.8s;
-    overflow: scroll;
-}
-
-.overflow{
-    overflow: hidden;
-}
-
-
