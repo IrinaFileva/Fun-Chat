@@ -1040,6 +1040,13 @@ html{
         z-index: 2;
         background-color: #E1D4C9;
     }
+
+    .burger__open{
+        display: flex;
+        right: 0;
+        transition: all 0.8s;
+        overflow: scroll;
+    }
     .nav__list{
         flex-direction: column;
         align-items: center;
@@ -1227,9 +1234,4 @@ html{
     }
 }
 
-.burger__open{
-    display: flex;
-    right: 0;
-    transition: all 0.8s;
-    overflow: scroll;
-}
+
