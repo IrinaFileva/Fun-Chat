@@ -694,13 +694,6 @@ html{
     transition: all 0.8s;
 }
 
-.burger__open{
-    display: flex;
-    right: 0;
-    transition: all 0.8s;
-    overflow: scroll;
-}
-
 .overflow{
     overflow: hidden;
 }
@@ -718,9 +711,9 @@ html{
 
 .modal-product{
     position: absolute;
-    top: 46.9vh;
+    top: 55.1%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -55.1%);
     max-width: 800px;
     width: 100%;
     height: auto;
@@ -1070,6 +1063,7 @@ html{
     .header__button-menuBurger{
         display: flex;
     }
+    
     .enjoy__container{
         padding-left: 60px;
     }
@@ -1095,6 +1089,10 @@ html{
     .image2,
     .image3{
         display: none;
+    }
+    .modal-product{
+        top: 23%;
+        transform: translate(-50%);
     }
     .modal-product__container-image{
         width: 100%;
@@ -1223,4 +1221,15 @@ html{
     .product-card__container{
         height: 506px;
     }
+    .modal-product{
+        top: 11.4%;
+        transform: translate(-50%);
+    }
+}
+
+.burger__open{
+    display: flex;
+    right: 0;
+    transition: all 0.8s;
+    overflow: scroll;
 }
