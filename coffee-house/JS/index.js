@@ -95,8 +95,13 @@ setInterval(function(){
     }
 }, 150);
 
-sliderWindow.addEventListener('touchstart', () => position ++ );
-sliderWindow.addEventListener('touchend', () => pause = false);
+sliderWindow.addEventListener('touchstart', () => pause = true);
+sliderWindow.addEventListener('touchmove', () => pause= true);
+sliderWindow.addEventListener('touchend', () => {
+    pause = false;
+    position ++;
+});
+sliderWindow.addEventListener('touchcancel', () => pause = false);
 sliderWindow.addEventListener('mouseover', () => pause = true);
 sliderWindow.addEventListener('mouseout', () => pause = false);
 sliderWindow.addEventListener('mousedown', () => {

@@ -66,6 +66,7 @@ function checkClass(){
     };
 };
 
+
 function makeCardProduct(categoryName){
    
     for (let i = 0; i < searchCategory(categoryName).length; i++){
@@ -115,6 +116,7 @@ function fillModal(categoryName, nameCoffee){
         circleInner,
         price;
      
+    
     for (let i = 0; i < searchCategory(categoryName).length; i++){
         let categoryProduct = searchCategory(categoryName);
         if (categoryProduct[i].name === nameCoffee){
@@ -136,13 +138,34 @@ function fillModal(categoryName, nameCoffee){
     });
     
     totalPrice.innerText = `$${productInfo.price}`;
+
     disableButton(buttonSmallCoffee, buttonMediumCoffee, buttonLargeCoffee);
+
+    
+     function sumPrice(){
+        if(buttonAdditive3.classList.contains('modal__button_active') && 
+            buttonAdditive2.classList.contains('modal__button_active') && 
+            buttonAdditive1.classList.contains('modal__button_active')){
+                price += 1.50;
+        };
+        if(buttonAdditive1.classList.contains('modal__button_active') && !buttonAdditive2.classList.contains('modal__button_active') && !buttonAdditive3.classList.contains('modal__button_active')|| 
+            buttonAdditive2.classList.contains('modal__button_active') && !buttonAdditive1.classList.contains('modal__button_active') && !buttonAdditive3.classList.contains('modal__button_active')||
+            buttonAdditive3.classList.contains('modal__button_active') && !buttonAdditive2.classList.contains('modal__button_active') && !buttonAdditive1.classList.contains('modal__button_active')){
+                price += 0.50;
+        };
+        if(buttonAdditive2.classList.contains('modal__button_active') && buttonAdditive3.classList.contains('modal__button_active') && !buttonAdditive2.classList.contains('modal__button_active')|| 
+            buttonAdditive2.classList.contains('modal__button_active') && buttonAdditive1.classList.contains('modal__button_active') && !buttonAdditive3.classList.contains('modal__button_active')|| 
+            buttonAdditive1.classList.contains('modal__button_active') && buttonAdditive2.classList.contains('modal__button_active') && !buttonAdditive3.classList.contains('modal__button_active')){
+                price += 1.00;
+        };  
+    };
     
     buttonSmallCoffee.addEventListener('click', () => {
-        totalPrice.innerText = `$${productInfo.price}`;
         activeButton(buttonSmallCoffee, buttonMediumCoffee, buttonLargeCoffee, 'modal__button_active');
         disableButton(buttonSmallCoffee, buttonMediumCoffee, buttonLargeCoffee);
-        checkClass();
+        price = Number(productInfo.price);
+        sumPrice();
+        totalPrice.innerHTML = `$${price.toFixed(2)}`;
     });
     
     buttonMediumCoffee.addEventListener('click', () => {
@@ -150,8 +173,8 @@ function fillModal(categoryName, nameCoffee){
         disableButton(buttonMediumCoffee, buttonSmallCoffee, buttonLargeCoffee);
         totalPrice.innerText = productInfo.price;
         price = Number(productInfo.price) + 0.50;
+        sumPrice();
         totalPrice.innerHTML = `$${price.toFixed(2)}`;
-        checkClass();
     });
     
     buttonLargeCoffee.addEventListener('click', () => {
@@ -159,8 +182,8 @@ function fillModal(categoryName, nameCoffee){
         disableButton(buttonLargeCoffee, buttonMediumCoffee, buttonSmallCoffee);
         totalPrice.innerText = productInfo.price;
         price = Number(productInfo.price) + 1;
+        sumPrice();
         totalPrice.innerHTML = `$${price.toFixed(2)}`;
-        checkClass();
     });
 };
     
