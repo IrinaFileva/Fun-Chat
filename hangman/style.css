@@ -8,6 +8,8 @@
   max-width: 1440px;
   width: 100%;
   height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
   margin: auto;
   padding: 30px;
   background-image: url(assets/background-game.jpeg);
@@ -20,9 +22,16 @@
   font: normal 700 68px/80px Playfair Display;
 }
 
-.game__img-gallows{
+.game__img-container{
+  max-width: 460px;
+  width: 100%;
+  height: 70vh;
   position: relative;
-  width: 30%;
+}
+
+.game__img-gallows{
+  position: absolute;
+  width: 100%;
   height: 70vh;
   padding-left: 20px;
   z-index: 2;
@@ -30,8 +39,9 @@
 
 .game__img-loop{
   position: absolute;
-  top: 17.9%;
-  left: 26.2%;
+  top: 9.6%;
+  right: 16.5%;
   width: 100px;
   height: 200px;
+  z-index: 1;
 }
