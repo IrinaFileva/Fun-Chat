@@ -8,6 +8,13 @@
   max-width: 1440px;
   width: 100%;
   height: 100vh;
+  text-align: right;
   margin: auto;
+  padding: 30px;
   background-image: url(assets/background-game.jpeg);
+}
+
+.game__title{
+  color: white;
+  font: normal 700 68px/80px Playfair Display;
 }

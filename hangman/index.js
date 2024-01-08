@@ -11,4 +11,8 @@ addElement('div', 'game__wrapper', body);
 
 const gameWrapper = document.querySelector('.game__wrapper');
 
+addElement('h1', 'game__title', gameWrapper)
 
+const gameName= document.querySelector('.game__title');
+
+gameName.innerText = 'HANGMAN'
