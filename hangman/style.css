@@ -1,0 +1,13 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.game__wrapper{
+  max-width: 1440px;
+  width: 100%;
+  height: 100vh;
+  margin: auto;
+  background-image: url(assets/background-game.jpeg);
+}
