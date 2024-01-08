@@ -45,3 +45,28 @@
   height: 200px;
   z-index: 1;
 }
+
+.game__quiz-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 45px;
+  flex-grow: 2;
+  padding-left: 15px;
+}
+
+.quiz__cipher-word{
+  color: greenyellow;
+  font: normal 700 120px/120px Playfair Display;
+  padding: 10px;
+}
+
+.quiz__question{
+  color:beige;
+  font: normal 700 42px/46px Playfair Display;
+}
+
+.quiz__guesses{
+  color:rgb(250, 1, 1);
+  font: normal 700 30px/32px Playfair Display;
+}
