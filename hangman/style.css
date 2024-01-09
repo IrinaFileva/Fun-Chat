@@ -47,6 +47,7 @@
 }
 
 .game__quiz-container{
+  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,4 +70,38 @@
 .quiz__guesses{
   color:rgb(250, 1, 1);
   font: normal 700 30px/32px Playfair Display;
+}
+
+.quiz__buttons-container{
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.quiz__button{
+  width: 50px;
+  height: 50px;
+  font: normal 600 24px/24px Playfair Display;
+  background-color: aqua;
+  border-radius: 10px;
+  border: 2px solid black;
+  cursor: pointer;
+}
+
+.quiz__button:hover{
+  border: 4px solid black;
+  opacity: 0.5;
+}
+
+.button_active{
+  border: 4px solid black;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.none{
+  display: none;
 }

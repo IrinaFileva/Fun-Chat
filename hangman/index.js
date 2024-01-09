@@ -26,12 +26,14 @@ addElement('img', 'game__img-loop', imgContainer);
 addElement('p', 'quiz__cipher-word', quizContainer);
 addElement('p', 'quiz__question', quizContainer);
 addElement('p', 'quiz__guesses', quizContainer);
+addElement('div', 'quiz__buttons-container', quizContainer);
 
 const imgGallows = document.querySelector('.game__img-gallows');
 const imgLoop = document.querySelector('.game__img-loop');
 const quizCipherWord = document.querySelector('.quiz__cipher-word');
 const quizQuestion = document.querySelector('.quiz__question');
 const quizGuesses = document.querySelector('.quiz__guesses');
+const buttonsContainer = document.querySelector('.quiz__buttons-container');
 
 imgGallows.src = 'assets/gallows.png';
 imgGallows.alt = 'Gallows';
@@ -62,11 +64,38 @@ const riddleWord = (item) => {
 const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
 
 const indexRandom = Math.floor(Math.random() * arrayQuestions.length);
-const invalidCounter = 0;
-const attemptsLeft = 6;
+let invalidCounter = 0;
+let attemptsLeft = 6;
 
 quizCipherWord.innerText = riddleWord(arrayResponses[indexRandom]);
 quizQuestion.innerText = arrayQuestions[indexRandom];
 quizGuesses.innerText = `Ошибки ${invalidCounter}/${attemptsLeft}`;
 console.log(arrayResponses[indexRandom]);
 
+for( let i = 0; i < alphabet.length; i +=1){
+  addElement('button', 'quiz__button', buttonsContainer);
+}
+
+let listButtons = document.querySelectorAll('.quiz__button');
+
+listButtons.forEach((elem, index) => {
+  elem.type ='button';
+  elem.innerText = alphabet[index];
+
+  elem.addEventListener('click', () => {
+    elem.classList.add('button_active');
+    invalidCounter += 1;
+    attemptsLeft -= 1;
+
+    for(let i = 0; i < arrayResponses[indexRandom].length; i +=1){
+      if(elem.innerText === arrayResponses[indexRandom][i].toUpperCase()){
+        let transformWord = quizCipherWord.innerText.split(' ');
+        transformWord[i] = arrayResponses[indexRandom][i];
+        quizCipherWord.innerText = transformWord.join(' ');
+        invalidCounter -=1;
+        attemptsLeft +=1;
+      };  
+    };
+    quizGuesses.innerText = `Ошибки ${invalidCounter}/${attemptsLeft}`;
+  });
+});
