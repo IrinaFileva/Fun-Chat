@@ -46,6 +46,62 @@
   z-index: 1;
 }
 
+.game__img-head{
+  position: absolute;
+  top: 9.6%;
+  right: 16.5%;
+  width: 100px;
+  height: 150px;
+  z-index: 3;
+}
+
+.game__img-body{
+  position: absolute;
+  right: 16.5%;
+  top: 29%;
+  width: 100px;
+  height: 150px;
+  z-index: 2;
+}
+
+.game__img-left-hand{
+  position: absolute;
+  right: 31.5%;
+  top: 24%;
+  width: 100px;
+  height: 150px;
+  z-index: 1;
+}
+
+.game__img-right-hand{
+  position: absolute;
+  right: 1%;
+  top: 24%;
+  width: 100px;
+  height: 150px;
+  z-index: 1;
+}
+
+.game__img-left-foot{
+  position: absolute;
+  right: 24.5%;
+  top: 46%;
+  width: 100px;
+  height: 150px;
+  z-index: 1;
+  rotate: 20deg;
+}
+
+.game__img-right-foot{
+  position: absolute;
+  right: 6%;
+  top: 45%;
+  width: 90px;
+  height: 150px;
+  z-index: 1;
+  rotate: -16deg;
+}
+
 .game__quiz-container{
   width: 50%;
   display: flex;
@@ -73,7 +129,7 @@
 }
 
 .quiz__buttons-container{
-  width: 80%;
+  width: 63%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

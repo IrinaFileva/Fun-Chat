@@ -42,34 +42,71 @@ imgLoop.src = 'assets/loop.png';
 imgLoop.alt = 'Loop';
 
 const arrayQuestions = [
-                      'Первый зимний месяц?',
-                      'Самое высокое животное?',
-                      'Столица Японии?', 
-                      'Последний месяц лета?',
-                      'Самая маленькая птичка?', 
-                      'Cтолица Тайланда?',
-                      'Второй месяц весны?',
-                      'Самое медленное животное?',
-                      'Столица Турции?',
-                      'Столица Австралии?'
+                      "The first month of winter?",
+                      "What's the tallest animal?",
+                      "The capital of Japan?", 
+                      "The last month of summer?",
+                      "What is the fastest animal?", 
+                      "The capital of Thailand?",
+                      "The second month of spring?",
+                      "What's the slowest animal?",
+                      "The capital of Turkey?",
+                      "The capital of Australia?"
                      ];
 
-const arrayResponses = ['Декабрь', 'Жираф', 'Токио', 'Август', 'Колибри', 'Бангкок', 'Апрель', 'Ленивец', 'Анкара', 'Канберра']; 
+const arrayResponses = ['DECEMBER', 'GIRAFFE', 'TOKYO', 'AUGUST', 'CHEETAH', 'BANGKOK', 'APRIL', 'SLOTH', 'ANKARA', 'CANBERRA']; 
 
 const riddleWord = (item) => {
    const arr = Array(item.length).fill('_');
    return arr.join(' ');
 };
 
-const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const indexRandom = Math.floor(Math.random() * arrayQuestions.length);
 let invalidCounter = 0;
 let attemptsLeft = 6;
 
+function addImages(){
+  let img = document.createElement('img');
+
+  if(invalidCounter >= 1){
+    imgLoop.classList.add('none');
+    img.className = 'game__img-head';
+    img.src = 'assets/loop-head.png';
+    img.alt = 'Head';
+  }
+  if(invalidCounter >= 2){
+    img.className = 'game__img-body';
+    img.src = 'assets/body.png';
+    img.alt ='Body';
+  }
+  if(invalidCounter >= 3){
+    img.className = 'game__img-left-hand';
+    img.src = 'assets/left-hand.png';
+    img.alt = 'Left hand';
+  }
+  if(invalidCounter >= 4){
+    img.className ='game__img-right-hand';
+    img.src = 'assets/right-hand.png';
+    img.alt = 'Right hand';
+  }
+  if(invalidCounter >= 5){
+    img.className = 'game__img-left-foot';
+    img.src = 'assets/left-foot.png';
+    img.alt = 'Left foot';
+  }
+  if(invalidCounter >= 6){
+    img.className = 'game__img-right-foot';
+    img.src = 'assets/right-foot.png';
+    img.alt = 'Right foot';
+  }
+  imgContainer.append(img);
+}
+
 quizCipherWord.innerText = riddleWord(arrayResponses[indexRandom]);
 quizQuestion.innerText = arrayQuestions[indexRandom];
-quizGuesses.innerText = `Ошибки ${invalidCounter}/${attemptsLeft}`;
+quizGuesses.innerText = `Incorrect guesses ${invalidCounter}/${attemptsLeft}`;
 console.log(arrayResponses[indexRandom]);
 
 for( let i = 0; i < alphabet.length; i +=1){
@@ -84,18 +121,46 @@ listButtons.forEach((elem, index) => {
 
   elem.addEventListener('click', () => {
     elem.classList.add('button_active');
-    invalidCounter += 1;
-    attemptsLeft -= 1;
-
-    for(let i = 0; i < arrayResponses[indexRandom].length; i +=1){
-      if(elem.innerText === arrayResponses[indexRandom][i].toUpperCase()){
-        let transformWord = quizCipherWord.innerText.split(' ');
-        transformWord[i] = arrayResponses[indexRandom][i];
-        quizCipherWord.innerText = transformWord.join(' ');
-        invalidCounter -=1;
-        attemptsLeft +=1;
-      };  
-    };
-    quizGuesses.innerText = `Ошибки ${invalidCounter}/${attemptsLeft}`;
+    
+    if(arrayResponses[indexRandom].includes(elem.innerText)){
+      for(let j = 0; j < arrayResponses[indexRandom].length; j += 1){
+        if(arrayResponses[indexRandom][j] === elem.innerText){
+          let transformWord = quizCipherWord.innerText.split(' ');
+          transformWord[j] = elem.innerText;
+          quizCipherWord.innerText = transformWord.join(' ');
+        }
+      }
+    }
+    else{
+      invalidCounter += 1;
+      attemptsLeft -= 1;
+      quizGuesses.innerText = `Incorrect guesses ${invalidCounter}/${attemptsLeft}`;
+      addImages(); 
+    }
   });
 });
+
+document.addEventListener('keydown', (elem) => {
+  listButtons.forEach((item) => {
+    if(item.innerText === elem.key.toUpperCase()){
+      item.classList.add('button_active');
+    }
+  })
+
+  if(arrayResponses[indexRandom].includes(elem.key.toUpperCase())){
+    for(let j = 0; j < arrayResponses[indexRandom].length; j += 1){
+      if(arrayResponses[indexRandom][j] === elem.key.toUpperCase()){
+        let transformWord = quizCipherWord.innerText.split(' ');
+        transformWord[j] = elem.key.toUpperCase();
+        quizCipherWord.innerText = transformWord.join(' ');
+      }
+    }
+  }
+  else{
+    invalidCounter += 1;
+    attemptsLeft -= 1;
+    quizGuesses.innerText = `Incorrect guesses ${invalidCounter}/${attemptsLeft}`;
+    addImages(); 
+  }
+});
+
