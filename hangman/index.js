@@ -1,6 +1,8 @@
 const body = document.querySelector('.body');
 
 
+function startGame(){
+
 function addElement(elem, className, parent){
   let item = document.createElement(elem);
   item.className = className;
@@ -13,11 +15,13 @@ const gameWrapper = document.querySelector('.game__wrapper');
 
 addElement('h1', 'game__title', gameWrapper);
 addElement('div', 'game__img-container', gameWrapper);
-addElement('div', 'game__quiz-container',gameWrapper);
+addElement('div', 'game__quiz-container', gameWrapper);
+addElement('div', 'modal_game-end', gameWrapper);
 
 const gameName = document.querySelector('.game__title');
 const imgContainer = document.querySelector('.game__img-container');
 const quizContainer = document.querySelector('.game__quiz-container');
+const modalWindowEndGame = document.querySelector('.modal_game-end');
 
 gameName.innerText = 'HANGMAN';
 
@@ -27,6 +31,10 @@ addElement('p', 'quiz__cipher-word', quizContainer);
 addElement('p', 'quiz__question', quizContainer);
 addElement('p', 'quiz__guesses', quizContainer);
 addElement('div', 'quiz__buttons-container', quizContainer);
+addElement('img', 'modal__img-loop', modalWindowEndGame);
+addElement("p", "modal__title-result", modalWindowEndGame);
+addElement("p", "modal__title-response", modalWindowEndGame);
+addElement('button', 'modal__button', modalWindowEndGame)
 
 const imgGallows = document.querySelector('.game__img-gallows');
 const imgLoop = document.querySelector('.game__img-loop');
@@ -34,6 +42,10 @@ const quizCipherWord = document.querySelector('.quiz__cipher-word');
 const quizQuestion = document.querySelector('.quiz__question');
 const quizGuesses = document.querySelector('.quiz__guesses');
 const buttonsContainer = document.querySelector('.quiz__buttons-container');
+const modalImgLoop = document.querySelector('.modal__img-loop');
+const modalTitle = document.querySelector('.modal__title-result');
+const modalResponse = document.querySelector('.modal__title-response');
+const modalButton = document.querySelector('.modal__button');
 
 imgGallows.src = 'assets/gallows.png';
 imgGallows.alt = 'Gallows';
@@ -105,6 +117,30 @@ function addImages(){
   imgContainer.append(img);
 }
 
+modalImgLoop.src = "assets/loop.png";
+modalImgLoop.alt = 'Loop';
+modalButton.type = 'button';
+modalButton.innerText = 'Play again';
+modalResponse.innerText = `Cipher word: "${arrayResponses[indexRandom]}"`;
+
+function finishGame(){
+  if(quizCipherWord.innerText.replaceAll(' ','') === arrayResponses[indexRandom]){
+    modalTitle.innerText = "You win!";
+    quizContainer.classList.add('opacity');
+    imgContainer.classList.add('opacity')
+    modalWindowEndGame.classList.add('modal_open');
+    playStart = false;
+  }
+  if(invalidCounter >= 6){
+    modalTitle.innerText = "You lost..."
+    modalTitle.style.color = 'red'
+    quizContainer.classList.add('opacity');
+    imgContainer.classList.add('opacity')
+    modalWindowEndGame.classList.add('modal_open');
+    playStart = false;
+  }
+}
+
 quizCipherWord.innerText = riddleWord(arrayResponses[indexRandom]);
 quizQuestion.innerText = arrayQuestions[indexRandom];
 quizGuesses.innerText = `Incorrect guesses ${invalidCounter}/${attemptsLeft}`;
@@ -138,6 +174,7 @@ listButtons.forEach((elem, index) => {
       quizGuesses.innerText = `Incorrect guesses ${invalidCounter}/${attemptsLeft}`;
       addImages(); 
     }
+    setTimeout(finishGame, 500);
   });
 });
 
@@ -168,10 +205,19 @@ document.addEventListener('keydown', (elem) => {
       quizGuesses.innerText = `Incorrect guesses ${invalidCounter}/${attemptsLeft}`;
       addImages(); 
     }
+    setTimeout(finishGame, 500);
   }
 
   else if(alphabetRu.includes(elem.key.toUpperCase())){
     alert ("Please, switch your keyboard to the English layout \n(Пожалуйста, переключите клавиатуру на английскую раскладку)");
   }
 });
+  modalButton.addEventListener('click', () => {
+    body.innerHTML = ''
+    startGame()
+})
+
+}
+startGame()
+
 
