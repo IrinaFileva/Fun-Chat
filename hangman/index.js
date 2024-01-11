@@ -62,6 +62,7 @@ const riddleWord = (item) => {
 };
 
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const alphabetRu = "АБВГДЕЁЖЗИКЛМНОПРСТЧШЩЪЫЬЭЮЯ"
 
 const indexRandom = Math.floor(Math.random() * arrayQuestions.length);
 let invalidCounter = 0;
@@ -142,25 +143,35 @@ listButtons.forEach((elem, index) => {
 
 document.addEventListener('keydown', (elem) => {
   listButtons.forEach((item) => {
+
     if(item.innerText === elem.key.toUpperCase()){
       item.classList.add('button_active');
     }
   })
 
-  if(arrayResponses[indexRandom].includes(elem.key.toUpperCase())){
-    for(let j = 0; j < arrayResponses[indexRandom].length; j += 1){
-      if(arrayResponses[indexRandom][j] === elem.key.toUpperCase()){
-        let transformWord = quizCipherWord.innerText.split(' ');
-        transformWord[j] = elem.key.toUpperCase();
-        quizCipherWord.innerText = transformWord.join(' ');
+  if(alphabet.includes(elem.key.toUpperCase())){
+
+    if(arrayResponses[indexRandom].includes(elem.key.toUpperCase())){
+
+      for(let j = 0; j < arrayResponses[indexRandom].length; j += 1){
+
+        if(arrayResponses[indexRandom][j] === elem.key.toUpperCase()){
+          let transformWord = quizCipherWord.innerText.split(' ');
+          transformWord[j] = elem.key.toUpperCase();
+          quizCipherWord.innerText = transformWord.join(' ');
+        }
       }
     }
+    else{
+      invalidCounter += 1;
+      attemptsLeft -= 1;
+      quizGuesses.innerText = `Incorrect guesses ${invalidCounter}/${attemptsLeft}`;
+      addImages(); 
+    }
   }
-  else{
-    invalidCounter += 1;
-    attemptsLeft -= 1;
-    quizGuesses.innerText = `Incorrect guesses ${invalidCounter}/${attemptsLeft}`;
-    addImages(); 
+
+  else if(alphabetRu.includes(elem.key.toUpperCase())){
+    alert ("Please, switch your keyboard to the English layout \n(Пожалуйста, переключите клавиатуру на английскую раскладку)");
   }
 });
 
