@@ -1,0 +1,406 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: black;
+}
+
+.game__wrapper{
+  max-width: 1440px;
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 20px auto;
+  padding: 30px;
+  gap: 40px;
+  background-image: url(assets/background-game.jpeg);
+  background-size: cover;
+}
+
+.game__title{
+  max-width: 1440px;
+  width: 100%;
+  text-align: end;
+  color:antiquewhite;
+  font: normal 700 70px/70px Playfair Display;
+  padding-top: 10px;
+  padding-right: 10px;
+  margin: 0 auto;
+}
+
+.game__img-container{
+  max-width: 460px;
+  width: 100%;
+  height: 70vh;
+  position: relative;
+}
+
+.game__img-gallows{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding-left: 20px;
+  z-index: 2;
+}
+
+.game__img-loop{
+  position: absolute;
+  top: 9.6%;
+  right: 19.5%;
+  width: 15%;
+  height: 15vh;
+  z-index: 1;
+}
+
+.game__img-head{
+  position: absolute;
+  top: 9.6%;
+  right: 16.5%;
+  width: 20%;
+  height: 15vh;
+  z-index: 3;
+}
+
+.game__img-body{
+  position: absolute;
+  right: 16.5%;
+  top: 28%;
+  width: 20%;
+  height: 15vh;
+  z-index: 2;
+}
+
+.game__img-left-hand{
+  position: absolute;
+  right: 31.5%;
+  top: 24%;
+  width: 20%;
+  height: 15vh;
+  z-index: 1;
+}
+
+.game__img-right-hand{
+  position: absolute;
+  right: 1%;
+  top: 24%;
+  width: 20%;
+  height: 15vh;
+  z-index: 1;
+}
+
+.game__img-left-foot{
+  position: absolute;
+  right: 24.5%;
+  top: 46%;
+  width: 20%;
+  height: 15vh;
+  z-index: 1;
+  rotate: 20deg;
+}
+
+.game__img-right-foot{
+  position: absolute;
+  right: 6%;
+  top: 45%;
+  width: 20%;
+  height: 15vh;
+  z-index: 1;
+  rotate: -16deg;
+}
+
+.game__quiz-container{
+  max-width: 50%;
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 45px;
+}
+
+.quiz__cipher-word{
+  color: yellowgreen;
+  font: normal 700 80px/80px Playfair Display;
+}
+
+.quiz__question{
+  color:beige;
+  font: normal 700 42px/46px Playfair Display;
+}
+
+.quiz__guesses{
+  color:chartreuse;
+  font: normal 700 30px/32px Playfair Display;
+  letter-spacing: 3px;
+}
+
+.quiz__buttons-container{
+  max-width: 50%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.quiz__button{
+  width: 50px;
+  height: 50px;
+  font: normal 600 24px/24px Playfair Display;
+  background-color: aqua;
+  border-radius: 10px;
+  border: 2px solid black;
+  cursor: pointer;
+}
+
+.quiz__button:hover{
+  border: 4px solid black;
+  opacity: 0.5;
+}
+
+.button_active{
+  border: 4px solid black;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.none{
+  display: none;
+}
+
+.modal_game-end{
+  display: none;
+  position: absolute;
+  max-width: 60%;
+  width: 100%;
+  height: 50vh;
+  top: 50%;
+  left: 50%;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: rgb(44, 42, 42);
+  border: 3px solid wheat;
+  border-radius: 20px;
+  z-index: 5;
+  transform: translate(-50%, -50%);
+  padding: 50px;
+}
+
+.modal__img-loop{
+  width: 150px;
+  height: 35vh;
+  flex-grow: 2;
+}
+
+.modal__title-result{
+  color:rgb(221, 94, 55);
+  font: normal 600 54px/60px Playfair Display;
+}
+
+.modal__title-response{
+  color:beige;
+  font: normal 400 36px/42px Playfair Display;
+}
+.modal_open{
+  display: flex;
+}
+
+.modal__button{
+  max-width: 300px;
+  width: 100%;
+  height: 100px;
+  color: rgb(44, 42, 42);
+  font: normal 800 24px/30px Playfair Display;
+  border-radius: 20px;
+  background-color: beige;
+  border: 2px solid black;
+  cursor: pointer;
+}
+
+.modal__button:hover{
+  border: 5px solid black;
+  font-size: 20px;
+}
+.opacity{
+  opacity: 0.5;
+}
+
+@media(max-width: 1215px){
+  .game__quiz-container{
+    max-width: 52%;
+  }
+
+  .modal_game-end{
+    text-align: center;
+    padding: 50px 40px;
+  }
+}
+
+@media(max-width: 1100px){
+  .game__wrapper{
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .game__img-container{
+    max-width: 40%;
+    margin: 0;
+    height: 50vh;
+  }
+  
+  .quiz__cipher-word{
+    font: normal 700 65px/65px Playfair Display;
+  }
+
+  .quiz__question{
+    font: normal 700 33px/33px Playfair Display;
+  }
+
+  .quiz__buttons-container{
+    max-width: 80%;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .modal__img-loop{
+    display: none;
+  }
+
+  .modal__title-result{
+    font: normal 600 44px/40px Playfair Display;
+  }
+
+  .modal__title-response{
+    font: normal 400 36px/36px Playfair Display;
+  }
+}
+
+@media(max-width: 910px){
+  .game__wrapper{
+    height: 90vh;
+  }
+
+  .game__title{
+    font: normal 700 60px/60px Playfair Display;
+  }
+
+  .quiz__cipher-word{
+    font: normal 600 55px/55px Playfair Display;
+  }
+
+  .quiz__question{
+    font: normal 400 30px/30px Playfair Display;
+  }
+
+  .quiz__guesses{
+    font: normal 700 24px/24px Playfair Display;
+  }
+}
+
+@media(max-width: 810px){
+  .game__wrapper{
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .game__img-container{
+    max-width: 40%;
+  }
+  .game__img-container .img-pos{
+    height: 20%;
+  }
+
+  .game__quiz-container{
+    max-width: 70%;
+  }
+
+  .game__title{
+    font: normal 700 50px/50px Playfair Display;
+  }
+
+  .quiz__cipher-word{
+    font: normal 600 45px/45px Playfair Display;
+  }
+
+  .quiz__question{
+    font: normal 400 28px/28px Playfair Display;
+  }
+
+  .quiz__guesses{
+    font: normal 700 20px/20px Playfair Display;
+  }
+
+  .quiz__button{
+    font: normal 600 18px/18px Playfair Display;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media(max-width: 700px){
+  .quiz__cipher-word{
+    font: normal 600 35px/35px Playfair Display;
+  }
+
+  .quiz__question{
+    font: normal 400 24px/24px Playfair Display;
+  }
+
+  .quiz__buttons-container{
+    max-width: 85%;
+  }
+  .modal_game-end{
+    max-width: 90%;
+    width: 100%;
+    height: 30vh;
+    padding: 20px;
+  }
+
+  .modal__title-result{
+    font: normal 600 34px/40px Playfair Display;
+  }
+
+  .modal__title-response{
+    font: normal 400 24px/36px Playfair Display;
+  }
+
+  .modal__button{
+    width: 90%;
+    height: 70px;
+  }
+}
+
+@media(max-width: 480px){
+  .game__img-container{
+    max-width: 60%;
+  }
+
+  .quiz__cipher-word{
+    font: normal 600 25px/25px Playfair Display;
+  }
+
+  .quiz__button{
+    font: normal 600 18px/18px Playfair Display;
+    width: 30px;
+    height: 30px;
+  }
+
+  .game__quiz-container{
+    max-width: 100%;
+    height: 25vh;
+    gap: 30px;
+  }
+}
+ 
