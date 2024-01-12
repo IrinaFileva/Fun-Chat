@@ -4,23 +4,35 @@
   box-sizing: border-box;
 }
 
+body{
+  background-color: black;
+}
+
 .game__wrapper{
-  position: relative;
   max-width: 1440px;
   width: 100%;
-  height: 100vh;
+  height: 80vh;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
-  margin: auto;
+  margin: 20px auto;
   padding: 30px;
+  gap: 40px;
   background-image: url(assets/background-game.jpeg);
+  background-size: cover;
 }
 
 .game__title{
+  max-width: 1440px;
   width: 100%;
-  text-align: right;
+  text-align: end;
   color:antiquewhite;
-  font: normal 700 68px/80px Playfair Display;
+  font: normal 700 70px/70px Playfair Display;
+  padding-top: 10px;
+  padding-right: 10px;
+  margin: 0 auto;
 }
 
 .game__img-container{
@@ -33,7 +45,7 @@
 .game__img-gallows{
   position: absolute;
   width: 100%;
-  height: 70vh;
+  height: 100%;
   padding-left: 20px;
   z-index: 2;
 }
@@ -41,9 +53,9 @@
 .game__img-loop{
   position: absolute;
   top: 9.6%;
-  right: 16.5%;
-  width: 100px;
-  height: 200px;
+  right: 19.5%;
+  width: 15%;
+  height: 15vh;
   z-index: 1;
 }
 
@@ -51,17 +63,17 @@
   position: absolute;
   top: 9.6%;
   right: 16.5%;
-  width: 100px;
-  height: 150px;
+  width: 20%;
+  height: 15vh;
   z-index: 3;
 }
 
 .game__img-body{
   position: absolute;
   right: 16.5%;
-  top: 29%;
-  width: 100px;
-  height: 150px;
+  top: 28%;
+  width: 20%;
+  height: 15vh;
   z-index: 2;
 }
 
@@ -69,8 +81,8 @@
   position: absolute;
   right: 31.5%;
   top: 24%;
-  width: 100px;
-  height: 150px;
+  width: 20%;
+  height: 15vh;
   z-index: 1;
 }
 
@@ -78,8 +90,8 @@
   position: absolute;
   right: 1%;
   top: 24%;
-  width: 100px;
-  height: 150px;
+  width: 20%;
+  height: 15vh;
   z-index: 1;
 }
 
@@ -87,8 +99,8 @@
   position: absolute;
   right: 24.5%;
   top: 46%;
-  width: 100px;
-  height: 150px;
+  width: 20%;
+  height: 15vh;
   z-index: 1;
   rotate: 20deg;
 }
@@ -97,26 +109,25 @@
   position: absolute;
   right: 6%;
   top: 45%;
-  width: 90px;
-  height: 150px;
+  width: 20%;
+  height: 15vh;
   z-index: 1;
   rotate: -16deg;
 }
 
 .game__quiz-container{
-  width: 50%;
+  max-width: 50%;
+  width: 100%;
+  height: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 45px;
-  flex-grow: 2;
-  padding-left: 15px;
 }
 
 .quiz__cipher-word{
-  color: greenyellow;
-  font: normal 700 120px/120px Playfair Display;
-  padding: 10px;
+  color: yellowgreen;
+  font: normal 700 80px/80px Playfair Display;
 }
 
 .quiz__question{
@@ -125,12 +136,14 @@
 }
 
 .quiz__guesses{
-  color:rgb(250, 1, 1);
+  color:chartreuse;
   font: normal 700 30px/32px Playfair Display;
+  letter-spacing: 3px;
 }
 
 .quiz__buttons-container{
-  width: 63%;
+  max-width: 50%;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -190,9 +203,8 @@
 }
 
 .modal__title-result{
-  color:rgb(221, 108, 55);
+  color:rgb(221, 94, 55);
   font: normal 600 54px/60px Playfair Display;
-  
 }
 
 .modal__title-response{
@@ -204,7 +216,8 @@
 }
 
 .modal__button{
-  width: 300px;
+  max-width: 300px;
+  width: 100%;
   height: 100px;
   color: rgb(44, 42, 42);
   font: normal 800 24px/30px Playfair Display;
@@ -221,3 +234,173 @@
 .opacity{
   opacity: 0.5;
 }
+
+@media(max-width: 1215px){
+  .game__quiz-container{
+    max-width: 52%;
+  }
+
+  .modal_game-end{
+    text-align: center;
+    padding: 50px 40px;
+  }
+}
+
+@media(max-width: 1100px){
+  .game__wrapper{
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .game__img-container{
+    max-width: 40%;
+    margin: 0;
+    height: 50vh;
+  }
+  
+  .quiz__cipher-word{
+    font: normal 700 65px/65px Playfair Display;
+  }
+
+  .quiz__question{
+    font: normal 700 33px/33px Playfair Display;
+  }
+
+  .quiz__buttons-container{
+    max-width: 80%;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .modal__img-loop{
+    display: none;
+  }
+
+  .modal__title-result{
+    font: normal 600 44px/40px Playfair Display;
+  }
+
+  .modal__title-response{
+    font: normal 400 36px/36px Playfair Display;
+  }
+}
+
+@media(max-width: 910px){
+  .game__wrapper{
+    height: 90vh;
+  }
+
+  .game__title{
+    font: normal 700 60px/60px Playfair Display;
+  }
+
+  .quiz__cipher-word{
+    font: normal 600 55px/55px Playfair Display;
+  }
+
+  .quiz__question{
+    font: normal 400 30px/30px Playfair Display;
+  }
+
+  .quiz__guesses{
+    font: normal 700 24px/24px Playfair Display;
+  }
+}
+
+@media(max-width: 810px){
+  .game__wrapper{
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .game__img-container{
+    max-width: 40%;
+  }
+  .game__img-container .img-pos{
+    height: 20%;
+  }
+
+  .game__quiz-container{
+    max-width: 70%;
+  }
+
+  .game__title{
+    font: normal 700 50px/50px Playfair Display;
+  }
+
+  .quiz__cipher-word{
+    font: normal 600 45px/45px Playfair Display;
+  }
+
+  .quiz__question{
+    font: normal 400 28px/28px Playfair Display;
+  }
+
+  .quiz__guesses{
+    font: normal 700 20px/20px Playfair Display;
+  }
+
+  .quiz__button{
+    font: normal 600 18px/18px Playfair Display;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media(max-width: 700px){
+  .quiz__cipher-word{
+    font: normal 600 35px/35px Playfair Display;
+  }
+
+  .quiz__question{
+    font: normal 400 24px/24px Playfair Display;
+  }
+
+  .quiz__buttons-container{
+    max-width: 85%;
+  }
+  .modal_game-end{
+    max-width: 90%;
+    width: 100%;
+    height: 30vh;
+    padding: 20px;
+  }
+
+  .modal__title-result{
+    font: normal 600 34px/40px Playfair Display;
+  }
+
+  .modal__title-response{
+    font: normal 400 24px/36px Playfair Display;
+  }
+
+  .modal__button{
+    width: 90%;
+    height: 70px;
+  }
+}
+
+@media(max-width: 480px){
+  .game__img-container{
+    max-width: 60%;
+  }
+
+  .quiz__cipher-word{
+    font: normal 600 25px/25px Playfair Display;
+  }
+
+  .quiz__button{
+    font: normal 600 18px/18px Playfair Display;
+    width: 30px;
+    height: 30px;
+  }
+
+  .game__quiz-container{
+    max-width: 100%;
+    height: 25vh;
+    gap: 30px;
+  }
+}
+ 

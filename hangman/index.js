@@ -8,29 +8,31 @@ function addElement(elem, className, parent){
   item.className = className;
   parent.append(item);
 }
-
+addElement('h1', 'game__title', body);
 addElement('div', 'game__wrapper', body);
 
 const gameWrapper = document.querySelector('.game__wrapper');
 
-addElement('h1', 'game__title', gameWrapper);
+
 addElement('div', 'game__img-container', gameWrapper);
 addElement('div', 'game__quiz-container', gameWrapper);
+addElement('div', 'quiz__buttons-container', gameWrapper);
 addElement('div', 'modal_game-end', gameWrapper);
 
 const gameName = document.querySelector('.game__title');
 const imgContainer = document.querySelector('.game__img-container');
 const quizContainer = document.querySelector('.game__quiz-container');
+const buttonsContainer = document.querySelector('.quiz__buttons-container');
 const modalWindowEndGame = document.querySelector('.modal_game-end');
 
 gameName.innerText = 'HANGMAN';
 
 addElement('img', 'game__img-gallows', imgContainer);
-addElement('img', 'game__img-loop', imgContainer);
+addElement('img', 'game__img-loop img-pos', imgContainer);
 addElement('p', 'quiz__cipher-word', quizContainer);
 addElement('p', 'quiz__question', quizContainer);
 addElement('p', 'quiz__guesses', quizContainer);
-addElement('div', 'quiz__buttons-container', quizContainer);
+
 addElement('img', 'modal__img-loop', modalWindowEndGame);
 addElement("p", "modal__title-result", modalWindowEndGame);
 addElement("p", "modal__title-response", modalWindowEndGame);
@@ -41,7 +43,6 @@ const imgLoop = document.querySelector('.game__img-loop');
 const quizCipherWord = document.querySelector('.quiz__cipher-word');
 const quizQuestion = document.querySelector('.quiz__question');
 const quizGuesses = document.querySelector('.quiz__guesses');
-const buttonsContainer = document.querySelector('.quiz__buttons-container');
 const modalImgLoop = document.querySelector('.modal__img-loop');
 const modalTitle = document.querySelector('.modal__title-result');
 const modalResponse = document.querySelector('.modal__title-response');
@@ -85,32 +86,32 @@ function addImages(){
 
   if(invalidCounter >= 1){
     imgLoop.classList.add('none');
-    img.className = 'game__img-head';
+    img.className = 'game__img-head img-pos';
     img.src = 'assets/loop-head.png';
     img.alt = 'Head';
   }
   if(invalidCounter >= 2){
-    img.className = 'game__img-body';
+    img.className = 'game__img-body img-pos';
     img.src = 'assets/body.png';
     img.alt ='Body';
   }
   if(invalidCounter >= 3){
-    img.className = 'game__img-left-hand';
+    img.className = 'game__img-left-hand img-pos';
     img.src = 'assets/left-hand.png';
     img.alt = 'Left hand';
   }
   if(invalidCounter >= 4){
-    img.className ='game__img-right-hand';
+    img.className ='game__img-right-hand img-pos';
     img.src = 'assets/right-hand.png';
     img.alt = 'Right hand';
   }
   if(invalidCounter >= 5){
-    img.className = 'game__img-left-foot';
+    img.className = 'game__img-left-foot img-pos';
     img.src = 'assets/left-foot.png';
     img.alt = 'Left foot';
   }
   if(invalidCounter >= 6){
-    img.className = 'game__img-right-foot';
+    img.className = 'game__img-right-foot img-pos';
     img.src = 'assets/right-foot.png';
     img.alt = 'Right foot';
   }
@@ -129,7 +130,6 @@ function finishGame(){
     quizContainer.classList.add('opacity');
     imgContainer.classList.add('opacity')
     modalWindowEndGame.classList.add('modal_open');
-    playStart = false;
   }
   if(invalidCounter >= 6){
     modalTitle.innerText = "You lost..."
@@ -137,13 +137,12 @@ function finishGame(){
     quizContainer.classList.add('opacity');
     imgContainer.classList.add('opacity')
     modalWindowEndGame.classList.add('modal_open');
-    playStart = false;
   }
 }
 
 quizCipherWord.innerText = riddleWord(arrayResponses[indexRandom]);
 quizQuestion.innerText = arrayQuestions[indexRandom];
-quizGuesses.innerText = `Incorrect guesses ${invalidCounter}/${attemptsLeft}`;
+quizGuesses.innerText = `Incorrect guesses: ${invalidCounter}/6`;
 console.log(arrayResponses[indexRandom]);
 
 for( let i = 0; i < alphabet.length; i +=1){
@@ -170,8 +169,7 @@ listButtons.forEach((elem, index) => {
     }
     else{
       invalidCounter += 1;
-      attemptsLeft -= 1;
-      quizGuesses.innerText = `Incorrect guesses ${invalidCounter}/${attemptsLeft}`;
+      quizGuesses.innerText = `Incorrect guesses: ${invalidCounter}/6`;
       addImages(); 
     }
     setTimeout(finishGame, 500);
