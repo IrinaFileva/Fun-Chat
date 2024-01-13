@@ -1,168 +1,124 @@
 const body = document.querySelector('.body');
 
-
-function startGame(){
-
 function addElement(elem, className, parent){
   let item = document.createElement(elem);
   item.className = className;
   parent.append(item);
+  return item;
 }
-addElement('h1', 'game__title', body);
-addElement('div', 'game__wrapper', body);
 
-const gameWrapper = document.querySelector('.game__wrapper');
+const gameName = addElement('h1', 'game__title', body);
+const gameWrapper = addElement('div', 'game__wrapper', body);
+const imgContainer = addElement('div', 'game__img-container', gameWrapper);
+const quizContainer = addElement('div', 'game__quiz-container', gameWrapper);
+const quizCipherWord = addElement('p', 'quiz__cipher-word', quizContainer);
+const quizQuestion = addElement('p', 'quiz__question', quizContainer);
+const quizGuesses = addElement('p', 'quiz__guesses', quizContainer);
+const buttonsContainer = addElement('div', 'quiz__buttons-container', gameWrapper);
+const modalWindowEndGame = addElement('div', 'modal_game-end', gameWrapper);
+const modalImgLoop = addElement('img', 'modal__img-loop', modalWindowEndGame);
+const modalTitle = addElement("p", "modal__title-result", modalWindowEndGame);
+const modalResponse = addElement("p", "modal__title-response", modalWindowEndGame);
+const modalButton = addElement('button', 'modal__button', modalWindowEndGame);
+let invalidCounter = 0;
+let indexRandom;
+let imgGallows;
+let imgLoop;
 
+const arrayQuestions = [
+  "The first month of winter?",
+  "What's the tallest animal?",
+  "The capital of Japan?", 
+  "The last month of summer?",
+  "What is the fastest animal?", 
+  "The capital of Thailand?",
+  "The second month of spring?",
+  "What's the slowest animal?",
+  "The capital of Turkey?",
+  "The capital of Australia?"
+ ];
 
-addElement('div', 'game__img-container', gameWrapper);
-addElement('div', 'game__quiz-container', gameWrapper);
-addElement('div', 'quiz__buttons-container', gameWrapper);
-addElement('div', 'modal_game-end', gameWrapper);
+const arrayResponses = ['DECEMBER', 'GIRAFFE', 'TOKYO', 'AUGUST', 'CHEETAH', 'BANGKOK', 'APRIL', 'SLOTH', 'ANKARA', 'CANBERRA'];
 
-const gameName = document.querySelector('.game__title');
-const imgContainer = document.querySelector('.game__img-container');
-const quizContainer = document.querySelector('.game__quiz-container');
-const buttonsContainer = document.querySelector('.quiz__buttons-container');
-const modalWindowEndGame = document.querySelector('.modal_game-end');
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const alphabetRu = "АБВГДЕЁЖЗИКЛМНОПРСТЧШЩЪЫЬЭЮЯ";
+
+const riddleWord = (item) => {
+  const arr = Array(item.length).fill('_');
+  return arr.join(' ');
+};
 
 gameName.innerText = 'HANGMAN';
 
-addElement('img', 'game__img-gallows', imgContainer);
-addElement('img', 'game__img-loop img-pos', imgContainer);
-addElement('p', 'quiz__cipher-word', quizContainer);
-addElement('p', 'quiz__question', quizContainer);
-addElement('p', 'quiz__guesses', quizContainer);
 
-addElement('img', 'modal__img-loop', modalWindowEndGame);
-addElement("p", "modal__title-result", modalWindowEndGame);
-addElement("p", "modal__title-response", modalWindowEndGame);
-addElement('button', 'modal__button', modalWindowEndGame)
+function createGallows(){
+  imgGallows = addElement('img', 'game__img-gallows', imgContainer);
+  imgLoop = addElement('img', 'game__img-loop img-pos', imgContainer);
+  imgGallows.src = 'assets/gallows.png';
+  imgGallows.alt = 'Gallows';
+  imgLoop.src = 'assets/loop.png';
+  imgLoop.alt = 'Loop';
+  return imgLoop;
+}
 
-const imgGallows = document.querySelector('.game__img-gallows');
-const imgLoop = document.querySelector('.game__img-loop');
-const quizCipherWord = document.querySelector('.quiz__cipher-word');
-const quizQuestion = document.querySelector('.quiz__question');
-const quizGuesses = document.querySelector('.quiz__guesses');
-const modalImgLoop = document.querySelector('.modal__img-loop');
-const modalTitle = document.querySelector('.modal__title-result');
-const modalResponse = document.querySelector('.modal__title-response');
-const modalButton = document.querySelector('.modal__button');
+createGallows()
 
-imgGallows.src = 'assets/gallows.png';
-imgGallows.alt = 'Gallows';
 
-imgLoop.src = 'assets/loop.png';
-imgLoop.alt = 'Loop';
+function addQuestionAndCipherWord(){
+  indexRandom =  Math.floor(Math.random() * arrayQuestions.length);
+  quizCipherWord.innerText = riddleWord(arrayResponses[indexRandom]);
+  quizQuestion.innerText = arrayQuestions[indexRandom];
+  quizGuesses.innerText = `Incorrect guesses: ${invalidCounter}/6`;
+  console.log(arrayResponses[indexRandom]);
+  return indexRandom;
+}
 
-const arrayQuestions = [
-                      "The first month of winter?",
-                      "What's the tallest animal?",
-                      "The capital of Japan?", 
-                      "The last month of summer?",
-                      "What is the fastest animal?", 
-                      "The capital of Thailand?",
-                      "The second month of spring?",
-                      "What's the slowest animal?",
-                      "The capital of Turkey?",
-                      "The capital of Australia?"
-                     ];
-
-const arrayResponses = ['DECEMBER', 'GIRAFFE', 'TOKYO', 'AUGUST', 'CHEETAH', 'BANGKOK', 'APRIL', 'SLOTH', 'ANKARA', 'CANBERRA']; 
-
-const riddleWord = (item) => {
-   const arr = Array(item.length).fill('_');
-   return arr.join(' ');
-};
-
-const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const alphabetRu = "АБВГДЕЁЖЗИКЛМНОПРСТЧШЩЪЫЬЭЮЯ"
-
-const indexRandom = Math.floor(Math.random() * arrayQuestions.length);
-let invalidCounter = 0;
-let attemptsLeft = 6;
+addQuestionAndCipherWord();
 
 function addImages(){
+  imgLoop.classList.add('none');
   let img = document.createElement('img');
-
-  if(invalidCounter >= 1){
-    imgLoop.classList.add('none');
-    img.className = 'game__img-head img-pos';
-    img.src = 'assets/loop-head.png';
-    img.alt = 'Head';
-  }
-  if(invalidCounter >= 2){
-    img.className = 'game__img-body img-pos';
-    img.src = 'assets/body.png';
-    img.alt ='Body';
-  }
-  if(invalidCounter >= 3){
-    img.className = 'game__img-left-hand img-pos';
-    img.src = 'assets/left-hand.png';
-    img.alt = 'Left hand';
-  }
-  if(invalidCounter >= 4){
-    img.className ='game__img-right-hand img-pos';
-    img.src = 'assets/right-hand.png';
-    img.alt = 'Right hand';
-  }
-  if(invalidCounter >= 5){
-    img.className = 'game__img-left-foot img-pos';
-    img.src = 'assets/left-foot.png';
-    img.alt = 'Left foot';
-  }
-  if(invalidCounter >= 6){
-    img.className = 'game__img-right-foot img-pos';
-    img.src = 'assets/right-foot.png';
-    img.alt = 'Right foot';
-  }
+  img.className = `game__img-${invalidCounter} img-pos`;
+  img.src = `assets/error${invalidCounter}.png`;
+  img.alt = '';
   imgContainer.append(img);
 }
 
-modalImgLoop.src = "assets/loop.png";
-modalImgLoop.alt = 'Loop';
-modalButton.type = 'button';
-modalButton.innerText = 'Play again';
-modalResponse.innerText = `Cipher word: "${arrayResponses[indexRandom]}"`;
-
 function finishGame(){
+  modalImgLoop.src = "assets/loop.png";
+  modalImgLoop.alt = 'Loop';
+  modalButton.type = 'button';
+  modalButton.innerText = 'Play again';
+  modalResponse.innerText = `Cipher word: "${arrayResponses[indexRandom]}"`;
+
   if(quizCipherWord.innerText.replaceAll(' ','') === arrayResponses[indexRandom]){
     modalTitle.innerText = "You win!";
     quizContainer.classList.add('opacity');
-    imgContainer.classList.add('opacity')
+    imgContainer.classList.add('opacity');
     modalWindowEndGame.classList.add('modal_open');
   }
+
   if(invalidCounter >= 6){
-    modalTitle.innerText = "You lost..."
-    modalTitle.style.color = 'red'
+    modalTitle.innerText = "You lost...";
+    modalTitle.style.color = 'red';
     quizContainer.classList.add('opacity');
-    imgContainer.classList.add('opacity')
+    imgContainer.classList.add('opacity');
     modalWindowEndGame.classList.add('modal_open');
   }
 }
 
-quizCipherWord.innerText = riddleWord(arrayResponses[indexRandom]);
-quizQuestion.innerText = arrayQuestions[indexRandom];
-quizGuesses.innerText = `Incorrect guesses: ${invalidCounter}/6`;
-console.log(arrayResponses[indexRandom]);
 
-for( let i = 0; i < alphabet.length; i +=1){
-  addElement('button', 'quiz__button', buttonsContainer);
-}
-
-let listButtons = document.querySelectorAll('.quiz__button');
-
-listButtons.forEach((elem, index) => {
-  elem.type ='button';
-  elem.innerText = alphabet[index];
-
-  elem.addEventListener('click', () => {
-    elem.classList.add('button_active');
-    
-    if(arrayResponses[indexRandom].includes(elem.innerText)){
+for(let i = 0; i < alphabet.length; i +=1){
+  let letterButton = addElement('button', 'quiz__button', buttonsContainer);
+  letterButton.type ='button';
+  letterButton.innerText = alphabet[i];
+  letterButton.addEventListener('click', () => {
+    letterButton.classList.add('button_active');
+    if(arrayResponses[indexRandom].includes(letterButton.innerText)){
       for(let j = 0; j < arrayResponses[indexRandom].length; j += 1){
-        if(arrayResponses[indexRandom][j] === elem.innerText){
+        if(arrayResponses[indexRandom][j] === letterButton.innerText){
           let transformWord = quizCipherWord.innerText.split(' ');
-          transformWord[j] = elem.innerText;
+          transformWord[j] = letterButton.innerText;
           quizCipherWord.innerText = transformWord.join(' ');
         }
       }
@@ -172,24 +128,22 @@ listButtons.forEach((elem, index) => {
       quizGuesses.innerText = `Incorrect guesses: ${invalidCounter}/6`;
       addImages(); 
     }
-    setTimeout(finishGame, 500);
+    setTimeout(finishGame, 400);
   });
-});
+}
+
+const listButtons = document.querySelectorAll('.quiz__button');
 
 document.addEventListener('keydown', (elem) => {
-  listButtons.forEach((item) => {
-
+  listButtons.forEach((item) =>{
     if(item.innerText === elem.key.toUpperCase()){
       item.classList.add('button_active');
     }
   })
 
   if(alphabet.includes(elem.key.toUpperCase())){
-
     if(arrayResponses[indexRandom].includes(elem.key.toUpperCase())){
-
       for(let j = 0; j < arrayResponses[indexRandom].length; j += 1){
-
         if(arrayResponses[indexRandom][j] === elem.key.toUpperCase()){
           let transformWord = quizCipherWord.innerText.split(' ');
           transformWord[j] = elem.key.toUpperCase();
@@ -199,23 +153,26 @@ document.addEventListener('keydown', (elem) => {
     }
     else{
       invalidCounter += 1;
-      attemptsLeft -= 1;
-      quizGuesses.innerText = `Incorrect guesses ${invalidCounter}/${attemptsLeft}`;
+      quizGuesses.innerText = `Incorrect guesses ${invalidCounter}/6`;
       addImages(); 
     }
-    setTimeout(finishGame, 500);
+    setTimeout(finishGame, 400);
   }
-
   else if(alphabetRu.includes(elem.key.toUpperCase())){
     alert ("Please, switch your keyboard to the English layout \n(Пожалуйста, переключите клавиатуру на английскую раскладку)");
   }
 });
-  modalButton.addEventListener('click', () => {
-    body.innerHTML = ''
-    startGame()
-})
-
-}
-startGame()
 
 
+modalButton.addEventListener('click', () => {
+    invalidCounter = 0;
+    listButtons.forEach((x) => x.classList.remove('button_active'));
+    while(imgContainer.firstChild){
+      imgContainer.removeChild(imgContainer.firstChild);
+    }
+    modalWindowEndGame.classList.remove('modal_open');
+    quizContainer.classList.remove('opacity');
+    imgContainer.classList.remove('opacity');
+    createGallows();
+    addQuestionAndCipherWord(); 
+});
