@@ -20,6 +20,7 @@ const modalImgLoop = addElement('img', 'modal__img-loop', modalWindowEndGame);
 const modalTitle = addElement("p", "modal__title-result", modalWindowEndGame);
 const modalResponse = addElement("p", "modal__title-response", modalWindowEndGame);
 const modalButton = addElement('button', 'modal__button', modalWindowEndGame);
+let arrayButton = [];
 let invalidCounter = 0;
 let indexRandom;
 let imgGallows;
@@ -114,6 +115,7 @@ for(let i = 0; i < alphabet.length; i +=1){
   letterButton.innerText = alphabet[i];
   letterButton.addEventListener('click', () => {
     letterButton.classList.add('button_active');
+    arrayButton.push(letterButton.innerText);
     if(arrayResponses[indexRandom].includes(letterButton.innerText)){
       for(let j = 0; j < arrayResponses[indexRandom].length; j += 1){
         if(arrayResponses[indexRandom][j] === letterButton.innerText){
@@ -123,7 +125,7 @@ for(let i = 0; i < alphabet.length; i +=1){
         }
       }
     }
-    else{
+    else if(invalidCounter < 6){
       invalidCounter += 1;
       quizGuesses.innerText = `Incorrect guesses: ${invalidCounter}/6`;
       addImages(); 
@@ -135,10 +137,12 @@ for(let i = 0; i < alphabet.length; i +=1){
 const listButtons = document.querySelectorAll('.quiz__button');
 
 document.addEventListener('keydown', (elem) => {
-  listButtons.forEach((item) =>{
-    if(item.innerText === elem.key.toUpperCase()){
-      item.classList.add('button_active');
-    }
+  if(!arrayButton.includes(elem.key.toUpperCase()) || arrayButton.length === 0){
+    listButtons.forEach((item) =>{
+      if(item.innerText === elem.key.toUpperCase()){
+        item.classList.add('button_active');
+        arrayButton.push(item.innerText);
+      }
   })
 
   if(alphabet.includes(elem.key.toUpperCase())){
@@ -151,7 +155,7 @@ document.addEventListener('keydown', (elem) => {
         }
       }
     }
-    else{
+    else if(invalidCounter < 6){
       invalidCounter += 1;
       quizGuesses.innerText = `Incorrect guesses ${invalidCounter}/6`;
       addImages(); 
@@ -161,6 +165,7 @@ document.addEventListener('keydown', (elem) => {
   else if(alphabetRu.includes(elem.key.toUpperCase())){
     alert ("Please, switch your keyboard to the English layout \n(Пожалуйста, переключите клавиатуру на английскую раскладку)");
   }
+}
 });
 
 
@@ -174,5 +179,6 @@ modalButton.addEventListener('click', () => {
     quizContainer.classList.remove('opacity');
     imgContainer.classList.remove('opacity');
     createGallows();
-    addQuestionAndCipherWord(); 
+    addQuestionAndCipherWord();
+    arrayButton = [] 
 });
