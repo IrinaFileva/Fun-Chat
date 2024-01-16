@@ -97,6 +97,9 @@ function finishGame(){
     quizContainer.classList.add('opacity');
     imgContainer.classList.add('opacity');
     modalWindowEndGame.classList.add('modal_open');
+    listButtons.forEach((elem) =>{
+      elem.classList.add('button_active');
+    })
   }
 
   if(invalidCounter >= 6){
@@ -105,6 +108,9 @@ function finishGame(){
     quizContainer.classList.add('opacity');
     imgContainer.classList.add('opacity');
     modalWindowEndGame.classList.add('modal_open');
+    listButtons.forEach((elem) =>{
+      elem.classList.add('button_active');
+    })
   }
 }
 
@@ -137,7 +143,7 @@ for(let i = 0; i < alphabet.length; i +=1){
 const listButtons = document.querySelectorAll('.quiz__button');
 
 document.addEventListener('keydown', (elem) => {
-  if(!arrayButton.includes(elem.key.toUpperCase()) || arrayButton.length === 0){
+  if(!arrayButton.includes(elem.key.toUpperCase())){
     listButtons.forEach((item) =>{
       if(item.innerText === elem.key.toUpperCase()){
         item.classList.add('button_active');
@@ -145,7 +151,7 @@ document.addEventListener('keydown', (elem) => {
       }
   })
 
-  if(alphabet.includes(elem.key.toUpperCase())){
+  if(alphabet.includes(elem.key.toUpperCase()) && !modalWindowEndGame.classList.contains('modal_open')){
     if(arrayResponses[indexRandom].includes(elem.key.toUpperCase())){
       for(let j = 0; j < arrayResponses[indexRandom].length; j += 1){
         if(arrayResponses[indexRandom][j] === elem.key.toUpperCase()){
@@ -155,7 +161,7 @@ document.addEventListener('keydown', (elem) => {
         }
       }
     }
-    else if(invalidCounter < 6){
+    else if(invalidCounter < 6 && !modalWindowEndGame.classList.contains('modal_open')){
       invalidCounter += 1;
       quizGuesses.innerText = `Incorrect guesses ${invalidCounter}/6`;
       addImages(); 
