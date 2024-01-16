@@ -66,7 +66,12 @@ createGallows()
 
 
 function addQuestionAndCipherWord(){
+  let storedIndex = localStorage.getItem('storedIndex');
   indexRandom =  Math.floor(Math.random() * arrayQuestions.length);
+  if (Number(storedIndex) === indexRandom && indexRandom < 9){
+    indexRandom = indexRandom + 1
+  }
+  localStorage.setItem('storedIndex', indexRandom)
   quizCipherWord.innerText = riddleWord(arrayResponses[indexRandom]);
   quizQuestion.innerText = arrayQuestions[indexRandom];
   quizGuesses.innerText = `Incorrect guesses: ${invalidCounter}/6`;
