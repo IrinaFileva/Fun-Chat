@@ -31,4 +31,24 @@ createAndFillButton(buttonMediumLevel, 'button', 'Medium (10*10) ▼');
 createAndFillButton(buttonHardLevel, 'button', 'Hard (15*15) ▼');
 createAndFillButton(buttonRandomGame, 'button', 'Random Game');
 
+//container playing-field
+const containerPlayingField = addElement('div', 'game-board__container_playing-field', wrapperGame);
+const titleTimeGame = addElement('p', 'playing-field__title-time-game', containerPlayingField);
+const nonogramPlayingField = addElement('div', 'playing-field__nonogram', containerPlayingField);
+
+titleTimeGame.textContent = 'Game Time: 00.00';
+
+// container score & solution
+const containerScoresAndSolution = addElement ('div', 'game-board__container_scores-solution', wrapperGame);
+const containerLinkScores = addElement('div', 'score-solution__link_top-scores', containerScoresAndSolution);
+const buttonSolution = addElement('button', 'score-solution__button_solution buttons-level__button', containerScoresAndSolution);
+
+containerLinkScores.textContent = 'Best Time:';
+createAndFillButton(buttonSolution, 'button', 'Solution');
+
+// button switch theme
+const buttonSwitchTheme = addElement('button', 'game-board__button_theme', wrapperGame);
+
+createAndFillButton(buttonSwitchTheme, 'button', '');
+
 export {wrapperBody};

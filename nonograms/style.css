@@ -35,24 +35,25 @@
   height: 80vh;
   position: relative;
   display: flex;
-  align-items: center;
   justify-content: center;
   background-image: url(assets/img/background-game.jpeg);
   background-size: cover;
   background-position: center;
   border: 1px solid rgb(121, 74, 74);
   border-radius: 10px;
+  padding: 60px 0;
 }
 
 .game-board__container_buttons-level{
   width: 160px;
+  height: min-content;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding-bottom: 100px;
+  padding: 85px 0;
 }
 
 .buttons-level__button{
@@ -80,4 +81,46 @@
 
 .button_random-game:hover{
   margin-top: 52px;
+}
+
+.game-board__container_playing-field{
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  margin: 0 100px;
+}
+
+.playing-field__title-time-game{
+  color: rgb(121, 74, 74);
+  font: italic 600 30px/32px Roboto;
+}
+
+.playing-field__nonogram{
+  width: 100%;
+  height: 500px;
+  background-color: beige;
+  border-radius: 20px;
+  border: 2px solid rgb(121, 74, 74);
+}
+
+.game-board__container_scores-solution{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  padding: 80px 0;
+}
+
+.score-solution__link_top-scores{
+  color: rgb(121, 74, 74);
+  font: italic 600 22px/24px Roboto;
+  text-align: center;
+  width: 200px;
+  height: 40vh;
+  background-color: beige;
+  padding: 15px;
+  border-radius: 20px;
+  border: 2px solid rgb(121, 74, 74);
 }
