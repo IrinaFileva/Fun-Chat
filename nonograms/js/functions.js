@@ -4,3 +4,8 @@ export function addElement(elem, className, parent){
   parent.append(item);
   return item;
 }
+
+export function createAndFillButton(button, kind ,text){
+  button.type = kind;
+  button.textContent = text;
+}
