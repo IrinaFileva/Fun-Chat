@@ -152,6 +152,7 @@
 
 .coded-image__grid{
   border: 1px solid black;
+  border-left: 2px solid black;
   border-right: none;
   cursor: pointer;
 }
@@ -185,10 +186,12 @@
 .top-tooltips__line{
   display: flex;
   flex-direction: column-reverse;
+  border-left: 1px solid black;
   border-right: 1px solid black;
 }
 
 .top-tooltips__grid{
+
   text-align: center;
   padding: 5px;
 }
@@ -292,8 +295,6 @@
 
 .hard .top-tooltips__line{
   width: 23px;
-  border-right: none;
-  border-left: 1px solid black;
 }
 
 .hard .nonogram__container-coded-image{
@@ -305,7 +306,7 @@
 }
 
 .hard .playing-field__container-top-tooltips{
-  border-left: 2px solid black;
+  border-left: 3px solid black;
   border-right: 4px solid black;
   width: 348px;
 }
