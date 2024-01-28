@@ -182,4 +182,6 @@ export const nonogramsHard = {
              [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
              [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
             ]
-}
+};
+
+export const nonogramsAll = {'Easy': nonogramsEasy, 'Hard': nonogramsHard, 'Medium': nonogramsMedium};

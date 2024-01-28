@@ -69,18 +69,45 @@
 }
 
 .buttons-level__button:hover{
-  width: 163px;
-  height: 48px;
   font-size: 16px;
-  margin: 1px;
+}
+
+.buttons-level__list_drop-down{
+  position: absolute;
+  top: 18%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 140px;
+  height: 0px;
+  border-radius: 20px;
+  background-color:beige;
+  transition: all 0.3s;
+}
+
+.list-drop-down_medium{
+  top: 33%;
+}
+
+.list-drop-down_hard{
+  top: 46%;
+}
+
+.item_drop-down-hard,
+.item_drop-down-medium,
+.item_drop-down-easy{
+  color: rgb(121, 74, 74);
+  text-align: center;
+  font: italic 600 0px/0px Roboto;
+  cursor: pointer;
 }
 
 .button_random-game{
-  margin-top: 50px;
+  margin-top: 70px;
 }
 
 .button_random-game:hover{
-  margin-top: 52px;
+  margin-top: 72px;
 }
 
 .game-board__container_playing-field{
@@ -114,6 +141,7 @@
 
 .nonogram__container-coded-image{
   border: 2px solid black;
+  border-right: 1px solid black;;
 }
 
 .coded-image__line{
@@ -124,22 +152,23 @@
 
 .coded-image__grid{
   border: 1px solid black;
+  border-right: none;
   cursor: pointer;
 }
 
 .playing-field__container-left-tooltips{
   display: flex;
   flex-direction: column;
-  border: 2px solid black;
+  border: 3px solid black;
   border-right: none;
-  border-bottom: 1px solid black;;
+  border-bottom: none;
 }
 
 .left-tooltips__line{
   display: flex;
   align-items: center;
   justify-content: end;
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid black;
 }
 
 .left-tooltips__grid{
@@ -148,7 +177,8 @@
 
 .playing-field__container-top-tooltips{
   display: flex;
-  border: 2px solid black;
+  border: 3px solid black;
+  border-right: none;
   border-bottom: none;
 }
 
@@ -191,16 +221,17 @@
 .easy .nonogram__container-coded-image{
   width: 175px;
   height: 178px;
+  margin-right: 10px;
 }
 
 .easy .playing-field__container-left-tooltips{
   text-align: end;
-  margin-top: 57px;
-  margin-left: 10px;
+  margin-top: 61px;
 }
 
 .easy .playing-field__container-top-tooltips{
   width: 175px;
+  margin-right: 10px;
 }
 
 .easy .left-tooltips__line{
@@ -224,8 +255,12 @@
 }
 
 .medium .playing-field__container-left-tooltips{
-  margin-top: 90px;
+  margin-top: 92px;
   margin-left: 15px;
+  border-top: 4px solid black;
+  border-left: 4px solid black;
+  border-bottom: none;
+  border-right: 1px solid black;;
 }
 
 .medium .playing-field__container-top-tooltips,
@@ -233,32 +268,51 @@
   margin-right: 15px;
 }
 
+.medium .nonogram__container-coded-image{
+  border-bottom: 1px solid black;
+}
 .medium .top-tooltips__line{
   width: 30px;
 }
 
 .medium .left-tooltips__line{
-  height: 30px;
+  height: 29px;
 }
 
+.medium .left-tooltips__grid{
+  padding-bottom: 10px;
+}
 .medium .coded-image__grid,
 .medium .top-tooltips__grid,
 .medium .left-tooltips__grid{
   text-align: center;
   width: 30px;
-  height: 30px;
+  height: 29px;
 }
 
 .hard .top-tooltips__line{
   width: 23px;
+  border-right: none;
+  border-left: 1px solid black;
 }
 
+.hard .nonogram__container-coded-image{
+  border-left: 2px solid black;
+}
 .hard .playing-field__container-left-tooltips{
   margin-top: 72px;
+  border-bottom: 2px solid black;
+}
+
+.hard .playing-field__container-top-tooltips{
+  border-left: 2px solid black;
+  border-right: 4px solid black;
+  width: 348px;
 }
 
 .hard .left-tooltips__line{
   height: 23px;
+  border-right: -2px;
 }
 
 .hard .coded-image__grid,
@@ -268,6 +322,32 @@
   text-align: center;
   width: 23px;
   height: 23px;
+}
+
+.list_drop-down-open{
+  width: 165px;
+  height: 250px;
+  padding-top: 58px;
+  padding-bottom: 20px;
+  border: 2px solid rgb(121, 74, 74);
+  z-index: 1;
+  transition: all 0.3s;
+}
+
+.list-drop-down_hard.list_drop-down-open .item_drop-down-hard,
+.list-drop-down_easy.list_drop-down-open .item_drop-down-easy,
+.list-drop-down_medium.list_drop-down-open .item_drop-down-medium{
+  font-size: 18px;
+  line-height: 18px;
+}
+
+.list-drop-down_hard.list_drop-down-open .item_drop-down-hard:hover,
+.list-drop-down_easy.list_drop-down-open .item_drop-down-easy:hover,
+.list-drop-down_medium.list_drop-down-open .item_drop-down-medium:hover{
+  color: rgb(121, 74, 74, 0.8);
+  font-size: 16px;
+  line-height: 16px;
+  margin-bottom: 2px;
 }
 
 .background-black{

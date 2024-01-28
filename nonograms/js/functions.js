@@ -1,3 +1,59 @@
+export function playGame(parent, grids, matrix, field){
+
+const nonogramLine = document.querySelectorAll('.coded-image__line');
+const gameMatrix = createMatrixGame(nonogramLine);
+
+let workingNonogram;
+let arraySaveLS;
+
+workingNonogram = matrix;
+
+grids.forEach((elem, index)=> {
+    elem.addEventListener('click', () =>{
+      elem.classList.remove('cross-black');
+      elem.classList.toggle('background-black');
+      elem.classList.contains('background-black')?gameMatrix.splice(index, 1, '1'):gameMatrix.splice(index, 1, '0');
+      arraySaveLS = gameMatrix.join('');
+      if(gameMatrix.join('') === workingNonogram.flat().join('')){
+        parent.style.pointerEvents = 'none';
+      }  
+    });
+    elem.addEventListener('contextmenu', (event) => {
+      event.preventDefault();
+      elem.classList.remove('background-black');
+      gameMatrix.splice(index, 1, '0');
+      elem.classList.toggle('cross-black');
+    });
+  })
+  addBorder(grids, field);
+}
+
+function addBorder(grids, field){
+  const lineTooltipsLeft = document.querySelectorAll('.left-tooltips__line');
+  lineTooltipsLeft.forEach((elem, index) => {
+    if(index === 4 || index === 9) {
+      elem.style.borderBottom = '4px solid black';
+      if(field.classList.contains('medium')){
+        elem.style.height = '30px';
+      }
+      if(field.classList.contains('hard')){
+        elem.style.height = '25px';
+      }
+    }
+  });
+
+  const lineTooltipsTop = document.querySelectorAll('.top-tooltips__line');
+  lineTooltipsTop.forEach((elem, index) => {
+    if(index === 4 || index === 9) elem.style.borderRight = '3px solid black'});
+
+  const lineCodedImage = document.querySelectorAll('.coded-image__line');
+  lineCodedImage.forEach((elem, index) => {
+    if(index === 4 || index === 9) elem.style.borderBottom = '2px solid black'});
+
+  grids.forEach((elem, index) =>{
+    if((index + 1) % 5 === 0) elem.style.borderRight = '3px solid black'});
+}
+
 export function addElement(elem, className, parent){
   let item = document.createElement(elem);
   item.className = className;
@@ -43,11 +99,10 @@ export function createTooltips(matrix){
         index = 0;
       }
     }
-    arr.push(line.filter(x => x !== 0))
+    arr.push(line.filter(x => x !== 0));
   })
   return arr;
 }
-
 
 export function addTooltips(arr, parent, container, line, grid){
   const containerLeftTooltips = addElement('div', container, parent);
@@ -65,10 +120,10 @@ export function addNonogram(nonogram, parent){
   addTooltips(createTooltips(rotateMatrix(nonogram)), parent, 'playing-field__container-top-tooltips', 'top-tooltips__line', `top-tooltips__grid`);
   rotateMatrix(rotateMatrix(rotateMatrix(nonogram)));
   const containerCodedImage = addElement('div', 'nonogram__container-coded-image', parent);
-    for(let j = 0; j < nonogram.length; j++){
-      const nonogramLine = addElement('div','coded-image__line', containerCodedImage);
-      for(let i = 0; i < nonogram[j].length; i++){
-        addElement('div',`coded-image__grid`, nonogramLine);
+  for(let j = 0; j < nonogram.length; j++){
+    const nonogramLine = addElement('div','coded-image__line', containerCodedImage);
+    for(let i = 0; i < nonogram[j].length; i++){
+      addElement('div',`coded-image__grid`, nonogramLine);
     }
   }
 }
@@ -83,5 +138,35 @@ export function createMatrixGame(line){
 
 export function createRandomNonogram(obj){
   const indexRandom = Object.keys(obj)[Math.floor(Math.random() * Object.keys(obj).length)];
-  return obj[indexRandom]
+  return obj[indexRandom];
+}
+
+export function createListDropDown(matrix, nameClass, parent){
+  Object.keys(matrix).forEach((elem) => {
+    let item = addElement('p', nameClass, parent);
+    item.textContent = elem;
+  })
+}
+
+export function deleteClass(elem1, elem2, class1, class2){
+  elem1.classList.remove(class1);
+  elem2.classList.remove(class2);
+}
+
+export function changeZIndexButtons(btn1, btn2, btn3){
+  btn1.style.zIndex = '5';
+  btn2.style.zIndex = '0';
+  btn3.style.zIndex = '0';
+}
+
+export function createMatrixRandomForButton(levelNonogram){
+  const randomLevel = createRandomNonogram(levelNonogram);
+  const randomMatrix = createRandomNonogram(randomLevel);
+  return randomMatrix;
+}
+
+export function createRandomLevel(obj1, obj2, obj3, item){
+  if(Object.values(obj1).includes(item)) return 'easy';
+  if(Object.values(obj2).includes(item)) return 'medium';
+  if(Object.values(obj3).includes(item)) return 'hard';
 }
