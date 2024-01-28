@@ -41,10 +41,8 @@ createAndFillButton(buttonRandomGame, 'button', 'Random Game');
 
 //container playing-field
 const containerPlayingField = addElement('div', 'game-board__container_playing-field', wrapperGame);
-const titleTimeGame = addElement('p', 'playing-field__title-time-game', containerPlayingField);
+export const titleTimeGame = addElement('p', 'playing-field__title-time-game', containerPlayingField);
 export const nonogramPlayingField = addElement('div', 'playing-field__nonogram easy', containerPlayingField);
-
-titleTimeGame.textContent = 'Game Time: 00.00';
 
 // nonogram
 export const randomNonogram = createRandomNonogram(nonogramsEasy);

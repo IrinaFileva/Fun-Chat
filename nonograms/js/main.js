@@ -1,9 +1,9 @@
-import { nonogramsEasy, nonogramsHard, nonogramsMedium, nonogramsAll } from "./constants.js";
-import { body, wrapperBody, buttonEasyLevel, listDropDownEasy, 
+import { nonogramsEasy, nonogramsHard, nonogramsMedium, nonogramsAll, gameTime } from "./constants.js";
+import { body, wrapperBody, buttonEasyLevel, listDropDownEasy, titleTimeGame,
          buttonMediumLevel, buttonHardLevel, nonogramPlayingField, 
          listDropDownMedium, buttonRandomGame, listDropDownHard, randomNonogram } from "./create-html.js";
 import { addNonogram, deleteClass, createRandomLevel, changeZIndexButtons, 
-         createMatrixRandomForButton, playGame} from "./functions.js";
+         createMatrixRandomForButton, playGame, stopTime} from "./functions.js";
 
 body.append(wrapperBody);
 
@@ -12,7 +12,7 @@ let itemListEasyGame = document.querySelectorAll('.item_drop-down-easy');
 let itemListMediumGame = document.querySelectorAll('.item_drop-down-medium');
 let itemListHardGame = document.querySelectorAll('.item_drop-down-hard');
 
-playGame(wrapperBody, nonogramGrids, randomNonogram, nonogramPlayingField)
+playGame(wrapperBody, nonogramGrids, randomNonogram, nonogramPlayingField);
 
 buttonEasyLevel.addEventListener('click', (elem) => {
   elem.stopPropagation();
@@ -23,6 +23,7 @@ buttonEasyLevel.addEventListener('click', (elem) => {
 
 itemListEasyGame.forEach((elem) => {
   elem.addEventListener('click', () => {
+    stopTime();
     deleteClass(nonogramPlayingField, nonogramPlayingField, 'medium', 'hard');
     nonogramPlayingField.classList.add('easy');
     let key = elem.textContent;
@@ -47,6 +48,7 @@ buttonMediumLevel.addEventListener('click', (elem) => {
 
 itemListMediumGame.forEach((elem) => [
   elem.addEventListener('click', () => {
+    stopTime()
     deleteClass(nonogramPlayingField, nonogramPlayingField, 'easy', 'hard');
     nonogramPlayingField.classList.add('medium');
     let key = elem.textContent;
@@ -71,6 +73,7 @@ buttonHardLevel.addEventListener('click', (elem) => {
 
 itemListHardGame.forEach((elem) => [
   elem.addEventListener('click', () => {
+    stopTime()
     deleteClass(nonogramPlayingField, nonogramPlayingField, 'easy', 'medium');
     nonogramPlayingField.classList.add('hard');
     let key = elem.textContent;
@@ -87,6 +90,7 @@ itemListHardGame.forEach((elem) => [
 ])
 
 buttonRandomGame.addEventListener('click', () => {
+  stopTime();
   deleteClass(listDropDownEasy, listDropDownMedium, 'list_drop-down-open', 'list_drop-down-open');
   deleteClass(nonogramPlayingField, nonogramPlayingField, 'easy', 'hard');
   listDropDownHard.classList.remove('list_drop-down-open');
@@ -103,7 +107,6 @@ buttonRandomGame.addEventListener('click', () => {
   itemListMediumGame = document.querySelectorAll('.item_drop-down-medium');
   itemListHardGame = document.querySelectorAll('.item_drop-down-hard');
   playGame(wrapperBody, nonogramGrids, randomNonogram, nonogramPlayingField);
-
 })
 
 body.addEventListener('click',() => {

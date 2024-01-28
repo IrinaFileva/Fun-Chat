@@ -1,24 +1,36 @@
+import { gameTime } from "./constants.js";
+import { titleTimeGame } from "./create-html.js";
+
 export function playGame(parent, grids, matrix, field){
 
-const nonogramLine = document.querySelectorAll('.coded-image__line');
-const gameMatrix = createMatrixGame(nonogramLine);
+  const nonogramLine = document.querySelectorAll('.coded-image__line');
+  const gameMatrix = createMatrixGame(nonogramLine);
+  titleTimeGame.textContent = 'Game time: 00:00';
+  let workingNonogram;
+  let arraySaveLS;
 
-let workingNonogram;
-let arraySaveLS;
+  workingNonogram = matrix;
 
-workingNonogram = matrix;
-
-grids.forEach((elem, index)=> {
-    elem.addEventListener('click', () =>{
+  grids.forEach((elem, index)=> {
+    elem.addEventListener('click', () => {
+      gameTime.cont = gameTime.cont + 1;
       elem.classList.remove('cross-black');
       elem.classList.toggle('background-black');
       elem.classList.contains('background-black')?gameMatrix.splice(index, 1, '1'):gameMatrix.splice(index, 1, '0');
       arraySaveLS = gameMatrix.join('');
+      if(gameTime.cont === 1){
+        gameTime.interval = setInterval(addSecondAndMinutes, 1000)
+      }
       if(gameMatrix.join('') === workingNonogram.flat().join('')){
         parent.style.pointerEvents = 'none';
-      }  
+        clearInterval(gameTime.interval);
+      }
     });
     elem.addEventListener('contextmenu', (event) => {
+      gameTime.cont = gameTime.cont + 1;
+      if(gameTime.cont === 1){
+        setInterval(addSecondAndMinutes, 1000);
+      }
       event.preventDefault();
       elem.classList.remove('background-black');
       gameMatrix.splice(index, 1, '0');
@@ -169,4 +181,21 @@ export function createRandomLevel(obj1, obj2, obj3, item){
   if(Object.values(obj1).includes(item)) return 'easy';
   if(Object.values(obj2).includes(item)) return 'medium';
   if(Object.values(obj3).includes(item)) return 'hard';
+}
+
+export function addSecondAndMinutes(){
+  gameTime.seconds = gameTime.seconds + 1;
+  if(gameTime.seconds === 60){
+    gameTime.minutes = gameTime.minutes + 1;
+    gameTime.seconds = 0;
+  }
+  titleTimeGame.textContent = `Game time: ${String(gameTime.minutes).padStart(2, '0')}:${String(gameTime.seconds).padStart(2, '0')}`;
+ }
+
+export function stopTime(){
+  clearInterval(gameTime.interval);
+  gameTime.cont = 0;
+  gameTime.interval = 0;
+  gameTime.seconds = 0;
+  gameTime.minutes = 0;
 }
