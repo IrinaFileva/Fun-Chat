@@ -191,7 +191,6 @@
 }
 
 .top-tooltips__grid{
-
   text-align: center;
   padding: 5px;
 }
@@ -209,11 +208,20 @@
   font: italic 600 22px/24px Roboto;
   text-align: center;
   width: 200px;
-  height: 40vh;
   background-color: beige;
-  padding: 15px;
+  padding: 20px;
   border-radius: 20px;
   border: 2px solid rgb(121, 74, 74);
+}
+
+.item__top-score{
+  width: 155px;
+  height: 45px;
+  color: rgb(73, 71, 71);
+  font: italic 600 18px/18px Roboto;
+  line-height: 25px;
+  margin-top: 10px;
+  text-transform: capitalize;
 }
 
 .easy{

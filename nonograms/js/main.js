@@ -3,7 +3,7 @@ import { body, wrapperBody, buttonEasyLevel, listDropDownEasy, titleTimeGame,
          buttonMediumLevel, buttonHardLevel, nonogramPlayingField, 
          listDropDownMedium, buttonRandomGame, listDropDownHard, randomNonogram } from "./create-html.js";
 import { addNonogram, deleteClass, createRandomLevel, changeZIndexButtons, 
-         createMatrixRandomForButton, playGame, stopTime} from "./functions.js";
+         createMatrixRandomForButton, playGame, stopTime, fillResultTable} from "./functions.js";
 
 body.append(wrapperBody);
 
@@ -13,6 +13,7 @@ let itemListMediumGame = document.querySelectorAll('.item_drop-down-medium');
 let itemListHardGame = document.querySelectorAll('.item_drop-down-hard');
 
 playGame(wrapperBody, nonogramGrids, randomNonogram, nonogramPlayingField);
+fillResultTable();
 
 buttonEasyLevel.addEventListener('click', (elem) => {
   elem.stopPropagation();

@@ -1,5 +1,5 @@
-import { gameTime } from "./constants.js";
-import { titleTimeGame } from "./create-html.js";
+import { gameTime, nonogramsEasy, nonogramsMedium, nonogramsHard } from "./constants.js";
+import { titleTimeGame, containerLinkScores } from "./create-html.js";
 
 export function playGame(parent, grids, matrix, field){
 
@@ -24,6 +24,7 @@ export function playGame(parent, grids, matrix, field){
       if(gameMatrix.join('') === workingNonogram.flat().join('')){
         parent.style.pointerEvents = 'none';
         clearInterval(gameTime.interval);
+        saveLocalStorage(matrix);
       }
     });
     elem.addEventListener('contextmenu', (event) => {
@@ -183,6 +184,14 @@ export function createRandomLevel(obj1, obj2, obj3, item){
   if(Object.values(obj3).includes(item)) return 'hard';
 }
 
+export function createNameNonogram(obj, nonogram){
+  const arrKey = Object.keys(obj);
+  for( let key of arrKey){
+
+    if(obj[key] === nonogram) return key;
+  }
+}
+
 export function addSecondAndMinutes(){
   gameTime.seconds = gameTime.seconds + 1;
   if(gameTime.seconds === 60){
@@ -198,4 +207,30 @@ export function stopTime(){
   gameTime.interval = 0;
   gameTime.seconds = 0;
   gameTime.minutes = 0;
+}
+
+export function saveLocalStorage(nonogram){
+  let objName;
+  if(Object.values(nonogramsEasy).includes(nonogram)) objName = nonogramsEasy;
+  if(Object.values(nonogramsMedium).includes(nonogram)) objName = nonogramsMedium;
+  if(Object.values(nonogramsHard).includes(nonogram)) objName = nonogramsHard;
+   const getTime = JSON.parse(localStorage.getItem('IF-result')) || [];
+   if(getTime.length === 5) getTime.shift()
+   let obj = {};
+   obj.level = createRandomLevel(nonogramsEasy, nonogramsMedium, nonogramsHard, nonogram);
+   obj.nameNonogram = createNameNonogram(objName, nonogram);
+   obj.time = titleTimeGame.textContent;
+   getTime.push(obj);
+   localStorage.setItem('IF-result', JSON.stringify(getTime));
+}
+
+export function fillResultTable () {
+  let numResult = 0;
+  let results = JSON.parse(localStorage.getItem('IF-result')) || [];
+  results.sort((a,b) => +a.time.slice(-5).replace(':', '') - +b.time.slice(-5).replace(':', ''));
+  for(let key of results){
+    numResult +=1;
+    let p = addElement('p', 'item__top-score',containerLinkScores);
+    p.textContent = `${numResult}. ${key.level}: ${key.nameNonogram}\n${key.time}`;
+  }
 }
