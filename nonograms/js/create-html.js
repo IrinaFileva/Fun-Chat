@@ -50,7 +50,7 @@ addNonogram(randomNonogram, nonogramPlayingField);
 
 // container score & solution
 const containerScoresAndSolution = addElement ('div', 'game-board__container_scores-solution', wrapperGame);
-const buttonSolution = addElement('button', 'score-solution__button_solution buttons-level__button', containerScoresAndSolution);
+export const buttonSolution = addElement('button', 'score-solution__button_solution buttons-level__button', containerScoresAndSolution);
 export const buttonResetGame = addElement('button', 'score-solution__button_reset-game buttons-level__button', containerScoresAndSolution);
 export const containerLinkScores = addElement('div', 'score-solution__link_top-scores', containerScoresAndSolution);
 

@@ -1,5 +1,5 @@
 import { gameTime, nonogramsEasy, nonogramsMedium, nonogramsHard } from "./constants.js";
-import { titleTimeGame, containerLinkScores, buttonResetGame } from "./create-html.js";
+import { titleTimeGame, containerLinkScores, buttonResetGame, buttonSolution } from "./create-html.js";
 
 export function playGame(parent, grids, matrix, field){
 
@@ -42,14 +42,25 @@ export function playGame(parent, grids, matrix, field){
       elem.classList.toggle('cross-black');
     });
   })
-
   buttonResetGame.addEventListener('click', () => {
     grids.forEach((elem) => {
+      elem.style.pointerEvents = 'auto';
       deleteClass(elem, elem, 'background-black', 'cross-black');
     })
     gameMatrix.fill(0);
     stopTime();
     titleTimeGame.textContent = 'Game time: 00:00';
+  })
+  buttonSolution.addEventListener('click', () => {
+    grids.forEach((elem, index) =>{
+      deleteClass(elem, elem, 'background-black', 'cross-black');
+      if(matrix.flat()[index] === 1) {
+        elem.classList.add('background-black');
+      }
+      elem.style.pointerEvents = 'none';
+      gameMatrix.fill(0);
+      stopTime();
+    })
   })
   addBorder(grids, field);
 }
