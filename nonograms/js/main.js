@@ -1,5 +1,5 @@
-import { nonogramsEasy, nonogramsHard, nonogramsMedium, nonogramsAll, gameTime } from "./constants.js";
-import { body, wrapperBody, buttonEasyLevel, listDropDownEasy, titleTimeGame,
+import { nonogramsEasy, nonogramsHard, nonogramsMedium, nonogramsAll } from "./constants.js";
+import { body, wrapperBody, buttonEasyLevel, listDropDownEasy,
          buttonMediumLevel, buttonHardLevel, nonogramPlayingField, 
          listDropDownMedium, buttonRandomGame, listDropDownHard, randomNonogram } from "./create-html.js";
 import { addNonogram, deleteClass, createRandomLevel, changeZIndexButtons, 

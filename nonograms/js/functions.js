@@ -1,5 +1,5 @@
 import { gameTime, nonogramsEasy, nonogramsMedium, nonogramsHard } from "./constants.js";
-import { titleTimeGame, containerLinkScores } from "./create-html.js";
+import { titleTimeGame, containerLinkScores, buttonResetGame } from "./create-html.js";
 
 export function playGame(parent, grids, matrix, field){
 
@@ -22,6 +22,10 @@ export function playGame(parent, grids, matrix, field){
         gameTime.interval = setInterval(addSecondAndMinutes, 1000)
       }
       if(gameMatrix.join('') === workingNonogram.flat().join('')){
+        grids.forEach(x => {
+          x.classList.remove('cross-black');
+          x.style.borderColor = 'black';
+        })
         parent.style.pointerEvents = 'none';
         clearInterval(gameTime.interval);
         saveLocalStorage(matrix);
@@ -37,6 +41,15 @@ export function playGame(parent, grids, matrix, field){
       gameMatrix.splice(index, 1, '0');
       elem.classList.toggle('cross-black');
     });
+  })
+
+  buttonResetGame.addEventListener('click', () => {
+    grids.forEach((elem) => {
+      deleteClass(elem, elem, 'background-black', 'cross-black');
+    })
+    gameMatrix.fill(0);
+    stopTime();
+    titleTimeGame.textContent = 'Game time: 00:00';
   })
   addBorder(grids, field);
 }

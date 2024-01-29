@@ -50,11 +50,14 @@ addNonogram(randomNonogram, nonogramPlayingField);
 
 // container score & solution
 const containerScoresAndSolution = addElement ('div', 'game-board__container_scores-solution', wrapperGame);
-export const containerLinkScores = addElement('div', 'score-solution__link_top-scores', containerScoresAndSolution);
 const buttonSolution = addElement('button', 'score-solution__button_solution buttons-level__button', containerScoresAndSolution);
+export const buttonResetGame = addElement('button', 'score-solution__button_reset-game buttons-level__button', containerScoresAndSolution);
+export const containerLinkScores = addElement('div', 'score-solution__link_top-scores', containerScoresAndSolution);
+
 
 containerLinkScores.textContent = 'Result:';
 createAndFillButton(buttonSolution, 'button', 'Solution');
+createAndFillButton(buttonResetGame, 'button', 'Reset game');
 
 // button switch theme
 const buttonSwitchTheme = addElement('button', 'game-board__button_theme', wrapperGame);
