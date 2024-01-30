@@ -1,23 +1,26 @@
 import { gameTime, nonogramsEasy, nonogramsMedium, nonogramsHard } from "./constants.js";
-import { titleTimeGame, containerLinkScores, buttonResetGame, buttonSolution } from "./create-html.js";
+import { titleTimeGame, containerLinkScores, buttonResetGame,
+         buttonSolution, buttonSaveGame } from "./create-html.js";
 
 export function playGame(parent, grids, matrix, field){
 
   const nonogramLine = document.querySelectorAll('.coded-image__line');
   const gameMatrix = createMatrixGame(nonogramLine);
-  titleTimeGame.textContent = 'Game time: 00:00';
+  addSecondAndMinutes()
   let workingNonogram;
   let arraySaveLS;
 
   workingNonogram = matrix;
 
   grids.forEach((elem, index)=> {
+    if(elem.classList.contains('background-black')){
+      gameMatrix.splice(index, 1, '1')
+    }
     elem.addEventListener('click', () => {
       gameTime.cont = gameTime.cont + 1;
       elem.classList.remove('cross-black');
       elem.classList.toggle('background-black');
-      elem.classList.contains('background-black')?gameMatrix.splice(index, 1, '1'):gameMatrix.splice(index, 1, '0');
-      arraySaveLS = gameMatrix.join('');
+      elem.classList.contains('background-black')?gameMatrix.splice(index, 1, '1'):gameMatrix.splice(index, 1, 0);
       if(gameTime.cont === 1){
         gameTime.interval = setInterval(addSecondAndMinutes, 1000)
       }
@@ -30,6 +33,7 @@ export function playGame(parent, grids, matrix, field){
         clearInterval(gameTime.interval);
         saveLocalStorage(matrix);
       }
+      arraySaveLS = gameMatrix;
     });
     elem.addEventListener('contextmenu', (event) => {
       gameTime.cont = gameTime.cont + 1;
@@ -38,9 +42,9 @@ export function playGame(parent, grids, matrix, field){
       }
       event.preventDefault();
       elem.classList.remove('background-black');
-      gameMatrix.splice(index, 1, '0');
       elem.classList.toggle('cross-black');
-    });
+      elem.classList.contains('cross-black')?gameMatrix.splice(index, 1, '0'):gameMatrix.splice(index, 1, 0);
+    }); 
   })
   buttonResetGame.addEventListener('click', () => {
     grids.forEach((elem) => {
@@ -48,8 +52,6 @@ export function playGame(parent, grids, matrix, field){
       deleteClass(elem, elem, 'background-black', 'cross-black');
     })
     gameMatrix.fill(0);
-    stopTime();
-    titleTimeGame.textContent = 'Game time: 00:00';
   })
   buttonSolution.addEventListener('click', () => {
     grids.forEach((elem, index) =>{
@@ -61,6 +63,14 @@ export function playGame(parent, grids, matrix, field){
       gameMatrix.fill(0);
       stopTime();
     })
+  })
+  buttonSaveGame.addEventListener('click', () =>{
+    let objSave = JSON.parse(localStorage.getItem('IF-save')) || {};
+    objSave.time = titleTimeGame.textContent;
+    objSave.non = arraySaveLS;
+    objSave.matrix = matrix;
+    objSave.class = field.className
+    localStorage.setItem('IF-save', JSON.stringify(objSave));
   })
   addBorder(grids, field);
 }
@@ -141,7 +151,7 @@ export function createTooltips(matrix){
   return arr;
 }
 
-export function addTooltips(arr, parent, container, line, grid){
+function addTooltips(arr, parent, container, line, grid){
   const containerLeftTooltips = addElement('div', container, parent);
   for(let j = 0; j < arr.length; j++){
     const nonogramLine = addElement('div',line, containerLeftTooltips);
@@ -217,12 +227,12 @@ export function createNameNonogram(obj, nonogram){
 }
 
 export function addSecondAndMinutes(){
+  titleTimeGame.textContent = `Game time: ${String(gameTime.minutes).padStart(2, '0')}:${String(gameTime.seconds).padStart(2, '0')}`;
   gameTime.seconds = gameTime.seconds + 1;
   if(gameTime.seconds === 60){
     gameTime.minutes = gameTime.minutes + 1;
     gameTime.seconds = 0;
   }
-  titleTimeGame.textContent = `Game time: ${String(gameTime.minutes).padStart(2, '0')}:${String(gameTime.seconds).padStart(2, '0')}`;
  }
 
 export function stopTime(){

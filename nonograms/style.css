@@ -106,10 +106,6 @@
   margin-top: 70px;
 }
 
-.button_random-game:hover{
-  margin-top: 72px;
-}
-
 .game-board__container_playing-field{
   width: 500px;
   display: flex;

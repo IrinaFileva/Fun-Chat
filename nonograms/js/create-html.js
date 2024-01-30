@@ -33,11 +33,15 @@ export const buttonHardLevel = addElement('button', 'buttons-level__button butto
 export const listDropDownHard = addElement('div', 'buttons-level__list_drop-down list-drop-down_hard', containerButtonsLevel);
 createListDropDown(nonogramsHard, 'item_drop-down-hard', listDropDownHard);
 export const buttonRandomGame = addElement('button', 'buttons-level__button button_random-game', containerButtonsLevel);
+export const buttonSaveGame = addElement('button', 'buttons-level__button button_save-game', containerButtonsLevel);
+export const buttonContinueGame = addElement('button','buttons-level__button button_continue-game', containerButtonsLevel);
 
 createAndFillButton(buttonEasyLevel, 'button', 'Easy (5*5) ▼');
 createAndFillButton(buttonMediumLevel, 'button', 'Medium (10*10) ▼');
 createAndFillButton(buttonHardLevel, 'button', 'Hard (15*15) ▼');
 createAndFillButton(buttonRandomGame, 'button', 'Random Game');
+createAndFillButton(buttonSaveGame, 'button', 'Save Game');
+createAndFillButton(buttonContinueGame, 'button', 'Continue last game');
 
 //container playing-field
 const containerPlayingField = addElement('div', 'game-board__container_playing-field', wrapperGame);
