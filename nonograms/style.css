@@ -242,24 +242,39 @@
   margin-top: 10px;
   text-transform: capitalize;
 }
-.game-board__button_theme{
+
+.button-circle{
   position: absolute;
-  top: 30px;
-  right: 30px;
   width: 45px;
   height: 45px;
   border-radius: 100%;
   border: 2px solid rgb(121, 74, 74);
   cursor: pointer;
   background-color: beige;
-  background-image: url(assets/svg/moon_and_stars.svg);
   background-repeat: no-repeat;
   background-position: center;
-  background-size:calc(89%);
   outline: none;
 }
 
-.game-board__button_theme:hover {
+.game-board__button_theme{
+  top: 30px;
+  right: 30px;
+  background-image: url(assets/svg/moon_and_stars.svg);
+  background-size:calc(89%);
+}
+
+.game-board__button_sound{
+  top: 30px;
+  right: 90px;
+  background-image: url(assets/svg/sound.svg);
+  background-size:calc(75%);
+}
+
+.game-board__button_sound-mute{
+  background-image: url(assets/svg/sound-mute.svg);
+}
+
+.button-circle:hover {
   width: 42px;
   height: 42px;
   margin: 1px;
@@ -474,6 +489,18 @@
 
 .dark .game-board__button_theme{
   background-image: url(assets/svg/sun.svg);
+  background-color: black;
+  border-color: beige;
+}
+
+.dark .game-board__button_sound{
+  background-image: url(assets/svg/sound-dark.svg);
+  background-color: black;
+  border-color: beige;
+}
+
+.dark .game-board__button_sound-mute{
+  background-image: url(assets/svg/sound-mute-dark.svg);
   background-color: black;
   border-color: beige;
 }

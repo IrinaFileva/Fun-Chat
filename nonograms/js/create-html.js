@@ -69,8 +69,18 @@ buttonSolution.setAttribute('disabled', 'disabled');
 buttonResetGame.setAttribute('disabled', 'disabled');
 
 // button switch theme
-export const buttonSwitchTheme = addElement('button', 'game-board__button_theme', wrapperGame);
+export const buttonSwitchTheme = addElement('button', 'game-board__button_theme button-circle', wrapperGame);
+export const buttonSound = addElement('button', 'game-board__button_sound button-circle', wrapperGame);
 
 createAndFillButton(buttonSwitchTheme, 'button', '');
+createAndFillButton(buttonSound, 'button', '');
+
+export const audioBlackGrid = addElement('audio', '', body);
+export const audioCross = addElement('audio', '', body);
+export const audioEmptyCell = addElement('audio', '', body);
+
+audioBlackGrid.src ='assets/audio/3505bf33414114e.mp3';
+audioEmptyCell.src = 'assets/audio/2c527a427875501.mp3';
+audioCross.src = 'assets/audio/ed2e0bdcba691bf.mp3';
 
 export {wrapperBody};

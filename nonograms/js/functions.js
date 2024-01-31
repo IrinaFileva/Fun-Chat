@@ -1,18 +1,19 @@
 import { gameTime, nonogramsEasy, nonogramsMedium, nonogramsHard } from "./constants.js";
 import { titleTimeGame, containerLinkScores, buttonResetGame,containerButtonsLevel,
-         buttonSolution, buttonSaveGame, body, buttonContinueGame} from "./create-html.js";
+         buttonSolution, buttonSaveGame, body, buttonContinueGame, audioBlackGrid,
+         audioCross, audioEmptyCell} from "./create-html.js";
 
 export function playGame(parent, grids, matrix, field){
   const nonogramLine = document.querySelectorAll('.coded-image__line');
   const gameMatrix = createMatrixGame(nonogramLine);
   addSecondAndMinutes()
   let workingNonogram;
-  let arraySaveLS;
 
   workingNonogram = matrix;
 
   grids.forEach((elem, index)=> {
     elem.addEventListener('click', () => {
+      elem.classList.contains('background-black')?audioEmptyCell.play():audioBlackGrid.play();
       buttonResetGame.removeAttribute('disabled');
       buttonSolution.removeAttribute('disabled');
       buttonSaveGame.removeAttribute('disabled');
@@ -32,9 +33,9 @@ export function playGame(parent, grids, matrix, field){
         clearInterval(gameTime.interval);
         saveLocalStorage(matrix);
       }
-      arraySaveLS = gameMatrix;
     });
     elem.addEventListener('contextmenu', (event) => {
+      elem.classList.contains('cross-black')?audioEmptyCell.play():audioCross.play();
       gameTime.cont = gameTime.cont + 1;
       if(gameTime.cont === 1){
         setInterval(addSecondAndMinutes, 1000);
@@ -302,3 +303,4 @@ export function fillResultTable () {
     p.textContent = `${numResult}. ${key.level}: ${key.nameNonogram}\n${key.time}`;
   }
 }
+

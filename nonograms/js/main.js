@@ -1,7 +1,7 @@
 import { nonogramsEasy, nonogramsHard, nonogramsMedium, nonogramsAll, } from "./constants.js";
-import { body, wrapperBody, buttonEasyLevel, listDropDownEasy,buttonMediumLevel,
+import { body, wrapperBody, buttonEasyLevel, listDropDownEasy,buttonMediumLevel, buttonSound,
          buttonHardLevel, nonogramPlayingField, buttonSwitchTheme, buttonSaveGame,
-         listDropDownMedium, buttonRandomGame, listDropDownHard, randomNonogram } from "./create-html.js";
+         listDropDownMedium, buttonRandomGame, listDropDownHard, randomNonogram, audioBlackGrid, audioCross, audioEmptyCell } from "./create-html.js";
 import { addNonogram, deleteClass, createRandomLevel, changeZIndexButtons, 
          createMatrixRandomForButton, playGame, stopTime, fillResultTable, addBorder} from "./functions.js";
 
@@ -114,6 +114,20 @@ buttonRandomGame.addEventListener('click', () => {
 buttonSwitchTheme.addEventListener('click', () => {
   body.classList.toggle('dark');
   addBorder(nonogramGrids, nonogramPlayingField);
+})
+
+buttonSound.addEventListener('click', () => {
+  buttonSound.classList.toggle('game-board__button_sound-mute');
+  if(buttonSound.classList.contains('game-board__button_sound-mute')){
+    audioBlackGrid.muted = true;
+    audioCross.muted = true;
+    audioEmptyCell.muted = true;
+  }
+  else{
+    audioBlackGrid.muted = false;
+    audioCross.muted = false;
+    audioEmptyCell.muted = false;
+  }
 })
 
 body.addEventListener('click',() => {
