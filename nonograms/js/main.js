@@ -1,9 +1,9 @@
-import { nonogramsEasy, nonogramsHard, nonogramsMedium, nonogramsAll, gameTime } from "./constants.js";
-import { body, wrapperBody, buttonEasyLevel, listDropDownEasy, buttonContinueGame,
-         buttonMediumLevel, buttonHardLevel, nonogramPlayingField, titleTimeGame,
+import { nonogramsEasy, nonogramsHard, nonogramsMedium, nonogramsAll, } from "./constants.js";
+import { body, wrapperBody, buttonEasyLevel, listDropDownEasy,buttonMediumLevel,
+         buttonHardLevel, nonogramPlayingField, buttonSwitchTheme, buttonSaveGame,
          listDropDownMedium, buttonRandomGame, listDropDownHard, randomNonogram } from "./create-html.js";
 import { addNonogram, deleteClass, createRandomLevel, changeZIndexButtons, 
-         createMatrixRandomForButton, playGame, stopTime, fillResultTable} from "./functions.js";
+         createMatrixRandomForButton, playGame, stopTime, fillResultTable, addBorder} from "./functions.js";
 
 body.append(wrapperBody);
 
@@ -70,11 +70,12 @@ buttonHardLevel.addEventListener('click', (elem) => {
   listDropDownHard.classList.toggle('list_drop-down-open');
   deleteClass(listDropDownEasy, listDropDownMedium, 'list_drop-down-open', 'list_drop-down-open');
   changeZIndexButtons(buttonHardLevel, buttonRandomGame, buttonMediumLevel);
+  buttonSaveGame.style.zIndex = '0';
 })
 
 itemListHardGame.forEach((elem) => [
   elem.addEventListener('click', () => {
-    stopTime()
+    stopTime();
     deleteClass(nonogramPlayingField, nonogramPlayingField, 'easy', 'medium');
     nonogramPlayingField.classList.add('hard');
     let key = elem.textContent;
@@ -110,31 +111,9 @@ buttonRandomGame.addEventListener('click', () => {
   playGame(wrapperBody, nonogramGrids, randomNonogram, nonogramPlayingField);
 })
 
-buttonContinueGame.addEventListener('click', () => {
-  deleteClass(listDropDownEasy, listDropDownMedium, 'list_drop-down-open', 'list_drop-down-open');
-  deleteClass(nonogramPlayingField, nonogramPlayingField, 'easy', 'hard');
-  listDropDownHard.classList.remove('list_drop-down-open');
-  nonogramPlayingField.classList.remove('medium');
-  let objSave = JSON.parse(localStorage.getItem('IF-save'));
-  gameTime.seconds = +objSave.time.slice(-2);
-  while(nonogramPlayingField.firstChild){
-    nonogramPlayingField.removeChild(nonogramPlayingField.firstChild);
-  }
-  addNonogram(objSave.matrix, nonogramPlayingField);
-  nonogramPlayingField.className = objSave.class;
-  nonogramGrids = document.querySelectorAll('.coded-image__grid');
-  itemListEasyGame = document.querySelectorAll('.item_drop-down-easy'); 
-  itemListMediumGame = document.querySelectorAll('.item_drop-down-medium');
-  itemListHardGame = document.querySelectorAll('.item_drop-down-hard');
-  nonogramGrids.forEach((elem, index) =>{
-    if(objSave.non[index] === '1') {
-      elem.classList.add('background-black');
-    }
-    if(objSave.non[index] === '0'){
-    elem.classList.add('cross-black');
-    }
-  })
-  playGame(wrapperBody, nonogramGrids, objSave.matrix, nonogramPlayingField);
+buttonSwitchTheme.addEventListener('click', () => {
+  body.classList.toggle('dark');
+  addBorder(nonogramGrids, nonogramPlayingField);
 })
 
 body.addEventListener('click',() => {

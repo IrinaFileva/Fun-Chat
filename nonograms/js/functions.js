@@ -1,9 +1,8 @@
 import { gameTime, nonogramsEasy, nonogramsMedium, nonogramsHard } from "./constants.js";
-import { titleTimeGame, containerLinkScores, buttonResetGame,
-         buttonSolution, buttonSaveGame } from "./create-html.js";
+import { titleTimeGame, containerLinkScores, buttonResetGame,containerButtonsLevel,
+         buttonSolution, buttonSaveGame, body, buttonContinueGame} from "./create-html.js";
 
 export function playGame(parent, grids, matrix, field){
-
   const nonogramLine = document.querySelectorAll('.coded-image__line');
   const gameMatrix = createMatrixGame(nonogramLine);
   addSecondAndMinutes()
@@ -13,10 +12,10 @@ export function playGame(parent, grids, matrix, field){
   workingNonogram = matrix;
 
   grids.forEach((elem, index)=> {
-    if(elem.classList.contains('background-black')){
-      gameMatrix.splice(index, 1, '1')
-    }
     elem.addEventListener('click', () => {
+      buttonResetGame.removeAttribute('disabled');
+      buttonSolution.removeAttribute('disabled');
+      buttonSaveGame.removeAttribute('disabled');
       gameTime.cont = gameTime.cont + 1;
       elem.classList.remove('cross-black');
       elem.classList.toggle('background-black');
@@ -47,13 +46,18 @@ export function playGame(parent, grids, matrix, field){
     }); 
   })
   buttonResetGame.addEventListener('click', () => {
+    buttonSaveGame.removeAttribute('disabled');
     grids.forEach((elem) => {
       elem.style.pointerEvents = 'auto';
       deleteClass(elem, elem, 'background-black', 'cross-black');
     })
+    stopTime();
+    addSecondAndMinutes();
     gameMatrix.fill(0);
   })
+
   buttonSolution.addEventListener('click', () => {
+    buttonSaveGame.setAttribute('disabled', 'disabled');
     grids.forEach((elem, index) =>{
       deleteClass(elem, elem, 'background-black', 'cross-black');
       if(matrix.flat()[index] === 1) {
@@ -64,22 +68,46 @@ export function playGame(parent, grids, matrix, field){
       stopTime();
     })
   })
+
   buttonSaveGame.addEventListener('click', () =>{
+    buttonContinueGame.removeAttribute('disabled');
     let objSave = JSON.parse(localStorage.getItem('IF-save')) || {};
     objSave.time = titleTimeGame.textContent;
-    objSave.non = arraySaveLS;
-    objSave.matrix = matrix;
-    objSave.class = field.className
+    objSave.non = Array.from(gameMatrix);
+    objSave.class = field.className;
     localStorage.setItem('IF-save', JSON.stringify(objSave));
+    const windowTooltipBox = addElement('div', 'window-tooltip-box', containerButtonsLevel);
+    windowTooltipBox.textContent = 'Game save';
+    setTimeout(function(){
+      windowTooltipBox.remove()
+    }, 600);
+  })
+
+  buttonContinueGame.addEventListener('click', () => {
+    let objSave = JSON.parse(localStorage.getItem('IF-save'));
+    gameTime.seconds = +objSave.time.slice(-2);
+    titleTimeGame.textContent = objSave.time;
+    gameMatrix.fill(0);
+    grids.forEach((elem, index) => {
+      deleteClass(elem, elem, 'background-black', 'cross-black');
+      if(objSave.non[index] === '1'){
+        elem.classList.add('background-black');
+        gameMatrix.splice(index, 1, '1');
+      }
+      if(objSave.non[index] === '0'){
+        elem.classList.add('cross-black');
+        gameMatrix.splice(index, 1, '0');
+      }
+    })
   })
   addBorder(grids, field);
 }
 
-function addBorder(grids, field){
+export function addBorder(grids, field){
   const lineTooltipsLeft = document.querySelectorAll('.left-tooltips__line');
   lineTooltipsLeft.forEach((elem, index) => {
     if(index === 4 || index === 9) {
-      elem.style.borderBottom = '4px solid black';
+      body.classList.contains('dark')?elem.style.borderBottom = '4px solid beige':elem.style.borderBottom = '4px solid black';
       if(field.classList.contains('medium')){
         elem.style.height = '30px';
       }
@@ -91,14 +119,20 @@ function addBorder(grids, field){
 
   const lineTooltipsTop = document.querySelectorAll('.top-tooltips__line');
   lineTooltipsTop.forEach((elem, index) => {
-    if(index === 4 || index === 9) elem.style.borderRight = '3px solid black'});
-
+    if(index === 4 || index === 9){ 
+      body.classList.contains('dark')?elem.style.borderRight = '4px solid beige': elem.style.borderRight = '4px solid black';
+    }
+  });
   const lineCodedImage = document.querySelectorAll('.coded-image__line');
   lineCodedImage.forEach((elem, index) => {
-    if(index === 4 || index === 9) elem.style.borderBottom = '2px solid black'});
+    if(index === 4 || index === 9) {
+      body.classList.contains('dark')?elem.style.borderBottom = '2px solid beige':elem.style.borderBottom = '2px solid black';
+    }
+  });
 
-  grids.forEach((elem, index) =>{
-    if((index + 1) % 5 === 0) elem.style.borderRight = '3px solid black'});
+   grids.forEach((elem, index) =>{
+     if((index + 1) % 5 === 0) {
+       body.classList.contains('dark')?elem.style.borderRight = '3px solid beige': elem.style.borderRight = '3px solid black'}});
 }
 
 export function addElement(elem, className, parent){

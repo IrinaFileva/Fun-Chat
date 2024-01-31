@@ -60,7 +60,7 @@
   width: 165px;
   height: 50px;
   color: rgb(121, 74, 74);
-  font: italic 600 18px/20px Roboto;
+  font: italic 600 16px/18px Roboto;
   background-color: beige;
   border-radius: 20px;
   border: 2px solid rgb(121, 74, 74);
@@ -69,12 +69,16 @@
 }
 
 .buttons-level__button:hover{
-  font-size: 16px;
+  font-size: 14px;
 }
 
+.buttons-level__button:disabled{
+  opacity: 0.7;
+  pointer-events: none;
+}
 .buttons-level__list_drop-down{
   position: absolute;
-  top: 18%;
+  top: 14%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -86,11 +90,11 @@
 }
 
 .list-drop-down_medium{
-  top: 33%;
+  top: 26%;
 }
 
 .list-drop-down_hard{
-  top: 46%;
+  top: 37%;
 }
 
 .item_drop-down-hard,
@@ -105,6 +109,25 @@
 .button_random-game{
   margin-top: 70px;
 }
+
+.window-tooltip-box{
+  text-align: center;
+  background-color: beige;
+  width: 90px;
+  height: 25px;
+  color: rgb(121, 74, 74);
+  font: italic 400 12px/12px Roboto;
+  position: absolute;
+  bottom: 31%;
+  left: 75%;
+  margin: 0;
+  border: 1px dashed rgb(121, 74, 74);
+  border-radius: 10px;
+  z-index: 7;
+  padding: 5px;
+  opacity: 0.8;
+}
+
 
 .game-board__container_playing-field{
   width: 500px;
@@ -219,6 +242,28 @@
   margin-top: 10px;
   text-transform: capitalize;
 }
+.game-board__button_theme{
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  border: 2px solid rgb(121, 74, 74);
+  cursor: pointer;
+  background-color: beige;
+  background-image: url(assets/svg/moon_and_stars.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:calc(89%);
+  outline: none;
+}
+
+.game-board__button_theme:hover {
+  width: 42px;
+  height: 42px;
+  margin: 1px;
+}
 
 .easy{
   flex-direction: column;
@@ -226,7 +271,7 @@
 }
 
 .easy .nonogram__container-coded-image{
-  width: 175px;
+  width: 176px;
   height: 178px;
   margin-right: 10px;
 }
@@ -356,8 +401,7 @@
 }
 
 .background-black{
-  background-color: black;
-  border: 0.5px solid white;
+  background-color: rgb(59, 55, 55);
 }
 
 .cross-black{
@@ -365,4 +409,71 @@
   background-size:calc(80%);
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.dark,
+.dark .coded-image__line{
+  background-color: black;
+}
+
+.dark .header__title,
+.dark .item_drop-down-hard,
+.dark .list-drop-down_hard.list_drop-down-open .item_drop-down-hard:hover,
+.dark .list-drop-down_easy.list_drop-down-open .item_drop-down-easy:hover,
+.dark .list-drop-down_medium.list_drop-down-open .item_drop-down-medium:hover,
+.dark .item_drop-down-medium,
+.dark .item_drop-down-easy,
+.dark .playing-field__title-time-game{
+  color: beige;
+}
+
+.dark .game-board__wrapper{
+  background-image: url(assets/img/background-game-negative.jpg);
+  border-color: beige;
+}
+
+.dark .buttons-level__button,
+.dark .top-tooltips__line,
+.dark .left-tooltips__line,
+.dark .score-solution__link_top-scores,
+.dark .buttons-level__list_drop-down{
+  background-color: black;
+  border-color: beige;
+  color: beige;
+}
+
+.dark .item__top-score{
+  color: white;
+}
+
+.dark .playing-field__nonogram{
+  background-color: black;
+  border-color: beige;
+}
+
+.dark .coded-image__grid,
+.dark .nonogram__container-coded-image,
+.dark .playing-field__container-left-tooltips,
+.dark .playing-field__container-top-tooltips{
+  border-color: beige;
+}
+
+.dark .background-black{
+  background-color: white;
+}
+
+.dark .cross-black{
+  background-image: url(assets/svg/cross_mr3w4khsljuu\ \(1\).svg);
+}
+
+.dark .window-tooltip-box{
+  background-color: black;
+  border-color: beige;
+  color: beige;
+}
+
+.dark .game-board__button_theme{
+  background-image: url(assets/svg/sun.svg);
+  background-color: black;
+  border-color: beige;
 }

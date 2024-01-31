@@ -22,7 +22,7 @@ const sectionGame = addElement('section', 'game-board', main);
 const wrapperGame = addElement('div', 'game-board__wrapper', sectionGame);
 
 // Container Buttons-Level And Button-RandomGame
-const containerButtonsLevel = addElement('div', 'game-board__container_buttons-level', wrapperGame);
+export const containerButtonsLevel = addElement('div', 'game-board__container_buttons-level', wrapperGame);
 export const buttonEasyLevel = addElement('button', 'buttons-level__button button_easy-level', containerButtonsLevel);
 export const listDropDownEasy = addElement('div', 'buttons-level__list_drop-down list-drop-down_easy', containerButtonsLevel);
 createListDropDown(nonogramsEasy, 'item_drop-down-easy', listDropDownEasy);
@@ -43,6 +43,9 @@ createAndFillButton(buttonRandomGame, 'button', 'Random Game');
 createAndFillButton(buttonSaveGame, 'button', 'Save Game');
 createAndFillButton(buttonContinueGame, 'button', 'Continue last game');
 
+buttonSaveGame.setAttribute('disabled', 'disabled');
+buttonContinueGame.setAttribute('disabled', 'disabled');
+
 //container playing-field
 const containerPlayingField = addElement('div', 'game-board__container_playing-field', wrapperGame);
 export const titleTimeGame = addElement('p', 'playing-field__title-time-game', containerPlayingField);
@@ -58,13 +61,15 @@ export const buttonSolution = addElement('button', 'score-solution__button_solut
 export const buttonResetGame = addElement('button', 'score-solution__button_reset-game buttons-level__button', containerScoresAndSolution);
 export const containerLinkScores = addElement('div', 'score-solution__link_top-scores', containerScoresAndSolution);
 
-
 containerLinkScores.textContent = 'Result:';
 createAndFillButton(buttonSolution, 'button', 'Solution');
 createAndFillButton(buttonResetGame, 'button', 'Reset game');
 
+buttonSolution.setAttribute('disabled', 'disabled');
+buttonResetGame.setAttribute('disabled', 'disabled');
+
 // button switch theme
-const buttonSwitchTheme = addElement('button', 'game-board__button_theme', wrapperGame);
+export const buttonSwitchTheme = addElement('button', 'game-board__button_theme', wrapperGame);
 
 createAndFillButton(buttonSwitchTheme, 'button', '');
 
