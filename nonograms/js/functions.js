@@ -1,7 +1,7 @@
 import { gameTime, nonogramsEasy, nonogramsMedium, nonogramsHard } from "./constants.js";
-import { titleTimeGame, containerLinkScores, buttonResetGame,containerButtonsLevel,
-         buttonSolution, buttonSaveGame, body, buttonContinueGame, audioBlackGrid,
-         audioCross, audioEmptyCell} from "./create-html.js";
+import { titleTimeGame, containerLinkScores, buttonResetGame,containerButtonsLevel, wrapperBody, audioModal,
+         buttonSolution, buttonSaveGame, body, buttonContinueGame, audioBlackGrid, modalWindowVictory,
+         audioCross, audioEmptyCell, backgroundModalWindowVictory, titleModalWindowVictory} from "./create-html.js";
 
 export function playGame(parent, grids, matrix, field){
   const nonogramLine = document.querySelectorAll('.coded-image__line');
@@ -29,7 +29,11 @@ export function playGame(parent, grids, matrix, field){
           x.classList.remove('cross-black');
           x.style.borderColor = 'black';
         })
-        parent.style.pointerEvents = 'none';
+        titleModalWindowVictory.innerHTML =`<span>Great!</span><br> You have solved the nonogram in ${addSecondsInModal()} seconds!`;
+        backgroundModalWindowVictory.classList.add('open-window');
+        modalWindowVictory.classList.add('open-window');
+        audioModal.play();
+        openCloseModal('none', '0.4');
         clearInterval(gameTime.interval);
         saveLocalStorage(matrix);
       }
@@ -302,5 +306,17 @@ export function fillResultTable () {
     let p = addElement('p', 'item__top-score',containerLinkScores);
     p.textContent = `${numResult}. ${key.level}: ${key.nameNonogram}\n${key.time}`;
   }
+}
+
+function addSecondsInModal(){
+  if(gameTime.minutes !== 0){
+    return (gameTime.seconds + gameTime.minutes * 60) -1
+  }
+  return gameTime.seconds -1
+}
+
+export function openCloseModal(block, color){
+  wrapperBody.style.pointerEvents = block;
+  wrapperBody.style.opacity = color;
 }
 

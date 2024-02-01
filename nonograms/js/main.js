@@ -1,9 +1,10 @@
 import { nonogramsEasy, nonogramsHard, nonogramsMedium, nonogramsAll, } from "./constants.js";
-import { body, wrapperBody, buttonEasyLevel, listDropDownEasy,buttonMediumLevel, buttonSound,
-         buttonHardLevel, nonogramPlayingField, buttonSwitchTheme, buttonSaveGame,
-         listDropDownMedium, buttonRandomGame, listDropDownHard, randomNonogram, audioBlackGrid, audioCross, audioEmptyCell } from "./create-html.js";
+import { body, wrapperBody, buttonEasyLevel, listDropDownEasy,buttonMediumLevel, buttonSound, audioModal, buttonHardLevel,
+         nonogramPlayingField, buttonSwitchTheme, buttonSaveGame, crossModalWindowVictory, modalWindowVictory,
+         listDropDownMedium, buttonRandomGame, listDropDownHard, randomNonogram, audioBlackGrid, audioCross, audioEmptyCell,
+         backgroundModalWindowVictory, buttonSolution} from "./create-html.js";
 import { addNonogram, deleteClass, createRandomLevel, changeZIndexButtons, 
-         createMatrixRandomForButton, playGame, stopTime, fillResultTable, addBorder} from "./functions.js";
+         createMatrixRandomForButton, playGame, stopTime, fillResultTable, addBorder, openCloseModal} from "./functions.js";
 
 body.append(wrapperBody);
 
@@ -122,12 +123,32 @@ buttonSound.addEventListener('click', () => {
     audioBlackGrid.muted = true;
     audioCross.muted = true;
     audioEmptyCell.muted = true;
+    audioModal.muted = true;
   }
   else{
     audioBlackGrid.muted = false;
     audioCross.muted = false;
     audioEmptyCell.muted = false;
+    audioModal.muted = false;
   }
+})
+
+backgroundModalWindowVictory.addEventListener('click', () => {
+  deleteClass(backgroundModalWindowVictory, modalWindowVictory, 'open-window', 'open-window');
+  openCloseModal('auto', '1');
+  buttonSaveGame.setAttribute('disabled', 'disabled');
+  buttonSolution.setAttribute('disabled', 'disabled');
+})
+
+crossModalWindowVictory.addEventListener('click', () => {
+  deleteClass(backgroundModalWindowVictory, modalWindowVictory, 'open-window', 'open-window');
+  openCloseModal('auto', '1');
+  buttonSaveGame.setAttribute('disabled', 'disabled');
+  buttonSolution.setAttribute('disabled', 'disabled');
+})
+
+modalWindowVictory.addEventListener('click', (event) => {
+  event.stopPropagation();
 })
 
 body.addEventListener('click',() => {
