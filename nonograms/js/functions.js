@@ -3,11 +3,14 @@ import { titleTimeGame, containerLinkScores, buttonResetGame,containerButtonsLev
          buttonSolution, buttonSaveGame, body, buttonContinueGame, audioBlackGrid, modalWindowVictory,
          audioCross, audioEmptyCell, backgroundModalWindowVictory, titleModalWindowVictory} from "./create-html.js";
 
-export function playGame(parent, grids, matrix, field){
+export function playGame(grids, matrix, field){
+
   const nonogramLine = document.querySelectorAll('.coded-image__line');
   const gameMatrix = createMatrixGame(nonogramLine);
-  addSecondAndMinutes()
+
   let workingNonogram;
+
+  addSecondAndMinutes();
 
   workingNonogram = matrix;
 
@@ -22,12 +25,12 @@ export function playGame(parent, grids, matrix, field){
       elem.classList.toggle('background-black');
       elem.classList.contains('background-black')?gameMatrix.splice(index, 1, '1'):gameMatrix.splice(index, 1, 0);
       if(gameTime.cont === 1){
-        gameTime.interval = setInterval(addSecondAndMinutes, 1000)
+        gameTime.interval = setInterval(addSecondAndMinutes, 1000);
       }
       if(gameMatrix.join('') === workingNonogram.flat().join('')){
         grids.forEach(x => {
           x.classList.remove('cross-black');
-          body.classList.contains('dark')?x.style.borderColor = 'white': x.style.borderColor = 'black';
+          x.style.pointerEvents = 'none';
         })
         titleModalWindowVictory.innerHTML =`<span>Great!</span><br> You have solved the nonogram in ${addSecondsInModal()} seconds!`;
         backgroundModalWindowVictory.classList.add('open-window');
@@ -36,6 +39,7 @@ export function playGame(parent, grids, matrix, field){
         openCloseModal('none', '0.4');
         clearInterval(gameTime.interval);
         saveLocalStorage(matrix);
+        fillResultTable();
       }
     });
     elem.addEventListener('contextmenu', (event) => {
@@ -50,8 +54,8 @@ export function playGame(parent, grids, matrix, field){
       elem.classList.contains('cross-black')?gameMatrix.splice(index, 1, '0'):gameMatrix.splice(index, 1, 0);
     }); 
   })
+
   buttonResetGame.addEventListener('click', () => {
-    buttonSaveGame.removeAttribute('disabled');
     grids.forEach((elem) => {
       elem.style.pointerEvents = 'auto';
       deleteClass(elem, elem, 'background-black', 'cross-black');
@@ -155,13 +159,11 @@ export function createAndFillButton(button, kind ,text){
 function rotateMatrix(matrix) {
   const rotateArr = matrix;
   const len = rotateArr.length;
-
   for (let i = 0; i < len / 2; i += 1) {
     for (let j = i; j < len - i - 1; j += 1) {
       const item = rotateArr[i][j];
       const lenJ = len - j - 1;
       const lenI = len - i - 1;
-
       rotateArr[i][j] = rotateArr[lenJ][i];
       rotateArr[lenJ][i] = rotateArr[lenI][lenJ];
       rotateArr[lenI][lenJ] = rotateArr[j][lenI];
@@ -215,7 +217,7 @@ export function addNonogram(nonogram, parent){
 }
 
 export function createMatrixGame(line){
-  let arr =[]
+  let arr =[];
   for(let j = 0; j < line.length; j ++){
     arr.push(Array(line.length).fill(0));
   }
@@ -260,7 +262,6 @@ export function createRandomLevel(obj1, obj2, obj3, item){
 export function createNameNonogram(obj, nonogram){
   const arrKey = Object.keys(obj);
   for( let key of arrKey){
-
     if(obj[key] === nonogram) return key;
   }
 }
@@ -301,6 +302,10 @@ export function fillResultTable () {
   let numResult = 0;
   let results = JSON.parse(localStorage.getItem('IF-result')) || [];
   results.sort((a,b) => +a.time.slice(-5).replace(':', '') - +b.time.slice(-5).replace(':', ''));
+  while(containerLinkScores.firstChild){
+    containerLinkScores.removeChild(containerLinkScores.firstChild);
+  }
+  containerLinkScores.textContent = 'Results'
   for(let key of results){
     numResult +=1;
     let p = addElement('p', 'item__top-score',containerLinkScores);
@@ -310,9 +315,9 @@ export function fillResultTable () {
 
 function addSecondsInModal(){
   if(gameTime.minutes !== 0){
-    return (gameTime.seconds + gameTime.minutes * 60) -1
+    return (gameTime.seconds + gameTime.minutes * 60) -1;
   }
-  return gameTime.seconds -1
+  return gameTime.seconds -1;
 }
 
 export function openCloseModal(block, color){

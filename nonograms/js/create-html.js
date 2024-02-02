@@ -1,5 +1,4 @@
-import { addElement, createAndFillButton, addNonogram,
-         createRandomNonogram, createListDropDown } from "./functions.js";
+import { addElement, createAndFillButton, addNonogram, createRandomNonogram, createListDropDown } from "./functions.js";
 import { nonogramsEasy, nonogramsHard, nonogramsMedium } from "./constants.js";
 
 export const body = document.querySelector('.body');

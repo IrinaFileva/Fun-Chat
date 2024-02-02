@@ -1,4 +1,4 @@
-import { nonogramsEasy, nonogramsHard, nonogramsMedium, nonogramsAll, } from "./constants.js";
+import { nonogramsEasy, nonogramsHard, nonogramsMedium, nonogramsAll } from "./constants.js";
 import { body, wrapperBody, buttonEasyLevel, listDropDownEasy,buttonMediumLevel, buttonSound, audioModal, buttonHardLevel,
          nonogramPlayingField, buttonSwitchTheme, buttonSaveGame, crossModalWindowVictory, modalWindowVictory,
          listDropDownMedium, buttonRandomGame, listDropDownHard, randomNonogram, audioBlackGrid, audioCross, audioEmptyCell,
@@ -14,7 +14,7 @@ let itemListEasyGame = document.querySelectorAll('.item_drop-down-easy');
 let itemListMediumGame = document.querySelectorAll('.item_drop-down-medium');
 let itemListHardGame = document.querySelectorAll('.item_drop-down-hard');
 
-playGame(wrapperBody, nonogramGrids, randomNonogram, nonogramPlayingField);
+playGame(nonogramGrids, randomNonogram, nonogramPlayingField);
 fillResultTable();
 
 buttonEasyLevel.addEventListener('click', (elem) => {
@@ -38,7 +38,7 @@ itemListEasyGame.forEach((elem) => {
     itemListEasyGame = document.querySelectorAll('.item_drop-down-easy'); 
     itemListMediumGame = document.querySelectorAll('.item_drop-down-medium');
     itemListHardGame = document.querySelectorAll('.item_drop-down-hard');
-    playGame(wrapperBody, nonogramGrids, nonogramsEasy[key], nonogramPlayingField);
+    playGame(nonogramGrids, nonogramsEasy[key], nonogramPlayingField);
   })
 })
 
@@ -63,7 +63,7 @@ itemListMediumGame.forEach((elem) => [
     itemListEasyGame = document.querySelectorAll('.item_drop-down-easy'); 
     itemListMediumGame = document.querySelectorAll('.item_drop-down-medium');
     itemListHardGame = document.querySelectorAll('.item_drop-down-hard');
-    playGame(wrapperBody, nonogramGrids, nonogramsMedium[key], nonogramPlayingField);
+    playGame(nonogramGrids, nonogramsMedium[key], nonogramPlayingField);
   })
 ])
 
@@ -110,11 +110,15 @@ buttonRandomGame.addEventListener('click', () => {
   itemListEasyGame = document.querySelectorAll('.item_drop-down-easy'); 
   itemListMediumGame = document.querySelectorAll('.item_drop-down-medium');
   itemListHardGame = document.querySelectorAll('.item_drop-down-hard');
-  playGame(wrapperBody, nonogramGrids, randomNonogram, nonogramPlayingField);
+  playGame(nonogramGrids, randomNonogram, nonogramPlayingField);
 })
 
 buttonSwitchTheme.addEventListener('click', () => {
   body.classList.toggle('dark');
+  nonogramGrids = document.querySelectorAll('.coded-image__grid');
+  nonogramGrids.forEach((elem) => {
+    body.classList.contains('dark')?elem.style.borderColor = 'beige': elem.style.borderColor = 'black';
+  })
   addBorder(nonogramGrids, nonogramPlayingField);
 })
 
@@ -161,6 +165,7 @@ buttonMenuBurger.addEventListener('click', () => {
    buttonSwitchTheme.classList.toggle('open-button-theme');
    containerLinkScores.classList.toggle('open-list');
 })
+
 body.addEventListener('click',() => {
   listDropDownHard.classList.remove('list_drop-down-open');
   deleteClass(listDropDownEasy, listDropDownMedium, 'list_drop-down-open', 'list_drop-down-open');
