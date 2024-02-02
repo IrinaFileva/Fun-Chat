@@ -2,7 +2,8 @@ import { nonogramsEasy, nonogramsHard, nonogramsMedium, nonogramsAll, } from "./
 import { body, wrapperBody, buttonEasyLevel, listDropDownEasy,buttonMediumLevel, buttonSound, audioModal, buttonHardLevel,
          nonogramPlayingField, buttonSwitchTheme, buttonSaveGame, crossModalWindowVictory, modalWindowVictory,
          listDropDownMedium, buttonRandomGame, listDropDownHard, randomNonogram, audioBlackGrid, audioCross, audioEmptyCell,
-         backgroundModalWindowVictory, buttonSolution} from "./create-html.js";
+         backgroundModalWindowVictory, buttonSolution, burgerMenuWrapper, lineBottomButtonMenuBurger, lineCenterButtonMenuBurger,
+         lineTopButtonMenuBurger, buttonMenuBurger, containerLinkScores} from "./create-html.js";
 import { addNonogram, deleteClass, createRandomLevel, changeZIndexButtons, 
          createMatrixRandomForButton, playGame, stopTime, fillResultTable, addBorder, openCloseModal} from "./functions.js";
 
@@ -151,6 +152,15 @@ modalWindowVictory.addEventListener('click', (event) => {
   event.stopPropagation();
 })
 
+buttonMenuBurger.addEventListener('click', () => {
+   burgerMenuWrapper.classList.toggle('burger-open');
+   lineBottomButtonMenuBurger.classList.toggle('rotate-bottom');
+   lineCenterButtonMenuBurger.classList.toggle('line-none');
+   lineTopButtonMenuBurger.classList.toggle('rotate-top');
+   buttonSound.classList.toggle('open-button-sound');
+   buttonSwitchTheme.classList.toggle('open-button-theme');
+   containerLinkScores.classList.toggle('open-list');
+})
 body.addEventListener('click',() => {
   listDropDownHard.classList.remove('list_drop-down-open');
   deleteClass(listDropDownEasy, listDropDownMedium, 'list_drop-down-open', 'list_drop-down-open');

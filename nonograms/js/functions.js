@@ -27,7 +27,7 @@ export function playGame(parent, grids, matrix, field){
       if(gameMatrix.join('') === workingNonogram.flat().join('')){
         grids.forEach(x => {
           x.classList.remove('cross-black');
-          x.style.borderColor = 'black';
+          body.classList.contains('dark')?x.style.borderColor = 'white': x.style.borderColor = 'black';
         })
         titleModalWindowVictory.innerHTML =`<span>Great!</span><br> You have solved the nonogram in ${addSecondsInModal()} seconds!`;
         backgroundModalWindowVictory.classList.add('open-window');

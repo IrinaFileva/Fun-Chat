@@ -11,8 +11,13 @@ wrapperBody.className = 'body__wrapper';
 const header = addElement('header', 'header', wrapperBody);
 
 const nameGame = addElement('h1', 'header__title', header);
-nameGame.textContent = 'Nonograms';
+export const buttonMenuBurger = addElement('div', 'header__button-menu-burger', header);
+export const lineTopButtonMenuBurger = addElement('div', 'button-menu-burger__line line-top', buttonMenuBurger);
+export const lineCenterButtonMenuBurger = addElement('div', 'button-menu-burger__line line-center', buttonMenuBurger);
+export const lineBottomButtonMenuBurger = addElement('div', 'button-menu-burger__line line-bottom', buttonMenuBurger);
+export const burgerMenuWrapper = addElement('div', 'header__burger-menu', header);
 
+nameGame.textContent = 'Nonograms';
 // Main
 const main = addElement('main', 'main', wrapperBody);
 
@@ -61,7 +66,7 @@ export const buttonSolution = addElement('button', 'score-solution__button_solut
 export const buttonResetGame = addElement('button', 'score-solution__button_reset-game buttons-level__button', containerScoresAndSolution);
 export const containerLinkScores = addElement('div', 'score-solution__link_top-scores', containerScoresAndSolution);
 
-containerLinkScores.textContent = 'Result:';
+containerLinkScores.textContent = 'Results';
 createAndFillButton(buttonSolution, 'button', 'Solution');
 createAndFillButton(buttonResetGame, 'button', 'Reset game');
 
