@@ -18,7 +18,7 @@ playGame(nonogramGrids, randomNonogram, nonogramPlayingField);
 fillResultTable();
 
 buttonEasyLevel.addEventListener('click', (elem) => {
-  elem.stopPropagation();
+  containerLinkScores.classList.contains('open-list')? 0 : elem.stopPropagation();
   listDropDownEasy.classList.toggle('list_drop-down-open');
   deleteClass(listDropDownMedium, listDropDownHard, 'list_drop-down-open', 'list_drop-down-open');
   changeZIndexButtons(buttonEasyLevel, buttonHardLevel, buttonMediumLevel);
@@ -43,7 +43,7 @@ itemListEasyGame.forEach((elem) => {
 })
 
 buttonMediumLevel.addEventListener('click', (elem) => {
-  elem.stopPropagation();
+  containerLinkScores.classList.contains('open-list')? 0 : elem.stopPropagation();
   listDropDownMedium.classList.toggle('list_drop-down-open');
   deleteClass(listDropDownEasy, listDropDownHard, 'list_drop-down-open', 'list_drop-down-open');
   changeZIndexButtons(buttonMediumLevel, buttonHardLevel, buttonRandomGame);
@@ -68,7 +68,7 @@ itemListMediumGame.forEach((elem) => [
 ])
 
 buttonHardLevel.addEventListener('click', (elem) => {
-  elem.stopPropagation();
+  containerLinkScores.classList.contains('open-list')? 0 : elem.stopPropagation();
   listDropDownHard.classList.toggle('list_drop-down-open');
   deleteClass(listDropDownEasy, listDropDownMedium, 'list_drop-down-open', 'list_drop-down-open');
   changeZIndexButtons(buttonHardLevel, buttonRandomGame, buttonMediumLevel);
@@ -113,7 +113,8 @@ buttonRandomGame.addEventListener('click', () => {
   playGame(nonogramGrids, randomNonogram, nonogramPlayingField);
 })
 
-buttonSwitchTheme.addEventListener('click', () => {
+buttonSwitchTheme.addEventListener('click', (elem) => {
+  elem.stopPropagation()
   body.classList.toggle('dark');
   nonogramGrids = document.querySelectorAll('.coded-image__grid');
   nonogramGrids.forEach((elem) => {
@@ -122,7 +123,8 @@ buttonSwitchTheme.addEventListener('click', () => {
   addBorder(nonogramGrids, nonogramPlayingField);
 })
 
-buttonSound.addEventListener('click', () => {
+buttonSound.addEventListener('click', (elem) => {
+  elem.stopPropagation()
   buttonSound.classList.toggle('game-board__button_sound-mute');
   if(buttonSound.classList.contains('game-board__button_sound-mute')){
     audioBlackGrid.muted = true;
@@ -156,23 +158,33 @@ modalWindowVictory.addEventListener('click', (event) => {
   event.stopPropagation();
 })
 
-buttonMenuBurger.addEventListener('click', () => {
-   burgerMenuWrapper.classList.toggle('burger-open');
-   lineBottomButtonMenuBurger.classList.toggle('rotate-bottom');
-   lineCenterButtonMenuBurger.classList.toggle('line-none');
-   lineTopButtonMenuBurger.classList.toggle('rotate-top');
-   buttonSound.classList.toggle('open-button-sound');
-   buttonSwitchTheme.classList.toggle('open-button-theme');
-   containerLinkScores.classList.toggle('open-list');
+buttonMenuBurger.addEventListener('click', (elem) => {
+  elem.stopPropagation();
+  burgerMenuWrapper.classList.toggle('burger-open');
+  lineBottomButtonMenuBurger.classList.toggle('rotate-bottom');
+  lineCenterButtonMenuBurger.classList.toggle('line-none');
+  lineTopButtonMenuBurger.classList.toggle('rotate-top');
+  buttonSound.classList.toggle('open-button-sound');
+  buttonSwitchTheme.classList.toggle('open-button-theme');
+  containerLinkScores.classList.toggle('open-list');
 })
 
-containerLinkScores.addEventListener('click', () =>{
+containerLinkScores.addEventListener('click', (elem) =>{
   containerLinkScores.classList.toggle('open-list-results');
   document.querySelectorAll('.item__top-score').forEach((elem) =>{
-    elem.classList.toggle('open-list-results')
+    elem.classList.toggle('open-list-results');
   })
 })
+
+burgerMenuWrapper.addEventListener('click', (elem) => {
+  elem.stopPropagation();
+})
+
 body.addEventListener('click',() => {
   listDropDownHard.classList.remove('list_drop-down-open');
   deleteClass(listDropDownEasy, listDropDownMedium, 'list_drop-down-open', 'list_drop-down-open');
+  deleteClass(burgerMenuWrapper, lineBottomButtonMenuBurger, 'burger-open', 'rotate-bottom');
+  deleteClass(lineCenterButtonMenuBurger, lineTopButtonMenuBurger, 'line-none', 'rotate-top');
+  deleteClass(buttonSound, buttonSwitchTheme, 'open-button-sound', 'open-button-theme');
+  containerLinkScores.classList.remove('open-list');
 })
