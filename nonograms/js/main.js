@@ -89,7 +89,7 @@ itemListHardGame.forEach((elem) => [
     itemListEasyGame = document.querySelectorAll('.item_drop-down-easy'); 
     itemListMediumGame = document.querySelectorAll('.item_drop-down-medium');
     itemListHardGame = document.querySelectorAll('.item_drop-down-hard');
-    playGame(wrapperBody, nonogramGrids, nonogramsHard[key], nonogramPlayingField);
+    playGame(nonogramGrids, nonogramsHard[key], nonogramPlayingField);
   })
 ])
 
@@ -166,6 +166,12 @@ buttonMenuBurger.addEventListener('click', () => {
    containerLinkScores.classList.toggle('open-list');
 })
 
+containerLinkScores.addEventListener('click', () =>{
+  containerLinkScores.classList.toggle('open-list-results');
+  document.querySelectorAll('.item__top-score').forEach((elem) =>{
+    elem.classList.toggle('open-list-results')
+  })
+})
 body.addEventListener('click',() => {
   listDropDownHard.classList.remove('list_drop-down-open');
   deleteClass(listDropDownEasy, listDropDownMedium, 'list_drop-down-open', 'list_drop-down-open');
