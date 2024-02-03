@@ -275,8 +275,8 @@
 }
 
 .button-circle:hover {
-  width: 42px;
-  height: 42px;
+  width: 43px;
+  height: 43px;
   margin: 1px;
 }
 
@@ -581,7 +581,7 @@
   height: 50px;
   cursor: pointer;
   z-index: 30;
-  transition: all 0.3s ;
+  transition: all 0.3s;
 }
 
 .button-menu-burger__line{
@@ -590,6 +590,7 @@
   background-color: rgb(121, 74, 74);
   border-radius: 10px;
   margin-top: 10px;
+  transition: all 0.3s;
 }
 
 .dark .button-menu-burger__line{
@@ -618,22 +619,26 @@
 
 .burger-open{
   right: 0;
+  transition: all 0.3s;
 }
 
 .rotate-top{
   position: absolute;
   rotate: 45deg;
   top: 30px;
+  transition: all 0.3s;
 }
 
 .line-none{
-  display: none;
+  opacity: 0;
+  transition: all 0.1s;
 }
 
 .rotate-bottom{
   position: absolute;
   rotate: -45deg;
   top: 30px;
+  transition: all 0.3s;
 }
 
 @media(max-width: 1190px){
@@ -767,6 +772,7 @@
     z-index: 40;
     top: 90px;
     right: -70%;
+    transition: all 0.3s;
   }
   .item__top-score{
     display: flex;
@@ -777,9 +783,11 @@
   }
   .game-board__button_theme{
     right: -55px;
+    transition: all 0.3s;
   }
   .game-board__button_sound{
     right: -115px;
+    transition: all 0.3s;
   }
   .header__button-menu-burger{
     display: flex;
@@ -792,11 +800,15 @@
   }
   .open-button-theme{
     right: 55px;
+    transition: all 0.3s;
   }
   .open-button-sound{
     right: 115px;
+    transition: all 0.3s;
   }
   .open-list{
+    pointer-events: none;
     right: 40px;
+    transition: all 0.3s;
   }
 }
