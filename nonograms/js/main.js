@@ -1,9 +1,9 @@
-import { nonogramsEasy, nonogramsHard, nonogramsMedium, nonogramsAll } from "./constants.js";
+import { nonogramsEasy, nonogramsHard, nonogramsMedium, nonogramsAll, gameArray, gameTime } from "./constants.js";
 import { body, wrapperBody, buttonEasyLevel, listDropDownEasy,buttonMediumLevel, buttonSound, audioModal, buttonHardLevel,
          nonogramPlayingField, buttonSwitchTheme, buttonSaveGame, crossModalWindowVictory, modalWindowVictory,
          listDropDownMedium, buttonRandomGame, listDropDownHard, randomNonogram, audioBlackGrid, audioCross, audioEmptyCell,
          backgroundModalWindowVictory, buttonSolution, burgerMenuWrapper, lineBottomButtonMenuBurger, lineCenterButtonMenuBurger,
-         lineTopButtonMenuBurger, buttonMenuBurger, containerLinkScores} from "./create-html.js";
+         lineTopButtonMenuBurger, buttonMenuBurger, containerLinkScores, buttonContinueGame, titleTimeGame} from "./create-html.js";
 import { addNonogram, deleteClass, createRandomLevel, changeZIndexButtons, 
          createMatrixRandomForButton, playGame, stopTime, fillResultTable, addBorder, openCloseModal} from "./functions.js";
 
@@ -113,6 +113,30 @@ buttonRandomGame.addEventListener('click', () => {
   playGame(nonogramGrids, randomNonogram, nonogramPlayingField);
 })
 
+buttonContinueGame.addEventListener('click', () => {
+  let objSave = JSON.parse(localStorage.getItem('IF-save'));
+  gameTime.seconds = +objSave.time.slice(-2);
+  titleTimeGame.textContent = objSave.time;
+  while(nonogramPlayingField.firstChild){
+    nonogramPlayingField.removeChild(nonogramPlayingField.firstChild);
+  }
+  nonogramPlayingField.className = objSave.class;
+  addNonogram(gameArray.gameMatrix, nonogramPlayingField);
+  nonogramGrids = document.querySelectorAll('.coded-image__grid');
+  itemListEasyGame = document.querySelectorAll('.item_drop-down-easy'); 
+  itemListMediumGame = document.querySelectorAll('.item_drop-down-medium');
+  itemListHardGame = document.querySelectorAll('.item_drop-down-hard');
+  nonogramGrids.forEach((elem, index) => {
+    if(objSave.non[index] === '1'){
+      elem.classList.add('background-black');
+    }
+    if(objSave.non[index] === '0'){
+      elem.classList.add('cross-black');
+    }
+  })
+  playGame(nonogramGrids, gameArray.gameMatrix, nonogramPlayingField);
+})
+
 buttonSwitchTheme.addEventListener('click', (elem) => {
   elem.stopPropagation()
   body.classList.toggle('dark');
@@ -169,7 +193,7 @@ buttonMenuBurger.addEventListener('click', (elem) => {
   containerLinkScores.classList.toggle('open-list');
 })
 
-containerLinkScores.addEventListener('click', (elem) =>{
+containerLinkScores.addEventListener('click', () =>{
   containerLinkScores.classList.toggle('open-list-results');
   document.querySelectorAll('.item__top-score').forEach((elem) =>{
     elem.classList.toggle('open-list-results');
