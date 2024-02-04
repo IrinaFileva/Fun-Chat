@@ -1,5 +1,5 @@
-import { gameTime, nonogramsEasy, nonogramsMedium, nonogramsHard } from "./constants.js";
-import { titleTimeGame, containerLinkScores, buttonResetGame,containerButtonsLevel, wrapperBody, audioModal,
+import { gameTime, nonogramsEasy, nonogramsMedium, nonogramsHard, gameArray } from "./constants.js";
+import { titleTimeGame, containerLinkScores, buttonResetGame, containerButtonsLevel, wrapperBody, audioModal,
          buttonSolution, buttonSaveGame, body, buttonContinueGame, audioBlackGrid, modalWindowVictory,
          audioCross, audioEmptyCell, backgroundModalWindowVictory, titleModalWindowVictory} from "./create-html.js";
 
@@ -7,7 +7,6 @@ export function playGame(grids, matrix, field){
 
   const nonogramLine = document.querySelectorAll('.coded-image__line');
   const gameMatrix = createMatrixGame(nonogramLine);
-
   let workingNonogram;
 
   addSecondAndMinutes();
@@ -15,6 +14,8 @@ export function playGame(grids, matrix, field){
   workingNonogram = matrix;
 
   grids.forEach((elem, index)=> {
+    if(elem.classList.contains('background-black'))gameMatrix.splice(index, 1, '1');
+    if(elem.classList.contains('cross-black'))gameMatrix.splice(index, 1, '0');
     elem.addEventListener('click', () => {
       elem.classList.contains('background-black')?audioEmptyCell.play():audioBlackGrid.play();
       buttonResetGame.removeAttribute('disabled');
@@ -79,6 +80,7 @@ export function playGame(grids, matrix, field){
   })
 
   buttonSaveGame.addEventListener('click', () =>{
+    gameArray.gameMatrix = matrix;
     buttonContinueGame.removeAttribute('disabled');
     let objSave = JSON.parse(localStorage.getItem('IF-save')) || {};
     objSave.time = titleTimeGame.textContent;
@@ -90,24 +92,6 @@ export function playGame(grids, matrix, field){
     setTimeout(function(){
       windowTooltipBox.remove()
     }, 600);
-  })
-
-  buttonContinueGame.addEventListener('click', () => {
-    let objSave = JSON.parse(localStorage.getItem('IF-save'));
-    gameTime.seconds = +objSave.time.slice(-2);
-    titleTimeGame.textContent = objSave.time;
-    gameMatrix.fill(0);
-    grids.forEach((elem, index) => {
-      deleteClass(elem, elem, 'background-black', 'cross-black');
-      if(objSave.non[index] === '1'){
-        elem.classList.add('background-black');
-        gameMatrix.splice(index, 1, '1');
-      }
-      if(objSave.non[index] === '0'){
-        elem.classList.add('cross-black');
-        gameMatrix.splice(index, 1, '0');
-      }
-    })
   })
   addBorder(grids, field);
 }

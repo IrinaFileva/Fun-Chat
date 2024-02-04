@@ -187,3 +187,5 @@ export const nonogramsHard = {
 export const nonogramsAll = {'Easy': nonogramsEasy, 'Hard': nonogramsHard, 'Medium': nonogramsMedium};
 
 export const gameTime = {'seconds': 0, 'minutes': 0, 'cont': 0, 'interval': 0};
+
+export const gameArray = { 'gameMatrix': 0}
