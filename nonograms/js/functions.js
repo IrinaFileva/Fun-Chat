@@ -84,8 +84,9 @@ export function playGame(grids, matrix, field){
     buttonContinueGame.removeAttribute('disabled');
     let objSave = JSON.parse(localStorage.getItem('IF-save')) || {};
     objSave.time = titleTimeGame.textContent;
-    objSave.non = Array.from(gameMatrix);
+    objSave.non = gameMatrix;
     objSave.class = field.className;
+    objSave.workMatrix = matrix
     localStorage.setItem('IF-save', JSON.stringify(objSave));
     const windowTooltipBox = addElement('div', 'window-tooltip-box', containerButtonsLevel);
     windowTooltipBox.textContent = 'Game save';

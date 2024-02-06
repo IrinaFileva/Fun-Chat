@@ -47,8 +47,8 @@ createAndFillButton(buttonRandomGame, 'button', 'Random Game');
 createAndFillButton(buttonSaveGame, 'button', 'Save Game');
 createAndFillButton(buttonContinueGame, 'button', 'Continue last game');
 
+if(localStorage.getItem('IF-save') === null) buttonContinueGame.setAttribute('disabled', 'disabled'); 
 buttonSaveGame.setAttribute('disabled', 'disabled');
-buttonContinueGame.setAttribute('disabled', 'disabled');
 
 //container playing-field
 const containerPlayingField = addElement('div', 'game-board__container_playing-field', wrapperGame);

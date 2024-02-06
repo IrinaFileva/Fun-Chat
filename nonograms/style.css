@@ -13,6 +13,7 @@
   width: 100%;
   margin: 0 auto;
   overflow-x: hidden;
+
 }
   
 .header{
@@ -33,7 +34,6 @@
 
 .game-board__wrapper{
   width: 100%;
-  height: 85vh;
   position: relative;
   display: flex;
   justify-content: center;
@@ -131,7 +131,7 @@
 }
 
 .game-board__container_playing-field{
-  width: 490px;
+  width: 480px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -282,7 +282,7 @@
 
 .easy{
   flex-direction: column;
-  padding: 120px;
+  padding: 120px 110px;
 }
 
 .easy .nonogram__container-coded-image{
@@ -318,7 +318,7 @@
 
 .medium{
   flex-direction: column;
-  padding: 35px;
+  padding: 35px 25px;
 }
 
 .medium .playing-field__container-left-tooltips{
@@ -360,7 +360,7 @@
 }
 
 .hard{
-  padding: 15px 10px;
+  padding: 15px 5px;
 }
 
 .hard .top-tooltips__line{
@@ -680,7 +680,7 @@
     height: 120px;
     flex-wrap: wrap;
     padding: 0;
-    margin-right: 30px;
+    margin-right: 40px;
   }
   .buttons-level__button{
     width: 145px;
@@ -694,7 +694,7 @@
   }
   .list-drop-down_medium{
     width: 145px;
-    top: 70px;
+    top: 80px;
     left: 0;
   }
   .list-drop-down_hard{
@@ -712,7 +712,7 @@
   .playing-field__title-time-game {
     font: italic 600 18px/20px Roboto;
     position: absolute;
-    top: 22%;
+    top: 24%;
   }
   .score-solution__link_top-scores{
     position: absolute;
