@@ -121,7 +121,7 @@ buttonContinueGame.addEventListener('click', () => {
     nonogramPlayingField.removeChild(nonogramPlayingField.firstChild);
   }
   nonogramPlayingField.className = objSave.class;
-  addNonogram(gameArray.gameMatrix, nonogramPlayingField);
+  addNonogram(Array.from(objSave.workMatrix), nonogramPlayingField);
   nonogramGrids = document.querySelectorAll('.coded-image__grid');
   itemListEasyGame = document.querySelectorAll('.item_drop-down-easy'); 
   itemListMediumGame = document.querySelectorAll('.item_drop-down-medium');
@@ -134,7 +134,7 @@ buttonContinueGame.addEventListener('click', () => {
       elem.classList.add('cross-black');
     }
   })
-  playGame(nonogramGrids, gameArray.gameMatrix, nonogramPlayingField);
+  playGame(nonogramGrids, Array.from(objSave.workMatrix), nonogramPlayingField);
 })
 
 buttonSwitchTheme.addEventListener('click', (elem) => {
