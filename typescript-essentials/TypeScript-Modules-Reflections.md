@@ -33,6 +33,7 @@ Numerous compiler parameters are available
 + Compiled my first TypeScript file.
 
 **How to use them👩‍💻:**
+
 The knowledge gained in this module introduced me to the new TypeScript language, its features and benefits.<br>
 In future projects, I will use this knowledge to create projects in TypeScript,<br> 
 to identify code problems early in the development process and utilize the features of this language.
