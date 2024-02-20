@@ -176,8 +176,36 @@ This will simplify development when you clearly understand what type of data the
 ### 5. Declare and Instantiate Classes in TypeScript 📌
 
 **Key learnings:**
+
+TypeScript classes are another way to define the form of an object in addition to describing object types using interfaces and functions. 
+
+In TypeScript, you can control the visibility of class members by adding one of the keywords before the element name:
++ public - public element, 
++ private - the element cannot be accessed from the outside,
++ protected - acts in the same way as the private modifier, except that elements declared as protected are also available in derived classes
+
+In addition, properties can be labeled as readonly using the readonly modifier
+
+There is another type of property called static property. Static properties and methods are common to all instances of a class.
+
+Classes can be extended with the help of inheritance.<br>
+By extending a class, new classes can be created that use existing code from the inherited class and build upon it.
+
+Also, methods in a class can be overridden.<br>That is, if you create a function in a subclass with the same name as a function in the base class, the new function will have different functionality.
+
+You can use an interface to precisely define the form of an instance of a class.<br> Class declarations can have a reference in their proposal to one or more interfaces.
+
 **Skills learned:**
+
++ Creating a class instance
++ Applying class access modifiers
++ Extending a class using inheritance
++ Declaring an interface to precisely define the form of a class
+
 **How to use them:**
+
+With this module, I learned how to create classes with different access modifiers, how to extend classes with inheritance,<br> and how to use an interface to more precisely define the form of an instance of a class.<br>
+In the future, I will use this information to create classes in TypeScript
 
 ### 6. Generics in TypeScript 📌
 
