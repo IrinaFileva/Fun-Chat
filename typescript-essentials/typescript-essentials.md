@@ -242,8 +242,35 @@ use the same data type in multiple places.
 ### 7. Work with External Libraries in TypeScript 📌
 
 **Key learnings:**
+
+Modules provide a way to organize and classify code, allowing related code to be grouped together.<br>
+In addition, when code is inside a module, it is extracted from the global scope into the module scope.
+
+You can export any declaration by adding the export keyword or import it using the import keyword. 
+
+The import operator can take several forms depending on the purpose:
+
++ importing a single export from a module 
++ renamed import with the as keyword 
++ importing the entire module into a single variable
+
+Any file that contains a top-level import or export statement is considered a module.
+
+In TypeScript, external libraries are accessed using the import statement.<br>
+After importing a library and defining its type, the library can be used in code and benefit from IntelliSense and type checking.
+
+
 **Skills learned:**
+
++ Exporting and importing module components
++ Module compilation
++ Access to external type libraries
++ Installing and implementing a type library named _dotenv_.
+
 **How to use them:**
+
+This section helped me understand what modules are in TypeScript. <br> How to compile them and how to connect external type libraries.<br>
+In the future, this information will help me compile modules correctly and use external libraries.
 
 ### 8. Organize Code with Namespaces in TypeScript 📌
 
