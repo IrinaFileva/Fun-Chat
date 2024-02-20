@@ -210,8 +210,34 @@ In the future, I will use this information to create classes in TypeScript
 ### 6. Generics in TypeScript 📌
 
 **Key learnings:**
+
+Generics are a way of passing types to a component so that you can apply your own types not only to variables of a universal type, but also to interfaces, functions, and classes.
+
+Generics can:
+
++ Provide more flexibility when working with types.
++ Support code reuse.
++ Reduce the need to use the type any.
+
+Generics define one or more type variables to specify the types to be passed to the component, within angle brackets (< >).
+
+When using type variables to create universal components, only the properties and methods of objects available for each type can be used. <br>
+This prevents errors from occurring when you try to perform an operation with a parameter value that is incompatible with the type passed to it.
+
+Universal constraints can be applied to generics. Constraints allow you to rely on a more specific type when using a universal type.
+
 **Skills learned:**
+
++ Implementation of generics with interfaces and classes
++ Declaring a universal interface
++ Declaring a class using a generics
++ Using universal constraints with custom types and classes
+
 **How to use them:**
+
+In this module, I learned how to use universal patterns in classes and interfaces. <br>
+In the future, universal patterns will help me create universal functions or classes that work with different data types and
+use the same data type in multiple places.
 
 ### 7. Work with External Libraries in TypeScript 📌
 
