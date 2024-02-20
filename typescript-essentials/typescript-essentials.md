@@ -275,5 +275,28 @@ In the future, this information will help me compile modules correctly and use e
 ### 8. Organize Code with Namespaces in TypeScript 📌
 
 **Key learnings:**
+
+Namespaces (called internals in earlier versions of TypeScript) are a way of organizing and classifying TypeScript-related code that allows you to group related code.<br> 
+Namespaces allow variables, functions, interfaces, or classes related to business rules to be grouped in one namespace and security in another.
+
+Code within a namespace is extracted from the global domain into the namespace domain.
+
+Namespaces can be used in cases such as:
+
++ Reducing the amount of code in the global area to limit contamination of the global area.
++ Specifying a context for names that helps reduce naming conflicts.
++ Improving reuse.
+
+Namespaces or modules that can contain code and declarations can be used to organize code.<br>
+Although namespaces are easy to use for uncomplicated implementations and do not depend on a module loader, modules provide some additional benefits that namespaces lack
+
 **Skills learned:**
++ Organizing code using nested namespaces
++ Organizing code using single-file namespaces
++ Organizing code using multi-file namespaces
++ Compiling multi-file namespaces
+
 **How to use them:**
+
+From this module, I learned what namespaces are in TypeScript. <br>They are similar to modules and allow you to group variables, functions, interfaces, or classes related to business rules in one namespace and security in another.<br>
+In new projects, I will use modules to organize my code, as they have many additional advantages
