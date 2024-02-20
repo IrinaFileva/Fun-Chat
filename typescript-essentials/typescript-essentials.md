@@ -134,8 +134,44 @@ In the future, interfaces can help me with code reusability and easier refactori
 ### 4. Develop Typed Functions in TypeScript 📌
 
 **Key learnings:**
+
+TypeScript adds a number of new features to standard JavaScript functions that make them easier to work with.
+
+Adding types to functions helps prevent passing values that should not be passed to functions.
+
+You can define the type of a function using a type alias or an interface
+
+You can designate function parameters as mandatory or optional
+
+The TypeScript compiler assumes by default that all parameters defined in a function are required. 
+When you call a function, the TypeScript compiler checks the following:
+
++ Whether values have been provided for each parameter.
++ Whether only those parameters that are required by the function are passed;
++ Parameters are passed in the order in which they are defined in the function.
+
+You can define optional parameters by adding a question mark (?) to the end of the parameter name
+
+You can also assign default values to optional parameters.<br> 
+If a value is passed to an optional parameter as an argument, it will be assigned that value. 
+Otherwise, it is assigned a default value. 
+ 
+Rest parameters are treated as an unlimited number of optional parameters. You can remove them or add them in any number.
+
+You can use a method called deconstruct object parameters to include named parameters.
+
 **Skills learned:**
++ Understand the advantage of using types in functions.
++ Declare functions with strictly typed parameters and return values.
++ Declare functions that have mandatory and optional parameters, default parameters, and rest parameters.
++ Define function types using type aliases or interfaces.
+
 **How to use them:**
+
+After passing this module, I learned how to declare and call functions with different types of parameters.<br>
+In future development, this information will help me to create functions with different types of parameters, as well as to specify the data type of return values.<br>
+This will simplify development when you clearly understand what type of data the function needs and what type of data it will output
+
 
 ### 5. Declare and Instantiate Classes in TypeScript 📌
 
