@@ -18,7 +18,7 @@ Here is a collection of badges I earned from completing Microsoft Learn's TypeSc
 
 ### 1. Getting Started with TypeScript 📌
    
-**Key learnings:**
+**Key learnings📚:**
 
 TypeScript is an open source language developed by Microsoft. It is an extended version of JavaScript, with certain features that were previously unavailable.\
 The main feature of TypeScript is its type system. In TypeScript, you can determine the data type of a variable or parameter by using a type hint.\
@@ -42,20 +42,20 @@ Using compiler parameters, you can control the creation of JavaScript from the o
 You can set the parameters either on the command line or in a JSON file named tsconfig.json.\
 Numerous compiler parameters are available
 
-**Skills learned:**
+**Skills learned🔗:**
 + Installing the TypeScript compiler in VC Code.
 + Creating a tsconfig.json file.
 + Modifying a few parameters in the tsconfig.json file.
 + Compiled my first TypeScript file.
 
-**How to use them:**
+**How to use them👩‍💻:**
 The knowledge gained in this module introduced me to the new TypeScript language, its features and benefits.<br>
 In future projects, I will use this knowledge to create projects in TypeScript,<br> 
 to identify code problems early in the development process and utilize the features of this language.
 
 ### 2. Declare Variable Types in TypeScript 📌
 
-**Key learnings:**
+**Key learnings📚:**
 
 The main advantage of TypeScript is that it allows you to add static types to your JavaScript code.<br> 
 Types impose static constraints on program objects such as functions, variables, and properties,<br> 
@@ -79,14 +79,14 @@ Literal types allow you to restrict the values assigned to a type to a narrow li
 If you need to treat a variable as another data type, you can use a type assertion .<br>
 A type assertion tells TypeScript that all necessary special checks have been performed before calling a statement.
 
-**Skills learned:**
+**Skills learned🔗:**
 
 + understanding of what types and subtypes there are in TypeScript
 + implementation of types and subtypes for functions and variables
 + understanding of the use of types any and unknown in the moments of development of the year, when the type is not known
 + understanding of the use of literal types to restrict the values assigned to a type to a narrow list of parameters.
 
-**How to use them:**
+**How to use them👩‍💻:**
 
 After taking this module, I learned what types and subtypes of data are available in TypeScript. <br>
 I learned how and in what situations to use this information. I learned how to declare the type of a variable and function.<br>
@@ -94,7 +94,7 @@ In the future it will help me to assign the correct type to a variable or functi
 
 ### 3. Implement Interfaces in TypeScript 📌
 
-**Key learnings:**
+**Key learnings📚:**
 
 In TypeScript, interfaces perform implicit type naming and are an effective way to define a "code contract" in code, as well as code contracts outside the project.
 
@@ -116,14 +116,14 @@ In addition, only a union or tuple can be described using a type alias.
 
 Interfaces can complement each other. <br> This allows members of one interface to be copied into another, providing more flexibility when dividing interfaces into reusable components.
 
-**Skills learned:**
+**Skills learned🔗:**
 
 + Understanding what an interface is in TypeScript
 + Declaring an interface and creating an instance of it.
 + Extending an interface.
 + Declaring an interface with custom array types.
 
-**How to use them:**
+**How to use them👩‍💻:**
 
 In this module, I learned that in TypeScript, interfaces can be used in the same way as in traditional object-oriented programming.<br>
 You can also use interfaces to define object types.
@@ -133,7 +133,7 @@ In the future, interfaces can help me with code reusability and easier refactori
 
 ### 4. Develop Typed Functions in TypeScript 📌
 
-**Key learnings:**
+**Key learnings📚:**
 
 TypeScript adds a number of new features to standard JavaScript functions that make them easier to work with.
 
@@ -160,13 +160,13 @@ Rest parameters are treated as an unlimited number of optional parameters. You c
 
 You can use a method called deconstruct object parameters to include named parameters.
 
-**Skills learned:**
+**Skills learned🔗:**
 + Understand the advantage of using types in functions.
 + Declare functions with strictly typed parameters and return values.
 + Declare functions that have mandatory and optional parameters, default parameters, and rest parameters.
 + Define function types using type aliases or interfaces.
 
-**How to use them:**
+**How to use them👩‍💻:**
 
 After passing this module, I learned how to declare and call functions with different types of parameters.<br>
 In future development, this information will help me to create functions with different types of parameters, as well as to specify the data type of return values.<br>
@@ -175,7 +175,7 @@ This will simplify development when you clearly understand what type of data the
 
 ### 5. Declare and Instantiate Classes in TypeScript 📌
 
-**Key learnings:**
+**Key learnings📚:**
 
 TypeScript classes are another way to define the form of an object in addition to describing object types using interfaces and functions. 
 
@@ -195,21 +195,21 @@ Also, methods in a class can be overridden.<br>That is, if you create a function
 
 You can use an interface to precisely define the form of an instance of a class.<br> Class declarations can have a reference in their proposal to one or more interfaces.
 
-**Skills learned:**
+**Skills learned🔗:**
 
 + Creating a class instance
 + Applying class access modifiers
 + Extending a class using inheritance
 + Declaring an interface to precisely define the form of a class
 
-**How to use them:**
+**How to use them👩‍💻:**
 
 With this module, I learned how to create classes with different access modifiers, how to extend classes with inheritance,<br> and how to use an interface to more precisely define the form of an instance of a class.<br>
 In the future, I will use this information to create classes in TypeScript
 
 ### 6. Generics in TypeScript 📌
 
-**Key learnings:**
+**Key learnings📚:**
 
 Generics are a way of passing types to a component so that you can apply your own types not only to variables of a universal type, but also to interfaces, functions, and classes.
 
@@ -226,14 +226,14 @@ This prevents errors from occurring when you try to perform an operation with a 
 
 Universal constraints can be applied to generics. Constraints allow you to rely on a more specific type when using a universal type.
 
-**Skills learned:**
+**Skills learned🔗:**
 
 + Implementation of generics with interfaces and classes
 + Declaring a universal interface
 + Declaring a class using a generics
 + Using universal constraints with custom types and classes
 
-**How to use them:**
+**How to use them👩‍💻:**
 
 In this module, I learned how to use universal patterns in classes and interfaces. <br>
 In the future, universal patterns will help me create universal functions or classes that work with different data types and
@@ -241,7 +241,7 @@ use the same data type in multiple places.
 
 ### 7. Work with External Libraries in TypeScript 📌
 
-**Key learnings:**
+**Key learnings📚:**
 
 Modules provide a way to organize and classify code, allowing related code to be grouped together.<br>
 In addition, when code is inside a module, it is extracted from the global scope into the module scope.
@@ -260,21 +260,21 @@ In TypeScript, external libraries are accessed using the import statement.<br>
 After importing a library and defining its type, the library can be used in code and benefit from IntelliSense and type checking.
 
 
-**Skills learned:**
+**Skills learned🔗:**
 
 + Exporting and importing module components
 + Module compilation
 + Access to external type libraries
 + Installing and implementing a type library named _dotenv_.
 
-**How to use them:**
+**How to use them👩‍💻:**
 
 This section helped me understand what modules are in TypeScript. <br> How to compile them and how to connect external type libraries.<br>
 In the future, this information will help me compile modules correctly and use external libraries.
 
 ### 8. Organize Code with Namespaces in TypeScript 📌
 
-**Key learnings:**
+**Key learnings📚:**
 
 Namespaces (called internals in earlier versions of TypeScript) are a way of organizing and classifying TypeScript-related code that allows you to group related code.<br> 
 Namespaces allow variables, functions, interfaces, or classes related to business rules to be grouped in one namespace and security in another.
@@ -290,13 +290,13 @@ Namespaces can be used in cases such as:
 Namespaces or modules that can contain code and declarations can be used to organize code.<br>
 Although namespaces are easy to use for uncomplicated implementations and do not depend on a module loader, modules provide some additional benefits that namespaces lack
 
-**Skills learned:**
+**Skills learned🔗:**
 + Organizing code using nested namespaces
 + Organizing code using single-file namespaces
 + Organizing code using multi-file namespaces
 + Compiling multi-file namespaces
 
-**How to use them:**
+**How to use them👩‍💻:**
 
 From this module, I learned what namespaces are in TypeScript. <br>They are similar to modules and allow you to group variables, functions, interfaces, or classes related to business rules in one namespace and security in another.<br>
 In new projects, I will use modules to organize my code, as they have many additional advantages
