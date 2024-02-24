@@ -7,3 +7,8 @@ export interface NewsArticle{
     url: string;
     urlToImage: string;
 }
+
+export interface NewSources{
+    name: string;
+    id: string;
+}
