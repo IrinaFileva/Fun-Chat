@@ -1,4 +1,4 @@
-interface NewsArticle{
+export interface NewsArticle{
     author: string;
     source: { name: string};
     publishedAt: string;
