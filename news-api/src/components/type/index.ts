@@ -8,10 +8,10 @@ export interface NewsArticle {
     urlToImage: string;
 }
 
-export interface NewsSources {
+export type NewsSources = {
     name: string;
     id: string;
-}
+};
 
 export interface NewsResponse {
     articles?: NewsArticle[];
