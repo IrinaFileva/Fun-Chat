@@ -1,13 +1,13 @@
 import './sources.css';
-import { NewSources } from '../../type';
+import { NewsSources } from '../../type';
 import { getElementAndType } from '../news/news';
 
 class Sources {
-    draw(data: NewSources[]) {
+    draw(data: NewsSources[]) {
         const fragment: DocumentFragment = document.createDocumentFragment();
         const sourceItemTemp = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
 
-        data.forEach((item: NewSources) => {
+        data.forEach((item: NewsSources) => {
             const sourceClone = sourceItemTemp.content.cloneNode(true) as HTMLElement;
 
             getElementAndType<HTMLElement>(sourceClone, '.source__item-name').textContent = item.name;
