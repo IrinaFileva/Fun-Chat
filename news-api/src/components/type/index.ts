@@ -1,6 +1,6 @@
-export interface NewsArticle{
+export interface NewsArticle {
     author: string;
-    source: { name: string};
+    source: { name: string };
     publishedAt: string;
     title: string;
     description: string;
@@ -8,12 +8,35 @@ export interface NewsArticle{
     urlToImage: string;
 }
 
-export interface NewsSources{
+export interface NewsSources {
     name: string;
     id: string;
 }
 
-export interface NewsResponse{
+export interface NewsResponse {
     articles?: NewsArticle[];
-    sources?: NewsSources[]
+    sources?: NewsSources[];
+}
+
+export enum HTTPMethod {
+    Get = 'GET',
+}
+
+export interface ApiKey {
+    apiKey: Readonly<string>;
+}
+
+export enum SourcesAndNews {
+    Source = 'sources',
+    News = 'everything',
+}
+
+export interface RequestParams {
+    endpoint: SourcesAndNews;
+    options?: Record<string, string>;
+}
+
+export enum ErrorNumber {
+    Unauthorized = 401,
+    NotFound = 404,
 }
