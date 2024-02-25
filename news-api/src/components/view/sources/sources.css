@@ -1,30 +1,34 @@
 .sources {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    justify-content: center;
     width: 100%;
-    height: 120px;
+    height: 270px;
     overflow: auto;
     align-items: center;
     font: 300 1em 'Fira Sans', sans-serif;
 }
 
 .source__item {
+    display: flex;
+    align-items: center;
     background: none;
-    border: 2px solid #30c5ff;
+    border-radius: 10px;
+    border: 2px solid #02b3f8;
     font: inherit;
     line-height: 1;
     margin: 0.5em;
     padding: 1em 2em;
-    color: #70d6ff;
+    color: #02b3f8;
     transition: 0.25s;
     cursor: pointer;
 }
 
 .source__item:hover,
 .source__item:focus {
-    border-color: #3fcc59;
-    color: #69db7e;
-    box-shadow: 0 0.5em 0.5em -0.4em #3fcc59;
+    border-color: #d7f357;
+    color: #d7f357;
+    box-shadow: 0 0.5em 0.5em -0.4em #d7f357;
     transform: translateY(-0.25em);
 }
 
