@@ -1,22 +1,22 @@
 import { HTTPMethod, ApiKey, RequestParams, NewsResponse, SourcesAndNews, ErrorNumber } from '../type';
 
 class Loader {
-    _baseLink: Partial<string>;
-    _options: Pick<ApiKey, 'apiKey'>;
+    private _baseLink: Partial<string>;
+    private _options: Pick<ApiKey, 'apiKey'>;
 
     constructor(baseLink: Partial<string>, options: Pick<ApiKey, 'apiKey'>) {
         this._baseLink = baseLink;
         this._options = options;
     }
 
-    getResp(
+    public getResp(
         { endpoint, options = {} }: RequestParams,
         callback: (data: NewsResponse) => void = () => console.error('No callback for GET response')
     ): void {
         this.load(HTTPMethod.Get, endpoint, callback, options);
     }
 
-    errorHandler(res: Response): Response {
+    private errorHandler(res: Response): Response {
         if (!res.ok) {
             if (res.status === ErrorNumber.Unauthorized || res.status === ErrorNumber.NotFound)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -26,7 +26,7 @@ class Loader {
         return res;
     }
 
-    makeUrl(options: Record<string, string>, endpoint: SourcesAndNews) {
+    private makeUrl(options: Record<string, string>, endpoint: SourcesAndNews) {
         const urlOptions: Record<string, string> = { ...this._options, ...options };
         let url: string = `${this._baseLink}${endpoint}?`;
 
@@ -37,7 +37,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(
+    private load(
         method: HTTPMethod,
         endpoint: SourcesAndNews,
         callback: (data: NewsResponse) => void,

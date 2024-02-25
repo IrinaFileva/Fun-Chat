@@ -3,7 +3,7 @@ import { NewsSources } from '../../type';
 import { getElementAndType } from '../../utilities';
 
 class Sources {
-    draw(data: NewsSources[]) {
+    public draw(data: NewsSources[]) {
         const fragment: DocumentFragment = document.createDocumentFragment();
         const sourceItemTemp = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
 

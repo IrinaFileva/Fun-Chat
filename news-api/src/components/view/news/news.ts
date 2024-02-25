@@ -3,7 +3,7 @@ import { NewsArticle } from '../../type';
 import { getElementAndType } from '../../utilities';
 
 class News {
-    draw(data: NewsArticle[]) {
+    public draw(data: NewsArticle[]) {
         const news: NewsArticle[] = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
         const fragment: DocumentFragment = document.createDocumentFragment();
 
