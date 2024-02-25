@@ -7,6 +7,8 @@
     overflow: auto;
     align-items: center;
     font: 300 1em 'Fira Sans', sans-serif;
+    scrollbar-color:#02b3f8 #f5f7f8;
+    scrollbar-width: auto;
 }
 
 .source__item {
@@ -36,3 +38,5 @@
     font-weight: 400;
     white-space: nowrap;
 }
+
+

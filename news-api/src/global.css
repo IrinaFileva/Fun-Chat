@@ -44,6 +44,7 @@ footer .copyright a {
 }
 footer .copyright a:hover {
     color: #fcfafa;
+    text-shadow: 2px 2px 2px #02b3f8;
 }
 footer .copyright:before {
     content: '©';
@@ -79,4 +80,9 @@ footer .copyright:before {
     background-repeat: no-repeat;
     background-image: url(./assets/github-6980894_1280.png);
     border-radius: 5px;
+}
+
+.footer__logoSchool_link:hover,
+.footer__github__img:hover{
+    box-shadow: 2px 2px 2px 2px #02b3f8;
 }
