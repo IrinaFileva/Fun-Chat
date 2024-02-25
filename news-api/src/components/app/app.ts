@@ -1,6 +1,6 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
-import { getElementAndType } from '../view/news/news';
+import { getElementAndType } from '../utilities';
 
 class App {
     private _controller: AppController;

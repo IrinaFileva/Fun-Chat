@@ -1,6 +1,6 @@
 import './sources.css';
 import { NewsSources } from '../../type';
-import { getElementAndType } from '../news/news';
+import { getElementAndType } from '../../utilities';
 
 class Sources {
     draw(data: NewsSources[]) {
