@@ -11,6 +11,16 @@
     scrollbar-width: auto;
 }
 
+.source__buttons-category{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-height: 230px;
+    overflow: auto;
+    scrollbar-color:#4b4b4b #f5f7f8;
+    scrollbar-width: auto;
+}
+
 .source__item {
     display: flex;
     align-items: center;
@@ -39,4 +49,19 @@
     white-space: nowrap;
 }
 
+.button_category{
+    margin-right: 15px;
+    color: white;
+    border: 2px solid white;
+}
 
+.button_category-title{
+    font-size: 24px;
+}
+
+.button_category_active{
+    border-color: #d7f357;
+    color: #d7f357;
+    box-shadow: 0 0.5em 0.5em -0.4em #d7f357;
+    transform: translateY(-0.25em);
+}

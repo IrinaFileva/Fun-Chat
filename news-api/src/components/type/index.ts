@@ -11,6 +11,7 @@ export interface NewsArticle {
 export type NewsSources = {
     name: string;
     id: string;
+    category?: string;
 };
 
 export interface NewsResponse {
@@ -39,4 +40,15 @@ export interface RequestParams {
 export enum ErrorNumber {
     Unauthorized = 401,
     NotFound = 404,
+}
+
+export enum Category {
+    all = 'All',
+    business = 'Business',
+    entertainment = 'Entertainment',
+    general = 'General',
+    health = 'Health',
+    science = 'Science',
+    sports = 'Sports',
+    technology = 'Technology',
 }

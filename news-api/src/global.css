@@ -27,6 +27,12 @@ header h1 {
     background-image: url(./assets/1646940594_3-kartinkin-net-p-gazeti-kartinki-3-Photoroom.png-Photoroom.png);
 }
 
+.title-category{
+    text-align: center;
+    font-size: 32px;
+    text-shadow: 2px 2px 2px #02b3f8;
+}
+
 footer {
     height: 100px;
     display: flex;
