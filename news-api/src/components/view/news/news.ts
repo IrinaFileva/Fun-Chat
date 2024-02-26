@@ -1,6 +1,7 @@
 import './news.css';
 import { NewsArticle } from '../../type';
 import { getElementAndType } from '../../utilities';
+import noImage from '../../../assets/paper.png';
 
 class News {
     public draw(data: NewsArticle[]) {
@@ -15,7 +16,7 @@ class News {
                 getElementAndType<HTMLElement>(newsClone, '.news__item').classList.add('alt');
             }
             getElementAndType<HTMLElement>(newsClone, '.news__meta-photo').style.backgroundImage =
-                `url(${item.urlToImage || 'img/news_placeholder.jpg'})`;
+                `url(${item.urlToImage || noImage})`;
             getElementAndType<HTMLElement>(newsClone, '.news__meta-author').textContent =
                 item.author || item.source.name;
             getElementAndType<HTMLElement>(newsClone, '.news__meta-date').textContent = item.publishedAt

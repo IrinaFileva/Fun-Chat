@@ -19,7 +19,7 @@ const baseConfig = {
                 use: 'ts-loader',
             },
             {
-                test: /\.(jpg|png|svg|jpeg|gif)$/,
+                test: /\.(jpg|png|svg|jpeg|gif)$/i,
                 type: 'asset/resource',
             },
         ],
