@@ -65,3 +65,12 @@
     box-shadow: 0 0.5em 0.5em -0.4em #d7f357;
     transform: translateY(-0.25em);
 }
+
+@media(max-width: 500px){
+    .sources{
+        height: 200px;
+    }
+    .source__buttons-category{
+        height: 160px;
+    }
+}

@@ -92,3 +92,34 @@ footer .copyright:before {
 .footer__github__img:hover{
     box-shadow: 2px 2px 2px 2px #02b3f8;
 }
+
+@media(max-width: 500px){
+    header{
+        justify-content: space-between;
+        padding: 20px;
+    }
+    header h1{
+        font-size: 32px;
+        margin-right: 0px;
+    }
+    .header__img{
+        width: 70px;
+        height: 70px;
+    }
+    .title-category{
+        font-size: 28px;
+    }
+}
+
+@media(max-width: 400px){
+    header h1{
+        font-size: 28px;
+    }
+    .header__img{
+        width: 60px;
+        height: 60px;
+    }
+    .title-category{
+        font-size: 24px;
+    }
+}
