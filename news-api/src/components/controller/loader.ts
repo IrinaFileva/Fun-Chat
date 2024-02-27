@@ -10,10 +10,10 @@ class Loader {
     }
 
     public getResp(
-        { endpoint, options = {} }: RequestParams,
+        request: RequestParams,
         callback: (data: NewsResponse) => void = () => console.error('No callback for GET response')
     ): void {
-        this.load(HTTPMethod.Get, endpoint, callback, options);
+        this.load(HTTPMethod.Get, request.endpoint, callback, request.options);
     }
 
     private errorHandler(res: Response): Response {
