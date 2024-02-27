@@ -109,6 +109,27 @@ footer .copyright:before {
     .title-category{
         font-size: 28px;
     }
+    footer{
+        position: relative;
+        padding-top: 20px;
+        flex-direction: column-reverse;
+    }
+    .footer__title_year-and-link{
+        align-items:end;
+    }
+    .copyright{
+        margin-bottom: 5px;
+    }
+    .footer__logoSchool_link{
+        position: absolute;
+        top: 2rem;
+        left: 30%;
+        transform: translateX(-30%);
+    }
+    .footer__github__link{
+        margin-top: 10px;
+        margin-left: 10rem;
+    }
 }
 
 @media(max-width: 400px){
