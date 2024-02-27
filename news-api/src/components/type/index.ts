@@ -43,12 +43,12 @@ export enum ErrorNumber {
 }
 
 export enum Category {
-    all = 'All',
-    business = 'Business',
-    entertainment = 'Entertainment',
-    general = 'General',
-    health = 'Health',
-    science = 'Science',
-    sports = 'Sports',
-    technology = 'Technology',
+    All = 'All',
+    Business = 'Business',
+    Entertainment = 'Entertainment',
+    General = 'General',
+    Health = 'Health',
+    Science = 'Science',
+    Sports = 'Sports',
+    Technology = 'Technology',
 }

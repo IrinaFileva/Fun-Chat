@@ -1,10 +1,10 @@
 import { HTTPMethod, ApiKey, RequestParams, NewsResponse, SourcesAndNews, ErrorNumber } from '../type';
 
 class Loader {
-    private _baseLink: Partial<string>;
+    private _baseLink: string;
     private _options: Pick<ApiKey, 'apiKey'>;
 
-    constructor(baseLink: Partial<string>, options: Pick<ApiKey, 'apiKey'>) {
+    constructor(baseLink: string, options: Pick<ApiKey, 'apiKey'>) {
         this._baseLink = baseLink;
         this._options = options;
     }
