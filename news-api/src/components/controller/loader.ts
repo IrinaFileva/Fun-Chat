@@ -26,11 +26,11 @@ class Loader {
         return res;
     }
 
-    private makeUrl(options: Record<string, string>, endpoint: SourcesAndNews) {
+    private makeUrl(options: Record<string, string>, endpoint: SourcesAndNews): string {
         const urlOptions: Record<string, string> = { ...this._options, ...options };
         let url: string = `${this._baseLink}${endpoint}?`;
 
-        Object.keys(urlOptions).forEach((key) => {
+        Object.keys(urlOptions).forEach((key: string) => {
             url += `${key}=${urlOptions[key]}&`;
         });
 
@@ -42,10 +42,10 @@ class Loader {
         endpoint: SourcesAndNews,
         callback: (data: NewsResponse) => void,
         options: Record<string, string> = {}
-    ) {
+    ): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
-            .then((res) => res.json())
+            .then((res: Response) => res.json())
             .then((data: NewsResponse) => callback(data))
             .catch((err: string) => console.error(err));
     }

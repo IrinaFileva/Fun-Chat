@@ -4,12 +4,12 @@ import { getElementAndType } from '../../utilities';
 import noImage from '../../../assets/paper.png';
 
 class News {
-    public draw(data: NewsArticle[]) {
-        const news: NewsArticle[] = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
+    public draw(data: NewsArticle[]): void {
+        const news: NewsArticle[] = data.length >= 10 ? data.filter((_, idx: number) => idx < 10) : data;
         const fragment: DocumentFragment = document.createDocumentFragment();
 
         const newsItemTemp = document.querySelector('#newsItemTemp') as HTMLTemplateElement;
-        news.forEach((item: NewsArticle, idx: number): void => {
+        news.forEach((item: NewsArticle, idx: number) => {
             const newsClone = newsItemTemp.content.cloneNode(true) as HTMLElement;
 
             if (idx % 2) {
