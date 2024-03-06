@@ -1,0 +1,52 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.startForm{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 25rem;
+    height: 35rem;
+    padding: 3rem 2rem;
+    font: italic 600 32px/34px OpenSans;
+    text-align: center;
+    border-radius: 20px;
+    border: 2px solid black;
+    transform: translate(-50%, -50%);
+    background-color: bisque;
+}
+
+.label{
+    font: italic 400 28px/30px OpenSans;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.input{
+    width: 15rem;
+    height: 3rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: 2px solid black;
+    font: normal 400 24px/26px OpenSans;
+    background-color: beige;
+    outline: none;
+}
+
+.buttonLogin{
+    width: 10rem;
+    height: 2.5rem;
+    border-radius: 20px;
+    font: italic 800 24px/26px OpenSans;
+    cursor: pointer;
+}
+.buttonLogin:disabled{
+    cursor: default;
+}
