@@ -29,15 +29,23 @@
     align-items: flex-start;
 }
 
-.input{
+.startForm__input{
     width: 15rem;
     height: 3rem;
     padding: 0.5rem;
+    margin-bottom: 2px;
     border-radius: 10px;
     border: 2px solid black;
     font: normal 400 24px/26px OpenSans;
     background-color: beige;
     outline: none;
+}
+
+.startForm__input_hint{
+    height: 16px;
+    padding-left: 3px;
+    color: red;
+    font: normal 400 14px/16px OpenSans;
 }
 
 .buttonLogin{
