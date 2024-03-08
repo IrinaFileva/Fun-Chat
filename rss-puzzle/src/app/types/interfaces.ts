@@ -4,3 +4,8 @@ export interface ValuesAttributes{
     minlength: string;
     autofocus?: string;
 }
+
+export interface LocalStorageObj{
+    name: string;
+    lastName: string;
+}
