@@ -3,6 +3,73 @@
     padding: 0;
     box-sizing: border-box;
 }
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+    background-color: bisque;
+    border-radius: 10px;
+    border-bottom: 2px solid black;
+}
+
+.header__title{
+    font: italic 800 42px/44px OpenSans
+}
+
+.header__button-exit{
+    width: 6rem;
+    height: 2.5rem;
+    padding: 0.4rem;
+    font: normal 800 24px/26px OpenSans;
+    border-radius: 15px;
+    border: 2px solid black;
+    outline: 2px solid red;
+    background-color: beige;
+    cursor: pointer;
+}
+.header__button-exit:hover{
+    width: 5.9rem;
+    height: 2.4rem;
+}
+
+.modalExit{
+    left: 50%;
+    top: 50%;
+    width: 25rem;
+    height: 10rem;
+    padding: 1.5rem;
+    border-radius: 10px;
+    background-color: beige;
+    font: normal 800 24px/26px OpenSans;
+    text-align: center;
+    transform: translate(-50%, -50%);
+}
+
+.modalExit::backdrop{
+    background-color: grey;
+    opacity: 0.4;
+}
+
+.modalExit__button{
+    margin-top: 2.5rem;
+    width: 3rem;
+    height: 2rem;
+    border-radius: 10px;
+    border: 2px solid black;
+    font: normal 800 20px/22px OpenSans;
+    cursor: pointer;
+}
+.modalExit__button:hover{
+    font: normal 800 18px/20px OpenSans;
+}
+.no{
+    background-color: rgba(130, 243, 16, 0.664);
+}
+.yes{
+    background-color: red;
+    margin-left: 4.5rem;
+}
 .startForm{
     position: absolute;
     top: 50%;

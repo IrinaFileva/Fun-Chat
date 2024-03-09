@@ -9,11 +9,9 @@ startForm.append(labelFirstName, labelLastName, buttonLogin);
 
 startForm.addEventListener('submit', (e: SubmitEvent): void => {
     e.preventDefault();
-    const getUser: object[] = JSON.parse(localStorage.getItem('IF-Puzzle') as string) || [];
     const obj: LocalStorageObj = {name: '', lastName: ''};
     obj.name = inputName.value;
     obj.lastName = inputLastName.value;
-    if(Array.isArray(getUser)) getUser.push(obj);
-    localStorage.setItem('IF-Puzzle', JSON.stringify(getUser));
+    localStorage.setItem('IF-Puzzle', JSON.stringify(obj));
     startForm.style.display = 'none';
 })
