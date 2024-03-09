@@ -170,6 +170,17 @@
     text-align: center;
     z-index: 10;
 }
+.startPage__greeting{
+    margin-top: 4rem;
+    margin-right: 5rem;
+    backdrop-filter: blur(5px);
+    text-align: center;
+    color: bisque;
+    font: italic 800 68px/70px OpenSans;
+    text-shadow: .04em 0 #000, -.04em 0 #000, 0 .04em #000, 0 -.04em #000;
+    opacity: 0;
+    transition: all 4s ease;
+}
 
 @media(max-width: 830px){
     .startPage{
@@ -181,5 +192,8 @@
     .startPage__title{
         text-align: center;
         font: italic 800 65px/67px OpenSans;
+    }
+    .startPage__greeting{
+        margin-right: 0;
     }
 }
