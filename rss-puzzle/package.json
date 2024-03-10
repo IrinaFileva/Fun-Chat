@@ -29,9 +29,9 @@
   },
   "scripts": {
     "start": "webpack serve --open --config ./webpack.config.js",
-    "lint": "eslint src",
-    "lint:fix": "eslint --fix src/**/*.ts",
-    "format": "prettier --write 'src/**/*.ts'",
-    "ci:format": "prettier 'src/**/*.ts'"
+    "lint": "eslint ./",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write ./",
+    "ci:format": "prettier ./"
   }
 }

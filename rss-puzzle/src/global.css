@@ -34,6 +34,43 @@
     height: 2.4rem;
 }
 
+.pageGame__main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem;
+}
+
+.gamePage__lineWord{
+    display: flex;
+    justify-content: space-between;
+    width: 60rem;
+    margin-top: 2rem;
+}
+.gamePage__gameBoard{
+    display: flex;
+    flex-direction: column;
+    width: 60rem;
+    height: 35rem;
+    border-radius: 5px;
+    background-color: grey;
+}
+
+.gamePage__lineGameBoard{
+    display: flex;
+    width: 100%;
+    height: 3.5rem;
+}
+
+.gamePage__word{
+    height: 3.5rem;
+    font: normal 800 24px/26px OpenSans;
+    padding: 1rem 1.75rem;
+    border: 2px solid black;
+    cursor: pointer;
+}
+
 .modalExit{
     left: 50%;
     top: 50%;

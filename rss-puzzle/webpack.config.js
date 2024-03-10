@@ -11,6 +11,10 @@ const baseConfig = {
   module: {
       rules: [
           {
+              test: /\.(html)$/i,
+              use: ['html-loader']
+          },
+          {
               test: /\.css$/i,
               use: ['style-loader', 'css-loader'],
           },
@@ -30,12 +34,10 @@ const baseConfig = {
   output: {
       filename: 'index.js',
       path: path.resolve(__dirname, './dist'),
+      assetModuleFilename: 'accets/[hash][ext][query]'
   },
   plugins: [
-      new HtmlWebpackPlugin({
-          template: path.resolve(__dirname, './src/index.html'),
-          filename: 'index.html',
-      }),
+      new HtmlWebpackPlugin(),
       new CleanWebpackPlugin(),
       new ESLintPlugin({ extensions: 'ts' }),
   ],
