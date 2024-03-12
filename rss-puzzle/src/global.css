@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem;
+  padding: 0.5rem 2rem;
   background-color: bisque;
   border-radius: 10px;
   border-bottom: 2px solid black;
@@ -39,7 +39,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 5rem;
+  padding: 4rem;
 }
 
 .gamePage__lineWord {
@@ -47,8 +47,8 @@
   gap: 0;
   max-width: 60rem;
   width: 100%;
-  height: 3.5rem;
-  margin-top: 2rem;
+  height: 3rem;
+  margin-top: 3rem;
   border: 2px solid black;
   background-color: grey;
 }
@@ -58,7 +58,7 @@
   flex-direction: column;
   max-width: 60rem;
   width: 100%;
-  height: 35rem;
+  height: 30rem;
   border-radius: 5px;
   border: 1px solid black;
   background-color: grey;
@@ -67,13 +67,13 @@
 .gamePage__lineGameBoard {
   display: flex;
   width: 100%;
-  height: 3.5rem;
+  height: 3rem;
 }
 
 .gamePage__word {
   font: normal 800 24px/26px OpenSans;
   text-align: center;
-  padding: 1rem;
+  padding: 0.5rem;
   border-left: 1px solid black;
   border-right: 1px solid black;
   cursor: pointer;
@@ -82,6 +82,27 @@
 
 .gamePage__word:hover {
   opacity: 0.6;
+}
+
+.gamePage__container-buttons{
+  display: flex;
+  margin-top: 3rem;
+}
+
+.gamePage__btn-continue{
+  display: none;
+  font: normal 800 24px/26px OpenSans;
+  width: 10rem;
+  height: 3rem;
+  border: 2px solid black;
+  border-radius: 20px;
+  background-color: bisque;
+  cursor: pointer;
+}
+
+.gamePage__btn-continue:hover{
+  font: normal 800 22px/24px OpenSans;
+  opacity: 0.8;
 }
 
 .modalExit {
@@ -111,12 +132,15 @@
   font: normal 800 20px/22px OpenSans;
   cursor: pointer;
 }
+
 .modalExit__button:hover {
   font: normal 800 18px/20px OpenSans;
 }
+
 .no {
   background-color: rgba(130, 243, 16, 0.664);
 }
+
 .yes {
   background-color: red;
   margin-left: 4.5rem;
@@ -173,6 +197,7 @@
   font: italic 800 24px/26px OpenSans;
   cursor: pointer;
 }
+
 .buttonLogin:disabled {
   cursor: default;
 }
@@ -185,6 +210,7 @@
   height: 100%;
   padding: 8rem 5.8rem;
 }
+
 .startPage__image1 {
   position: absolute;
   left: 0;
@@ -194,6 +220,7 @@
   height: 100%;
   filter: blur(3px);
 }
+
 .startPage__image2 {
   position: absolute;
   left: 0;
@@ -228,6 +255,7 @@
   text-align: center;
   z-index: 10;
 }
+
 .startPage__greeting {
   margin-top: 4rem;
   margin-right: 5rem;
@@ -283,10 +311,13 @@
   }
   .gamePage__word {
     font: normal 800 18px/20px OpenSans;
-    padding: 16px 10px;
+    padding: 14px 10px;
   }
 }
 
 .active {
   cursor: pointer;
+}
+.blok{
+  pointer-events: none;
 }
