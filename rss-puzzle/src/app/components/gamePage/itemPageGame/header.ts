@@ -1,4 +1,4 @@
-import { BaseComponent } from "../../../base-component";
+import { BaseComponent } from '../../../base-component';
 
 export const header = new BaseComponent('header', 'header').addElement();
 const titleHeader = new BaseComponent('h1', 'header__title').addElement('RSS-Puzzle');
@@ -14,8 +14,8 @@ modalExit.append(modalExitButtonNo, modalExitButtonYes);
 buttonExit.setAttribute('popovertarget', 'modalExit');
 
 modalExitButtonNo.addEventListener('click', () => {
-    modalExit.hidePopover();
-})
+  modalExit.hidePopover();
+});
 
 containerButtonsHeader.append(buttonExit);
 header.append(titleHeader, containerButtonsHeader, modalExit);

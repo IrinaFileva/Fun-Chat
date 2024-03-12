@@ -1,254 +1,283 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 2rem;
-    background-color: bisque;
-    border-radius: 10px;
-    border-bottom: 2px solid black;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  background-color: bisque;
+  border-radius: 10px;
+  border-bottom: 2px solid black;
 }
 
-.header__title{
-    font: italic 800 42px/44px OpenSans
+.header__title {
+  font: italic 800 42px/44px OpenSans;
 }
 
-.header__button-exit{
-    width: 6rem;
-    height: 2.5rem;
-    padding: 0.4rem;
-    font: normal 800 24px/26px OpenSans;
-    border-radius: 15px;
-    border: 2px solid black;
-    outline: 2px solid red;
-    background-color: beige;
-    cursor: pointer;
+.header__button-exit {
+  width: 6rem;
+  height: 2.5rem;
+  padding: 0.4rem;
+  font: normal 800 24px/26px OpenSans;
+  border-radius: 15px;
+  border: 2px solid black;
+  outline: 2px solid red;
+  background-color: beige;
+  cursor: pointer;
 }
-.header__button-exit:hover{
-    width: 5.9rem;
-    height: 2.4rem;
-}
-
-.pageGame__main{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 5rem;
+.header__button-exit:hover {
+  width: 5.9rem;
+  height: 2.4rem;
 }
 
-.gamePage__lineWord{
-    display: flex;
-    justify-content: space-between;
-    width: 60rem;
-    margin-top: 2rem;
-}
-.gamePage__gameBoard{
-    display: flex;
-    flex-direction: column;
-    width: 60rem;
-    height: 35rem;
-    border-radius: 5px;
-    background-color: grey;
+.pageGame__main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem;
 }
 
-.gamePage__lineGameBoard{
-    display: flex;
-    width: 100%;
-    height: 3.5rem;
+.gamePage__lineWord {
+  display: flex;
+  gap: 0;
+  max-width: 60rem;
+  width: 100%;
+  height: 3.5rem;
+  margin-top: 2rem;
+  border: 2px solid black;
+  background-color: grey;
 }
 
-.gamePage__word{
-    height: 3.5rem;
-    font: normal 800 24px/26px OpenSans;
-    padding: 1rem 1.75rem;
-    border: 2px solid black;
-    cursor: pointer;
+.gamePage__gameBoard {
+  display: flex;
+  flex-direction: column;
+  max-width: 60rem;
+  width: 100%;
+  height: 35rem;
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: grey;
 }
 
-.modalExit{
-    left: 50%;
-    top: 50%;
-    width: 25rem;
-    height: 10rem;
-    padding: 1.5rem;
-    border-radius: 10px;
-    background-color: beige;
-    font: normal 800 24px/26px OpenSans;
-    text-align: center;
-    transform: translate(-50%, -50%);
+.gamePage__lineGameBoard {
+  display: flex;
+  width: 100%;
+  height: 3.5rem;
 }
 
-.modalExit::backdrop{
-    background-color: grey;
-    opacity: 0.4;
+.gamePage__word {
+  font: normal 800 24px/26px OpenSans;
+  text-align: center;
+  padding: 1rem;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  cursor: pointer;
 }
 
-.modalExit__button{
-    margin-top: 2.5rem;
-    width: 3rem;
-    height: 2rem;
-    border-radius: 10px;
-    border: 2px solid black;
+.modalExit {
+  left: 50%;
+  top: 50%;
+  width: 25rem;
+  height: 10rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+  background-color: beige;
+  font: normal 800 24px/26px OpenSans;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.modalExit::backdrop {
+  background-color: grey;
+  opacity: 0.4;
+}
+
+.modalExit__button {
+  margin-top: 2.5rem;
+  width: 3rem;
+  height: 2rem;
+  border-radius: 10px;
+  border: 2px solid black;
+  font: normal 800 20px/22px OpenSans;
+  cursor: pointer;
+}
+.modalExit__button:hover {
+  font: normal 800 18px/20px OpenSans;
+}
+.no {
+  background-color: rgba(130, 243, 16, 0.664);
+}
+.yes {
+  background-color: red;
+  margin-left: 4.5rem;
+}
+.startForm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 25rem;
+  height: 35rem;
+  padding: 3rem 2rem;
+  font: italic 600 32px/34px OpenSans;
+  text-align: center;
+  border-radius: 20px;
+  border: 2px solid black;
+  transform: translate(-50%, -50%);
+  background-color: bisque;
+}
+
+.label {
+  font: italic 400 28px/30px OpenSans;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.startForm__input {
+  width: 15rem;
+  height: 3rem;
+  padding: 0.5rem;
+  margin-bottom: 2px;
+  border-radius: 10px;
+  border: 2px solid black;
+  font: normal 400 24px/26px OpenSans;
+  background-color: beige;
+  outline: none;
+}
+
+.startForm__input_hint {
+  height: 16px;
+  padding-left: 3px;
+  color: red;
+  font: normal 400 14px/16px OpenSans;
+}
+
+.buttonLogin {
+  width: 10rem;
+  height: 2.5rem;
+  border-radius: 20px;
+  font: italic 800 24px/26px OpenSans;
+  cursor: pointer;
+}
+.buttonLogin:disabled {
+  cursor: default;
+}
+
+.startPage {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  width: 100%;
+  height: 100%;
+  padding: 8rem 5.8rem;
+}
+.startPage__image1 {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  filter: blur(3px);
+}
+.startPage__image2 {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  filter: blur(4px);
+}
+
+.startPage__title {
+  backdrop-filter: blur(5px);
+  color: bisque;
+  font: italic 800 68px/70px OpenSans;
+  text-shadow:
+    0.04em 0 #000,
+    -0.04em 0 #000,
+    0 0.04em #000,
+    0 -0.04em #000;
+  z-index: 10;
+}
+
+.startPage__description {
+  backdrop-filter: blur(5px);
+  margin-top: 2rem;
+  font: italic 800 32px/34px OpenSans;
+  text-shadow:
+    0.04em 0 bisque,
+    -0.04em 0 bisque,
+    0 0.04em bisque,
+    0 -0.04em bisque;
+  letter-spacing: 4px;
+  line-height: 3rem;
+  text-align: center;
+  z-index: 10;
+}
+.startPage__greeting {
+  margin-top: 4rem;
+  margin-right: 5rem;
+  backdrop-filter: blur(5px);
+  text-align: center;
+  color: bisque;
+  font: italic 800 68px/70px OpenSans;
+  text-shadow:
+    0.04em 0 #000,
+    -0.04em 0 #000,
+    0 0.04em #000,
+    0 -0.04em #000;
+  opacity: 0;
+  transition: opacity 4s ease;
+}
+
+.startPage__button {
+  width: 12rem;
+  height: 4rem;
+  margin-top: 4rem;
+  margin-right: 14rem;
+  border-radius: 15px;
+  border: 2px solid black;
+  background-color: bisque;
+  font: italic 800 28px/30px OpenSans;
+  cursor: pointer;
+}
+
+.startPage__button:hover {
+  width: 11.9rem;
+  height: 3.9rem;
+  opacity: 0.7;
+}
+@media (max-width: 930px) {
+  .gamePage__word {
     font: normal 800 20px/22px OpenSans;
-    cursor: pointer;
+    padding: 0.8rem;
+  }
 }
-.modalExit__button:hover{
-    font: normal 800 18px/20px OpenSans;
-}
-.no{
-    background-color: rgba(130, 243, 16, 0.664);
-}
-.yes{
-    background-color: red;
-    margin-left: 4.5rem;
-}
-.startForm{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    display: flex;
-    flex-direction: column;
+@media (max-width: 830px) {
+  .startPage {
     align-items: center;
-    justify-content: space-between;
-    width: 25rem;
-    height: 35rem;
-    padding: 3rem 2rem;
-    font: italic 600 32px/34px OpenSans;
-    text-align: center;
-    border-radius: 20px;
-    border: 2px solid black;
-    transform: translate(-50%, -50%);
-    background-color: bisque;
-}
-
-.label{
-    font: italic 400 28px/30px OpenSans;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.startForm__input{
-    width: 15rem;
-    height: 3rem;
-    padding: 0.5rem;
-    margin-bottom: 2px;
-    border-radius: 10px;
-    border: 2px solid black;
-    font: normal 400 24px/26px OpenSans;
-    background-color: beige;
-    outline: none;
-}
-
-.startForm__input_hint{
-    height: 16px;
-    padding-left: 3px;
-    color: red;
-    font: normal 400 14px/16px OpenSans;
-}
-
-.buttonLogin{
-    width: 10rem;
-    height: 2.5rem;
-    border-radius: 20px;
-    font: italic 800 24px/26px OpenSans;
-    cursor: pointer;
-}
-.buttonLogin:disabled{
-    cursor: default;
-}
-
-.startPage{
-    display: flex;
-    flex-direction: column;
-    align-items: end;
+  }
+  .startPage__image2 {
     width: 100%;
-    height: 100%;
-    padding: 8rem 5.8rem;
-}
-.startPage__image1{
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    filter: blur(3px);
-}
-.startPage__image2{
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 100%;
-    filter: blur(4px);
-}
-
-.startPage__title{
-    backdrop-filter: blur(5px);
-    color: bisque;
-    font: italic 800 68px/70px OpenSans;
-    text-shadow: .04em 0 #000, -.04em 0 #000, 0 .04em #000, 0 -.04em #000;
-    z-index: 10;
-}
-
-.startPage__description{
-    backdrop-filter: blur(5px);
-    margin-top: 2rem;
-    font: italic 800 32px/34px OpenSans;
-    text-shadow: .04em 0 bisque, -.04em 0 bisque, 0 .04em bisque, 0 -.04em bisque;
-    letter-spacing: 4px;
-    line-height: 3rem;
+  }
+  .startPage__title {
     text-align: center;
-    z-index: 10;
-}
-.startPage__greeting{
-    margin-top: 4rem;
-    margin-right: 5rem;
-    backdrop-filter: blur(5px);
-    text-align: center;
-    color: bisque;
-    font: italic 800 68px/70px OpenSans;
-    text-shadow: .04em 0 #000, -.04em 0 #000, 0 .04em #000, 0 -.04em #000;
-    opacity: 0;
-    transition: opacity 4s ease;
-}
-
-.startPage__button{
-    width: 12rem;
-    height: 4rem;
-    margin-top: 4rem;
-    margin-right: 14rem;
-    border-radius: 15px;
-    border: 2px solid black;
-    background-color: bisque;
-    font: italic 800 28px/30px OpenSans;
-    cursor: pointer;
-}
-
-.startPage__button:hover{
-    width: 11.9rem;
-    height: 3.9rem;
-    opacity: 0.7;
-}
-
-@media(max-width: 830px){
-    .startPage{
-        align-items: center;
-    }
-    .startPage__image2{
-        width: 100%;
-    }
-    .startPage__title{
-        text-align: center;
-        font: italic 800 65px/67px OpenSans;
-    }
-    .startPage__greeting{
-        margin-right: 0;
-    }
+    font: italic 800 65px/67px OpenSans;
+  }
+  .startPage__greeting {
+    margin-right: 0;
+  }
+  .gamePage__word {
+    font: normal 800 18px/20px OpenSans;
+    padding: 16px 10px;
+  }
 }
