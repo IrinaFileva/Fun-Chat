@@ -17,17 +17,50 @@ for (let i = 0; i < offerSort.length; i += 1) {
   word.style.width = `${widthCard}%`;
   lineWord.append(word);
   word.addEventListener('click', (): void => {
-    const swapCard: HTMLElement = new BaseComponent('div', 'gamePage__word').addElement();
-    swapCard.style.width = `${widthCard}%`;
-    swapCard.style.border = 'none';
-    lineWord.insertBefore(swapCard, word);
-    word.style.maxWidth = `${widthCard}%`;
-    word.style.width = `100%`;
-    word.style.borderBottom = '1px solid black';
-    lineGameBoard.append(word);
+    if (!word.classList.contains('active')) {
+      const swapCard: HTMLElement = new BaseComponent('div', 'gamePage__word').addElement();
+      swapCard.style.width = `${widthCard}%`;
+      swapCard.style.border = 'none';
+      lineWord.insertBefore(swapCard, word);
+      const emptyItem: ChildNode | undefined = Array.from(lineGameBoard.childNodes).find((elem: ChildNode): ChildNode | undefined => {
+        if (!elem.textContent) return elem;
+        return undefined;
+      });
+      word.style.maxWidth = `${widthCard}%`;
+      word.style.width = `100%`;
+      word.style.borderBottom = '1px solid black';
+      word.style.opacity = `0`;
+      word.classList.add('active');
+      setTimeout((): void => {
+        word.style.opacity = `1`;
+      });
+      if (emptyItem) {
+        lineGameBoard.insertBefore(word, emptyItem);
+        emptyItem.remove();
+      } else {
+        lineGameBoard.append(word);
+      }
+    } else {
+      const swapCard: HTMLElement = new BaseComponent('div', 'gamePage__word').addElement();
+      swapCard.style.width = `${widthCard}%`;
+      swapCard.style.border = 'none';
+      lineGameBoard.insertBefore(swapCard, word);
+      const emptyItem: ChildNode | undefined = Array.from(lineWord.childNodes).find((elem: ChildNode): ChildNode | undefined => {
+        if (!elem.textContent) return elem;
+        return undefined;
+      });
+      if (emptyItem) {
+        word.style.opacity = `0`;
+        setTimeout((): void => {
+          word.style.opacity = `1`;
+        });
+        lineWord.insertBefore(word, emptyItem);
+        word.classList.remove('active');
+        emptyItem.remove();
+      }
+    }
   });
 }
-
 gameBoard.append(lineGameBoard);
 
 mainPageGame.append(gameBoard, lineWord);
