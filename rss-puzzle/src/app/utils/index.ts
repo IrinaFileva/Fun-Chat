@@ -22,6 +22,9 @@ export function compareResultStrings(parentWord: HTMLElement, order: string, but
     return resultString;
   });
   if (resultString.join('') === order.replaceAll(' ', '')) {
+    document.querySelectorAll('.active').forEach((elem: Element): void => {
+      elem.classList.remove('active');
+    });
     button.style.display = 'block';
     parentWord.style.pointerEvents = 'none';
   }
@@ -36,4 +39,10 @@ export function setCardStyles(card: HTMLElement, width: number): void {
   setTimeout((): void => {
     card.style.opacity = `1`;
   });
+}
+
+export function checkLineWords(parent: HTMLElement, lengthOffer: string[], button: HTMLElement) {
+  if (parent.getElementsByClassName('active').length === lengthOffer.length) {
+    button.removeAttribute('disabled');
+  }
 }

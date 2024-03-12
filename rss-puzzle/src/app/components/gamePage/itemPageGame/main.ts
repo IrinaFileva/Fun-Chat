@@ -1,15 +1,18 @@
 import wordLevel1 from '../../../assets/wordCollectionLevel1.json';
 import { BaseComponent } from '../../../base-component';
-import { addAnEmptyItem, compareResultStrings, lookFirstEmptyElement, setCardStyles } from '../../../utils';
+import { addAnEmptyItem, checkLineWords, compareResultStrings, lookFirstEmptyElement, setCardStyles } from '../../../utils';
 
 export const mainPageGame: HTMLElement = new BaseComponent('main', 'pageGame__main').addElement();
 const gameBoard: HTMLElement = new BaseComponent('div', 'gamePage__gameBoard').addElement();
 const lineWord: HTMLElement = new BaseComponent('div', 'gamePage__lineWord').addElement();
 const containerButtons: HTMLElement = new BaseComponent('div', 'gamePage__container-buttons').addElement();
-const buttonContinue: HTMLElement = new BaseComponent('button', 'gamePage__btn-continue').addElement('Continue');
+const buttonCheck: HTMLElement = new BaseComponent('button', 'gamePage__bth-check buttons').addElement('Check');
+const buttonContinue: HTMLElement = new BaseComponent('button', 'gamePage__btn-continue buttons').addElement('Continue');
 const numberOffersBlock: number = 10;
 let proposal: number = 0;
 let round: number = 0;
+
+buttonCheck.setAttribute('disabled', '');
 
 function startGame(tier: number, lap: number): void {
   const lineGameBoard: HTMLElement = new BaseComponent('div', 'gamePage__lineGameBoard').addElement();
@@ -24,6 +27,11 @@ function startGame(tier: number, lap: number): void {
     word.style.width = `${widthCard}%`;
     lineWord.append(word);
     word.addEventListener('click', (): void => {
+      document.querySelectorAll('.active').forEach((elem: Element) => {
+        elem.classList.remove('no-error');
+        elem.classList.remove('error');
+      });
+      buttonCheck.setAttribute('disabled', 'disabled');
       if (!word.classList.contains('active')) {
         addAnEmptyItem(word, lineWord, widthCard);
         setCardStyles(word, widthCard);
@@ -47,6 +55,7 @@ function startGame(tier: number, lap: number): void {
           emptyItem.remove();
         }
       }
+      checkLineWords(lineGameBoard, offerSort, buttonCheck);
       compareResultStrings(lineGameBoard, workingOrder, buttonContinue);
     });
   }
@@ -70,5 +79,17 @@ buttonContinue.addEventListener('click', (): void => {
   buttonContinue.style.display = 'none';
 });
 
-containerButtons.append(buttonContinue);
+buttonCheck.addEventListener('click', (): void => {
+  const wordResult: NodeListOf<HTMLElement> = document.querySelectorAll('.active');
+  const workingOrder: string[] = wordLevel1.rounds[round].words[proposal].textExample.split(' ');
+  wordResult.forEach((elem: HTMLElement, index: number) => {
+    if (elem.textContent === workingOrder[index]) {
+      elem.classList.add('no-error');
+    } else {
+      elem.classList.add('error');
+    }
+  });
+});
+
+containerButtons.append(buttonCheck, buttonContinue);
 mainPageGame.append(gameBoard, lineWord, containerButtons);

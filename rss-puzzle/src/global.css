@@ -84,27 +84,31 @@
   opacity: 0.6;
 }
 
-.gamePage__container-buttons{
+.gamePage__container-buttons {
   display: flex;
   margin-top: 3rem;
 }
 
-.gamePage__btn-continue{
-  display: none;
+.buttons{
   font: normal 800 24px/26px OpenSans;
   width: 10rem;
   height: 3rem;
+  padding: 0.5rem;
   border: 2px solid black;
   border-radius: 20px;
   background-color: bisque;
+  text-align: center;
   cursor: pointer;
 }
 
-.gamePage__btn-continue:hover{
+.buttons:hover {
   font: normal 800 22px/24px OpenSans;
   opacity: 0.8;
 }
 
+.gamePage__btn-continue {
+  display: none;
+}
 .modalExit {
   left: 50%;
   top: 50%;
@@ -318,6 +322,12 @@
 .active {
   cursor: pointer;
 }
-.blok{
+.blok {
   pointer-events: none;
+}
+.error{
+  border: 3px solid red;
+}
+.no-error{
+  border: 3px solid green;
 }
