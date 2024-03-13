@@ -101,28 +101,13 @@
   cursor: pointer;
 }
 
-button:not([disabled]):hover {
+.buttons:hover {
   font: normal 800 22px/24px OpenSans;
+  opacity: 0.8;
 }
 
 .gamePage__btn-continue {
   display: none;
-  animation: .4s 0s 1 text normal both running linear;
-}
-
-.gamePage__bth-check{
-  animation: .4s 0s 1 text normal both running linear;
-}
-
-@keyframes text {
-  0% {
-    transform: translateY(-40px) scaleX(.7);
-    opacity: .5;
-  }
-
-  70% {
-    transform: scaleY(.7) translateY(2px);
-  }
 }
 .modalExit {
   left: 50%;
@@ -341,8 +326,8 @@ button:not([disabled]):hover {
   pointer-events: none;
 }
 .error{
-  border: 2px solid red;
+  border: 3px solid red;
 }
 .no-error{
-  border: 2px solid green;
+  border: 3px solid green;
 }

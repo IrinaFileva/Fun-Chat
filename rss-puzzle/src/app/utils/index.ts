@@ -15,7 +15,7 @@ export function lookFirstEmptyElement(parent: HTMLElement): ChildNode | undefine
   return emptyItem;
 }
 
-export function compareResultStrings(parentWord: HTMLElement, order: string, buttonOpen: HTMLElement, buttonClosed: HTMLElement): void {
+export function compareResultStrings(parentWord: HTMLElement, order: string, button: HTMLElement): void {
   const resultString: string[] = [];
   parentWord.childNodes.forEach((elem: ChildNode) => {
     if (elem.textContent) resultString.push(elem.textContent);
@@ -25,8 +25,7 @@ export function compareResultStrings(parentWord: HTMLElement, order: string, but
     document.querySelectorAll('.active').forEach((elem: Element): void => {
       elem.classList.remove('active');
     });
-    buttonClosed.style.display = 'none';
-    buttonOpen.style.display = 'block';
+    button.style.display = 'block';
     parentWord.style.pointerEvents = 'none';
   }
 }
@@ -34,6 +33,7 @@ export function compareResultStrings(parentWord: HTMLElement, order: string, but
 export function setCardStyles(card: HTMLElement, width: number): void {
   card.style.maxWidth = `${width}%`;
   card.style.width = `100%`;
+  card.style.borderBottom = '1px solid black';
   card.style.opacity = `0`;
   card.classList.add('active');
   setTimeout((): void => {

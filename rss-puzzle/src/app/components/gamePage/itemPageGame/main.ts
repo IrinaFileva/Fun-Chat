@@ -27,7 +27,6 @@ function startGame(tier: number, lap: number): void {
     word.style.width = `${widthCard}%`;
     lineWord.append(word);
     word.addEventListener('click', (): void => {
-      lineGameBoard.style.borderBottom = '1px solid black';
       document.querySelectorAll('.active').forEach((elem: Element) => {
         elem.classList.remove('no-error');
         elem.classList.remove('error');
@@ -57,7 +56,7 @@ function startGame(tier: number, lap: number): void {
         }
       }
       checkLineWords(lineGameBoard, offerSort, buttonCheck);
-      compareResultStrings(lineGameBoard, workingOrder, buttonContinue, buttonCheck);
+      compareResultStrings(lineGameBoard, workingOrder, buttonContinue);
     });
   }
   gameBoard.append(lineGameBoard);
@@ -78,8 +77,6 @@ buttonContinue.addEventListener('click', (): void => {
   }
   startGame(proposal, round);
   buttonContinue.style.display = 'none';
-  buttonCheck.style.display = 'block';
-  buttonCheck.setAttribute('disabled', 'disabled');
 });
 
 buttonCheck.addEventListener('click', (): void => {
@@ -88,10 +85,8 @@ buttonCheck.addEventListener('click', (): void => {
   wordResult.forEach((elem: HTMLElement, index: number) => {
     if (elem.textContent === workingOrder[index]) {
       elem.classList.add('no-error');
-      elem.style.borderBottom = '';
     } else {
       elem.classList.add('error');
-      elem.style.borderBottom = '';
     }
   });
 });
