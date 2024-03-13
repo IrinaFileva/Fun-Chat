@@ -78,7 +78,7 @@
   border-left: 1px solid black;
   border-right: 1px solid black;
   cursor: pointer;
-  transition: opacity 2s ease-in-out;
+  animation: .1s 0s 1 text normal both running linear;
 }
 
 .gamePage__word:hover {
@@ -91,8 +91,8 @@
 }
 
 .buttons{
-  font: normal 800 24px/26px OpenSans;
-  width: 10rem;
+  font: normal 800 23px/25px OpenSans;
+  width: 10.5rem;
   height: 3rem;
   padding: 0.5rem;
   border: 2px solid black;
@@ -109,16 +109,21 @@ button:not([disabled]):hover {
 .gamePage__btn-continue {
   display: none;
   animation: .4s 0s 1 text normal both running linear;
+  margin-left: 4rem;
 }
 
 .gamePage__bth-check{
+  animation: .4s 0s 1 text normal both running linear;
+  margin-left: 4rem;
+}
+.gamePage__bth-complete{
   animation: .4s 0s 1 text normal both running linear;
 }
 
 @keyframes text {
   0% {
     transform: translateY(-40px) scaleX(.7);
-    opacity: .5;
+    opacity: 0.5;
   }
 
   70% {

@@ -6,9 +6,11 @@ export const mainPageGame: HTMLElement = new BaseComponent('main', 'pageGame__ma
 const gameBoard: HTMLElement = new BaseComponent('div', 'gamePage__gameBoard').addElement();
 const lineWord: HTMLElement = new BaseComponent('div', 'gamePage__lineWord').addElement();
 const containerButtons: HTMLElement = new BaseComponent('div', 'gamePage__container-buttons').addElement();
+const buttonAutoComplete: HTMLElement = new BaseComponent('button', 'gamePage__bth-complete buttons').addElement('Auto-complete');
 const buttonCheck: HTMLElement = new BaseComponent('button', 'gamePage__bth-check buttons').addElement('Check');
 const buttonContinue: HTMLElement = new BaseComponent('button', 'gamePage__btn-continue buttons').addElement('Continue');
 const numberOffersBlock: number = 10;
+const percentages: number = 100;
 let proposal: number = 0;
 let round: number = 0;
 
@@ -19,7 +21,6 @@ function startGame(tier: number, lap: number): void {
   const workingOrder: string = wordLevel1.rounds[lap].words[tier].textExample;
   const offerSort: string[] = workingOrder.split(' ').sort(() => Math.random() - 0.5);
   const lengthOffer: number = offerSort.join(' ').replaceAll(' ', '').length;
-  const percentages: number = 100;
 
   for (let i = 0; i < offerSort.length; i += 1) {
     const word = new BaseComponent('div', 'gamePage__word').addElement(offerSort[i]);
@@ -79,6 +80,7 @@ buttonContinue.addEventListener('click', (): void => {
   startGame(proposal, round);
   buttonContinue.style.display = 'none';
   buttonCheck.style.display = 'block';
+  buttonAutoComplete.removeAttribute('disabled');
   buttonCheck.setAttribute('disabled', 'disabled');
 });
 
@@ -96,5 +98,26 @@ buttonCheck.addEventListener('click', (): void => {
   });
 });
 
-containerButtons.append(buttonCheck, buttonContinue);
+buttonAutoComplete.addEventListener('click', (): void => {
+  while (lineWord.firstChild) {
+    lineWord.removeChild(lineWord.firstChild);
+  }
+  const lineGame: ChildNode = gameBoard.childNodes[proposal] as HTMLElement;
+  while (lineGame.firstChild) {
+    lineGame.removeChild(lineGame.firstChild);
+  }
+  const workingOrder: string[] = wordLevel1.rounds[round].words[proposal].textExample.split(' ');
+  for (let i = 0; i < workingOrder.length; i += 1) {
+    const word = new BaseComponent('div', 'gamePage__word').addElement(workingOrder[i]);
+    const widthCard = (workingOrder[i].length * percentages) / workingOrder.join(' ').replaceAll(' ', '').length;
+    word.style.width = `${widthCard}%`;
+    word.style.borderBottom = '2px solid black';
+    word.style.pointerEvents = 'none';
+    lineGame.appendChild(word);
+  }
+  buttonCheck.style.display = 'none';
+  buttonContinue.style.display = 'block';
+  buttonAutoComplete.setAttribute('disabled', 'disabled');
+});
+containerButtons.append(buttonAutoComplete, buttonCheck, buttonContinue);
 mainPageGame.append(gameBoard, lineWord, containerButtons);
