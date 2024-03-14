@@ -1,6 +1,6 @@
 import wordLevel1 from '../../../assets/wordCollectionLevel1.json';
 import { BaseComponent } from '../../../base-component';
-import { addAnEmptyItem, checkLineWords, compareResultStrings, lookFirstEmptyElement, setCardStyles } from '../../../utils';
+import { addAnEmptyItem, checkLineWords, compareResultStrings, dragAndDrop, lookFirstEmptyElement, setCardStyles } from '../../../utils';
 
 export const mainPageGame: HTMLElement = new BaseComponent('main', 'pageGame__main').addElement();
 const gameBoard: HTMLElement = new BaseComponent('div', 'gamePage__gameBoard').addElement();
@@ -23,12 +23,15 @@ function startGame(tier: number, lap: number): void {
   const lengthOffer: number = offerSort.join(' ').replaceAll(' ', '').length;
 
   for (let i = 0; i < offerSort.length; i += 1) {
-    const word = new BaseComponent('div', 'gamePage__word').addElement(offerSort[i]);
+    const word = new BaseComponent('div', 'gamePage__word drag').addElement(offerSort[i]);
+    const emptyCard = new BaseComponent('div', 'gamePage__word no-drag').addElement();
     const widthCard = (offerSort[i].length * percentages) / lengthOffer;
     word.style.width = `${widthCard}%`;
+    word.draggable = true;
+    emptyCard.style.width = `${percentages / offerSort.length}%`;
+    lineGameBoard.append(emptyCard);
     lineWord.append(word);
     word.addEventListener('click', (): void => {
-      lineGameBoard.style.borderBottom = '1px solid black';
       document.querySelectorAll('.active').forEach((elem: Element) => {
         elem.classList.remove('no-error');
         elem.classList.remove('error');
@@ -37,16 +40,14 @@ function startGame(tier: number, lap: number): void {
       if (!word.classList.contains('active')) {
         addAnEmptyItem(word, lineWord, widthCard);
         setCardStyles(word, widthCard);
-        const emptyItem: ChildNode | undefined = lookFirstEmptyElement(lineGameBoard);
+        const emptyItem: ChildNode | undefined = lookFirstEmptyElement(lineGameBoard.childNodes);
         if (emptyItem) {
           lineGameBoard.insertBefore(word, emptyItem);
           emptyItem.remove();
-        } else {
-          lineGameBoard.append(word);
         }
       } else {
-        addAnEmptyItem(word, lineGameBoard, widthCard);
-        const emptyItem: ChildNode | undefined = lookFirstEmptyElement(lineWord);
+        addAnEmptyItem(word, lineGameBoard, percentages / offerSort.length);
+        const emptyItem: ChildNode | undefined = lookFirstEmptyElement(lineWord.childNodes);
         if (emptyItem) {
           word.style.opacity = `0`;
           setTimeout((): void => {
@@ -61,6 +62,7 @@ function startGame(tier: number, lap: number): void {
       compareResultStrings(lineGameBoard, workingOrder, buttonContinue, buttonCheck);
     });
   }
+  dragAndDrop([lineGameBoard, lineWord], offerSort, buttonCheck, workingOrder, buttonContinue);
   gameBoard.append(lineGameBoard);
 }
 startGame(proposal, round);
@@ -119,5 +121,6 @@ buttonAutoComplete.addEventListener('click', (): void => {
   buttonContinue.style.display = 'block';
   buttonAutoComplete.setAttribute('disabled', 'disabled');
 });
+
 containerButtons.append(buttonAutoComplete, buttonCheck, buttonContinue);
 mainPageGame.append(gameBoard, lineWord, containerButtons);
