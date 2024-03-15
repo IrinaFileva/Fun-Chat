@@ -7,15 +7,8 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 2rem;
-  background-color: bisque;
-  border-radius: 10px;
-  border-bottom: 2px solid black;
-}
-
-.header__title {
-  font: italic 800 42px/44px OpenSans;
+  justify-content: end;
+  padding: 2rem 2rem 0 0;
 }
 
 .header__button-exit {
@@ -41,14 +34,15 @@
   align-items: center;
   justify-content: center;
   padding: 4rem;
+  padding-top: 0;
 }
 
 .gamePage__lineWord {
   display: flex;
   gap: 0;
-  max-width: 60rem;
+  max-width: 65rem;
   width: 100%;
-  height: 3rem;
+  height: 4rem;
   margin-top: 3rem;
   border: 2px solid black;
   background-color: grey;
@@ -57,9 +51,9 @@
 .gamePage__gameBoard {
   display: flex;
   flex-direction: column;
-  max-width: 60rem;
+  max-width: 65rem;
   width: 100%;
-  height: 30rem;
+  height: 40rem;
   border-radius: 5px;
   border: 1px solid black;
   background-color: grey;
@@ -67,21 +61,35 @@
 
 .gamePage__lineGameBoard {
   display: flex;
-  max-width: 60rem;
+  max-width: 65rem;
   width: 100%;
-  height: 3rem;
-  border-bottom: 1px solid black;;
+  height: 4rem;
+  border-bottom: 1px solid black;
 }
 
 .gamePage__word {
-  font: normal 800 24px/26px OpenSans;
+  color: rgb(37, 224, 93);
+  font-size: 20px;
+  font-weight: 800;
+  width: 100%;
   text-align: center;
-  padding: 0.5rem;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  animation: .1s 0s 1 text normal both running linear;
+  animation: 0.1s 0s 1 text normal both running linear;
 }
 
+.puzzle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-image: url(app/assets/backgroundStart1.jpg);
+  mask-image: url(app/assets/middle1.svg);
+  mask-size: cover;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  margin-right: -20px;
+  padding: 0.6rem 2rem;
+  z-index: 15;
+}
 .gamePage__word:hover {
   opacity: 0.6;
 }
@@ -349,6 +357,7 @@ button:not([disabled]):hover {
 }
 .active {
   cursor: grab;
+  z-index: 10000;
 }
 .blok {
   pointer-events: none;
@@ -357,11 +366,21 @@ button:not([disabled]):hover {
   border: 2px solid red;
 }
 .no-error{
-  border: 2px solid green;
+  border: 2px solid rgb(1, 104, 1);
 }
 .choose{
   opacity: 0.5;
   border: 2px solid black;
   z-index: 1000;
   position: relative;
+}
+.start {
+  mask-image: url(app/assets/start1.svg);
+  margin-left: 10px;
+}
+
+.end {
+  mask-image: url(app/assets/end1.svg);
+  padding-left: 3rem;
+  margin-right: 0px;
 }

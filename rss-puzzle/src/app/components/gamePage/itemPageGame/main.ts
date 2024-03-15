@@ -1,6 +1,14 @@
 import wordLevel1 from '../../../assets/wordCollectionLevel1.json';
 import { BaseComponent } from '../../../base-component';
-import { addAnEmptyItem, checkLineWords, compareResultStrings, dragAndDrop, lookFirstEmptyElement, setCardStyles } from '../../../utils';
+import {
+  addAnEmptyItem,
+  checkLineWords,
+  compareResultStrings,
+  dragAndDrop,
+  lookFirstEmptyElement,
+  setCardStyles,
+  setMascPuzzle,
+} from '../../../utils';
 
 export const mainPageGame: HTMLElement = new BaseComponent('main', 'pageGame__main').addElement();
 const gameBoard: HTMLElement = new BaseComponent('div', 'gamePage__gameBoard').addElement();
@@ -9,6 +17,7 @@ const containerButtons: HTMLElement = new BaseComponent('div', 'gamePage__contai
 const buttonAutoComplete: HTMLElement = new BaseComponent('button', 'gamePage__bth-complete buttons').addElement('Auto-complete');
 const buttonCheck: HTMLElement = new BaseComponent('button', 'gamePage__bth-check buttons').addElement('Check');
 const buttonContinue: HTMLElement = new BaseComponent('button', 'gamePage__btn-continue buttons').addElement('Continue');
+const marginAddWidth: number = 14; //  чтоб язычек пазла красиво отображался на странице, пришлось margin делать -14px ( данное число компинсирует этот margin)
 const numberOffersBlock: number = 10;
 const percentages: number = 100;
 let proposal: number = 0;
@@ -20,15 +29,14 @@ function startGame(tier: number, lap: number): void {
   const lineGameBoard: HTMLElement = new BaseComponent('div', 'gamePage__lineGameBoard').addElement();
   const workingOrder: string = wordLevel1.rounds[lap].words[tier].textExample;
   const offerSort: string[] = workingOrder.split(' ').sort(() => Math.random() - 0.5);
-  const lengthOffer: number = offerSort.join(' ').replaceAll(' ', '').length;
 
   for (let i = 0; i < offerSort.length; i += 1) {
-    const word = new BaseComponent('div', 'gamePage__word drag').addElement(offerSort[i]);
+    const word = new BaseComponent('div', 'gamePage__word drag puzzle').addElement(offerSort[i]);
     const emptyCard = new BaseComponent('div', 'gamePage__word no-drag').addElement();
-    const widthCard = (offerSort[i].length * percentages) / lengthOffer;
-    word.style.width = `${widthCard}%`;
+    word.style.maxWidth = `calc(${percentages / offerSort.length}% + ${marginAddWidth}px)`;
     word.draggable = true;
     emptyCard.style.width = `${percentages / offerSort.length}%`;
+    setMascPuzzle(word, workingOrder);
     lineGameBoard.append(emptyCard);
     lineWord.append(word);
     word.addEventListener('click', (): void => {
@@ -38,8 +46,8 @@ function startGame(tier: number, lap: number): void {
       });
       buttonCheck.setAttribute('disabled', 'disabled');
       if (!word.classList.contains('active')) {
-        addAnEmptyItem(word, lineWord, widthCard);
-        setCardStyles(word, widthCard);
+        addAnEmptyItem(word, lineWord, percentages / offerSort.length);
+        setCardStyles(word);
         const emptyItem: ChildNode | undefined = lookFirstEmptyElement(lineGameBoard.childNodes);
         if (emptyItem) {
           lineGameBoard.insertBefore(word, emptyItem);
@@ -110,7 +118,7 @@ buttonAutoComplete.addEventListener('click', (): void => {
   }
   const workingOrder: string[] = wordLevel1.rounds[round].words[proposal].textExample.split(' ');
   for (let i = 0; i < workingOrder.length; i += 1) {
-    const word = new BaseComponent('div', 'gamePage__word').addElement(workingOrder[i]);
+    const word = new BaseComponent('div', 'gamePage__word puzzle').addElement(workingOrder[i]);
     const widthCard = (workingOrder[i].length * percentages) / workingOrder.join(' ').replaceAll(' ', '').length;
     word.style.width = `${widthCard}%`;
     word.style.borderBottom = '2px solid black';

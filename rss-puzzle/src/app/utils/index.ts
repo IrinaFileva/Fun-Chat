@@ -2,7 +2,7 @@ import { BaseComponent } from '../base-component';
 
 export function addAnEmptyItem(elem: HTMLElement, parent: HTMLElement, width: number): void {
   const swapCard: HTMLElement = new BaseComponent('div', 'gamePage__word').addElement();
-  swapCard.style.width = `${width}%`;
+  swapCard.style.width = `${width}% `;
   parent.insertBefore(swapCard, elem);
 }
 
@@ -12,6 +12,15 @@ export function lookFirstEmptyElement(parent: NodeListOf<ChildNode> | ChildNode[
     return undefined;
   });
   return emptyItem;
+}
+
+export function setMascPuzzle(elem: HTMLElement, order: string): void {
+  if (elem.textContent === order.split(' ')[0]) {
+    elem.classList.add('start');
+  }
+  if (elem.textContent === order.split(' ').at(-1)) {
+    elem.classList.add('end');
+  }
 }
 
 export function compareResultStrings(parentWord: HTMLElement, order: string, buttonOpen: HTMLElement, buttonClosed: HTMLElement): void {
@@ -30,9 +39,7 @@ export function compareResultStrings(parentWord: HTMLElement, order: string, but
   }
 }
 
-export function setCardStyles(card: HTMLElement, width: number): void {
-  card.style.maxWidth = `${width}%`;
-  card.style.width = `100%`;
+export function setCardStyles(card: HTMLElement): void {
   card.style.opacity = `0`;
   card.classList.add('active');
   setTimeout((): void => {

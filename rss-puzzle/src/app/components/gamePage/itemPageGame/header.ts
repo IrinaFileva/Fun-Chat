@@ -1,7 +1,6 @@
 import { BaseComponent } from '../../../base-component';
 
 export const header = new BaseComponent('header', 'header').addElement();
-const titleHeader = new BaseComponent('h1', 'header__title').addElement('RSS-Puzzle');
 const containerButtonsHeader = new BaseComponent('div', 'header__container-buttons').addElement();
 const buttonExit = new BaseComponent('button', 'header__button-exit').addElement('Logout');
 const modalExit = new BaseComponent('div', 'modalExit').addElement("You're sure you want to log out?");
@@ -18,4 +17,4 @@ modalExitButtonNo.addEventListener('click', () => {
 });
 
 containerButtonsHeader.append(buttonExit);
-header.append(titleHeader, containerButtonsHeader, modalExit);
+header.append(containerButtonsHeader, modalExit);
