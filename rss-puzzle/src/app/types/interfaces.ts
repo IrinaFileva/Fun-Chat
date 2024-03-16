@@ -9,3 +9,9 @@ export interface LocalStorageObj {
   name: string;
   lastName: string;
 }
+
+export interface DataLevel{
+    audioExample: string;
+    textExample: string;
+    textExampleTranslate: string;
+}

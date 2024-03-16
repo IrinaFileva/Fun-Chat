@@ -11,6 +11,21 @@
   padding: 2rem 2rem 2rem 0;
 }
 
+.header__button-audio{
+  width: 3rem;
+  height: 3rem;
+  background-color: beige;
+  background-image: url(app/assets/sound.svg);
+  border: none;
+  border-radius: 100%;
+  margin-right: 15rem;
+  cursor: pointer;
+}
+
+.header__button-audio:hover{
+  opacity: 0.5;
+}
+
 .header__title {
   font: normal 800 22px/24px OpenSans;
   padding-right: 3rem;

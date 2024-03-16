@@ -8,6 +8,8 @@ const buttonExit = new BaseComponent('button', 'header__button-exit').addElement
 const modalExit = new BaseComponent('div', 'modalExit').addElement("You're sure you want to log out?");
 const modalExitButtonNo = new BaseComponent('button', 'modalExit__button no').addElement('No');
 export const modalExitButtonYes = new BaseComponent('button', 'modalExit__button yes').addElement('Yes');
+const buttonAudio: HTMLElement = new BaseComponent('button', 'header__button-audio').addElement();
+export const audioHint: HTMLAudioElement = new BaseComponent('audio', '').addElement() as HTMLMediaElement;
 
 modalExit.setAttribute('id', 'modalExit');
 modalExit.setAttribute('popover', '');
@@ -29,5 +31,10 @@ buttonTranslate.addEventListener('click', (): void => {
     localStorage.setItem('IF-translate', 'hide');
   }
 });
+
+buttonAudio.addEventListener('click', (): void => {
+  audioHint.play();
+});
+
 containerButtonsHeader.append(buttonExit);
-header.append(titleTranslate, buttonTranslate, containerButtonsHeader, modalExit);
+header.append(buttonAudio, audioHint, titleTranslate, buttonTranslate, containerButtonsHeader, modalExit);

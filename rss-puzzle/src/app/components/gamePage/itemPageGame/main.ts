@@ -1,5 +1,6 @@
 import wordLevel1 from '../../../assets/wordCollectionLevel1.json';
 import { BaseComponent } from '../../../base-component';
+import { DataLevel } from '../../../types/interfaces';
 import {
   addAnEmptyItem,
   checkLineWords,
@@ -10,7 +11,7 @@ import {
   setMascPuzzle,
   showTranslate,
 } from '../../../utils';
-import { buttonTranslate, titleTranslate } from './header';
+import { audioHint, buttonTranslate, titleTranslate } from './header';
 
 export const mainPageGame: HTMLElement = new BaseComponent('main', 'pageGame__main').addElement();
 const gameBoard: HTMLElement = new BaseComponent('div', 'gamePage__gameBoard').addElement();
@@ -19,6 +20,7 @@ const containerButtons: HTMLElement = new BaseComponent('div', 'gamePage__contai
 const buttonAutoComplete: HTMLElement = new BaseComponent('button', 'gamePage__bth-complete buttons').addElement('Auto-complete');
 const buttonCheck: HTMLElement = new BaseComponent('button', 'gamePage__bth-check buttons').addElement('Check');
 const buttonContinue: HTMLElement = new BaseComponent('button', 'gamePage__btn-continue buttons').addElement('Continue');
+const pathAudio: string = 'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/';
 const marginAddWidth: number = 14; //  чтоб язычек пазла красиво отображался на странице, пришлось margin делать -14px ( данное число компинсирует этот margin)
 const numberOffersBlock: number = 10;
 const percentages: number = 100;
@@ -29,9 +31,11 @@ buttonCheck.setAttribute('disabled', '');
 
 function startGame(tier: number, lap: number): void {
   const lineGameBoard: HTMLElement = new BaseComponent('div', 'gamePage__lineGameBoard').addElement();
-  const workingOrder: string = wordLevel1.rounds[lap].words[tier].textExample;
+  const levelData: DataLevel = wordLevel1.rounds[lap].words[tier];
+  const workingOrder: string = levelData.textExample;
   const offerSort: string[] = workingOrder.split(' ').sort(() => Math.random() - 0.5);
-  titleTranslate.textContent = wordLevel1.rounds[lap].words[tier].textExampleTranslate;
+  audioHint.src = `${pathAudio}${levelData.audioExample}`;
+  titleTranslate.textContent = levelData.textExampleTranslate;
   showTranslate(titleTranslate, buttonTranslate);
   for (let i = 0; i < offerSort.length; i += 1) {
     const word = new BaseComponent('div', 'gamePage__word drag puzzle').addElement(offerSort[i]);
