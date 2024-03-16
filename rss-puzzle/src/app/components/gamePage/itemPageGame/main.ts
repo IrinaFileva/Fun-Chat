@@ -9,6 +9,7 @@ import {
   setCardStyles,
   setMascPuzzle,
 } from '../../../utils';
+import { titleTranslate } from './header';
 
 export const mainPageGame: HTMLElement = new BaseComponent('main', 'pageGame__main').addElement();
 const gameBoard: HTMLElement = new BaseComponent('div', 'gamePage__gameBoard').addElement();
@@ -29,7 +30,7 @@ function startGame(tier: number, lap: number): void {
   const lineGameBoard: HTMLElement = new BaseComponent('div', 'gamePage__lineGameBoard').addElement();
   const workingOrder: string = wordLevel1.rounds[lap].words[tier].textExample;
   const offerSort: string[] = workingOrder.split(' ').sort(() => Math.random() - 0.5);
-
+  titleTranslate.textContent = wordLevel1.rounds[lap].words[tier].textExampleTranslate;
   for (let i = 0; i < offerSort.length; i += 1) {
     const word = new BaseComponent('div', 'gamePage__word drag puzzle').addElement(offerSort[i]);
     const emptyCard = new BaseComponent('div', 'gamePage__word no-drag').addElement();
