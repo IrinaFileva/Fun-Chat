@@ -22,8 +22,27 @@ export function setMascPuzzle(elem: HTMLElement, order: string): void {
     elem.classList.add('end');
   }
 }
-
-export function compareResultStrings(parentWord: HTMLElement, order: string, buttonOpen: HTMLElement, buttonClosed: HTMLElement): void {
+export function showTranslate(elem: HTMLElement, button: HTMLElement) {
+  button.style.opacity = '1';
+  const localDate = localStorage.getItem('IF-translate');
+  if (localDate === 'hide') {
+    elem.style.display = 'none';
+    elem.style.opacity = '0';
+    button.textContent = 'Show translation';
+  } else {
+    elem.style.display = 'block';
+    elem.style.opacity = '1';
+    button.textContent = 'Hide translation';
+  }
+}
+export function compareResultStrings(
+  parentWord: HTMLElement,
+  order: string,
+  buttonOpen: HTMLElement,
+  buttonClosed: HTMLElement,
+  titleTranslate: HTMLElement,
+  buttonHind: HTMLElement,
+): void {
   const resultString: string[] = [];
   parentWord.childNodes.forEach((elem: ChildNode) => {
     if (elem.textContent) resultString.push(elem.textContent);
@@ -35,6 +54,8 @@ export function compareResultStrings(parentWord: HTMLElement, order: string, but
     });
     buttonClosed.style.display = 'none';
     buttonOpen.style.display = 'block';
+    buttonHind.style.opacity = '0';
+    titleTranslate.style.opacity = '1';
     parentWord.style.pointerEvents = 'none';
   }
 }
@@ -70,11 +91,13 @@ function dragEnd(
   button: HTMLElement,
   order: string,
   buttonOpen: HTMLElement,
+  titleTranslate: HTMLElement,
+  buttonTranslate: HTMLElement,
 ): void {
   const item: HTMLElement = elem.target as HTMLElement;
   item.classList.remove('choose');
   checkLineWords(parent, lengthOffer, button);
-  compareResultStrings(parent, order, buttonOpen, button);
+  compareResultStrings(parent, order, buttonOpen, button, titleTranslate, buttonTranslate);
 }
 
 function dragOver(elem: DragEvent): void {
@@ -122,10 +145,14 @@ export function dragAndDrop(
   button: HTMLElement,
   order: string,
   buttonOpen: HTMLElement,
+  titleTranslate: HTMLElement,
+  buttonTranslate: HTMLElement,
 ): void {
   listeners.forEach((parent: HTMLElement) => {
     parent.addEventListener('dragstart', (e: DragEvent): void => dragStar(e, button));
-    parent.addEventListener('dragend', (e: DragEvent): void => dragEnd(e, listeners[0], lengthOffer, button, order, buttonOpen));
+    parent.addEventListener('dragend', (e: DragEvent): void =>
+      dragEnd(e, listeners[0], lengthOffer, button, order, buttonOpen, titleTranslate, buttonTranslate),
+    );
     parent.addEventListener('dragover', (e: DragEvent): void => dragOver(e));
   });
   listeners[0].addEventListener('drop', (e: DragEvent): void => dropResultField(e, listeners[0], listeners[1]));

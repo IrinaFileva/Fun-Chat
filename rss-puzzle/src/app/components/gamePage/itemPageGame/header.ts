@@ -2,6 +2,7 @@ import { BaseComponent } from '../../../base-component';
 
 export const header = new BaseComponent('header', 'header').addElement();
 export const titleTranslate = new BaseComponent('p', 'header__title').addElement();
+export const buttonTranslate = new BaseComponent('button', 'header__button-translate').addElement('Show translation');
 const containerButtonsHeader = new BaseComponent('div', 'header__container-buttons').addElement();
 const buttonExit = new BaseComponent('button', 'header__button-exit').addElement('Logout');
 const modalExit = new BaseComponent('div', 'modalExit').addElement("You're sure you want to log out?");
@@ -17,5 +18,16 @@ modalExitButtonNo.addEventListener('click', () => {
   modalExit.hidePopover();
 });
 
+buttonTranslate.addEventListener('click', (): void => {
+  if (buttonTranslate.textContent === 'Show translation') {
+    buttonTranslate.textContent = 'Hide translation';
+    titleTranslate.style.opacity = '1';
+    localStorage.setItem('IF-translate', 'show');
+  } else {
+    buttonTranslate.textContent = 'Show translation';
+    titleTranslate.style.opacity = '0';
+    localStorage.setItem('IF-translate', 'hide');
+  }
+});
 containerButtonsHeader.append(buttonExit);
-header.append(titleTranslate, containerButtonsHeader, modalExit);
+header.append(titleTranslate, buttonTranslate, containerButtonsHeader, modalExit);
