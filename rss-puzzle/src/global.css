@@ -9,6 +9,8 @@
   align-items: end;
   justify-content: center;
   padding: 2rem 2rem 1rem 0;
+  animation: 0.1s 0s 1 text normal both running linear;
+  opacity: 1;
 }
 
 .header__button-audio {
@@ -23,10 +25,7 @@
   border-radius: 100%;
   margin-right: 2rem;
   cursor: pointer;
-}
-
-.header__button-audio:hover {
-  opacity: 0.5;
+  transition: all 1s;
 }
 
 @keyframes color {
@@ -49,10 +48,9 @@
 }
 
 .header__title {
-  width: 49rem;
+  width: 46rem;
   font: normal 800 22px/24px OpenSans;
   padding-right: 3rem;
-  animation: 0.1s 0s 1 text normal both running linear;
 }
 
 .header__button-translate {
@@ -70,6 +68,20 @@
   cursor: pointer;
 }
 
+.header__button-volume {
+  width: 3.2rem;
+  height: 3.2rem;
+  border: none;
+  border-radius: 100%;
+  margin-right: 1.5rem;
+  background-image: url(app/assets/sound.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: beige;
+  cursor: pointer;
+}
+
 .header__button-exit {
   width: 3.2rem;
   height: 3.2rem;
@@ -83,6 +95,8 @@
   cursor: pointer;
 }
 
+.header__button-audio:not([disabled]):hover,
+.header__button-volume:hover,
 .header__button-translate:hover,
 .header__button-exit:hover {
   opacity: 0.6;
@@ -150,6 +164,7 @@
   padding: 0.6rem 2rem;
   z-index: 15;
 }
+
 .gamePage__word:hover {
   opacity: 0.6;
 }
@@ -447,8 +462,10 @@
 
 .button_no-active {
   opacity: 0.5;
+  transition: all 1s;
 }
 
-.translate_no-active {
+.hind_no-active {
+  visibility: hidden;
   opacity: 0;
 }

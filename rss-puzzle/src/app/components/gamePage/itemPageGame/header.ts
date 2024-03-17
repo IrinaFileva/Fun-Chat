@@ -8,7 +8,8 @@ export const audioHint: HTMLAudioElement = new BaseComponent('audio', '').addEle
 const buttonExit: HTMLElement = new BaseComponent('button', 'header__button-exit').addElement();
 const modalExit: HTMLElement = new BaseComponent('div', 'modalExit').addElement("You're sure you want to log out?");
 const modalExitButtonNo: HTMLElement = new BaseComponent('button', 'modalExit__button no').addElement('No');
-const buttonAudio: HTMLElement = new BaseComponent('button', 'header__button-audio').addElement();
+export const buttonAudio: HTMLElement = new BaseComponent('button', 'header__button-audio').addElement();
+export const buttonVolume: HTMLElement = new BaseComponent('button', 'header__button-volume').addElement();
 
 modalExit.setAttribute('id', 'modalExit');
 modalExit.setAttribute('popover', '');
@@ -21,7 +22,12 @@ modalExitButtonNo.addEventListener('click', (): void => {
 
 buttonTranslate.addEventListener('click', (): void => {
   buttonTranslate.classList.toggle('button_no-active');
-  titleTranslate.classList.toggle('translate_no-active');
+  titleTranslate.classList.toggle('hind_no-active');
+});
+
+buttonVolume.addEventListener('click', (): void => {
+  buttonVolume.classList.toggle('button_no-active');
+  buttonAudio.classList.toggle('hind_no-active');
 });
 
 buttonAudio.addEventListener('click', (): void => {
@@ -36,4 +42,4 @@ audioHint.addEventListener('ended', (): void => {
   buttonAudio.classList.remove('button_audio');
 });
 
-header.append(buttonAudio, audioHint, titleTranslate, buttonTranslate, buttonExit, modalExit);
+header.append(buttonAudio, audioHint, titleTranslate, buttonVolume, buttonTranslate, buttonExit, modalExit);

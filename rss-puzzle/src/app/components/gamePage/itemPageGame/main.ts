@@ -3,6 +3,7 @@ import { BaseComponent } from '../../../base-component';
 import { DataLevel } from '../../../types/interfaces';
 import {
   addAnEmptyItem,
+  checkHintActivation,
   checkLineWords,
   compareResultStrings,
   dragAndDrop,
@@ -10,7 +11,7 @@ import {
   setCardStyles,
   setMascPuzzle,
 } from '../../../utils';
-import { audioHint, titleTranslate } from './header';
+import { audioHint, buttonAudio, buttonTranslate, buttonVolume, titleTranslate } from './header';
 
 export const mainPageGame: HTMLElement = new BaseComponent('main', 'pageGame__main').addElement();
 const gameBoard: HTMLElement = new BaseComponent('div', 'gamePage__gameBoard').addElement();
@@ -29,6 +30,7 @@ let round: number = 0;
 buttonCheck.setAttribute('disabled', '');
 
 function startGame(tier: number, lap: number): void {
+  checkHintActivation(buttonVolume, buttonAudio, buttonTranslate, titleTranslate);
   const lineGameBoard: HTMLElement = new BaseComponent('div', 'gamePage__lineGameBoard').addElement();
   const levelData: DataLevel = wordLevel1.rounds[lap].words[tier];
   const workingOrder: string = levelData.textExample;
@@ -73,10 +75,10 @@ function startGame(tier: number, lap: number): void {
         }
       }
       checkLineWords(lineGameBoard, offerSort, buttonCheck);
-      compareResultStrings(lineGameBoard, workingOrder, buttonContinue, buttonCheck, titleTranslate);
+      compareResultStrings(lineGameBoard, workingOrder, buttonContinue, buttonCheck, titleTranslate, buttonAudio);
     });
   }
-  dragAndDrop([lineGameBoard, lineWord], offerSort, buttonCheck, workingOrder, buttonContinue, titleTranslate);
+  dragAndDrop([lineGameBoard, lineWord], offerSort, buttonCheck, workingOrder, buttonContinue, titleTranslate, buttonAudio);
   gameBoard.append(lineGameBoard);
 }
 startGame(proposal, round);
@@ -134,6 +136,8 @@ buttonAutoComplete.addEventListener('click', (): void => {
   buttonCheck.style.display = 'none';
   buttonContinue.style.display = 'block';
   buttonAutoComplete.setAttribute('disabled', 'disabled');
+  titleTranslate.classList.remove('hind_no-active');
+  buttonAudio.classList.remove('hind_no-active');
 });
 
 containerButtons.append(buttonAutoComplete, buttonCheck, buttonContinue);

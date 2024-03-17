@@ -29,6 +29,7 @@ export function compareResultStrings(
   buttonOpen: HTMLElement,
   buttonClosed: HTMLElement,
   titleTranslate: HTMLElement,
+  buttonAudio: HTMLElement,
 ): void {
   const resultString: string[] = [];
   parentWord.childNodes.forEach((elem: ChildNode) => {
@@ -41,11 +42,25 @@ export function compareResultStrings(
     });
     buttonClosed.style.display = 'none';
     buttonOpen.style.display = 'block';
-    titleTranslate.style.opacity = '1';
+    titleTranslate.classList.remove('hind_no-active');
+    buttonAudio.classList.remove('hind_no-active');
     parentWord.style.pointerEvents = 'none';
   }
 }
 
+export function checkHintActivation(
+  buttonVolume: HTMLElement,
+  hintVolume: HTMLElement,
+  buttonTranslate: HTMLElement,
+  titleTranslate: HTMLElement,
+): void {
+  buttonVolume.classList.contains('button_no-active')
+    ? hintVolume.classList.add('hind_no-active')
+    : hintVolume.classList.remove('hind_no-active');
+  buttonTranslate.classList.contains('button_no-active')
+    ? titleTranslate.classList.add('hind_no-active')
+    : titleTranslate.classList.remove('hind_no-active');
+}
 export function setCardStyles(card: HTMLElement): void {
   card.style.opacity = `0`;
   card.classList.add('active');
@@ -78,11 +93,12 @@ function dragEnd(
   order: string,
   buttonOpen: HTMLElement,
   titleTranslate: HTMLElement,
+  buttonVolume: HTMLElement,
 ): void {
   const item: HTMLElement = elem.target as HTMLElement;
   item.classList.remove('choose');
   checkLineWords(parent, lengthOffer, button);
-  compareResultStrings(parent, order, buttonOpen, button, titleTranslate);
+  compareResultStrings(parent, order, buttonOpen, button, titleTranslate, buttonVolume);
 }
 
 function dragOver(elem: DragEvent): void {
@@ -131,11 +147,12 @@ export function dragAndDrop(
   order: string,
   buttonOpen: HTMLElement,
   titleTranslate: HTMLElement,
+  buttonVolume: HTMLElement,
 ): void {
   listeners.forEach((parent: HTMLElement) => {
     parent.addEventListener('dragstart', (e: DragEvent): void => dragStar(e, button));
     parent.addEventListener('dragend', (e: DragEvent): void =>
-      dragEnd(e, listeners[0], lengthOffer, button, order, buttonOpen, titleTranslate),
+      dragEnd(e, listeners[0], lengthOffer, button, order, buttonOpen, titleTranslate, buttonVolume),
     );
     parent.addEventListener('dragover', (e: DragEvent): void => dragOver(e));
   });
