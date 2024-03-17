@@ -1,40 +1,39 @@
 import { BaseComponent } from '../../../base-component';
 
-export const header = new BaseComponent('header', 'header').addElement();
-export const titleTranslate = new BaseComponent('p', 'header__title').addElement();
-export const buttonTranslate = new BaseComponent('button', 'header__button-translate').addElement('Show translation');
-const containerButtonsHeader = new BaseComponent('div', 'header__container-buttons').addElement();
-const buttonExit = new BaseComponent('button', 'header__button-exit').addElement('Logout');
-const modalExit = new BaseComponent('div', 'modalExit').addElement("You're sure you want to log out?");
-const modalExitButtonNo = new BaseComponent('button', 'modalExit__button no').addElement('No');
-export const modalExitButtonYes = new BaseComponent('button', 'modalExit__button yes').addElement('Yes');
-const buttonAudio: HTMLElement = new BaseComponent('button', 'header__button-audio').addElement();
+export const header: HTMLElement = new BaseComponent('header', 'header').addElement();
+export const titleTranslate: HTMLElement = new BaseComponent('p', 'header__title').addElement();
+export const buttonTranslate: HTMLElement = new BaseComponent('button', 'header__button-translate').addElement();
+export const modalExitButtonYes: HTMLElement = new BaseComponent('button', 'modalExit__button yes').addElement('Yes');
 export const audioHint: HTMLAudioElement = new BaseComponent('audio', '').addElement() as HTMLMediaElement;
+const buttonExit: HTMLElement = new BaseComponent('button', 'header__button-exit').addElement();
+const modalExit: HTMLElement = new BaseComponent('div', 'modalExit').addElement("You're sure you want to log out?");
+const modalExitButtonNo: HTMLElement = new BaseComponent('button', 'modalExit__button no').addElement('No');
+const buttonAudio: HTMLElement = new BaseComponent('button', 'header__button-audio').addElement();
 
 modalExit.setAttribute('id', 'modalExit');
 modalExit.setAttribute('popover', '');
 modalExit.append(modalExitButtonNo, modalExitButtonYes);
 buttonExit.setAttribute('popovertarget', 'modalExit');
 
-modalExitButtonNo.addEventListener('click', () => {
+modalExitButtonNo.addEventListener('click', (): void => {
   modalExit.hidePopover();
 });
 
 buttonTranslate.addEventListener('click', (): void => {
-  if (buttonTranslate.textContent === 'Show translation') {
-    buttonTranslate.textContent = 'Hide translation';
-    titleTranslate.style.opacity = '1';
-    localStorage.setItem('IF-translate', 'show');
-  } else {
-    buttonTranslate.textContent = 'Show translation';
-    titleTranslate.style.opacity = '0';
-    localStorage.setItem('IF-translate', 'hide');
-  }
+  buttonTranslate.classList.toggle('button_no-active');
+  titleTranslate.classList.toggle('translate_no-active');
 });
 
 buttonAudio.addEventListener('click', (): void => {
   audioHint.play();
 });
 
-containerButtonsHeader.append(buttonExit);
-header.append(buttonAudio, audioHint, titleTranslate, buttonTranslate, containerButtonsHeader, modalExit);
+audioHint.addEventListener('play', (): void => {
+  buttonAudio.classList.add('button_audio');
+});
+
+audioHint.addEventListener('ended', (): void => {
+  buttonAudio.classList.remove('button_audio');
+});
+
+header.append(buttonAudio, audioHint, titleTranslate, buttonTranslate, buttonExit, modalExit);

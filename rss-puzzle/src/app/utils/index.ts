@@ -22,26 +22,13 @@ export function setMascPuzzle(elem: HTMLElement, order: string): void {
     elem.classList.add('end');
   }
 }
-export function showTranslate(elem: HTMLElement, button: HTMLElement) {
-  button.style.opacity = '1';
-  const localDate = localStorage.getItem('IF-translate');
-  if (localDate === 'hide') {
-    elem.style.display = 'none';
-    elem.style.opacity = '0';
-    button.textContent = 'Show translation';
-  } else {
-    elem.style.display = 'block';
-    elem.style.opacity = '1';
-    button.textContent = 'Hide translation';
-  }
-}
+
 export function compareResultStrings(
   parentWord: HTMLElement,
   order: string,
   buttonOpen: HTMLElement,
   buttonClosed: HTMLElement,
   titleTranslate: HTMLElement,
-  buttonHind: HTMLElement,
 ): void {
   const resultString: string[] = [];
   parentWord.childNodes.forEach((elem: ChildNode) => {
@@ -54,7 +41,6 @@ export function compareResultStrings(
     });
     buttonClosed.style.display = 'none';
     buttonOpen.style.display = 'block';
-    buttonHind.style.opacity = '0';
     titleTranslate.style.opacity = '1';
     parentWord.style.pointerEvents = 'none';
   }
@@ -92,12 +78,11 @@ function dragEnd(
   order: string,
   buttonOpen: HTMLElement,
   titleTranslate: HTMLElement,
-  buttonTranslate: HTMLElement,
 ): void {
   const item: HTMLElement = elem.target as HTMLElement;
   item.classList.remove('choose');
   checkLineWords(parent, lengthOffer, button);
-  compareResultStrings(parent, order, buttonOpen, button, titleTranslate, buttonTranslate);
+  compareResultStrings(parent, order, buttonOpen, button, titleTranslate);
 }
 
 function dragOver(elem: DragEvent): void {
@@ -146,12 +131,11 @@ export function dragAndDrop(
   order: string,
   buttonOpen: HTMLElement,
   titleTranslate: HTMLElement,
-  buttonTranslate: HTMLElement,
 ): void {
   listeners.forEach((parent: HTMLElement) => {
     parent.addEventListener('dragstart', (e: DragEvent): void => dragStar(e, button));
     parent.addEventListener('dragend', (e: DragEvent): void =>
-      dragEnd(e, listeners[0], lengthOffer, button, order, buttonOpen, titleTranslate, buttonTranslate),
+      dragEnd(e, listeners[0], lengthOffer, button, order, buttonOpen, titleTranslate),
     );
     parent.addEventListener('dragover', (e: DragEvent): void => dragOver(e));
   });

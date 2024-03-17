@@ -9,9 +9,8 @@ import {
   lookFirstEmptyElement,
   setCardStyles,
   setMascPuzzle,
-  showTranslate,
 } from '../../../utils';
-import { audioHint, buttonTranslate, titleTranslate } from './header';
+import { audioHint, titleTranslate } from './header';
 
 export const mainPageGame: HTMLElement = new BaseComponent('main', 'pageGame__main').addElement();
 const gameBoard: HTMLElement = new BaseComponent('div', 'gamePage__gameBoard').addElement();
@@ -36,7 +35,7 @@ function startGame(tier: number, lap: number): void {
   const offerSort: string[] = workingOrder.split(' ').sort(() => Math.random() - 0.5);
   audioHint.src = `${pathAudio}${levelData.audioExample}`;
   titleTranslate.textContent = levelData.textExampleTranslate;
-  showTranslate(titleTranslate, buttonTranslate);
+  titleTranslate.style.opacity = '';
   for (let i = 0; i < offerSort.length; i += 1) {
     const word = new BaseComponent('div', 'gamePage__word drag puzzle').addElement(offerSort[i]);
     const emptyCard = new BaseComponent('div', 'gamePage__word no-drag').addElement();
@@ -74,10 +73,10 @@ function startGame(tier: number, lap: number): void {
         }
       }
       checkLineWords(lineGameBoard, offerSort, buttonCheck);
-      compareResultStrings(lineGameBoard, workingOrder, buttonContinue, buttonCheck, titleTranslate, buttonTranslate);
+      compareResultStrings(lineGameBoard, workingOrder, buttonContinue, buttonCheck, titleTranslate);
     });
   }
-  dragAndDrop([lineGameBoard, lineWord], offerSort, buttonCheck, workingOrder, buttonContinue, titleTranslate, buttonTranslate);
+  dragAndDrop([lineGameBoard, lineWord], offerSort, buttonCheck, workingOrder, buttonContinue, titleTranslate);
   gameBoard.append(lineGameBoard);
 }
 startGame(proposal, round);

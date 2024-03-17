@@ -6,75 +6,86 @@
 
 .header {
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 2rem 2rem 2rem 0;
+  align-items: end;
+  justify-content: center;
+  padding: 2rem 2rem 1rem 0;
 }
 
-.header__button-audio{
-  width: 3rem;
-  height: 3rem;
-  background-color: beige;
-  background-image: url(app/assets/sound.svg);
+.header__button-audio {
+  min-width: 2rem;
+  min-height: 2rem;
+  background-color: white;
+  background-image: url(app/assets/soundHind.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   border: none;
   border-radius: 100%;
-  margin-right: 15rem;
+  margin-right: 2rem;
   cursor: pointer;
 }
 
-.header__button-audio:hover{
+.header__button-audio:hover {
   opacity: 0.5;
 }
 
-.header__title {
-  font: normal 800 22px/24px OpenSans;
-  padding-right: 3rem;
-  transition: opacity 1s;
-  opacity: 0;
-}
-
-@keyframes opacity {
+@keyframes color {
   0% {
-    opacity: 0;
+    background-color: #2ba805;
+    box-shadow: 0 0 5px #2ba805;
   }
   50% {
-    opacity: 0.5;
+    background-color: #49e819;
+    box-shadow: 0 0 14px #49e819;
   }
   100% {
-    opacity: 1;
+    background-color: #33be08;
+    box-shadow: 0 0 5px #33be08;
   }
+}
+
+.button_audio {
+  animation: color 1000ms infinite;
+}
+
+.header__title {
+  width: 49rem;
+  font: normal 800 22px/24px OpenSans;
+  padding-right: 3rem;
+  animation: 0.1s 0s 1 text normal both running linear;
 }
 
 .header__button-translate {
-  width: 6rem;
+  width: 2.5rem;
   height: 3.2rem;
   padding: 0.4rem;
-  font: normal 800 16px/18px OpenSans;
-  border-radius: 15px;
-  border: 2px solid black;
+  border-radius: 5px;
+  border: none;
+  margin-right: 2rem;
   background-color: beige;
+  background-image: url(app/assets/dictionary.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   cursor: pointer;
-  margin-right: 15rem;
-}
-
-.header__button-translate:hover{
-  font: normal 800 14px/16px OpenSans;
 }
 
 .header__button-exit {
-  width: 6rem;
-  height: 2.5rem;
-  padding: 0.4rem;
-  font: normal 800 24px/26px OpenSans;
-  border-radius: 15px;
-  border: 2px solid black;
-  outline: 2px solid red;
+  width: 3.2rem;
+  height: 3.2rem;
+  border: none;
+  border-radius: 100%;
+  background-image: url(app/assets/exit.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-color: beige;
   cursor: pointer;
 }
 
+.header__button-translate:hover,
 .header__button-exit:hover {
-  font: normal 800 22px/24px OpenSans;
+  opacity: 0.6;
 }
 
 .pageGame__main {
@@ -434,3 +445,10 @@
   margin-right: 0px;
 }
 
+.button_no-active {
+  opacity: 0.5;
+}
+
+.translate_no-active {
+  opacity: 0;
+}
