@@ -3,6 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+body{
+  background-color: antiquewhite;
+}
 
 .header {
   display: flex;
@@ -113,6 +116,7 @@
 
 .gamePage__lineWord {
   display: flex;
+  justify-content: space-between;
   gap: 0;
   max-width: 65rem;
   width: 100%;
@@ -131,6 +135,9 @@
   border-radius: 5px;
   border: 1px solid black;
   background-color: grey;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
 }
 
 .gamePage__lineGameBoard {
@@ -140,29 +147,60 @@
   height: 3.5rem;
   border-bottom: 1px solid black;
 }
-
-.gamePage__word {
-  color: rgb(37, 224, 93);
-  font-size: 20px;
-  font-weight: 800;
+.gamePage__emptyCard {
   width: 100%;
   text-align: center;
   animation: 0.1s 0s 1 text normal both running linear;
 }
 
+.start,
+.end,
+.gamePage__word {
+  position: relative;
+  display: flex;
+  font: normal 600 22px/24px OpenSans;
+  width: 100%;
+  text-align: center;
+  animation: 0.1s 0s 1 text normal both running linear;
+  overflow: hidden;
+}
+
 .puzzle {
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: calc(100% - 10px);
   height: 100%;
-  background-image: url(app/assets/backgroundStart1.jpg);
-  mask-image: url(app/assets/middle1.svg);
-  mask-size: cover;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  margin-right: -20px;
   padding: 0.6rem 2rem;
-  z-index: 15;
+  z-index: 5;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.end::after,
+.reeds::after {
+  position: absolute;
+  bottom: 30%;
+  left: -10px;
+  content: '';
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: gray;
+  z-index: 6;
+}
+
+.puzzle_reed {
+  position: absolute;
+  bottom: 30%;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 4;
 }
 
 .gamePage__word:hover {
@@ -319,7 +357,7 @@
   align-items: end;
   width: 100%;
   height: 100%;
-  padding: 8rem 5.8rem;
+  padding: 8rem 15rem;
 }
 
 .startPage__image1 {
@@ -341,6 +379,7 @@
 }
 
 .startPage__title {
+  margin-right: 2rem;
   backdrop-filter: blur(5px);
   color: bisque;
   font: italic 800 68px/70px OpenSans;
@@ -355,6 +394,7 @@
 .startPage__description {
   backdrop-filter: blur(5px);
   margin-top: 2rem;
+  margin-right: 2rem;
   font: italic 800 32px/34px OpenSans;
   text-shadow:
     0.04em 0 bisque,
@@ -380,7 +420,7 @@
     0 0.04em #000,
     0 -0.04em #000;
   opacity: 0;
-  transition: opacity 4s ease;
+  transition: opacity 3s ease;
 }
 
 .startPage__button {
@@ -393,6 +433,7 @@
   background-color: bisque;
   font: italic 800 28px/30px OpenSans;
   cursor: pointer;
+  z-index: 10px;
 }
 
 .startPage__button:hover {
@@ -429,11 +470,13 @@
 }
 .drag {
   cursor: grab;
+  position: relative;
+  z-index: 1000;
 }
 .active {
   cursor: grab;
-  z-index: 10000;
 }
+
 .blok {
   pointer-events: none;
 }
@@ -445,19 +488,8 @@
 }
 .choose {
   opacity: 0.5;
-  border: 2px solid black;
   z-index: 1000;
   position: relative;
-}
-.start {
-  mask-image: url(app/assets/start1.svg);
-  margin-left: 10px;
-}
-
-.end {
-  mask-image: url(app/assets/end1.svg);
-  padding-left: 3rem;
-  margin-right: 0px;
 }
 
 .button_no-active {

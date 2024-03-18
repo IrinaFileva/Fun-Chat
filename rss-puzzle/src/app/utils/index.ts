@@ -1,8 +1,8 @@
 import { BaseComponent } from '../base-component';
 
 export function addAnEmptyItem(elem: HTMLElement, parent: HTMLElement, width: number): void {
-  const swapCard: HTMLElement = new BaseComponent('div', 'gamePage__word').addElement();
-  swapCard.style.width = `${width}% `;
+  const swapCard: HTMLElement = new BaseComponent('div', 'gamePage__emptyCard no-drag').addElement();
+  swapCard.style.width = `${width}% + 20px `;
   parent.insertBefore(swapCard, elem);
 }
 
@@ -14,12 +14,15 @@ export function lookFirstEmptyElement(parent: NodeListOf<ChildNode> | ChildNode[
   return emptyItem;
 }
 
-export function setMascPuzzle(elem: HTMLElement, order: string): void {
+export function setReedsPuzzle(elem: HTMLElement, parent: HTMLElement, order: string, reed: HTMLElement): void {
   if (elem.textContent === order.split(' ')[0]) {
-    elem.classList.add('start');
+    parent.classList.remove('reeds');
+    parent.classList.add('start');
   }
   if (elem.textContent === order.split(' ').at(-1)) {
-    elem.classList.add('end');
+    parent.classList.remove('reeds');
+    parent.classList.add('end');
+    parent.removeChild(reed);
   }
 }
 
@@ -124,6 +127,14 @@ function dropResultField(elem: DragEvent, parent: HTMLElement, parent1: HTMLElem
       parent.insertBefore(item, target.nextSibling);
     }
   }
+}
+
+export function setBackGroundPuzzle(elem: HTMLElement, reed: HTMLElement, part: string, left: number, top: number, width: number): void {
+  const leftReed = left + width;
+  elem.style.backgroundImage = part;
+  reed.style.backgroundImage = part;
+  elem.style.backgroundPosition = `top -${top}px left ${left}%`;
+  reed.style.backgroundPosition = `top calc(${top}px + 16px) left calc(${leftReed}%)`;
 }
 
 function dropLineWord(elem: DragEvent, parent: HTMLElement, parent1: HTMLElement): void {

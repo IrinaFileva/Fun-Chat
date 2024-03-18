@@ -8,8 +8,9 @@ import {
   compareResultStrings,
   dragAndDrop,
   lookFirstEmptyElement,
+  setBackGroundPuzzle,
   setCardStyles,
-  setMascPuzzle,
+  setReedsPuzzle,
 } from '../../../utils';
 import { audioHint, buttonAudio, buttonTranslate, buttonVolume, titleTranslate } from './header';
 
@@ -21,30 +22,39 @@ const buttonAutoComplete: HTMLElement = new BaseComponent('button', 'gamePage__b
 const buttonCheck: HTMLElement = new BaseComponent('button', 'gamePage__bth-check buttons').addElement('Check');
 const buttonContinue: HTMLElement = new BaseComponent('button', 'gamePage__btn-continue buttons').addElement('Continue');
 const pathAudio: string = 'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/';
-const marginAddWidth: number = 14; //  чтоб язычек пазла красиво отображался на странице, пришлось margin делать -14px ( данное число компинсирует этот margin)
+const pathImage: string = 'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/';
+const extraWidth: number = 20; // язычек от пазла.
 const numberOffersBlock: number = 10;
 const percentages: number = 100;
+let positionTop: number = 0;
 let proposal: number = 0;
 let round: number = 0;
 
 buttonCheck.setAttribute('disabled', '');
 
 function startGame(tier: number, lap: number): void {
+  let positionLeft: number = 0;
   checkHintActivation(buttonVolume, buttonAudio, buttonTranslate, titleTranslate);
   const lineGameBoard: HTMLElement = new BaseComponent('div', 'gamePage__lineGameBoard').addElement();
   const levelData: DataLevel = wordLevel1.rounds[lap].words[tier];
   const workingOrder: string = levelData.textExample;
-  const offerSort: string[] = workingOrder.split(' ').sort(() => Math.random() - 0.5);
+  const offerSort: string[] = workingOrder.split(' ');
+  const backgroundImage = `url(${pathImage}${wordLevel1.rounds[lap].levelData.imageSrc})`;
   audioHint.src = `${pathAudio}${levelData.audioExample}`;
   titleTranslate.textContent = levelData.textExampleTranslate;
   titleTranslate.style.opacity = '';
   for (let i = 0; i < offerSort.length; i += 1) {
-    const word = new BaseComponent('div', 'gamePage__word drag puzzle').addElement(offerSort[i]);
-    const emptyCard = new BaseComponent('div', 'gamePage__word no-drag').addElement();
-    word.style.maxWidth = `calc(${percentages / offerSort.length}% + ${marginAddWidth}px)`;
+    const word = new BaseComponent('div', 'gamePage__word drag reeds').addElement();
+    const puzzle: HTMLElement = new BaseComponent('div', 'puzzle').addElement(offerSort[i]);
+    const reed: HTMLElement = new BaseComponent('div', 'puzzle_reed').addElement();
+    const emptyCard = new BaseComponent('div', 'gamePage__emptyCard no-drag').addElement();
+    word.style.maxWidth = `calc(${percentages / offerSort.length}% + ${extraWidth}px)`;
     word.draggable = true;
     emptyCard.style.width = `${percentages / offerSort.length}%`;
-    setMascPuzzle(word, workingOrder);
+    word.append(puzzle, reed);
+    setReedsPuzzle(puzzle, word, workingOrder, reed);
+    setBackGroundPuzzle(puzzle, reed, backgroundImage, positionLeft, positionTop, percentages / offerSort.length);
+    positionLeft += percentages / offerSort.length;
     lineGameBoard.append(emptyCard);
     lineWord.append(word);
     word.addEventListener('click', (): void => {
@@ -78,9 +88,14 @@ function startGame(tier: number, lap: number): void {
       compareResultStrings(lineGameBoard, workingOrder, buttonContinue, buttonCheck, titleTranslate, buttonAudio);
     });
   }
+  const puzzles = Array.from(lineWord.childNodes).sort(() => Math.random() - 0.5);
+  lineWord.innerHTML = '';
+  lineWord.append(...puzzles);
   dragAndDrop([lineGameBoard, lineWord], offerSort, buttonCheck, workingOrder, buttonContinue, titleTranslate, buttonAudio);
   gameBoard.append(lineGameBoard);
+  positionTop += 52;
 }
+
 startGame(proposal, round);
 
 buttonContinue.addEventListener('click', (): void => {
@@ -91,6 +106,7 @@ buttonContinue.addEventListener('click', (): void => {
     }
     round += 1;
     proposal = 0;
+    positionTop = 0;
   }
   while (lineWord.firstChild) {
     lineWord.removeChild(lineWord.firstChild);
@@ -117,22 +133,22 @@ buttonCheck.addEventListener('click', (): void => {
 });
 
 buttonAutoComplete.addEventListener('click', (): void => {
-  while (lineWord.firstChild) {
-    lineWord.removeChild(lineWord.firstChild);
-  }
-  const lineGame: ChildNode = gameBoard.childNodes[proposal] as HTMLElement;
-  while (lineGame.firstChild) {
-    lineGame.removeChild(lineGame.firstChild);
-  }
   const workingOrder: string[] = wordLevel1.rounds[round].words[proposal].textExample.split(' ');
+  const puzzles: NodeListOf<HTMLElement> = document.querySelectorAll('.drag');
+  const lineGame: Element = gameBoard.children[proposal] as HTMLElement;
+  lineWord.innerHTML = '';
+  lineGame.innerHTML = '';
+
   for (let i = 0; i < workingOrder.length; i += 1) {
-    const word = new BaseComponent('div', 'gamePage__word puzzle').addElement(workingOrder[i]);
-    const widthCard = (workingOrder[i].length * percentages) / workingOrder.join(' ').replaceAll(' ', '').length;
-    word.style.width = `${widthCard}%`;
-    word.style.borderBottom = '2px solid black';
-    word.style.pointerEvents = 'none';
-    lineGame.appendChild(word);
+    for (let j = 0; j < puzzles.length; j += 1) {
+      if (workingOrder[i] === puzzles[j].textContent) {
+        puzzles[j].classList.remove('drag');
+        puzzles[j].style.pointerEvents = 'none';
+        lineGame.append(puzzles[j]);
+      }
+    }
   }
+
   buttonCheck.style.display = 'none';
   buttonContinue.style.display = 'block';
   buttonAutoComplete.setAttribute('disabled', 'disabled');
