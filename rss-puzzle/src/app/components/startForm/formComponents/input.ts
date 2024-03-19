@@ -32,11 +32,11 @@ export const inputLastName: HTMLInputElement = new AddInput('input', 'startForm_
   minlength: '4',
 });
 
-export const spanHintName = new BaseComponent('p', 'startForm__input_hint').addElement('');
-export const spanHintLastName = new BaseComponent('p', 'startForm__input_hint').addElement('');
+export const spanHintName: HTMLElement = new BaseComponent('p', 'startForm__input_hint').addElement('');
+export const spanHintLastName: HTMLElement = new BaseComponent('p', 'startForm__input_hint').addElement('');
+const pattern: RegExp = /[^A-z-]/;
 
-inputName.addEventListener('input', () => {
-  const pattern: RegExp = /[^[A-z-]/;
+inputName.addEventListener('input', (): void => {
   if (pattern.test(inputName.value)) {
     inputName.style.borderColor = 'red';
     spanHintName.textContent = 'Enter the name using the English';
@@ -58,8 +58,8 @@ inputName.addEventListener('input', () => {
     buttonLogin.setAttribute('disabled', '');
   }
 });
-inputLastName.addEventListener('input', () => {
-  const pattern: RegExp = /[^A-z-]/;
+
+inputLastName.addEventListener('input', (): void => {
   if (pattern.test(inputLastName.value)) {
     inputLastName.style.borderColor = 'red';
     spanHintLastName.textContent = 'Enter the Last name using the English';
@@ -82,13 +82,13 @@ inputLastName.addEventListener('input', () => {
   }
 });
 
-inputName.addEventListener('change', () => {
+inputName.addEventListener('change', (): void => {
   if (inputName.value.length < 3) {
     spanHintName.textContent = `Minimum quantity of letters 3, now ${inputName.value.length}`;
   }
 });
 
-inputLastName.addEventListener('change', () => {
+inputLastName.addEventListener('change', (): void => {
   if (inputLastName.value.length < 4) {
     spanHintLastName.textContent = `Minimum number of letters 4, now ${inputLastName.value.length}`;
   }

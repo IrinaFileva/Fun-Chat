@@ -5,7 +5,8 @@ import { inputName, inputLastName } from './formComponents/input';
 import { LocalStorageObj } from '../../types/interfaces';
 import { startPage, startButton } from '../startPage/page';
 
-export const startForm = new BaseComponent('form', 'startForm').addElement('Hello!<br> Please enter your first and last name');
+export const startForm: HTMLElement = new BaseComponent('form', 'startForm').addElement('Hello!<br> Please enter your first and last name');
+
 startForm.append(labelFirstName, labelLastName, buttonLogin);
 
 startForm.addEventListener('submit', (e: SubmitEvent): void => {
@@ -15,7 +16,7 @@ startForm.addEventListener('submit', (e: SubmitEvent): void => {
   obj.lastName = inputLastName.value;
   localStorage.setItem('IF-Puzzle', JSON.stringify(obj));
   startForm.remove();
-  const greetingUser = new BaseComponent('p', 'startPage__greeting').addElement(`Hello!<br> ${obj.name} ${obj.lastName}`);
+  const greetingUser: HTMLElement = new BaseComponent('p', 'startPage__greeting').addElement(`Hello!<br> ${obj.name} ${obj.lastName}`);
   setTimeout((): void => {
     greetingUser.style.opacity = '1';
   }, 300);

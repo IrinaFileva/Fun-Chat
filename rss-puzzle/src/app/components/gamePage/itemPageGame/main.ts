@@ -2,7 +2,8 @@ import wordLevel1 from '../../../assets/wordCollectionLevel1.json';
 import { BaseComponent } from '../../../base-component';
 import { DataLevel } from '../../../types/interfaces';
 import {
-  addAnEmptyItem,
+  addEmptyItem,
+  addPuzzleContainer,
   checkHintActivation,
   checkLineWords,
   compareResultStrings,
@@ -34,27 +35,23 @@ buttonCheck.setAttribute('disabled', '');
 
 function startGame(tier: number, lap: number): void {
   let positionLeft: number = 0;
-  checkHintActivation(buttonVolume, buttonAudio, buttonTranslate, titleTranslate);
   const lineGameBoard: HTMLElement = new BaseComponent('div', 'gamePage__lineGameBoard').addElement();
   const levelData: DataLevel = wordLevel1.rounds[lap].words[tier];
   const workingOrder: string = levelData.textExample;
   const offerSort: string[] = workingOrder.split(' ');
-  const backgroundImage = `url(${pathImage}${wordLevel1.rounds[lap].levelData.imageSrc})`;
-  audioHint.src = `${pathAudio}${levelData.audioExample}`;
-  titleTranslate.textContent = levelData.textExampleTranslate;
-  titleTranslate.style.opacity = '';
+  const widthPuzzle: number = percentages / offerSort.length;
+  const backgroundImage: string = `url(${pathImage}${wordLevel1.rounds[lap].levelData.imageSrc})`;
+  checkHintActivation(buttonVolume, buttonAudio, buttonTranslate, titleTranslate, audioHint, pathAudio, levelData);
   for (let i = 0; i < offerSort.length; i += 1) {
-    const word = new BaseComponent('div', 'gamePage__word drag reeds').addElement();
+    const word = addPuzzleContainer(widthPuzzle, extraWidth);
     const puzzle: HTMLElement = new BaseComponent('div', 'puzzle').addElement(offerSort[i]);
     const reed: HTMLElement = new BaseComponent('div', 'puzzle_reed').addElement();
     const emptyCard = new BaseComponent('div', 'gamePage__emptyCard no-drag').addElement();
-    word.style.maxWidth = `calc(${percentages / offerSort.length}% + ${extraWidth}px)`;
-    word.draggable = true;
-    emptyCard.style.width = `${percentages / offerSort.length}%`;
+    emptyCard.style.width = `${widthPuzzle}%`;
     word.append(puzzle, reed);
     setReedsPuzzle(puzzle, word, workingOrder, reed);
-    setBackGroundPuzzle(puzzle, reed, backgroundImage, positionLeft, positionTop, percentages / offerSort.length);
-    positionLeft += percentages / offerSort.length;
+    setBackGroundPuzzle(puzzle, reed, backgroundImage, positionLeft, positionTop, widthPuzzle);
+    positionLeft += widthPuzzle;
     lineGameBoard.append(emptyCard);
     lineWord.append(word);
     word.addEventListener('click', (): void => {
@@ -64,7 +61,7 @@ function startGame(tier: number, lap: number): void {
       });
       buttonCheck.setAttribute('disabled', 'disabled');
       if (!word.classList.contains('active')) {
-        addAnEmptyItem(word, lineWord, percentages / offerSort.length);
+        addEmptyItem(word, lineWord, widthPuzzle);
         setCardStyles(word);
         const emptyItem: ChildNode | undefined = lookFirstEmptyElement(lineGameBoard.childNodes);
         if (emptyItem) {
@@ -72,7 +69,7 @@ function startGame(tier: number, lap: number): void {
           emptyItem.remove();
         }
       } else {
-        addAnEmptyItem(word, lineGameBoard, percentages / offerSort.length);
+        addEmptyItem(word, lineGameBoard, widthPuzzle);
         const emptyItem: ChildNode | undefined = lookFirstEmptyElement(lineWord.childNodes);
         if (emptyItem) {
           word.style.opacity = `0`;
@@ -88,7 +85,7 @@ function startGame(tier: number, lap: number): void {
       compareResultStrings(lineGameBoard, workingOrder, buttonContinue, buttonCheck, titleTranslate, buttonAudio);
     });
   }
-  const puzzles = Array.from(lineWord.childNodes).sort(() => Math.random() - 0.5);
+  const puzzles: ChildNode[] = Array.from(lineWord.childNodes).sort(() => Math.random() - 0.5);
   lineWord.innerHTML = '';
   lineWord.append(...puzzles);
   dragAndDrop([lineGameBoard, lineWord], offerSort, buttonCheck, workingOrder, buttonContinue, titleTranslate, buttonAudio);
@@ -142,13 +139,16 @@ buttonAutoComplete.addEventListener('click', (): void => {
   for (let i = 0; i < workingOrder.length; i += 1) {
     for (let j = 0; j < puzzles.length; j += 1) {
       if (workingOrder[i] === puzzles[j].textContent) {
+        puzzles[j].classList.remove('active');
         puzzles[j].classList.remove('drag');
+        puzzles[j].classList.remove('error');
+        puzzles[j].classList.remove('no-error');
         puzzles[j].style.pointerEvents = 'none';
         lineGame.append(puzzles[j]);
       }
     }
   }
-
+  lineGame.classList.add('result');
   buttonCheck.style.display = 'none';
   buttonContinue.style.display = 'block';
   buttonAutoComplete.setAttribute('disabled', 'disabled');

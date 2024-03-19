@@ -3,7 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
-body{
+body {
   background-color: antiquewhite;
 }
 
@@ -19,7 +19,7 @@ body{
 .header__button-audio {
   min-width: 2rem;
   min-height: 2rem;
-  background-color: white;
+  background-color: antiquewhite;
   background-image: url(app/assets/soundHind.svg);
   background-repeat: no-repeat;
   background-position: center;
@@ -57,8 +57,8 @@ body{
 }
 
 .header__button-translate {
-  width: 2.5rem;
-  height: 3.2rem;
+  min-width: 2.5rem;
+  min-height: 3.2rem;
   padding: 0.4rem;
   border-radius: 5px;
   border: none;
@@ -72,8 +72,8 @@ body{
 }
 
 .header__button-volume {
-  width: 3.2rem;
-  height: 3.2rem;
+  min-width: 3.2rem;
+  min-height: 3.2rem;
   border: none;
   border-radius: 100%;
   margin-right: 1.5rem;
@@ -86,8 +86,8 @@ body{
 }
 
 .header__button-exit {
-  width: 3.2rem;
-  height: 3.2rem;
+  min-width: 3.2rem;
+  min-height: 3.2rem;
   border: none;
   border-radius: 100%;
   background-image: url(app/assets/exit.svg);
@@ -158,11 +158,20 @@ body{
 .gamePage__word {
   position: relative;
   display: flex;
-  font: normal 600 22px/24px OpenSans;
+  color: white;
+  font: normal 600 19px/21px OpenSans;
+  text-shadow:
+    0.04em 0 #000,
+    -0.04em 0 #000,
+    0 0.04em #000,
+    0 -0.04em #000;
   width: 100%;
   text-align: center;
   animation: 0.1s 0s 1 text normal both running linear;
   overflow: hidden;
+}
+.end {
+  width: 120%;
 }
 
 .puzzle {
@@ -441,11 +450,35 @@ body{
   height: 3.9rem;
   opacity: 0.7;
 }
-
+@media (max-width: 1090px) {
+  .startPage {
+    align-items: center;
+    padding: 8rem 0;
+  }
+  .startPage__title,
+  .startPage__description,
+  .startPage__greeting,
+  .startPage__button {
+    z-index: 15;
+    margin-right: 0;
+  }
+  .header {
+    padding-left: 2rem;
+  }
+  .header__title {
+    width: 42rem;
+    font: normal 800 20px/22px OpenSans;
+    padding-right: 0;
+  }
+}
 @media (max-width: 930px) {
   .gamePage__word {
-    font: normal 800 20px/22px OpenSans;
-    padding: 0.8rem;
+    font: normal 800 18px/20px OpenSans;
+  }
+  .header__title {
+    width: 40rem;
+    font: normal 800 18px/20px OpenSans;
+    padding-right: 0;
   }
 }
 
@@ -464,8 +497,7 @@ body{
     margin-right: 0;
   }
   .gamePage__word {
-    font: normal 800 18px/20px OpenSans;
-    padding: 14px 10px;
+    font: normal 800 16px/18px OpenSans;
   }
 }
 .drag {
@@ -500,4 +532,8 @@ body{
 .hind_no-active {
   visibility: hidden;
   opacity: 0;
+}
+
+.result {
+  justify-content: space-between;
 }

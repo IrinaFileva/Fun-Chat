@@ -1,9 +1,17 @@
 import { BaseComponent } from '../base-component';
+import { DataLevel } from '../types/interfaces';
 
-export function addAnEmptyItem(elem: HTMLElement, parent: HTMLElement, width: number): void {
+export function addEmptyItem(elem: HTMLElement, parent: HTMLElement, width: number): void {
   const swapCard: HTMLElement = new BaseComponent('div', 'gamePage__emptyCard no-drag').addElement();
-  swapCard.style.width = `${width}% + 20px `;
+  swapCard.style.width = `${width}% + 20px`;
   parent.insertBefore(swapCard, elem);
+}
+
+export function addPuzzleContainer(width: number, extraWidth: number): HTMLElement {
+  const elem = new BaseComponent('div', 'gamePage__word drag reeds').addElement();
+  elem.style.maxWidth = `calc(${width}% + ${extraWidth}px)`;
+  elem.draggable = true;
+  return elem;
 }
 
 export function lookFirstEmptyElement(parent: NodeListOf<ChildNode> | ChildNode[]): ChildNode | undefined {
@@ -14,6 +22,14 @@ export function lookFirstEmptyElement(parent: NodeListOf<ChildNode> | ChildNode[
   return emptyItem;
 }
 
+export function setBackGroundPuzzle(elem: HTMLElement, reed: HTMLElement, part: string, left: number, top: number, width: number): void {
+  const leftReed = left + width;
+  elem.style.backgroundImage = part;
+  reed.style.backgroundImage = part;
+  elem.style.backgroundPosition = `top -${top}px left ${left}%`;
+  reed.style.backgroundPosition = `top calc(${top}px) left calc(${leftReed}%)`;
+}
+
 export function setReedsPuzzle(elem: HTMLElement, parent: HTMLElement, order: string, reed: HTMLElement): void {
   if (elem.textContent === order.split(' ')[0]) {
     parent.classList.remove('reeds');
@@ -22,6 +38,7 @@ export function setReedsPuzzle(elem: HTMLElement, parent: HTMLElement, order: st
   if (elem.textContent === order.split(' ').at(-1)) {
     parent.classList.remove('reeds');
     parent.classList.add('end');
+    elem.style.width = '100%';
     parent.removeChild(reed);
   }
 }
@@ -56,6 +73,9 @@ export function checkHintActivation(
   hintVolume: HTMLElement,
   buttonTranslate: HTMLElement,
   titleTranslate: HTMLElement,
+  audioButton: HTMLAudioElement,
+  path: string,
+  data: DataLevel,
 ): void {
   buttonVolume.classList.contains('button_no-active')
     ? hintVolume.classList.add('hind_no-active')
@@ -63,6 +83,9 @@ export function checkHintActivation(
   buttonTranslate.classList.contains('button_no-active')
     ? titleTranslate.classList.add('hind_no-active')
     : titleTranslate.classList.remove('hind_no-active');
+  audioButton.src = `${path}${data.audioExample}`;
+  titleTranslate.textContent = data.textExampleTranslate;
+  titleTranslate.style.opacity = '';
 }
 export function setCardStyles(card: HTMLElement): void {
   card.style.opacity = `0`;
@@ -73,7 +96,7 @@ export function setCardStyles(card: HTMLElement): void {
 }
 
 export function checkLineWords(parent: HTMLElement, lengthOffer: string[], button: HTMLElement) {
-  if (parent.getElementsByClassName('active').length === lengthOffer.length) {
+  if (parent.querySelectorAll('.active').length === lengthOffer.length) {
     button.removeAttribute('disabled');
   }
 }
@@ -127,14 +150,6 @@ function dropResultField(elem: DragEvent, parent: HTMLElement, parent1: HTMLElem
       parent.insertBefore(item, target.nextSibling);
     }
   }
-}
-
-export function setBackGroundPuzzle(elem: HTMLElement, reed: HTMLElement, part: string, left: number, top: number, width: number): void {
-  const leftReed = left + width;
-  elem.style.backgroundImage = part;
-  reed.style.backgroundImage = part;
-  elem.style.backgroundPosition = `top -${top}px left ${left}%`;
-  reed.style.backgroundPosition = `top calc(${top}px + 16px) left calc(${leftReed}%)`;
 }
 
 function dropLineWord(elem: DragEvent, parent: HTMLElement, parent1: HTMLElement): void {
