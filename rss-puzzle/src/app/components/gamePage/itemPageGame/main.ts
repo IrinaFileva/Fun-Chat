@@ -40,11 +40,17 @@ function startGame(tier: number, lap: number): void {
   const workingOrder: string = levelData.textExample;
   const offerSort: string[] = workingOrder.split(' ');
   const widthPuzzle: number = percentages / offerSort.length;
+  const lengthOffer: number = offerSort.join(' ').replaceAll(' ', '').length;
   const backgroundImage: string = `url(${pathImage}${wordLevel1.rounds[lap].levelData.imageSrc})`;
   checkHintActivation(buttonVolume, buttonAudio, buttonTranslate, titleTranslate, audioHint, pathAudio, levelData);
   for (let i = 0; i < offerSort.length; i += 1) {
-    const word = addPuzzleContainer(widthPuzzle, extraWidth);
+    const widthCard = (offerSort[i].length * percentages) / lengthOffer;
+    const word = addPuzzleContainer(widthCard);
     const puzzle: HTMLElement = new BaseComponent('div', 'puzzle').addElement(offerSort[i]);
+    if (offerSort[i].length <= 3) {
+      puzzle.style.padding = '0.8rem 0';
+      word.style.maxWidth = `calc(${widthCard}% + ${extraWidth}px`;
+    }
     const reed: HTMLElement = new BaseComponent('div', 'puzzle_reed').addElement();
     const emptyCard = new BaseComponent('div', 'gamePage__emptyCard no-drag').addElement();
     emptyCard.style.width = `${widthPuzzle}%`;

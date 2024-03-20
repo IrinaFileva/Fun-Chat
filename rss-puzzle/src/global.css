@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   background-color: antiquewhite;
 }
@@ -147,6 +148,7 @@ body {
   height: 3.5rem;
   border-bottom: 1px solid black;
 }
+
 .gamePage__emptyCard {
   width: 100%;
   text-align: center;
@@ -159,7 +161,7 @@ body {
   position: relative;
   display: flex;
   color: white;
-  font: normal 600 19px/21px OpenSans;
+  font: normal 600 18px/20px OpenSans;
   text-shadow:
     0.04em 0 #000,
     -0.04em 0 #000,
@@ -170,6 +172,7 @@ body {
   animation: 0.1s 0s 1 text normal both running linear;
   overflow: hidden;
 }
+
 .end {
   width: 120%;
 }
@@ -450,6 +453,7 @@ body {
   height: 3.9rem;
   opacity: 0.7;
 }
+
 @media (max-width: 1090px) {
   .startPage {
     align-items: center;
@@ -467,10 +471,11 @@ body {
   }
   .header__title {
     width: 42rem;
-    font: normal 800 20px/22px OpenSans;
+    font: normal 800 18px/20px OpenSans;
     padding-right: 0;
   }
 }
+
 @media (max-width: 930px) {
   .gamePage__word {
     font: normal 800 18px/20px OpenSans;
@@ -497,14 +502,16 @@ body {
     margin-right: 0;
   }
   .gamePage__word {
-    font: normal 800 16px/18px OpenSans;
+    font: normal 800 14px/16px OpenSans;
   }
 }
+
 .drag {
   cursor: grab;
   position: relative;
   z-index: 1000;
 }
+
 .active {
   cursor: grab;
 }
@@ -512,12 +519,15 @@ body {
 .blok {
   pointer-events: none;
 }
+
 .error {
   border: 2px solid red;
 }
+
 .no-error {
   border: 2px solid rgb(1, 104, 1);
 }
+
 .choose {
   opacity: 0.5;
   z-index: 1000;

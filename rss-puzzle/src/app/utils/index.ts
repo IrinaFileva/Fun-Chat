@@ -7,9 +7,9 @@ export function addEmptyItem(elem: HTMLElement, parent: HTMLElement, width: numb
   parent.insertBefore(swapCard, elem);
 }
 
-export function addPuzzleContainer(width: number, extraWidth: number): HTMLElement {
+export function addPuzzleContainer(width: number): HTMLElement {
   const elem = new BaseComponent('div', 'gamePage__word drag reeds').addElement();
-  elem.style.maxWidth = `calc(${width}% + ${extraWidth}px)`;
+  elem.style.maxWidth = `calc(${width}%)`;
   elem.draggable = true;
   return elem;
 }
