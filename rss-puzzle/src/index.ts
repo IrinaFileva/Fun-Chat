@@ -4,6 +4,8 @@ import { startForm } from './app/components/startForm/form';
 import { modalExitButtonYes } from './app/components/gamePage/itemPageGame/header';
 import { gamePage } from './app/components/gamePage/page';
 
+const DELAYED_SHOW = 500;
+
 if (!localStorage.getItem('IF-Puzzle')) {
   document.body.append(startForm);
 } else {
@@ -12,11 +14,11 @@ if (!localStorage.getItem('IF-Puzzle')) {
 
 startButton.addEventListener('click', () => {
   startPage.remove();
-  setTimeout((): void => document.body.append(gamePage), 500);
+  setTimeout((): void => document.body.append(gamePage), DELAYED_SHOW);
 });
 
 modalExitButtonYes.addEventListener('click', () => {
   localStorage.clear();
   gamePage.remove();
-  setTimeout((): void => document.body.append(startForm), 500);
+  setTimeout((): void => document.body.append(startForm), DELAYED_SHOW);
 });

@@ -2,15 +2,9 @@ import { BaseComponent } from '../../../base-component';
 import { ValuesAttributes } from '../../../types/interfaces';
 import { buttonLogin } from './button';
 
-export class AddInput {
-  item: BaseComponent;
-
-  constructor(elem: string, className: string) {
-    this.item = new BaseComponent(elem, className);
-  }
-
+export class AddInput extends BaseComponent {
   setAttributesAndValues(values: ValuesAttributes): HTMLInputElement {
-    const element: HTMLInputElement = this.item.addElement() as HTMLInputElement;
+    const element: HTMLInputElement = this.addElement() as HTMLInputElement;
     element.setAttribute('type', values.type);
     element.setAttribute('required', values.required);
     element.setAttribute('minlength', values.minlength);
@@ -32,9 +26,11 @@ export const inputLastName: HTMLInputElement = new AddInput('input', 'startForm_
   minlength: '4',
 });
 
-export const spanHintName: HTMLElement = new BaseComponent('p', 'startForm__input_hint').addElement('');
-export const spanHintLastName: HTMLElement = new BaseComponent('p', 'startForm__input_hint').addElement('');
+export const spanHintName: HTMLElement = new AddInput('p', 'startForm__input_hint').addElement('');
+export const spanHintLastName: HTMLElement = new AddInput('p', 'startForm__input_hint').addElement('');
 const pattern: RegExp = /[^A-z-]/;
+const MIN_NAME_LENGTH = 3;
+const MIN_SURNAME_LENGTH = 4;
 
 inputName.addEventListener('input', (): void => {
   if (pattern.test(inputName.value)) {
@@ -48,8 +44,8 @@ inputName.addEventListener('input', (): void => {
     spanHintName.textContent = '';
   }
   if (
-    inputName.value.length >= 3 &&
-    inputLastName.value.length >= 4 &&
+    inputName.value.length >= MIN_NAME_LENGTH &&
+    inputLastName.value.length >= MIN_SURNAME_LENGTH &&
     inputLastName.style.borderColor === 'black' &&
     inputName.style.borderColor === 'black'
   ) {
@@ -71,8 +67,8 @@ inputLastName.addEventListener('input', (): void => {
     spanHintLastName.textContent = '';
   }
   if (
-    inputName.value.length >= 3 &&
-    inputLastName.value.length >= 4 &&
+    inputName.value.length >= MIN_NAME_LENGTH &&
+    inputLastName.value.length >= MIN_SURNAME_LENGTH &&
     inputLastName.style.borderColor === 'black' &&
     inputName.style.borderColor === 'black'
   ) {
@@ -83,13 +79,13 @@ inputLastName.addEventListener('input', (): void => {
 });
 
 inputName.addEventListener('change', (): void => {
-  if (inputName.value.length < 3) {
+  if (inputName.value.length < MIN_NAME_LENGTH) {
     spanHintName.textContent = `Minimum quantity of letters 3, now ${inputName.value.length}`;
   }
 });
 
 inputLastName.addEventListener('change', (): void => {
-  if (inputLastName.value.length < 4) {
+  if (inputLastName.value.length < MIN_SURNAME_LENGTH) {
     spanHintLastName.textContent = `Minimum number of letters 4, now ${inputLastName.value.length}`;
   }
 });

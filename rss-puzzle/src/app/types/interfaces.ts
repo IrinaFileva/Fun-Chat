@@ -5,7 +5,7 @@ export interface ValuesAttributes {
   autofocus?: string;
 }
 
-export interface LocalStorageObj {
+export interface User {
   name: string;
   lastName: string;
 }

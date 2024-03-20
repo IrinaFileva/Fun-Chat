@@ -22,19 +22,19 @@ const containerButtons: HTMLElement = new BaseComponent('div', 'gamePage__contai
 const buttonAutoComplete: HTMLElement = new BaseComponent('button', 'gamePage__bth-complete buttons').addElement('Auto-complete');
 const buttonCheck: HTMLElement = new BaseComponent('button', 'gamePage__bth-check buttons').addElement('Check');
 const buttonContinue: HTMLElement = new BaseComponent('button', 'gamePage__btn-continue buttons').addElement('Continue');
-const pathAudio: string = 'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/';
-const pathImage: string = 'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/';
-const extraWidth: number = 20; // язычек от пазла.
-const numberOffersBlock: number = 10;
-const percentages: number = 100;
-let positionTop: number = 0;
-let proposal: number = 0;
-let round: number = 0;
+const pathAudio = 'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/';
+const pathImage = 'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/';
+const extraWidth = 20; // язычек от пазла.
+const numberOffersBlock = 10;
+const percentages = 100;
+let positionTop = 0;
+let proposal = 0;
+let round = 0;
 
 buttonCheck.setAttribute('disabled', '');
 
 function startGame(tier: number, lap: number): void {
-  let positionLeft: number = 0;
+  let positionLeft = 0;
   const lineGameBoard: HTMLElement = new BaseComponent('div', 'gamePage__lineGameBoard').addElement();
   const levelData: DataLevel = wordLevel1.rounds[lap].words[tier];
   const workingOrder: string = levelData.textExample;
@@ -55,7 +55,7 @@ function startGame(tier: number, lap: number): void {
     lineGameBoard.append(emptyCard);
     lineWord.append(word);
     word.addEventListener('click', (): void => {
-      document.querySelectorAll('.active').forEach((elem: Element) => {
+      lineGameBoard.querySelectorAll('.active').forEach((elem: Element) => {
         elem.classList.remove('no-error');
         elem.classList.remove('error');
       });

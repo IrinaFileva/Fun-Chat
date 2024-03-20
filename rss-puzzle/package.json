@@ -36,5 +36,10 @@
     "format": "prettier --write ./",
     "ci:format": "prettier ./",
     "deploy": "npm run build && npx gh-pages -d dist -e rss-puzzle"
+  },
+
+  "validate-branch-name": {
+    "pattern": "^(feat|fix|docs|refactor|chore|init)/RSS-PZ-\\d+_[a-zA-Z-]+$",
+    "errorMsg": "your own error message"
   }
 }
