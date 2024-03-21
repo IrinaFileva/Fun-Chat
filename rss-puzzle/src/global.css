@@ -501,8 +501,11 @@ body {
   .startPage__greeting {
     margin-right: 0;
   }
+  .pageGame__main{
+    padding: 4rem 1rem;
+  }
   .gamePage__word {
-    font: normal 800 14px/16px OpenSans;
+    font: normal 800 14px/15px OpenSans;
   }
 }
 
