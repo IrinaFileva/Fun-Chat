@@ -12,7 +12,7 @@ export class Header extends BaseComponent {
   }
 
   private addContainer(kids: HTMLElement[]): HTMLElement {
-    const container: HTMLElement = new BaseComponent('div', 'container__inputCreate').addItem();
+    const container: HTMLElement = new BaseComponent('div', 'container__inputs-buttons').addItem();
     container.append(...kids);
     return container;
   }

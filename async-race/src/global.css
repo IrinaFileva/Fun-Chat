@@ -14,9 +14,9 @@
 .button {
   position: relative;
   width: 8rem;
-  height: 2rem;
+  height: 1.9rem;
   border-radius: 10px;
-  border: 1px solid rgb(146, 148, 248);
+  border: 2px solid rgb(146, 148, 248);
   background-color: rgb(25, 25, 51);
   color: white;
   text-decoration: none;
@@ -45,11 +45,20 @@
 
 .button:active {
   width: 7.9rem;
-  height: 1.9rem;
+  height: 1.8rem;
+  margin-right: 1.1rem;
 }
 
 .button_page-garage {
   margin-right: 1rem;
+}
+
+.container__inputs-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 25rem;
+  margin-top: 2.5rem;
 }
 
 .input {
@@ -61,4 +70,27 @@
   font-size: medium;
   font-weight: 400;
   outline: none;
+}
+
+.button_create-car,
+.button_update-car {
+  width: 6rem;
+  border: 2px solid rgb(136, 245, 163);
+  background-color: rgb(4, 80, 29);
+}
+
+.button_create-car:hover,
+.button_update-car:hover {
+  box-shadow: 1px 1px 25px 10px rgba(136, 245, 163, 0.4);
+}
+
+.button_create-car::before,
+.button_update-car::before {
+  background: linear-gradient(120deg, transparent, rgba(136, 245, 163, 0.4), transparent);
+}
+
+.button_create-car:active,
+.button_update-car:active {
+  width: 5.9rem;
+  margin-bottom: 0.1rem;
 }
