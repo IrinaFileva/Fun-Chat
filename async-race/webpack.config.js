@@ -8,10 +8,7 @@ const webpackDev = require('./webpack.dev.config');
 
 const baseConfig = {
   entry: path.resolve(__dirname, './src/index'),
-  output: {
-    filename: 'index.js',
-    path: path.resolve(__dirname, './dist'),
-  },
+  mode: 'development',
   module: {
     rules: [
       {
@@ -28,10 +25,7 @@ const baseConfig = {
     extensions: ['.ts', '.js', '.json'],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './src/index.html'),
-      filename: 'index.html',
-    }),
+    new HtmlWebpackPlugin(),
     new CleanWebpackPlugin(),
     new EslintPlugin({ extensions: 'ts' }),
   ],
