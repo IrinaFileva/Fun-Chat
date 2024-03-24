@@ -13,7 +13,8 @@
 
 .button {
   position: relative;
-  width: 8rem;
+  max-width: 7.3rem;
+  width: 100%;
   height: 1.9rem;
   border-radius: 10px;
   border: 2px solid rgb(146, 148, 248);
@@ -44,7 +45,7 @@
 }
 
 .button:active {
-  width: 7.9rem;
+  max-width: 7.2rem;
   height: 1.8rem;
   margin-right: 1.1rem;
 }
@@ -57,12 +58,14 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  width: 25rem;
-  margin-top: 2.5rem;
+  max-width: 28rem;
+  width: 100%;
+  margin-top: 1.7rem;
 }
 
 .input {
-  width: 13rem;
+  max-width: 15.5rem;
+  width: 100%;
   height: 1.6rem;
   padding: 0.3rem;
   border-radius: 5px;
@@ -73,24 +76,45 @@
 }
 
 .button_create-car,
-.button_update-car {
-  width: 6rem;
+.button_update-car,
+.button__generate-cars {
+  max-width: 6.4rem;
   border: 2px solid rgb(136, 245, 163);
   background-color: rgb(4, 80, 29);
 }
 
 .button_create-car:hover,
-.button_update-car:hover {
+.button_update-car:hover,
+.button__generate-cars:hover {
   box-shadow: 1px 1px 25px 10px rgba(136, 245, 163, 0.4);
 }
 
 .button_create-car::before,
-.button_update-car::before {
+.button_update-car::before,
+.button__generate-cars::before {
   background: linear-gradient(120deg, transparent, rgba(136, 245, 163, 0.4), transparent);
 }
 
 .button_create-car:active,
 .button_update-car:active {
-  width: 5.9rem;
+  max-width: 6.2rem;
   margin-bottom: 0.1rem;
+}
+
+.button_reset:active,
+.button_race:active{
+  margin-right: 0.1rem;
+}
+
+.button__generate-cars {
+  max-width: 10.4rem;
+}
+
+.button__generate-cars:active{
+  max-width: 10.3rem;
+}
+
+.input_create-color,
+.input_update-color{
+  cursor: pointer;
 }
