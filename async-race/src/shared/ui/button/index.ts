@@ -1,14 +1,15 @@
 import { AllButtons } from '../../types/button';
 import { Button } from './button';
+import { LinkButton } from './linkButton';
 
-const buttonPageGarage: HTMLButtonElement = new Button('button', 'button_page-garage button').setAttributeButton(
+const buttonGarage: HTMLButtonElement = new Button('button', 'button_page-garage button').setAttributeButton(
   {
     type: 'button',
   },
   'TO GARAGE',
 );
 
-const buttonPageWinners: HTMLButtonElement = new Button('button', 'button_page-winners button').setAttributeButton(
+const buttonWinners: HTMLButtonElement = new Button('button', 'button_page-winners button').setAttributeButton(
   {
     type: 'button',
   },
@@ -50,11 +51,23 @@ const buttonGenerateCars: HTMLButtonElement = new Button('button', 'button__gene
   'GENERATE CARS',
 );
 
+export const buttonPageGarage: HTMLLinkElement = new LinkButton(
+  'a',
+  'link_button-garage',
+  '#garage',
+  buttonGarage,
+).setHrefAndButton();
+
+export const buttonPageWinners: HTMLLinkElement = new LinkButton(
+  'a',
+  'link_button-winners',
+  '#winners',
+  buttonWinners,
+).setHrefAndButton();
+
 export const buttonsGarage: AllButtons = {
   buttonCreateCar,
   buttonGenerateCars,
-  buttonPageGarage,
-  buttonPageWinners,
   buttonRace,
   buttonReset,
   buttonUpdateCar,
