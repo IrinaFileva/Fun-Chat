@@ -5,10 +5,13 @@ export class PageGarage extends BaseComponent {
 
   id: string;
 
-  constructor(elem: string, className: string, id: string) {
+  children: HTMLElement[];
+
+  constructor(elem: string, className: string, id: string, children: HTMLElement[]) {
     super(elem, className);
     this.item = this.addItem();
     this.id = id;
+    this.children = children;
   }
 
   private addContainer(kids: HTMLElement[]): HTMLElement {
@@ -18,7 +21,7 @@ export class PageGarage extends BaseComponent {
   }
 
   public addChildren(kids: HTMLElement[]): void {
-    this.item.append(this.addContainer(kids));
+    this.item.append(this.addContainer(kids), ...this.children);
   }
 
   public start(): void {

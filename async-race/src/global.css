@@ -17,10 +17,6 @@ body {
   padding: 2rem;
 }
 
-.winners {
-  visibility: hidden;
-}
-
 .button {
   position: relative;
   max-width: 7.3rem;
@@ -70,6 +66,7 @@ body {
   gap: 1rem;
   max-width: 28rem;
   width: 100%;
+  margin-bottom: 3.5rem;
 }
 
 .input {
@@ -128,6 +125,19 @@ body {
   cursor: pointer;
 }
 
+.title__page{
+  color: white;
+  font: normal 600 30px/32px Arial;
+  margin-top: 1rem;
+}
+
+.text__paging{
+  color: white;
+  font: normal 600 24px/26px Arial;
+  margin-top: 1rem;
+}
+
 .no-visible{
   visibility: hidden;
+  display: none;
 }

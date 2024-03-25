@@ -21,6 +21,7 @@ export class App {
     this.header.start();
     this.page.forEach((elem) => elem.start());
     this.stopRestart();
+    window.history.pushState(null, '', window.location.href.split('#')[0]);
     if (this.routs) this.initRoutes();
   }
 
