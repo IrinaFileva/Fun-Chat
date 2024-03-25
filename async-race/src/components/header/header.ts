@@ -11,14 +11,11 @@ export class Header extends BaseComponent {
     this.item = this.addItem();
   }
 
-  private addContainer(kids: HTMLElement[]): HTMLElement {
-    const container: HTMLElement = new BaseComponent('div', 'container__inputs-buttons').addItem();
-    container.append(...kids);
-    return container;
+  public addChildren(): void {
+    this.item.append(...this.children);
   }
 
-  public addChildren(kids: HTMLElement[]): HTMLElement {
-    this.item.append(...this.children, this.addContainer(kids));
-    return this.item;
+  public start(): void {
+    document.body.append(this.item);
   }
 }

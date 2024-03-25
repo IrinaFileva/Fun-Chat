@@ -1,18 +1,6 @@
-import { buttonsGarage } from '../../shared/ui/button';
-import { inputColorCreate, inputColorUpdate, inputCreate, inputUpdate } from '../../shared/ui/input';
+import { buttonPageGarage, buttonPageWinners } from '../../shared/ui/button';
 import { Header } from './header';
 
-export const header: HTMLElement = new Header('header', 'header', [
-  buttonsGarage.buttonPageGarage,
-  buttonsGarage.buttonPageWinners,
-]).addChildren([
-  inputCreate,
-  inputColorCreate,
-  buttonsGarage.buttonCreateCar,
-  inputUpdate,
-  inputColorUpdate,
-  buttonsGarage.buttonUpdateCar,
-  buttonsGarage.buttonRace,
-  buttonsGarage.buttonReset,
-  buttonsGarage.buttonGenerateCars,
-]);
+export const header: Header = new Header('header', 'header', [buttonPageGarage, buttonPageWinners]);
+
+header.addChildren();
