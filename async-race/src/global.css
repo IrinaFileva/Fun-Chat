@@ -3,12 +3,22 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  background-color: rgb(17, 17, 17);
+}
+
+.header {
+  padding: 1.5rem 2rem 0rem 2rem;
+}
 
 .container__page {
   width: 100%;
   height: auto;
-  padding: 2rem 2rem;
-  background-color: rgb(17, 17, 17);
+  padding: 2rem;
+}
+
+.winners {
+  visibility: hidden;
 }
 
 .button {
@@ -60,7 +70,6 @@
   gap: 1rem;
   max-width: 28rem;
   width: 100%;
-  margin-top: 1.7rem;
 }
 
 .input {
@@ -102,7 +111,7 @@
 }
 
 .button_reset:active,
-.button_race:active{
+.button_race:active {
   margin-right: 0.1rem;
 }
 
@@ -110,11 +119,15 @@
   max-width: 10.4rem;
 }
 
-.button__generate-cars:active{
+.button__generate-cars:active {
   max-width: 10.3rem;
 }
 
 .input_create-color,
-.input_update-color{
+.input_update-color {
   cursor: pointer;
+}
+
+.no-visible{
+  visibility: hidden;
 }
