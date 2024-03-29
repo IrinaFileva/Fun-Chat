@@ -12,6 +12,10 @@ const baseConfig = {
   module: {
     rules: [
       {
+        test: /\.(html)$/i,
+        use: ['html-loader'],
+      },
+      {
         test: /\.ts$/i,
         use: 'ts-loader',
       },
@@ -25,7 +29,7 @@ const baseConfig = {
     extensions: ['.ts', '.js', '.json'],
   },
   plugins: [
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({ title: 'Async Race' }),
     new CleanWebpackPlugin(),
     new EslintPlugin({ extensions: 'ts' }),
   ],
