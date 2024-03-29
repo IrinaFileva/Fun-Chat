@@ -1,14 +1,19 @@
 import { Button } from '../../../../shared/ui/button/button';
 import { TextOnPage } from '../../../../shared/ui/text/text';
 import { BaseComponent } from '../../../../shared/utils';
-import { NewCar } from '../../../cars/car';
 
 export class StartPoint extends BaseComponent {
   item: HTMLElement;
 
-  constructor(elem: string, className: string) {
+  id: string;
+
+  brandCar: string;
+
+  constructor(elem: string, className: string, id: string, nameCar: string) {
     super(elem, className);
     this.item = this.addItem();
+    this.id = id;
+    this.brandCar = nameCar;
   }
 
   public addChildren(): HTMLElement {
@@ -21,6 +26,7 @@ export class StartPoint extends BaseComponent {
       'REMOVE',
     );
     const nameCar: HTMLElement = new TextOnPage('p', 'title_car-name', 'Audi').item;
+    nameCar.textContent = this.brandCar;
     const startCar: HTMLButtonElement = new Button('button', 'start-car button').setAttributeButton(
       { type: 'button' },
       'A',
@@ -29,8 +35,8 @@ export class StartPoint extends BaseComponent {
       { type: 'button', disabled: 'disabled' },
       'B',
     );
-    const car: HTMLElement = new NewCar('div', 'container-car').addChildren();
-    this.item.append(select, remove, nameCar, startCar, stopCar, car);
+    this.item.append(select, remove, nameCar, startCar, stopCar);
+    this.item.id = this.id;
     return this.item;
   }
 }

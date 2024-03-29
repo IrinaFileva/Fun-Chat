@@ -26,6 +26,7 @@ const buttonCreateCar: HTMLButtonElement = new Button('button', 'button_create-c
 const buttonUpdateCar: HTMLButtonElement = new Button('button', 'button_update-car button').setAttributeButton(
   {
     type: 'button',
+    disabled: 'disabled',
   },
   'UPDATE',
 );
@@ -65,10 +66,28 @@ export const buttonPageWinners: HTMLLinkElement = new LinkButton(
   buttonWinners,
 ).setHrefAndButton();
 
+const buttonPrevPage: HTMLButtonElement = new Button('button', 'button__prev-page button').setAttributeButton(
+  {
+    type: 'button',
+    disabled: 'disabled',
+  },
+  'PREV',
+);
+
+const buttonNextPage: HTMLButtonElement = new Button('button', 'button__next-page button').setAttributeButton(
+  {
+    type: 'button',
+    disabled: 'disabled',
+  },
+  'NEXT',
+);
+
 export const buttonsGarage: AllButtons = {
   buttonCreateCar,
   buttonGenerateCars,
   buttonRace,
   buttonReset,
   buttonUpdateCar,
+  buttonPrevPage,
+  buttonNextPage,
 };

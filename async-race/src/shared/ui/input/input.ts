@@ -11,6 +11,7 @@ export class Input extends BaseComponent {
 
   public setAttributeButton(values: ValuesAttributes): HTMLInputElement {
     this.item.setAttribute('type', values.type);
+    if (values.disabled) this.item.setAttribute('disabled', values.disabled);
     return this.item;
   }
 

@@ -9,4 +9,6 @@ export interface AllButtons {
   buttonRace: HTMLButtonElement;
   buttonReset: HTMLButtonElement;
   buttonUpdateCar: HTMLButtonElement;
+  buttonPrevPage: HTMLButtonElement;
+  buttonNextPage: HTMLButtonElement;
 }
