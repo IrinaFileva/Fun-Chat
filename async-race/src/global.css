@@ -6,6 +6,7 @@
 
 body {
   background-color: rgb(17, 17, 17);
+  font-size: 10px;
 }
 
 .header {
@@ -13,9 +14,12 @@ body {
 }
 
 .container__page {
+  position: absolute;
+  top: 3.5rem;
+  left: 0;
   width: 100%;
   height: auto;
-  padding: 2rem 0;
+  padding: 1.5rem 0;
 }
 
 .button {
@@ -74,7 +78,7 @@ button:disabled {
   max-width: 28rem;
   width: 100%;
   margin-left: 2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .input {
@@ -145,7 +149,7 @@ button:disabled {
 
 .title__page {
   color: white;
-  font: normal 600 30px/32px Arial;
+  font: normal 600 28px/30px Arial;
   margin-left: 2rem;
 }
 
@@ -159,9 +163,8 @@ button:disabled {
 .road {
   position: relative;
   width: 100%;
-  height: 7rem;
+  height: 6rem;
   padding: 1rem;
-  padding-top: 1.5rem;
   border-bottom: 4px;
   border-bottom-style: dotted;
   border-bottom-color: white;
@@ -170,18 +173,22 @@ button:disabled {
 .startPoint {
   display: flex;
   flex-wrap: wrap;
-  width: 14rem;
+  width: 13rem;
   margin-left: 1rem;
 }
 
+.remove,
 .select {
+  width: 5.6rem;
+  height: 1.5rem;
   margin-right: 0.5rem;
 }
 
 .remove:active,
 .select:active {
-  width: 6.2rem;
-  margin-right: 0.7rem;
+  width: 5.5rem;
+  height: 1.4rem;
+  margin-right: 0.6rem;
 }
 
 .start-car,
@@ -216,15 +223,16 @@ button:disabled {
 
 .title_car-name {
   position: absolute;
-  top: 1.5rem;
-  left: 260px;
+  top: 1rem;
+  left: 240px;
   color: white;
-  font: normal 400 16px/18px Arial;
+  font: normal 400 14px/16px Arial;
 }
 
 .no-active {
+  display: flex;
   visibility: hidden;
-  display: none;
+  z-index: 10;
 }
 
 .container__svg-flag {

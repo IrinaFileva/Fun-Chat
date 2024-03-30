@@ -1,5 +1,5 @@
-import { PageGarage } from "../../pages/garage/garage";
-import { PageWinners } from "../../pages/winners/winners";
+import { PageGarage } from '../../pages/garage/garage';
+import { PageWinners } from '../../pages/winners/winners';
 
 export interface Router {
   path: string;
@@ -7,5 +7,5 @@ export interface Router {
 }
 
 export interface RouterUrl {
-  getUrl: () => string
+  getUrl: () => string;
 }
