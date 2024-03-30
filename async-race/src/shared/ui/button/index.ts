@@ -2,28 +2,28 @@ import { AllButtons } from '../../types/button';
 import { Button } from './button';
 import { LinkButton } from './linkButton';
 
-const buttonGarage: HTMLButtonElement = new Button('button', 'button_page-garage button').setAttributeButton(
+const buttonGarage: HTMLButtonElement = new Button('button', 'button_page-garage button').setAttrib(
   {
     type: 'button',
   },
   'TO GARAGE',
 );
 
-const buttonWinners: HTMLButtonElement = new Button('button', 'button_page-winners button').setAttributeButton(
+const buttonWinners: HTMLButtonElement = new Button('button', 'button_page-winners button').setAttrib(
   {
     type: 'button',
   },
   'TO WINNERS',
 );
 
-const buttonCreateCar: HTMLButtonElement = new Button('button', 'button_create-car button').setAttributeButton(
+const CreateCar: HTMLButtonElement = new Button('button', 'button_create-car button').setAttrib(
   {
     type: 'button',
   },
   'CREATE',
 );
 
-const buttonUpdateCar: HTMLButtonElement = new Button('button', 'button_update-car button').setAttributeButton(
+const UpdateCar: HTMLButtonElement = new Button('button', 'button_update-car button').setAttrib(
   {
     type: 'button',
     disabled: 'disabled',
@@ -31,21 +31,22 @@ const buttonUpdateCar: HTMLButtonElement = new Button('button', 'button_update-c
   'UPDATE',
 );
 
-const buttonRace: HTMLButtonElement = new Button('button', 'button_race button').setAttributeButton(
+const Race: HTMLButtonElement = new Button('button', 'button_race button').setAttrib(
   {
     type: 'button',
   },
   'RACE',
 );
 
-const buttonReset: HTMLButtonElement = new Button('button', 'button_reset button').setAttributeButton(
+const Reset: HTMLButtonElement = new Button('button', 'button_reset button').setAttrib(
   {
     type: 'button',
+    disabled: 'disabled',
   },
   'RESET',
 );
 
-const buttonGenerateCars: HTMLButtonElement = new Button('button', 'button__generate-cars button').setAttributeButton(
+const GenerateCars: HTMLButtonElement = new Button('button', 'button__generate-cars button').setAttrib(
   {
     type: 'button',
   },
@@ -66,7 +67,7 @@ export const buttonPageWinners: HTMLLinkElement = new LinkButton(
   buttonWinners,
 ).setHrefAndButton();
 
-const buttonPrevPage: HTMLButtonElement = new Button('button', 'button__prev-page button').setAttributeButton(
+const PrevPage: HTMLButtonElement = new Button('button', 'button__prev-page button').setAttrib(
   {
     type: 'button',
     disabled: 'disabled',
@@ -74,7 +75,7 @@ const buttonPrevPage: HTMLButtonElement = new Button('button', 'button__prev-pag
   'PREV',
 );
 
-const buttonNextPage: HTMLButtonElement = new Button('button', 'button__next-page button').setAttributeButton(
+const NextPage: HTMLButtonElement = new Button('button', 'button__next-page button').setAttrib(
   {
     type: 'button',
     disabled: 'disabled',
@@ -83,11 +84,11 @@ const buttonNextPage: HTMLButtonElement = new Button('button', 'button__next-pag
 );
 
 export const buttonsGarage: AllButtons = {
-  buttonCreateCar,
-  buttonGenerateCars,
-  buttonRace,
-  buttonReset,
-  buttonUpdateCar,
-  buttonPrevPage,
-  buttonNextPage,
+  CreateCar,
+  GenerateCars,
+  Race,
+  Reset,
+  UpdateCar,
+  PrevPage,
+  NextPage,
 };

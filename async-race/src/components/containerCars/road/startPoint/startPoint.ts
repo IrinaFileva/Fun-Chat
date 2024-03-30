@@ -17,21 +17,12 @@ export class StartPoint extends BaseComponent {
   }
 
   public addChildren(): HTMLElement {
-    const select: HTMLButtonElement = new Button('button', 'select button').setAttributeButton(
-      { type: 'button' },
-      'SELECT',
-    );
-    const remove: HTMLButtonElement = new Button('button', 'remove button').setAttributeButton(
-      { type: 'button' },
-      'REMOVE',
-    );
+    const select: HTMLButtonElement = new Button('button', 'select button').setAttrib({ type: 'button' }, 'SELECT');
+    const remove: HTMLButtonElement = new Button('button', 'remove button').setAttrib({ type: 'button' }, 'REMOVE');
     const nameCar: HTMLElement = new TextOnPage('p', 'title_car-name', 'Audi').item;
     nameCar.textContent = this.brandCar;
-    const startCar: HTMLButtonElement = new Button('button', 'start-car button').setAttributeButton(
-      { type: 'button' },
-      'A',
-    );
-    const stopCar: HTMLButtonElement = new Button('button', 'stop-car button').setAttributeButton(
+    const startCar: HTMLButtonElement = new Button('button', 'start-car button').setAttrib({ type: 'button' }, 'A');
+    const stopCar: HTMLButtonElement = new Button('button', 'stop-car button').setAttrib(
       { type: 'button', disabled: 'disabled' },
       'B',
     );

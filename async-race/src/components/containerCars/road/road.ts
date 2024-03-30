@@ -4,7 +4,7 @@ import { Flag } from './flag/flag';
 import { StartPoint } from './startPoint/startPoint';
 import SvgFlag from '../../../assets/svg/flag.svg';
 
-export class Road extends BaseComponent {
+export class Road {
   item: HTMLElement;
 
   id: string;
@@ -13,9 +13,8 @@ export class Road extends BaseComponent {
 
   color: string;
 
-  constructor(elem: string, className: string, id: string, nameCar: string, color: string) {
-    super(elem, className);
-    this.item = this.addItem();
+  constructor(id: string, nameCar: string, color: string) {
+    this.item = new BaseComponent('div', 'road').addItem();
     this.id = id;
     this.nameCar = nameCar;
     this.color = color;
@@ -24,7 +23,7 @@ export class Road extends BaseComponent {
   public addChildren(): HTMLElement {
     const flag: HTMLElement = new Flag('div', 'container__svg-flag', SvgFlag).addImage();
     const startPoint: HTMLElement = new StartPoint('div', 'startPoint', this.id, this.nameCar).addChildren();
-    const car: HTMLElement = new NewCar('div', 'container-car', this.color).addChildren();
+    const car: HTMLElement = new NewCar(this.color).addChildren();
     car.id = this.id;
     this.item.id = this.id;
     this.item.append(flag, startPoint, car);

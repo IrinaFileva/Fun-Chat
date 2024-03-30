@@ -8,18 +8,18 @@ export const containerPageGarage: PageGarage = new PageGarage('div', 'container_
   titlePageGarage,
   textPagingPageGarage,
   containerCars,
-  buttonsGarage.buttonPrevPage,
-  buttonsGarage.buttonNextPage,
+  buttonsGarage.PrevPage,
+  buttonsGarage.NextPage,
 ]);
 
 containerPageGarage.addChildren([
   inputCreate,
   inputColorCreate,
-  buttonsGarage.buttonCreateCar,
+  buttonsGarage.CreateCar,
   inputUpdate,
   inputColorUpdate,
-  buttonsGarage.buttonUpdateCar,
-  buttonsGarage.buttonRace,
-  buttonsGarage.buttonReset,
-  buttonsGarage.buttonGenerateCars,
+  buttonsGarage.UpdateCar,
+  buttonsGarage.Race,
+  buttonsGarage.Reset,
+  buttonsGarage.GenerateCars,
 ]);

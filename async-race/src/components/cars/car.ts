@@ -1,14 +1,13 @@
 import { BaseComponent } from '../../shared/utils';
 import svgCar from '../../assets/svg/car.svg';
 
-export class NewCar extends BaseComponent {
+export class NewCar {
   item: HTMLElement;
 
   color: string;
 
-  constructor(elem: string, className: string, color: string) {
-    super(elem, className);
-    this.item = this.addItem();
+  constructor(color: string) {
+    this.item = new BaseComponent('div', 'container-car').addItem();
     this.color = color;
   }
 

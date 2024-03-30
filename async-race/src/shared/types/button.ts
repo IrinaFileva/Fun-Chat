@@ -4,11 +4,11 @@ export interface ValuesAttributes {
 }
 
 export interface AllButtons {
-  buttonCreateCar: HTMLButtonElement;
-  buttonGenerateCars: HTMLButtonElement;
-  buttonRace: HTMLButtonElement;
-  buttonReset: HTMLButtonElement;
-  buttonUpdateCar: HTMLButtonElement;
-  buttonPrevPage: HTMLButtonElement;
-  buttonNextPage: HTMLButtonElement;
+  CreateCar: HTMLButtonElement;
+  GenerateCars: HTMLButtonElement;
+  Race: HTMLButtonElement;
+  Reset: HTMLButtonElement;
+  UpdateCar: HTMLButtonElement;
+  PrevPage: HTMLButtonElement;
+  NextPage: HTMLButtonElement;
 }
