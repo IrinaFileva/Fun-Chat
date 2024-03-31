@@ -1,12 +1,12 @@
 import { containerCars } from '../components/containerCars/containerRoads';
 import { Road } from '../components/containerCars/road/road';
 import { Api } from '../shared/api/api';
-import { LIMIT_CARS_ON_PAGE, PAGINATION_START_NUMBER } from '../shared/const/const';
+import { BRANDS, LIMIT_CARS_ON_PAGE, MODEL, NUMBER_CARS_CREATED, PAGINATION_START } from '../shared/const/const';
 import { Car, PathFile, RequestParam } from '../shared/types/api';
 import { buttonsGarage } from '../shared/ui/button';
 import { inputColorCreate, inputColorUpdate, inputCreate, inputUpdate } from '../shared/ui/input';
 import { textPagingPageGarage, titlePageGarage } from '../shared/ui/text';
-import { resetValueInput, setDisabled } from '../shared/utils';
+import { getRandomColor, resetValueInput, setDisabled } from '../shared/utils';
 
 export class GarageController {
   page: number;
@@ -18,7 +18,7 @@ export class GarageController {
   api: Api;
 
   constructor() {
-    this.page = PAGINATION_START_NUMBER;
+    this.page = PAGINATION_START;
     this.limit = LIMIT_CARS_ON_PAGE;
     this.path = PathFile.Garage;
     this.api = new Api();
@@ -29,6 +29,9 @@ export class GarageController {
     this.getCarForOnePage();
     buttonsGarage.CreateCar.addEventListener('click', (): void => {
       this.controlButtonCreate();
+    });
+    buttonsGarage.GenerateCars.addEventListener('click', (): void => {
+      this.controlButtonGenerateCar();
     });
   }
 
@@ -76,6 +79,19 @@ export class GarageController {
     }
     resetValueInput(inputCreate, inputColorCreate);
     textPagingPageGarage.textContent = `Page #${this.page}`;
+  }
+
+  private async controlButtonGenerateCar() {
+    setDisabled(inputUpdate, inputColorUpdate, buttonsGarage.UpdateCar);
+    for (let i = 0; i < NUMBER_CARS_CREATED; i += 1) {
+      const randomColor: string = getRandomColor();
+      const brandCar: string = BRANDS[Math.floor(Math.random() * BRANDS.length)];
+      const modelCar: string = MODEL[Math.floor(Math.random() * MODEL.length)];
+      const randomName: string = `${brandCar} ${modelCar}`;
+      this.api.postDate<Car>(randomName, randomColor);
+    }
+    this.getCarForOnePage();
+    buttonsGarage.NextPage.removeAttribute('disabled');
   }
 }
 
