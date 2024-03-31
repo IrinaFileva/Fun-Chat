@@ -37,6 +37,7 @@ export class GarageController {
       setDisabled(inputUpdate, inputColorUpdate, buttonsGarage.UpdateCar);
       const target: HTMLElement = elem.target as HTMLElement;
       this.controlButtonSelect(target);
+      this.controlButtonRemove(target);
     });
     buttonsGarage.UpdateCar.addEventListener('click', (): void => {
       this.controlButtonUpdate();
@@ -132,6 +133,19 @@ export class GarageController {
       ) as HTMLElement[];
       setColorCar(selectedCar[0], car.color);
       setDisabled(inputUpdate, inputColorUpdate, buttonsGarage.UpdateCar);
+    }
+  }
+
+  private async controlButtonRemove(target: HTMLElement): Promise<void> {
+    if (target && target.classList.contains('remove')) {
+      const parent: HTMLElement | null = target.parentElement;
+      if (parent) {
+        const id: string | null = parent.getAttribute('id');
+        if (id) {
+          await this.api.deleteDate(id);
+          this.getCarForOnePage();
+        }
+      }
     }
   }
 }
