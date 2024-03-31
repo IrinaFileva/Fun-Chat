@@ -52,6 +52,9 @@ export class GarageController {
     buttonsGarage.Race.addEventListener('click', (): void => {
       this.controlRaceButton();
     });
+    buttonsGarage.Reset.addEventListener('click', (): void => {
+      this.controlResetButton();
+    });
   }
 
   private async getAllCars(): Promise<void> {
@@ -63,6 +66,12 @@ export class GarageController {
     }
     if (Math.ceil(date.length / this.limit) === this.page) {
       buttonsGarage.NextPage.setAttribute('disabled', 'disabled');
+    }
+    if (this.page === PAGINATION_START) {
+      buttonsGarage.PrevPage.setAttribute('disabled', 'disabled');
+    }
+    if (this.page > PAGINATION_START) {
+      buttonsGarage.PrevPage.removeAttribute('disabled');
     }
   }
 
@@ -89,7 +98,7 @@ export class GarageController {
     resetValueInput(inputCreate, inputColorCreate);
   }
 
-  private async controlButtonGenerateCar() {
+  private async controlButtonGenerateCar(): Promise<void> {
     setDisabled(inputUpdate, inputColorUpdate, buttonsGarage.UpdateCar);
     for (let i = 0; i < NUMBER_CARS_CREATED; i += 1) {
       const randomColor: string = getRandomColor();
@@ -166,6 +175,17 @@ export class GarageController {
   }
 
   private async startCar(id: string) {
+    buttonsGarage.Race.setAttribute('disabled', 'disabled');
+    buttonsGarage.Reset.removeAttribute('disabled');
+    buttonsGarage.GenerateCars.setAttribute('disabled', 'disabled');
+    buttonsGarage.NextPage.disabled = true;
+    buttonsGarage.PrevPage.disabled = true;
+    containerCars.querySelectorAll<HTMLElement>('.start-car').forEach((elem: HTMLElement) => {
+      elem.setAttribute('disabled', 'disabled');
+    });
+    containerCars.querySelectorAll<HTMLElement>('.stop-car').forEach((elem: HTMLElement) => {
+      elem.removeAttribute('disabled');
+    });
     const json: Speed = await this.api.pathDateJson(
       `${RequestParam.Id}${id}`,
       `${RequestParam.Status}${EngineStatus.Started}`,
@@ -177,6 +197,26 @@ export class GarageController {
     car.classList.add('car-position');
     car.style.animationDuration = `${time}ms`;
     await this.statusCar(id, car);
+  }
+
+  private async stopCar(id: string): Promise<void> {
+    buttonsGarage.Reset.setAttribute('disabled', 'disabled');
+    buttonsGarage.Race.removeAttribute('disabled');
+    buttonsGarage.GenerateCars.removeAttribute('disabled');
+    this.getAllCars();
+    containerCars.querySelectorAll<HTMLElement>('.stop-car').forEach((elem: HTMLElement) => {
+      elem.setAttribute('disabled', 'disabled');
+    });
+    containerCars.querySelectorAll<HTMLElement>('.start-car').forEach((elem: HTMLElement) => {
+      elem.removeAttribute('disabled');
+    });
+    const car: HTMLElement = [...document.querySelectorAll('.container-car')].filter(
+      (x: Element) => x.id === id,
+    )[0] as HTMLElement;
+    car.classList.remove('car-position');
+    car.style.animationDuration = '';
+    car.style.animationPlayState = '';
+    await this.api.pathDateJson(id, EngineStatus.Stopped);
   }
 
   private async controlStartButton(target: HTMLElement): Promise<void> {
@@ -203,13 +243,7 @@ export class GarageController {
       if (parent) {
         const id: string | null = parent.getAttribute('id');
         if (id) {
-          const car: HTMLElement = [...document.querySelectorAll('.container-car')].filter(
-            (x: Element) => x.id === id,
-          )[0] as HTMLElement;
-          car.classList.remove('car-position');
-          car.style.animationDuration = '';
-          car.style.animationPlayState = '';
-          await this.api.pathDateJson(id, EngineStatus.Stopped);
+          await this.stopCar(id);
         }
       }
     }
@@ -217,8 +251,15 @@ export class GarageController {
 
   private controlRaceButton(): void {
     containerCars.querySelectorAll<HTMLElement>('.container-car').forEach(async (elem: HTMLElement) => {
-      const id: string | null = elem.getAttribute('id')
+      const id: string | null = elem.getAttribute('id');
       if (id) await this.startCar(id);
+    });
+  }
+
+  private controlResetButton(): void {
+    containerCars.querySelectorAll<HTMLElement>('.container-car').forEach(async (elem: HTMLElement) => {
+      const id: string | null = elem.getAttribute('id');
+      if (id) await this.stopCar(id);
     });
   }
 }
