@@ -46,8 +46,3 @@ export function removeDisabled(input: HTMLInputElement, input1: HTMLInputElement
   input1.removeAttribute('disabled');
   button.removeAttribute('disabled');
 }
-
-export function setColorCar(elem: HTMLElement, color: string): void {
-  const children: HTMLElement = elem.firstChild as HTMLElement;
-  children.style.fill = color;
-}

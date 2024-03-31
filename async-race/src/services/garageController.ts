@@ -6,7 +6,7 @@ import { Car, PathFile, RequestParam } from '../shared/types/api';
 import { buttonsGarage } from '../shared/ui/button';
 import { inputColorCreate, inputColorUpdate, inputCreate, inputUpdate } from '../shared/ui/input';
 import { textPagingPageGarage, titlePageGarage } from '../shared/ui/text';
-import { getRandomColor, removeDisabled, resetValueInput, setColorCar, setDisabled } from '../shared/utils';
+import { getRandomColor, removeDisabled, resetValueInput, setDisabled } from '../shared/utils';
 
 export class GarageController {
   page: number;
@@ -44,26 +44,24 @@ export class GarageController {
     });
   }
 
-  public async getAllCars(): Promise<number> {
+  public async getAllCars(): Promise<void> {
     const date: Car[] = await this.api.getDate<Car[]>(this.path);
     titlePageGarage.textContent = `Garage (${date.length})`;
     textPagingPageGarage.textContent = `Page #${this.page}`;
-    return date.length;
+    if (date.length > this.limit) {
+      buttonsGarage.NextPage.removeAttribute('disabled');
+    }
   }
 
   public async getCarForOnePage(): Promise<void> {
-    const date: Car[] = await this.api.getDate<Car[]>(this.path);
+    const url: string = `${this.path}?${RequestParam.Page}${this.page}&${RequestParam.Limit}${this.limit}`;
+    const date: Car[] = await this.api.getDate<Car[]>(url);
     containerCars.innerHTML = '';
-    let numberCar: number = date.length;
-    if (date.length > this.limit) {
-      numberCar = this.limit;
-      buttonsGarage.NextPage.removeAttribute('disabled');
-    }
-    for (let i = 0; i < numberCar; i += 1) {
+    for (let i = 0; i < date.length; i += 1) {
       const track: HTMLElement = new Road(`${date[i].id}`, date[i].name, date[i].color).addChildren();
       containerCars.append(track);
     }
-    titlePageGarage.textContent = `Garage (${date.length})`;
+    await this.getAllCars();
   }
 
   private async controlButtonCreate(): Promise<void> {
@@ -72,22 +70,9 @@ export class GarageController {
       inputCreate.style.border = '2px solid red';
     } else {
       await this.api.postDate(inputCreate.value, inputColorCreate.value);
-      const url: string = `${this.path}?${RequestParam.Page}${this.page}&${RequestParam.Limit}${this.limit}`;
-      const date: Car[] = await this.api.getDate<Car[]>(url);
-      containerCars.innerHTML = '';
-      for (let i = 0; i < date.length; i += 1) {
-        const track: HTMLElement = new Road(`${date[i].id}`, date[i].name, date[i].color).addChildren();
-        containerCars.append(track);
-      }
-      const allCars: number = await this.getAllCars();
-      if (Math.ceil(allCars / this.limit) === this.page) {
-        buttonsGarage.NextPage.setAttribute('disabled', 'disabled');
-      } else {
-        buttonsGarage.NextPage.removeAttribute('disabled');
-      }
+      this.getCarForOnePage();
     }
     resetValueInput(inputCreate, inputColorCreate);
-    textPagingPageGarage.textContent = `Page #${this.page}`;
   }
 
   private async controlButtonGenerateCar() {
@@ -100,7 +85,6 @@ export class GarageController {
       this.api.postDate<Car>(randomName, randomColor);
     }
     this.getCarForOnePage();
-    buttonsGarage.NextPage.removeAttribute('disabled');
   }
 
   private async controlButtonSelect(target: HTMLElement): Promise<void> {
@@ -124,14 +108,8 @@ export class GarageController {
     const nameCar: string = inputUpdate.value;
     const colorCar: string = inputColorUpdate.value;
     if (id) {
-      const car: Car = await this.api.putDate<Car>(id, nameCar, colorCar);
-      const parentNameCar: Element[] = [...containerCars.querySelectorAll('.startPoint')].filter((x) => x.id === id);
-      const textNameCar: Element | null = parentNameCar[0].querySelector('.title_car-name');
-      if (textNameCar) textNameCar.textContent = car.name;
-      const selectedCar: HTMLElement[] = [...containerCars.querySelectorAll('.container-car')].filter(
-        (x) => x.id === id,
-      ) as HTMLElement[];
-      setColorCar(selectedCar[0], car.color);
+      await this.api.putDate<Car>(id, nameCar, colorCar);
+      this.getCarForOnePage();
       setDisabled(inputUpdate, inputColorUpdate, buttonsGarage.UpdateCar);
     }
   }
