@@ -25,7 +25,6 @@ export class GarageController {
   }
 
   public start(): void {
-    this.getAllCars();
     this.getCarForOnePage();
     buttonsGarage.CreateCar.addEventListener('click', (): void => {
       this.controlButtonCreate();
@@ -42,18 +41,27 @@ export class GarageController {
     buttonsGarage.UpdateCar.addEventListener('click', (): void => {
       this.controlButtonUpdate();
     });
+    buttonsGarage.NextPage.addEventListener('click', (): void => {
+      this.controlButtonNext();
+    });
+    buttonsGarage.PrevPage.addEventListener('click', (): void => {
+      this.controlButtonPrev();
+    });
   }
 
-  public async getAllCars(): Promise<void> {
+  private async getAllCars(): Promise<void> {
     const date: Car[] = await this.api.getDate<Car[]>(this.path);
     titlePageGarage.textContent = `Garage (${date.length})`;
     textPagingPageGarage.textContent = `Page #${this.page}`;
     if (date.length > this.limit) {
       buttonsGarage.NextPage.removeAttribute('disabled');
     }
+    if (Math.ceil(date.length / this.limit) === this.page) {
+      buttonsGarage.NextPage.setAttribute('disabled', 'disabled');
+    }
   }
 
-  public async getCarForOnePage(): Promise<void> {
+  private async getCarForOnePage(): Promise<void> {
     const url: string = `${this.path}?${RequestParam.Page}${this.page}&${RequestParam.Limit}${this.limit}`;
     const date: Car[] = await this.api.getDate<Car[]>(url);
     containerCars.innerHTML = '';
@@ -62,6 +70,7 @@ export class GarageController {
       containerCars.append(track);
     }
     await this.getAllCars();
+    if (date.length === 0) buttonsGarage.NextPage.setAttribute('disabled', 'disabled');
   }
 
   private async controlButtonCreate(): Promise<void> {
@@ -70,7 +79,7 @@ export class GarageController {
       inputCreate.style.border = '2px solid red';
     } else {
       await this.api.postDate(inputCreate.value, inputColorCreate.value);
-      this.getCarForOnePage();
+      await this.getCarForOnePage();
     }
     resetValueInput(inputCreate, inputColorCreate);
   }
@@ -84,7 +93,7 @@ export class GarageController {
       const randomName: string = `${brandCar} ${modelCar}`;
       this.api.postDate<Car>(randomName, randomColor);
     }
-    this.getCarForOnePage();
+    await this.getCarForOnePage();
   }
 
   private async controlButtonSelect(target: HTMLElement): Promise<void> {
@@ -109,7 +118,7 @@ export class GarageController {
     const colorCar: string = inputColorUpdate.value;
     if (id) {
       await this.api.putDate<Car>(id, nameCar, colorCar);
-      this.getCarForOnePage();
+      await this.getCarForOnePage();
       setDisabled(inputUpdate, inputColorUpdate, buttonsGarage.UpdateCar);
     }
   }
@@ -121,9 +130,23 @@ export class GarageController {
         const id: string | null = parent.getAttribute('id');
         if (id) {
           await this.api.deleteDate(id);
-          this.getCarForOnePage();
+          await this.getCarForOnePage();
         }
       }
+    }
+  }
+
+  private async controlButtonNext(): Promise<void> {
+    this.page += 1;
+    await this.getCarForOnePage();
+    buttonsGarage.PrevPage.removeAttribute('disabled');
+  }
+
+  private async controlButtonPrev(): Promise<void> {
+    this.page -= 1;
+    await this.getCarForOnePage();
+    if (this.page === PAGINATION_START) {
+      buttonsGarage.PrevPage.setAttribute('disabled', 'disabled');
     }
   }
 }
