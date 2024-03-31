@@ -246,3 +246,85 @@ button:disabled {
   rotate: 31deg;
   fill: red;
 }
+
+.car-position {
+  animation: race;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes race {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    left: 87%;
+    transform: translateX(100%);
+  }
+}
+
+@media (max-width: 1700px) {
+  @keyframes race {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      left: 83%;
+      transform: translateX(100%);
+    }
+  }
+}
+
+@media (max-width: 1265px) {
+  @keyframes race {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      left: 77%;
+      transform: translateX(100%);
+    }
+  }
+}
+
+@media (max-width: 920px) {
+  @keyframes race {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      left: 69%;
+      transform: translateX(100%);
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  @keyframes race {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      left: 60%;
+      transform: translateX(100%);
+    }
+  }
+}
+
+@media (max-width: 580px) {
+  @keyframes race {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      left: 55%;
+      transform: translateX(100%);
+    }
+  }
+}

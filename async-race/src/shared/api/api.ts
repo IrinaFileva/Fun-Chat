@@ -50,4 +50,19 @@ export class Api {
       method: HTTPMethod.Delete,
     });
   }
+
+  public async pathDateJson<T>(id: string, status: string): Promise<T> {
+    const res: Response = await fetch(`${this.url}${this.pathEngine}?${id}&${status}`, {
+      method: HTTPMethod.Patch,
+    });
+    const json: T = await res.json();
+    return json;
+  }
+
+  public async pathDareResponse(id: string, status: string): Promise<Response> {
+    const res: Response = await fetch(`${this.url}${this.pathEngine}?${id}&${status}`, {
+      method: HTTPMethod.Patch,
+    });
+    return res;
+  }
 }

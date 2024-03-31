@@ -2,7 +2,7 @@ import { containerCars } from '../components/containerCars/containerRoads';
 import { Road } from '../components/containerCars/road/road';
 import { Api } from '../shared/api/api';
 import { BRANDS, LIMIT_CARS_ON_PAGE, MODEL, NUMBER_CARS_CREATED, PAGINATION_START } from '../shared/const/const';
-import { Car, PathFile, RequestParam } from '../shared/types/api';
+import { Car, EngineStatus, PathFile, RequestParam, Speed } from '../shared/types/api';
 import { buttonsGarage } from '../shared/ui/button';
 import { inputColorCreate, inputColorUpdate, inputCreate, inputUpdate } from '../shared/ui/input';
 import { textPagingPageGarage, titlePageGarage } from '../shared/ui/text';
@@ -37,6 +37,7 @@ export class GarageController {
       const target: HTMLElement = elem.target as HTMLElement;
       this.controlButtonSelect(target);
       this.controlButtonRemove(target);
+      this.controlStartCarButton(target);
     });
     buttonsGarage.UpdateCar.addEventListener('click', (): void => {
       this.controlButtonUpdate();
@@ -149,6 +150,40 @@ export class GarageController {
       buttonsGarage.PrevPage.setAttribute('disabled', 'disabled');
     }
   }
-}
 
+  private async statusCar(id: string, car: HTMLElement): Promise<void> {
+    const date: Response = await this.api.pathDareResponse(
+      `${RequestParam.Id}${id}`,
+      `${RequestParam.Status}${EngineStatus.Drive}`,
+    );
+    if (date.status === 500) {
+      car.style.animationPlayState = 'paused';
+    }
+  }
+
+  private async controlStartCarButton(target: HTMLElement): Promise<void> {
+    if (target && target.classList.contains('start-car')) {
+      const parent: HTMLElement | null = target.parentElement;
+      target.setAttribute('disabled', 'disabled');
+      const stopButton: HTMLButtonElement = target.nextSibling as HTMLButtonElement;
+      stopButton.removeAttribute('disabled');
+      if (parent) {
+        const id: string | null = parent.getAttribute('id');
+        if (id) {
+          const json: Speed = await this.api.pathDateJson(
+            `${RequestParam.Id}${id}`,
+            `${RequestParam.Status}${EngineStatus.Started}`,
+          );
+          const car: HTMLElement = [...containerCars.querySelectorAll('.container-car')].filter(
+            (x: Element) => x.id === id,
+          )[0] as HTMLElement;
+          const time: number = Math.floor(json.distance / json.velocity);
+          car.classList.add('car-position');
+          car.style.animationDuration = `${time}ms`;
+          await this.statusCar(id, car);
+        }
+      }
+    }
+  }
+}
 export const controllerGarage: GarageController = new GarageController();
