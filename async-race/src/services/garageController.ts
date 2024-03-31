@@ -38,6 +38,7 @@ export class GarageController {
       this.controlButtonSelect(target);
       this.controlButtonRemove(target);
       this.controlStartCarButton(target);
+      this.controlStopButton(target);
     });
     buttonsGarage.UpdateCar.addEventListener('click', (): void => {
       this.controlButtonUpdate();
@@ -181,6 +182,27 @@ export class GarageController {
           car.classList.add('car-position');
           car.style.animationDuration = `${time}ms`;
           await this.statusCar(id, car);
+        }
+      }
+    }
+  }
+
+  private async controlStopButton(target: HTMLElement): Promise<void> {
+    if (target && target.classList.contains('stop-car')) {
+      const parent: HTMLElement | null = target.parentElement;
+      target.setAttribute('disabled', 'disabled');
+      const startButton: HTMLButtonElement = target.previousSibling as HTMLButtonElement;
+      startButton.removeAttribute('disabled');
+      if (parent) {
+        const id: string | null = parent.getAttribute('id');
+        if (id) {
+          const car: HTMLElement = [...document.querySelectorAll('.container-car')].filter(
+            (x: Element) => x.id === id,
+          )[0] as HTMLElement;
+          car.classList.remove('car-position');
+          car.style.animationDuration = '';
+          car.style.animationPlayState = '';
+          await this.api.pathDateJson(id, EngineStatus.Stopped);
         }
       }
     }
