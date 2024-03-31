@@ -2,7 +2,7 @@ import { containerCars } from '../components/containerCars/containerRoads';
 import { Road } from '../components/containerCars/road/road';
 import { Api } from '../shared/api/api';
 import { BRANDS, LIMIT_CARS_ON_PAGE, MODEL, NUMBER_CARS_CREATED, PAGINATION_START } from '../shared/const/const';
-import { Car, EngineStatus, PathFile, RequestParam, Speed } from '../shared/types/api';
+import { Car, EngineStatus, PathFile, RequestParam, Speed, Winner } from '../shared/types/api';
 import { buttonsGarage } from '../shared/ui/button';
 import { inputColorCreate, inputColorUpdate, inputCreate, inputUpdate } from '../shared/ui/input';
 import { textPagingPageGarage, titlePageGarage } from '../shared/ui/text';
@@ -93,7 +93,8 @@ export class GarageController {
     if (inputCreate.value === '') {
       inputCreate.style.border = '2px solid red';
     } else {
-      await this.api.postDate(inputCreate.value, inputColorCreate.value);
+      const date: Car = { name: inputCreate.value, color: inputColorCreate.value };
+      await this.api.postDate<Car>(date, this.path);
       await this.getCarForOnePage();
     }
     resetValueInput(inputCreate, inputColorCreate);
@@ -106,7 +107,8 @@ export class GarageController {
       const brandCar: string = BRANDS[Math.floor(Math.random() * BRANDS.length)];
       const modelCar: string = MODEL[Math.floor(Math.random() * MODEL.length)];
       const randomName: string = `${brandCar} ${modelCar}`;
-      this.api.postDate<Car>(randomName, randomColor);
+      const date: Car = { name: randomName, color: randomColor };
+      this.api.postDate<Car>(date, this.path);
     }
     await this.getCarForOnePage();
   }
@@ -128,11 +130,12 @@ export class GarageController {
   }
 
   private async controlButtonUpdate(): Promise<void> {
-    const id: string | null = buttonsGarage.UpdateCar.getAttribute('id');
+    const idCar: string | null = buttonsGarage.UpdateCar.getAttribute('id');
     const nameCar: string = inputUpdate.value;
     const colorCar: string = inputColorUpdate.value;
-    if (id) {
-      await this.api.putDate<Car>(id, nameCar, colorCar);
+    if (idCar) {
+      const date: Car = { name: nameCar, color: colorCar, id: idCar };
+      await this.api.putDate<Car>(date, idCar, this.path);
       await this.getCarForOnePage();
       setDisabled(inputUpdate, inputColorUpdate, buttonsGarage.UpdateCar);
     }
@@ -144,7 +147,8 @@ export class GarageController {
       if (parent) {
         const id: string | null = parent.getAttribute('id');
         if (id) {
-          await this.api.deleteDate(id);
+          await this.api.deleteDate(id, this.path);
+          await this.api.deleteDate(id, PathFile.Winners);
           await this.getCarForOnePage();
         }
       }
@@ -275,16 +279,36 @@ export class GarageController {
         buttonsGarage.Reset.removeAttribute('disabled');
         const car: HTMLElement = elem.target as HTMLElement;
         const id: string | null = car.getAttribute('id');
-        if (id) {
-          const date: Car = await this.api.getDate(`${PathFile.Garage}/${id}`);
+        const animationTime: string | null = car.getAttribute('style');
+        if (id && animationTime) {
+          const date: Car = await this.api.getDate(`${this.path}/${id}`);
           const modalWinner = new BaseComponent('div', 'modal-winner').addItem(`${date.name} wins this race!`);
           document.body.append(modalWinner);
           document.body.addEventListener('click', () => {
             modalWinner.remove();
           });
+          const timeCar: number = +(
+            +animationTime.replace('animation-duration:', '').replace('ms;', '') / 1000
+          ).toFixed(2);
+          await this.addWinner(+id, timeCar);
         }
       }
     });
+  }
+
+  private async addWinner(idWinner: number, timeCar: number): Promise<void> {
+    const winners: Winner[] = await this.api.getDate<Winner[]>(PathFile.Winners);
+    const winnerCheck: boolean = winners.some((elem) => elem.id === idWinner);
+    if (!winnerCheck) {
+      const date: Winner = { id: idWinner, wins: PAGINATION_START, time: timeCar };
+      await this.api.postDate<Winner>(date, PathFile.Winners);
+    } else {
+      const winner: Winner = await this.api.getDate(`${PathFile.Winners}/${idWinner}`);
+      const winsCar: number = winner.wins + 1;
+      const newTime: number = winner.time > timeCar ? timeCar : winner.time;
+      const newDate: Winner = { wins: winsCar, time: newTime };
+      await this.api.putDate<Winner>(newDate, `${idWinner}`, PathFile.Winners);
+    }
   }
 }
 export const controllerGarage: GarageController = new GarageController();

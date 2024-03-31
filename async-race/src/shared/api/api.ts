@@ -1,5 +1,5 @@
 import { SERVER } from '../const/const';
-import { Car, HTTPMethod, HeadersRequest, PathFile } from '../types/api';
+import { HTTPMethod, HeadersRequest, PathFile } from '../types/api';
 
 export class Api {
   url: string;
@@ -23,9 +23,9 @@ export class Api {
     return json;
   }
 
-  public async postDate<T>(nameCar: string, colorCar: string): Promise<T> {
-    const date: Car = { name: nameCar, color: colorCar };
-    const res: Response = await fetch(`${this.url}${this.pathGarage}`, {
+  public async postDate<T>(obj: T, path: string): Promise<T> {
+    const date: T = obj;
+    const res: Response = await fetch(`${this.url}${path}`, {
       method: HTTPMethod.Post,
       body: JSON.stringify(date),
       headers: { 'Content-Type': HeadersRequest.ContentType },
@@ -34,9 +34,9 @@ export class Api {
     return json;
   }
 
-  public async putDate<T>(id: string, nameCar: string, colorCar: string): Promise<T> {
-    const date: Car = { name: nameCar, color: colorCar };
-    const res: Response = await fetch(`${this.url}${this.pathGarage}/${id}`, {
+  public async putDate<T>(obj: T, id: string, path: string): Promise<T> {
+    const date: T = obj;
+    const res: Response = await fetch(`${this.url}${path}/${id}`, {
       method: HTTPMethod.Put,
       body: JSON.stringify(date),
       headers: { 'Content-Type': HeadersRequest.ContentType },
@@ -45,8 +45,8 @@ export class Api {
     return json;
   }
 
-  public async deleteDate(id: string): Promise<void> {
-    await fetch(`${this.url}${this.pathGarage}/${id}`, {
+  public async deleteDate(id: string, path: string): Promise<void> {
+    await fetch(`${this.url}${path}/${id}`, {
       method: HTTPMethod.Delete,
     });
   }

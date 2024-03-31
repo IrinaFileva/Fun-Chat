@@ -1,7 +1,7 @@
 export interface Car {
   name: string;
   color: string;
-  id?: number;
+  id?: string;
 }
 
 export enum HTTPMethod {
@@ -42,4 +42,10 @@ export interface ResponseOfDrive {
 
 export enum HeadersRequest {
   ContentType = 'application/json',
+}
+
+export interface Winner {
+  id?: number;
+  wins: number;
+  time: number;
 }
