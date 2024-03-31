@@ -6,7 +6,7 @@ import { Car, PathFile, RequestParam } from '../shared/types/api';
 import { buttonsGarage } from '../shared/ui/button';
 import { inputColorCreate, inputColorUpdate, inputCreate, inputUpdate } from '../shared/ui/input';
 import { textPagingPageGarage, titlePageGarage } from '../shared/ui/text';
-import { getRandomColor, removeDisabled, resetValueInput, setDisabled } from '../shared/utils';
+import { getRandomColor, removeDisabled, resetValueInput, setColorCar, setDisabled } from '../shared/utils';
 
 export class GarageController {
   page: number;
@@ -37,6 +37,9 @@ export class GarageController {
       setDisabled(inputUpdate, inputColorUpdate, buttonsGarage.UpdateCar);
       const target: HTMLElement = elem.target as HTMLElement;
       this.controlButtonSelect(target);
+    });
+    buttonsGarage.UpdateCar.addEventListener('click', (): void => {
+      this.controlButtonUpdate();
     });
   }
 
@@ -112,6 +115,23 @@ export class GarageController {
           buttonsGarage.UpdateCar.id = id;
         }
       }
+    }
+  }
+
+  private async controlButtonUpdate(): Promise<void> {
+    const id: string | null = buttonsGarage.UpdateCar.getAttribute('id');
+    const nameCar: string = inputUpdate.value;
+    const colorCar: string = inputColorUpdate.value;
+    if (id) {
+      const car: Car = await this.api.putDate<Car>(id, nameCar, colorCar);
+      const parentNameCar: Element[] = [...containerCars.querySelectorAll('.startPoint')].filter((x) => x.id === id);
+      const textNameCar: Element | null = parentNameCar[0].querySelector('.title_car-name');
+      if (textNameCar) textNameCar.textContent = car.name;
+      const selectedCar: HTMLElement[] = [...containerCars.querySelectorAll('.container-car')].filter(
+        (x) => x.id === id,
+      ) as HTMLElement[];
+      setColorCar(selectedCar[0], car.color);
+      setDisabled(inputUpdate, inputColorUpdate, buttonsGarage.UpdateCar);
     }
   }
 }
