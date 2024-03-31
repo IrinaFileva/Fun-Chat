@@ -37,7 +37,7 @@ export class GarageController {
       const target: HTMLElement = elem.target as HTMLElement;
       this.controlButtonSelect(target);
       this.controlButtonRemove(target);
-      this.controlStartCarButton(target);
+      this.controlStartButton(target);
       this.controlStopButton(target);
     });
     buttonsGarage.UpdateCar.addEventListener('click', (): void => {
@@ -48,6 +48,9 @@ export class GarageController {
     });
     buttonsGarage.PrevPage.addEventListener('click', (): void => {
       this.controlButtonPrev();
+    });
+    buttonsGarage.Race.addEventListener('click', (): void => {
+      this.controlRaceButton();
     });
   }
 
@@ -162,7 +165,21 @@ export class GarageController {
     }
   }
 
-  private async controlStartCarButton(target: HTMLElement): Promise<void> {
+  private async startCar(id: string) {
+    const json: Speed = await this.api.pathDateJson(
+      `${RequestParam.Id}${id}`,
+      `${RequestParam.Status}${EngineStatus.Started}`,
+    );
+    const car: HTMLElement = [...containerCars.querySelectorAll('.container-car')].filter(
+      (x: Element) => x.id === id,
+    )[0] as HTMLElement;
+    const time: number = Math.floor(json.distance / json.velocity);
+    car.classList.add('car-position');
+    car.style.animationDuration = `${time}ms`;
+    await this.statusCar(id, car);
+  }
+
+  private async controlStartButton(target: HTMLElement): Promise<void> {
     if (target && target.classList.contains('start-car')) {
       const parent: HTMLElement | null = target.parentElement;
       target.setAttribute('disabled', 'disabled');
@@ -171,17 +188,7 @@ export class GarageController {
       if (parent) {
         const id: string | null = parent.getAttribute('id');
         if (id) {
-          const json: Speed = await this.api.pathDateJson(
-            `${RequestParam.Id}${id}`,
-            `${RequestParam.Status}${EngineStatus.Started}`,
-          );
-          const car: HTMLElement = [...containerCars.querySelectorAll('.container-car')].filter(
-            (x: Element) => x.id === id,
-          )[0] as HTMLElement;
-          const time: number = Math.floor(json.distance / json.velocity);
-          car.classList.add('car-position');
-          car.style.animationDuration = `${time}ms`;
-          await this.statusCar(id, car);
+          await this.startCar(id);
         }
       }
     }
@@ -206,6 +213,13 @@ export class GarageController {
         }
       }
     }
+  }
+
+  private controlRaceButton(): void {
+    containerCars.querySelectorAll<HTMLElement>('.container-car').forEach(async (elem: HTMLElement) => {
+      const id: string | null = elem.getAttribute('id')
+      if (id) await this.startCar(id);
+    });
   }
 }
 export const controllerGarage: GarageController = new GarageController();
