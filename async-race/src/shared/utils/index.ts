@@ -40,3 +40,9 @@ export function getRandomColor(): string {
   }
   return color;
 }
+
+export function removeDisabled(input: HTMLInputElement, input1: HTMLInputElement, button: HTMLButtonElement): void {
+  input.removeAttribute('disabled');
+  input1.removeAttribute('disabled');
+  button.removeAttribute('disabled');
+}

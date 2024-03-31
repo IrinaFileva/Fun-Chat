@@ -6,7 +6,7 @@ import { Car, PathFile, RequestParam } from '../shared/types/api';
 import { buttonsGarage } from '../shared/ui/button';
 import { inputColorCreate, inputColorUpdate, inputCreate, inputUpdate } from '../shared/ui/input';
 import { textPagingPageGarage, titlePageGarage } from '../shared/ui/text';
-import { getRandomColor, resetValueInput, setDisabled } from '../shared/utils';
+import { getRandomColor, removeDisabled, resetValueInput, setDisabled } from '../shared/utils';
 
 export class GarageController {
   page: number;
@@ -32,6 +32,11 @@ export class GarageController {
     });
     buttonsGarage.GenerateCars.addEventListener('click', (): void => {
       this.controlButtonGenerateCar();
+    });
+    containerCars.addEventListener('click', (elem: MouseEvent): void => {
+      setDisabled(inputUpdate, inputColorUpdate, buttonsGarage.UpdateCar);
+      const target: HTMLElement = elem.target as HTMLElement;
+      this.controlButtonSelect(target);
     });
   }
 
@@ -92,6 +97,22 @@ export class GarageController {
     }
     this.getCarForOnePage();
     buttonsGarage.NextPage.removeAttribute('disabled');
+  }
+
+  private async controlButtonSelect(target: HTMLElement): Promise<void> {
+    if (target && target.classList.contains('select')) {
+      removeDisabled(inputUpdate, inputColorUpdate, buttonsGarage.UpdateCar);
+      const parent: HTMLElement | null = target.parentElement;
+      if (parent) {
+        const id: string | null = parent.getAttribute('id');
+        if (id) {
+          const car: Car = await this.api.getDate<Car>(`${this.path}/${id}`);
+          inputUpdate.value = car.name;
+          inputColorUpdate.value = car.color;
+          buttonsGarage.UpdateCar.id = id;
+        }
+      }
+    }
   }
 }
 
