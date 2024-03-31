@@ -6,7 +6,8 @@ import { Car, EngineStatus, PathFile, RequestParam, Speed } from '../shared/type
 import { buttonsGarage } from '../shared/ui/button';
 import { inputColorCreate, inputColorUpdate, inputCreate, inputUpdate } from '../shared/ui/input';
 import { textPagingPageGarage, titlePageGarage } from '../shared/ui/text';
-import { getRandomColor, removeDisabled, resetValueInput, setDisabled } from '../shared/utils';
+import { TextOnPage } from '../shared/ui/text/text';
+import { BaseComponent, getRandomColor, removeDisabled, resetValueInput, setDisabled } from '../shared/utils';
 
 export class GarageController {
   page: number;
@@ -171,12 +172,13 @@ export class GarageController {
     );
     if (date.status === 500) {
       car.style.animationPlayState = 'paused';
+      const newText = new TextOnPage('span', 'text-error', 'Oops!').item;
+      car.append(newText);
     }
   }
 
   private async startCar(id: string) {
     buttonsGarage.Race.setAttribute('disabled', 'disabled');
-    buttonsGarage.Reset.removeAttribute('disabled');
     buttonsGarage.GenerateCars.setAttribute('disabled', 'disabled');
     buttonsGarage.NextPage.disabled = true;
     buttonsGarage.PrevPage.disabled = true;
@@ -216,7 +218,7 @@ export class GarageController {
     car.classList.remove('car-position');
     car.style.animationDuration = '';
     car.style.animationPlayState = '';
-    await this.api.pathDateJson(id, EngineStatus.Stopped);
+    await this.api.pathDateJson(`${RequestParam.Id}${id}`, `${RequestParam.Status}${EngineStatus.Stopped}`);
   }
 
   private async controlStartButton(target: HTMLElement): Promise<void> {
@@ -254,12 +256,34 @@ export class GarageController {
       const id: string | null = elem.getAttribute('id');
       if (id) await this.startCar(id);
     });
+    this.controlWinnerCar();
   }
 
   private controlResetButton(): void {
+    containerCars.querySelectorAll('.text-error').forEach((elem: Element) => elem.remove());
     containerCars.querySelectorAll<HTMLElement>('.container-car').forEach(async (elem: HTMLElement) => {
       const id: string | null = elem.getAttribute('id');
       if (id) await this.stopCar(id);
+    });
+  }
+
+  private controlWinnerCar(): void {
+    let isWinner = false;
+    containerCars.addEventListener('animationend', async (elem) => {
+      if (!isWinner) {
+        isWinner = true;
+        buttonsGarage.Reset.removeAttribute('disabled');
+        const car: HTMLElement = elem.target as HTMLElement;
+        const id: string | null = car.getAttribute('id');
+        if (id) {
+          const date: Car = await this.api.getDate(`${PathFile.Garage}/${id}`);
+          const modalWinner = new BaseComponent('div', 'modal-winner').addItem(`${date.name} wins this race!`);
+          document.body.append(modalWinner);
+          document.body.addEventListener('click', () => {
+            modalWinner.remove();
+          });
+        }
+      }
     });
   }
 }

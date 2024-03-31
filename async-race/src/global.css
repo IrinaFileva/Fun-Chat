@@ -253,6 +253,31 @@ button:disabled {
   animation-fill-mode: forwards;
 }
 
+.text-error {
+  position: absolute;
+  top: 0;
+  left: 40px;
+  color: white;
+  font-size: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.modal-winner {
+  position: absolute;
+  width: 30rem;
+  height: 10rem;
+  top: calc(50% - 5rem);
+  left: calc(50% - 15rem);
+  color: white;
+  font-size: 36px;
+  text-align: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid white;
+  padding: 2.5rem;
+  backdrop-filter: blur(10px);
+}
+
 @keyframes race {
   from {
     transform: translateX(0);
