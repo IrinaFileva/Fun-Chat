@@ -3,6 +3,7 @@ import { Router } from '../app/types/types';
 
 export class Routing extends RouterPage {
   public start(): void {
+    window.history.pushState(null, '', window.location.href.split('#')[0]);
     if (this.appRoutes()) this.initRoutes();
   }
 
