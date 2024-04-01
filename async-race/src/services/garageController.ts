@@ -1,13 +1,14 @@
 import { containerCars } from '../components/containerCars/containerRoads';
 import { Road } from '../components/containerCars/road/road';
 import { Api } from '../shared/api/api';
-import { BRANDS, LIMIT_CARS_ON_PAGE, MODEL, NUMBER_CARS_CREATED, PAGINATION_START } from '../shared/const/const';
+import { BRANDS, LIMIT_DATE_ON_PAGE, MODEL, NUMBER_CARS_CREATED, PAGINATION_START } from '../shared/const/const';
 import { Car, EngineStatus, PathFile, RequestParam, Speed, Winner } from '../shared/types/api';
 import { buttonsGarage } from '../shared/ui/button';
 import { inputColorCreate, inputColorUpdate, inputCreate, inputUpdate } from '../shared/ui/input';
 import { textPagingPageGarage, titlePageGarage } from '../shared/ui/text';
 import { TextOnPage } from '../shared/ui/text/text';
 import { BaseComponent, getRandomColor, removeDisabled, resetValueInput, setDisabled } from '../shared/utils';
+import { winnersController } from './winnersController';
 
 export class GarageController {
   page: number;
@@ -20,7 +21,7 @@ export class GarageController {
 
   constructor() {
     this.page = PAGINATION_START;
-    this.limit = LIMIT_CARS_ON_PAGE;
+    this.limit = LIMIT_DATE_ON_PAGE;
     this.path = PathFile.Garage;
     this.api = new Api();
   }
@@ -149,6 +150,8 @@ export class GarageController {
         if (id) {
           await this.api.deleteDate(id, this.path);
           await this.api.deleteDate(id, PathFile.Winners);
+          document.querySelectorAll('.body-table').forEach((elem) => elem.remove());
+          winnersController.start();
           await this.getCarForOnePage();
         }
       }
@@ -177,6 +180,7 @@ export class GarageController {
     if (date.status === 500) {
       car.style.animationPlayState = 'paused';
       const newText = new TextOnPage('span', 'text-error', 'Oops!').item;
+      car.classList.add('no');
       car.append(newText);
     }
   }
@@ -201,6 +205,7 @@ export class GarageController {
     )[0] as HTMLElement;
     const time: number = Math.floor(json.distance / json.velocity);
     car.classList.add('car-position');
+    car.classList.remove('no');
     car.style.animationDuration = `${time}ms`;
     await this.statusCar(id, car);
   }
@@ -274,23 +279,28 @@ export class GarageController {
   private controlWinnerCar(): void {
     let isWinner = false;
     containerCars.addEventListener('animationend', async (elem) => {
-      if (!isWinner) {
+      const car: HTMLElement = elem.target as HTMLElement;
+      if (!isWinner && !car.classList.contains('no')) {
         isWinner = true;
         buttonsGarage.Reset.removeAttribute('disabled');
-        const car: HTMLElement = elem.target as HTMLElement;
         const id: string | null = car.getAttribute('id');
         const animationTime: string | null = car.getAttribute('style');
         if (id && animationTime) {
           const date: Car = await this.api.getDate(`${this.path}/${id}`);
           const modalWinner = new BaseComponent('div', 'modal-winner').addItem(`${date.name} wins this race!`);
           document.body.append(modalWinner);
-          document.body.addEventListener('click', () => {
-            modalWinner.remove();
+          document.body.addEventListener('click', (e: MouseEvent) => {
+            const target: HTMLElement = e.target as HTMLElement;
+            if (!target.classList.contains('link_button-winners') || !target.classList.contains('link_button-garage')) {
+              modalWinner.remove();
+            }
           });
           const timeCar: number = +(
             +animationTime.replace('animation-duration:', '').replace('ms;', '') / 1000
           ).toFixed(2);
           await this.addWinner(+id, timeCar);
+          document.querySelectorAll('.body-table').forEach((e) => e.remove());
+          winnersController.start();
         }
       }
     });

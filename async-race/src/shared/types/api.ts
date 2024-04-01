@@ -49,3 +49,10 @@ export interface Winner {
   wins: number;
   time: number;
 }
+
+export enum ParamWinner {
+  Id = 'id=',
+  Page = '_page=',
+  limit = '_limit=',
+  Sort = '_sort=',
+}
