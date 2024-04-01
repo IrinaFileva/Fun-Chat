@@ -1,14 +1,13 @@
 import { containerCars } from '../components/containerCars/containerRoads';
 import { Road } from '../components/containerCars/road/road';
 import { Api } from '../shared/api/api';
-import { BRANDS, LIMIT_DATE_ON_PAGE, MODEL, NUMBER_CARS_CREATED, PAGINATION_START } from '../shared/const/const';
+import { BRANDS, LIMIT_DATE_ON_GARAGE, MODEL, NUMBER_CARS_CREATED, PAGINATION_START } from '../shared/const/const';
 import { Car, EngineStatus, PathFile, RequestParam, Speed, Winner } from '../shared/types/api';
 import { buttonsGarage } from '../shared/ui/button';
 import { inputColorCreate, inputColorUpdate, inputCreate, inputUpdate } from '../shared/ui/input';
 import { textPagingPageGarage, titlePageGarage } from '../shared/ui/text';
 import { TextOnPage } from '../shared/ui/text/text';
 import { BaseComponent, getRandomColor, removeDisabled, resetValueInput, setDisabled } from '../shared/utils';
-import { winnersController } from './winnersController';
 
 export class GarageController {
   page: number;
@@ -21,7 +20,7 @@ export class GarageController {
 
   constructor() {
     this.page = PAGINATION_START;
-    this.limit = LIMIT_DATE_ON_PAGE;
+    this.limit = LIMIT_DATE_ON_GARAGE;
     this.path = PathFile.Garage;
     this.api = new Api();
   }
@@ -150,8 +149,6 @@ export class GarageController {
         if (id) {
           await this.api.deleteDate(id, this.path);
           await this.api.deleteDate(id, PathFile.Winners);
-          document.querySelectorAll('.body-table').forEach((elem) => elem.remove());
-          winnersController.start();
           await this.getCarForOnePage();
         }
       }
@@ -299,8 +296,6 @@ export class GarageController {
             +animationTime.replace('animation-duration:', '').replace('ms;', '') / 1000
           ).toFixed(2);
           await this.addWinner(+id, timeCar);
-          document.querySelectorAll('.body-table').forEach((e) => e.remove());
-          winnersController.start();
         }
       }
     });
@@ -321,4 +316,3 @@ export class GarageController {
     }
   }
 }
-export const controllerGarage: GarageController = new GarageController();

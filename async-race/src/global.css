@@ -306,6 +306,11 @@ button:disabled {
   height: 3rem;
 }
 
+.time,
+.wins{
+  cursor: pointer;
+}
+
 .grid-table-winners{
   display: flex;
   justify-content: center;

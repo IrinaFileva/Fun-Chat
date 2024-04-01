@@ -1,6 +1,6 @@
 import { NewCar } from '../components/cars/car';
 import { Api } from '../shared/api/api';
-import { INDEX_CAR, INDEX_NUMBER, LIMIT_DATE_ON_PAGE, PAGINATION_START } from '../shared/const/const';
+import { INDEX_CAR, INDEX_NUMBER, LIMIT_DATE_ON_WINNERS, PAGINATION_START } from '../shared/const/const';
 import { Car, ParamWinner, PathFile, Winner } from '../shared/types/api';
 import { textPagingPageWinners, titlePageWinners } from '../shared/ui/text';
 import { BaseComponent } from '../shared/utils';
@@ -18,24 +18,45 @@ export class ControllerWinners {
     this.api = new Api();
     this.page = PAGINATION_START;
     this.path = PathFile.Winners;
-    this.limit = LIMIT_DATE_ON_PAGE;
+    this.limit = LIMIT_DATE_ON_WINNERS;
   }
 
   public start(): void {
-    this.addWinnerOnPage();
+    const url = `${this.path}?${ParamWinner.Page}${this.page}&${ParamWinner.limit}${this.limit}`;
+    this.addWinnerOnPage(url);
     this.addTitle();
+    this.sortWins();
+    this.sortTime();
+    this.addWinner();
+    this.clickNextButton();
+    this.clickPrevButton();
   }
 
   private async addTitle(): Promise<void> {
     const date: Winner[] = await this.api.getDate<Winner[]>(this.path);
     titlePageWinners.textContent = `Winners (${date.length})`;
-    const pages = Math.ceil(date.length / this.limit);
-    textPagingPageWinners.textContent = `Page #${pages}`;
+    textPagingPageWinners.textContent = `Page #${this.page}`;
+    const nextButton = document.querySelector('.next-page-winners');
+    if (nextButton) {
+      if (date.length / this.limit > this.page) {
+        nextButton.removeAttribute('disabled');
+      } else {
+        nextButton.setAttribute('disabled', 'disabled');
+      }
+    }
+    const prevButton = document.querySelector('.prev-page-winners');
+    if (prevButton) {
+      if (this.page > PAGINATION_START) {
+        prevButton.removeAttribute('disabled');
+      } else {
+        prevButton.setAttribute('disabled', 'disabled');
+      }
+    }
   }
 
-  private async addWinnerOnPage(): Promise<void> {
+  public async addWinnerOnPage(url: string): Promise<void> {
     const parent = document.querySelector('.winners-table');
-    const urlWinner: string = `${this.path}?${ParamWinner.Page}${this.page}&${ParamWinner.limit}${this.limit}`;
+    const urlWinner: string = url;
     const dateWinner: Winner[] = await this.api.getDate<Winner[]>(urlWinner);
     if (parent) {
       let num = INDEX_NUMBER;
@@ -68,6 +89,87 @@ export class ControllerWinners {
     }
     return newWinner;
   }
-}
 
-export const winnersController: ControllerWinners = new ControllerWinners();
+  async sortWins(): Promise<void> {
+    const button: HTMLElement | null = document.querySelector('.wins');
+    const buttonTime: HTMLElement | null = document.querySelector('.time');
+    if (button && buttonTime) {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.body-table').forEach((e) => e.remove());
+        buttonTime.textContent = 'Time(s)';
+        if (!button.classList.contains('top')) {
+          button.innerHTML = 'Wins &#8595';
+          button.classList.add('top');
+          const url: string = `${this.path}?${ParamWinner.Page}${this.page}&${ParamWinner.limit}${this.limit}&_sort=wins&_order=ASC`;
+          document.querySelectorAll('.body-table').forEach((e) => e.remove());
+          this.addWinnerOnPage(url);
+        } else {
+          button.innerHTML = 'Wins &#8593';
+          button.classList.remove('top');
+          const url: string = `${this.path}?${ParamWinner.Page}${this.page}&${ParamWinner.limit}${this.limit}&_sort=wins&_order=DESC`;
+          this.addWinnerOnPage(url);
+        }
+      });
+    }
+  }
+
+  async sortTime(): Promise<void> {
+    const button: HTMLElement | null = document.querySelector('.time');
+    const buttonWins: HTMLElement | null = document.querySelector('.wins');
+    if (button && buttonWins) {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.body-table').forEach((e) => e.remove());
+        buttonWins.textContent = 'Wins';
+        if (!button.classList.contains('top')) {
+          button.innerHTML = 'Time(s) &#8595';
+          button.classList.add('top');
+          const url: string = `${this.path}?${ParamWinner.Page}${this.page}&${ParamWinner.limit}${this.limit}&_sort=time&_order=ASC`;
+          this.addWinnerOnPage(url);
+        } else {
+          button.innerHTML = 'Time(s) &#8593';
+          button.classList.remove('top');
+          const url: string = `${this.path}?${ParamWinner.Page}${this.page}&${ParamWinner.limit}${this.limit}&_sort=time&_order=DESC`;
+          this.addWinnerOnPage(url);
+        }
+      });
+    }
+  }
+
+  async addWinner(): Promise<void> {
+    const buttonWins: HTMLElement | null = document.querySelector('.link_button-winners');
+    if (buttonWins) {
+      buttonWins.addEventListener('click', () => {
+        document.querySelectorAll('.body-table').forEach((e) => e.remove());
+        const url: string = `${this.path}?${ParamWinner.Page}${this.page}&${ParamWinner.limit}${this.limit}`;
+        this.addWinnerOnPage(url);
+        this.addTitle();
+      });
+    }
+  }
+
+  private clickNextButton(): void {
+    const buttonNext = document.querySelector('.next-page-winners');
+    if (buttonNext) {
+      buttonNext.addEventListener('click', async () => {
+        this.page += 1;
+        document.querySelectorAll('.body-table').forEach((e) => e.remove());
+        const url: string = `${this.path}?${ParamWinner.Page}${this.page}&${ParamWinner.limit}${this.limit}`;
+        await this.addWinnerOnPage(url);
+        await this.addTitle();
+      });
+    }
+  }
+
+  private clickPrevButton(): void {
+    const buttonNext = document.querySelector('.prev-page-winners');
+    if (buttonNext) {
+      buttonNext.addEventListener('click', async () => {
+        this.page -= 1;
+        document.querySelectorAll('.body-table').forEach((e) => e.remove());
+        const url: string = `${this.path}?${ParamWinner.Page}${this.page}&${ParamWinner.limit}${this.limit}`;
+        await this.addWinnerOnPage(url);
+        await this.addTitle();
+      });
+    }
+  }
+}

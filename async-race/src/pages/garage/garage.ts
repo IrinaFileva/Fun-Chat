@@ -1,3 +1,4 @@
+import { GarageController } from '../../services/garageController';
 import { BaseComponent } from '../../shared/utils';
 
 export class PageGarage extends BaseComponent {
@@ -7,11 +8,14 @@ export class PageGarage extends BaseComponent {
 
   children: HTMLElement[];
 
+  controller: GarageController;
+
   constructor(elem: string, className: string, id: string, children: HTMLElement[]) {
     super(elem, className);
     this.item = this.addItem();
     this.id = id;
     this.children = children;
+    this.controller = new GarageController();
   }
 
   private addContainer(kids: HTMLElement[]): HTMLElement {
@@ -27,5 +31,6 @@ export class PageGarage extends BaseComponent {
   public start(): void {
     this.item.id = this.id;
     document.body.append(this.item);
+    this.controller.start();
   }
 }

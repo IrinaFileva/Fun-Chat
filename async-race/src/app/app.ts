@@ -1,18 +1,16 @@
 import { Header } from '../components/header/header';
 import { PageGarage } from '../pages/garage/garage';
 import { PageWinners } from '../pages/winners/winners';
-import { GarageController } from '../services/garageController';
 import { Routing } from '../services/routing';
-import { ControllerWinners } from '../services/winnersController';
 
 export class App {
   header: Header;
 
-  page: [PageGarage, PageWinners, GarageController, ControllerWinners];
+  page: [PageGarage, PageWinners];
 
   routs: Routing;
 
-  constructor(page: [PageGarage, PageWinners, GarageController, ControllerWinners], header: Header) {
+  constructor(page: [PageGarage, PageWinners], header: Header) {
     this.routs = new Routing();
     this.page = page;
     this.header = header;
