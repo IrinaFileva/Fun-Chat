@@ -201,19 +201,20 @@ export class GarageController {
     await this.statusCar(id, car);
   }
 
-  private async stopCar(id: string): Promise<void> {
-    this.api.pathDateJson(`${RequestParam.Id}${id}`, `${RequestParam.Status}${EngineStatus.Stopped}`).then(() => {
+  private async stopCar(id: string, car: HTMLElement): Promise<void> {
+    const date: Response = await this.api.pathDareResponse(
+      `${RequestParam.Id}${id}`,
+      `${RequestParam.Status}${EngineStatus.Stopped}`,
+    );
+    if (date.ok) {
       buttonsGarage.Reset.setAttribute('disabled', 'disabled');
       buttonsGarage.Race.removeAttribute('disabled');
       buttonsGarage.GenerateCars.removeAttribute('disabled');
       this.getAllCars();
-      const car: HTMLElement = [...document.querySelectorAll('.container-car')].filter(
-        (x: Element) => x.id === id,
-      )[0] as HTMLElement;
       car.classList.remove('car-position');
       car.style.animationDuration = '';
       car.style.animationPlayState = '';
-    });
+    }
   }
 
   private async controlStartButton(target: HTMLElement): Promise<void> {
@@ -232,17 +233,21 @@ export class GarageController {
     }
   }
 
-  private async controlStopButton(target: HTMLElement): Promise<void> {
+  private controlStopButton(target: HTMLElement): void {
     if (target && target.classList.contains('stop-car')) {
       const parent: HTMLElement | null = target.parentElement;
-      target.setAttribute('disabled', 'disabled');
       const startButton: HTMLButtonElement = target.previousSibling as HTMLButtonElement;
       startButton.removeAttribute('disabled');
       containerCars.querySelectorAll('.text-error').forEach((elem: Element) => elem.remove());
       if (parent) {
         const id: string | null = parent.getAttribute('id');
         if (id) {
-          await this.stopCar(id);
+          const car: HTMLElement = [...document.querySelectorAll('.container-car')].filter(
+            (x: Element) => x.id === id,
+          )[0] as HTMLElement;
+          car.style.animationPlayState = 'paused';
+          target.setAttribute('disabled', 'disabled');
+          this.stopCar(id, car);
         }
       }
     }
@@ -264,9 +269,15 @@ export class GarageController {
 
   private controlResetButton(): void {
     containerCars.querySelectorAll('.text-error').forEach((elem: Element) => elem.remove());
+    containerCars.querySelectorAll<HTMLElement>('.start-car').forEach((e: HTMLElement) => {
+      e.removeAttribute('disabled');
+    });
     containerCars.querySelectorAll<HTMLElement>('.container-car').forEach(async (elem: HTMLElement) => {
       const id: string | null = elem.getAttribute('id');
-      if (id) await this.stopCar(id);
+      if (id) {
+        elem.style.animationPlayState = 'paused';
+        await this.stopCar(id, elem);
+      }
     });
   }
 
