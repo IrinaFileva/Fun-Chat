@@ -230,8 +230,8 @@ button:disabled {
 }
 
 .no-active {
-  display: flex;
   visibility: hidden;
+  width: 70%;
   z-index: 10;
 }
 
@@ -241,6 +241,7 @@ button:disabled {
   right: 150px;
   width: 55px;
 }
+
 
 .flag {
   rotate: 31deg;
