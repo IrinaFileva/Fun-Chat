@@ -55,4 +55,12 @@ export enum ParamWinner {
   Page = '_page=',
   limit = '_limit=',
   Sort = '_sort=',
+  Order = '_order=',
+}
+
+export enum SortAndOrderPram {
+  ASC = 'ASC',
+  DESC = 'DESC',
+  Time = 'time',
+  Wins = 'wins',
 }

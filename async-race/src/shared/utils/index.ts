@@ -19,11 +19,11 @@ export class BaseComponent {
 }
 
 export function setDisabled(input: HTMLInputElement, input1: HTMLInputElement, button: HTMLButtonElement): void {
-  input.setAttribute('disabled', 'disabled');
+  input.disabled = true;
   input.value = '';
-  input1.setAttribute('disabled', 'disabled');
+  input1.disabled = true;
   input1.value = COLOR_INPUT_VALUE;
-  button.setAttribute('disabled', 'disabled');
+  button.disabled = true;
 }
 
 export function resetValueInput(input: HTMLInputElement, inputColor: HTMLInputElement): void {
@@ -42,7 +42,7 @@ export function getRandomColor(): string {
 }
 
 export function removeDisabled(input: HTMLInputElement, input1: HTMLInputElement, button: HTMLButtonElement): void {
-  input.removeAttribute('disabled');
-  input1.removeAttribute('disabled');
-  button.removeAttribute('disabled');
+  input.disabled = false;
+  input1.disabled = false;
+  button.disabled = false;
 }

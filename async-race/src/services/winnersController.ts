@@ -1,7 +1,7 @@
 import { NewCar } from '../components/cars/car';
 import { Api } from '../shared/api/api';
 import { INDEX_CAR, INDEX_NUMBER, LIMIT_DATE_ON_WINNERS, PAGINATION_START } from '../shared/const/const';
-import { Car, ParamWinner, PathFile, Winner } from '../shared/types/api';
+import { Car, ParamWinner, PathFile, SortAndOrderPram, Winner } from '../shared/types/api';
 import { textPagingPageWinners, titlePageWinners } from '../shared/ui/text';
 import { BaseComponent } from '../shared/utils';
 
@@ -36,20 +36,20 @@ export class ControllerWinners {
     const date: Winner[] = await this.api.getDate<Winner[]>(this.path);
     titlePageWinners.textContent = `Winners (${date.length})`;
     textPagingPageWinners.textContent = `Page #${this.page}`;
-    const nextButton = document.querySelector('.next-page-winners');
+    const nextButton: HTMLButtonElement | null = document.querySelector('.next-page-winners');
     if (nextButton) {
       if (date.length / this.limit > this.page) {
-        nextButton.removeAttribute('disabled');
+        nextButton.disabled = false;
       } else {
-        nextButton.setAttribute('disabled', 'disabled');
+        nextButton.disabled = true;
       }
     }
-    const prevButton = document.querySelector('.prev-page-winners');
+    const prevButton: HTMLButtonElement | null = document.querySelector('.prev-page-winners');
     if (prevButton) {
       if (this.page > PAGINATION_START) {
-        prevButton.removeAttribute('disabled');
+        prevButton.disabled = false;
       } else {
-        prevButton.setAttribute('disabled', 'disabled');
+        prevButton.disabled = true;
       }
     }
   }
@@ -100,13 +100,13 @@ export class ControllerWinners {
         if (!button.classList.contains('top')) {
           button.innerHTML = 'Wins &#8595';
           button.classList.add('top');
-          const url: string = `${this.path}?${ParamWinner.Page}${this.page}&${ParamWinner.limit}${this.limit}&_sort=wins&_order=ASC`;
+          const url: string = `${this.path}?${ParamWinner.Page}${this.page}&${ParamWinner.limit}${this.limit}&${ParamWinner.Sort}${SortAndOrderPram.Wins}&${ParamWinner.Order}${SortAndOrderPram.ASC}`;
           document.querySelectorAll('.body-table').forEach((e) => e.remove());
           this.addWinnerOnPage(url);
         } else {
           button.innerHTML = 'Wins &#8593';
           button.classList.remove('top');
-          const url: string = `${this.path}?${ParamWinner.Page}${this.page}&${ParamWinner.limit}${this.limit}&_sort=wins&_order=DESC`;
+          const url: string = `${this.path}?${ParamWinner.Page}${this.page}&${ParamWinner.limit}${this.limit}&${ParamWinner.Sort}${SortAndOrderPram.Wins}&${ParamWinner.Order}${SortAndOrderPram.DESC}`;
           this.addWinnerOnPage(url);
         }
       });
@@ -123,12 +123,12 @@ export class ControllerWinners {
         if (!button.classList.contains('top')) {
           button.innerHTML = 'Time(s) &#8595';
           button.classList.add('top');
-          const url: string = `${this.path}?${ParamWinner.Page}${this.page}&${ParamWinner.limit}${this.limit}&_sort=time&_order=ASC`;
+          const url: string = `${this.path}?${ParamWinner.Page}${this.page}&${ParamWinner.limit}${this.limit}&${ParamWinner.Sort}${SortAndOrderPram.Time}&${ParamWinner.Order}${SortAndOrderPram.ASC}`;
           this.addWinnerOnPage(url);
         } else {
           button.innerHTML = 'Time(s) &#8593';
           button.classList.remove('top');
-          const url: string = `${this.path}?${ParamWinner.Page}${this.page}&${ParamWinner.limit}${this.limit}&_sort=time&_order=DESC`;
+          const url: string = `${this.path}?${ParamWinner.Page}${this.page}&${ParamWinner.limit}${this.limit}&${ParamWinner.Sort}${SortAndOrderPram.Time}&${ParamWinner.Order}${SortAndOrderPram.DESC}`;
           this.addWinnerOnPage(url);
         }
       });
