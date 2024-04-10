@@ -1,0 +1,70 @@
+.form-user {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 20rem;
+  width: 100%;
+  height: 28.9rem;
+  padding: 2rem;
+  padding-top: 3rem;
+  border: 3px solid #0f0f0f;
+  border-radius: 20px;
+  font-size: 26px;
+  font-weight: 600;
+  text-align: center;
+  background: radial-gradient(circle at 22.4% 21.7%, rgb(4, 189, 228) 0%, rgb(2, 83, 185) 100.2%);
+  transform: translate(-50%, -50%);
+}
+
+.input-login,
+.input-password {
+  height: 2rem;
+  padding: 0.5rem;
+  font-size: 18px;
+  font-weight: 600;
+  border: 3px solid black;
+  border-radius: 5px;
+  outline: none;
+}
+
+.input-login {
+  margin-top: 3rem;
+}
+
+.hind-input-login,
+.hind-input-password {
+  color: rgb(17, 16, 16);
+  font-size: 14px;
+  height: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.button-info,
+.button-submit {
+  width: 7rem;
+  height: 2.5rem;
+  border-radius: 10px;
+  border: 3px solid black;
+  font-size: 20px;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+}
+
+.button-info {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  width: 5rem;
+  height: 2rem;
+}
+
+.button-info:hover,
+.button-submit:not([disabled]):hover {
+  border: 4px solid black;
+  font-size: 18px;
+}
