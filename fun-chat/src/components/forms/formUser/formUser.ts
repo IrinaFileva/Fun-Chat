@@ -1,4 +1,6 @@
+import { ServerRequests, serverRequests } from '../../../api/serverRequests ';
 import { MIN_LENGTH_INPUT_LOGIN, MIN_LENGTH_INPUT_PASSWORD, PATTERN_INPUT_FORM } from '../../../const/const';
+import { UserType } from '../../../types/serverTypes';
 import { TextForElement } from '../../../types/formTypes';
 import { ButtonForm, HindInput, InputForm, LinkForm } from '../componentsForm';
 import './styleForm.css';
@@ -18,6 +20,8 @@ export class FormUser {
 
   bthInfo: HTMLElement;
 
+  requests: ServerRequests;
+
   constructor(nameClass: string) {
     this.item = document.createElement('form');
     this.item.className = nameClass;
@@ -27,6 +31,7 @@ export class FormUser {
     this.hindInputPassword = new HindInput('hind-input-password').item;
     this.btnSubmit = new ButtonForm('button-submit', 'submit', 'Login').item;
     this.bthInfo = new LinkForm('link-form', '#info', 'button-info', 'button', 'Info').item;
+    this.requests = serverRequests;
     this.start();
   }
 
@@ -41,8 +46,16 @@ export class FormUser {
       this.btnSubmit,
       this.bthInfo,
     );
+    this.handlerForm();
     this.handlerInputLogin();
     this.handlerInputPassword();
+  }
+
+  private handlerForm(): void {
+    this.item.addEventListener('submit', (elem) => {
+      elem.preventDefault();
+      this.requests.UserLoginAndLogOut(UserType.UserLogin, this.inputLogin.value, this.inputPassword.value);
+    });
   }
 
   private handlerInputLogin() {
