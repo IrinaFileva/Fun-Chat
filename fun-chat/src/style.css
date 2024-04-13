@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -8,7 +8,20 @@ body {
   font-size: 10rem;
 }
 
-.message-error{
+.main-page-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 70%;
+  width: 100%;
+  max-height: 90%;
+  height: 100%;
+  padding: 0.2rem;
+  border-radius: 20px;
+  transform: translate(-50%, -50%);
+}
+
+.message-error {
   position: absolute;
   top: 5%;
   left: 50%;

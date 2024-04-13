@@ -1,0 +1,52 @@
+.main-page-main {
+  padding: 1rem;
+  font-size: 28px;
+  font-weight: 600;
+  border: 3px solid black;
+  border-radius: 10px;
+  width: 100%;
+  height: 90%;
+  margin: 0.5rem 0;
+  background-image: url(/src/assets/backgroundBody.jpg);
+  background-repeat: no-repeat;
+  background-position: top -85px left;
+}
+
+.wrapper-user-list {
+  width: 40%;
+  height: 100%;
+  padding: 1rem 2rem;
+  font-size: 28px;
+  font-weight: 600;
+  border: 3px solid black;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.list-users {
+  padding: 1rem 1.5rem;
+}
+
+.input-search{
+  width: 100%;
+  height: 2.5rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid black;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  background: rgb(89, 171, 238);
+  outline: none;
+}
+
+.item-list{
+  padding: 0.3rem;
+  color: red;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.item-list-name-user{
+  color: black;
+}
