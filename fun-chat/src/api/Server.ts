@@ -15,13 +15,15 @@ export class Server {
       this.socket.addEventListener('open', () => {
         this.socket.send(data);
       });
+    } else {
+      window.location.hash = '';
     }
   }
 
   public message(): void {
     this.socket.addEventListener('message', (event: MessageEvent) => {
       const data: DataResponseUser = JSON.parse(event.data);
-      if (data) new ServerResponses(data);
+      new ServerResponses(data);
       console.log(data);
     });
   }

@@ -13,10 +13,8 @@ export interface DataResponseUser {
   id: string;
   type: UserType;
   payload: {
-    user?: {
-      login: string;
-      isLogined: boolean;
-    };
+    user?: User;
+    users?: User[];
     error?: string;
   };
 }
@@ -29,4 +27,9 @@ export enum UserType {
   UserActive = 'USER_ACTIVE',
   UserInactive = 'USER_INACTIVE',
   Error = 'ERROR',
+}
+
+export interface User {
+  login: string;
+  isLogined: boolean;
 }

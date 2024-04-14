@@ -11,10 +11,10 @@ export class ServerRequests {
     this.api = newConnection;
   }
 
-  public UserLoginAndLogOut(typeUser: UserType, value: string, value1: string): void {
+  public UserLogin(value: string, value1: string): void {
     const user: DataRequestUser = {
       id: crypto.randomUUID(),
-      type: typeUser,
+      type: UserType.UserLogin,
       payload: {
         user: {
           login: value,
@@ -22,8 +22,46 @@ export class ServerRequests {
         },
       },
     };
-    const request = JSON.stringify(user);
+    const request: string = JSON.stringify(user);
     sessionStorage.setItem('IF-chat', request);
+    this.api.socket.send(request);
+  }
+
+  public UserLogout(): void {
+    const data: string | null = sessionStorage.getItem('IF-chat');
+    if (data) {
+      const user: DataRequestUser = JSON.parse(data);
+      user.type = UserType.UserLogout;
+      const request: string = JSON.stringify(user);
+      this.api.socket.send(request);
+      sessionStorage.clear();
+      const users: NodeListOf<Element> = document.querySelectorAll('.item-list');
+      users.forEach((item) => item.remove());
+    }
+  }
+
+  public requestAllUsers(): void {
+    const idRequest: string = crypto.randomUUID();
+    localStorage.setItem('IF-USER_ACTIVE', idRequest);
+    const data: DataRequestUser = {
+      id: idRequest,
+      type: UserType.UserActive,
+      payload: null,
+    };
+    const request: string = JSON.stringify(data);
+    this.api.socket.send(request);
+    this.AllUnauthorizedUsers();
+  }
+
+  private AllUnauthorizedUsers(): void {
+    const idRequest: string = crypto.randomUUID();
+    localStorage.setItem('IF-USER_INACTIVE', idRequest);
+    const data: DataRequestUser = {
+      id: idRequest,
+      type: UserType.UserInactive,
+      payload: null,
+    };
+    const request: string = JSON.stringify(data);
     this.api.socket.send(request);
   }
 }
