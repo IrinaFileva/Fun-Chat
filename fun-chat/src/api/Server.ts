@@ -1,5 +1,5 @@
 import { PATH } from '../const/const';
-import { DataResponseUser } from '../types/serverTypes';
+import { DataResponse } from '../types/serverTypes';
 import { ServerResponses } from './serverResponses';
 
 export class Server {
@@ -11,9 +11,13 @@ export class Server {
 
   public open(): void {
     const data: string | null = sessionStorage.getItem('IF-chat');
-    if (data) {
+    const allActiveUser: string | null = localStorage.getItem('IF-USER_ACTIVE');
+    const allInactiveUser: string | null = localStorage.getItem('IF-USER_INACTIVE');
+    if (data && allActiveUser && allInactiveUser) {
       this.socket.addEventListener('open', () => {
         this.socket.send(data);
+        this.socket.send(allActiveUser);
+        this.socket.send(allInactiveUser);
       });
     } else {
       window.location.hash = '';
@@ -22,7 +26,7 @@ export class Server {
 
   public message(): void {
     this.socket.addEventListener('message', (event: MessageEvent) => {
-      const data: DataResponseUser = JSON.parse(event.data);
+      const data: DataResponse = JSON.parse(event.data);
       new ServerResponses(data);
       console.log(data);
     });
@@ -30,7 +34,9 @@ export class Server {
 
   public close(): void {
     this.socket.addEventListener('close', () => {
-      this.socket.close();
+      this.socket = new WebSocket(PATH);
+      this.open();
+      this.message();
     });
   }
 }

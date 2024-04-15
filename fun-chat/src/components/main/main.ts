@@ -23,6 +23,20 @@ export class Main {
   private FillWrapperList() {
     const list: HTMLUListElement = document.createElement('ul');
     list.className = 'list-users';
+    list.addEventListener('click', (event: MouseEvent): void => {
+      const target: HTMLElement = event.target as HTMLElement;
+      if (target.classList.contains('item-list')) {
+        const child: Element | null = target.querySelector('.item-list-name-user');
+        if (child) {
+          const userName: string | null = child.textContent;
+          if (userName) serverRequests.getMessageHistory(userName);
+        }
+      }
+      if (target.classList.contains('item-list-name-user')) {
+        const userName: string | null = target.textContent;
+        if (userName) serverRequests.getMessageHistory(userName);
+      }
+    });
     const input: HTMLInputElement = this.addInputSearch();
     this.wrapperList.append(input, list);
   }

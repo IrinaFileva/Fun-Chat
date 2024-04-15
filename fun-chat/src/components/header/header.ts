@@ -1,6 +1,6 @@
 import { serverRequests } from '../../api/serverRequests ';
 import { TextForElement } from '../../types/elementTypes';
-import { DataRequestUser } from '../../types/serverTypes';
+import { DataRequest } from '../../types/serverTypes';
 import { LinkForm } from '../forms/componentsForm';
 import './styleHeader.css';
 
@@ -20,7 +20,7 @@ export class Header {
     h1.className = 'header-title';
     const data: string | null = sessionStorage.getItem('IF-chat');
     if (data) {
-      const text: DataRequestUser = JSON.parse(data);
+      const text: DataRequest = JSON.parse(data);
       if (text.payload) {
         h1.textContent = `${TextForElement.HeaderTitle}: ${text.payload.user.login}`;
       }
