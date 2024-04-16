@@ -39,13 +39,14 @@ export class ServerResponses {
     const dataStorage: string | null = localStorage.getItem('IF-USER_ACTIVE');
     if (dataStorage) {
       const request: DataRequest = JSON.parse(dataStorage);
-      if(request.id === this.data.id) {
+      if (request.id === this.data.id) {
         const usersAll: User[] | undefined = this.data.payload.users;
         if (usersAll && this.data.type === RequestType.UserActive) {
           for (let i = 0; i < usersAll.length; i += 1) {
             const li = document.createElement('li');
             li.className = 'item-list';
             li.style.color = 'green';
+            li.id = 'on';
             const span = document.createElement('span');
             span.className = 'item-list-name-user';
             span.textContent = usersAll[i].login;
@@ -91,6 +92,7 @@ export class ServerResponses {
         if (parent) {
           if (this.data.type === RequestType.UserExternalLogin && userLogin.isLogined === true) {
             parent.style.color = 'green';
+            parent.id = 'on';
           }
           if (this.data.type === RequestType.UserExternalLogout && userLogin.isLogined === false) {
             parent.style.color = 'red';

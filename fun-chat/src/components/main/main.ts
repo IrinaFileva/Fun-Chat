@@ -15,26 +15,38 @@ export class Main {
     this.wrapperList = document.createElement('div');
     this.wrapperList.className = 'wrapper-user-list';
     this.wrapperMessage = document.createElement('div');
-    this.wrapperMessage.className = 'wrapper-message-input';
-    this.FillWrapperList();
+    this.wrapperMessage.className = 'wrapper-message-and-input';
+    this.fillWrapperMessage();
+    this.fillWrapperList();
     this.item.append(this.wrapperList, this.wrapperMessage);
   }
 
-  private FillWrapperList() {
+  private fillWrapperList() {
     const list: HTMLUListElement = document.createElement('ul');
     list.className = 'list-users';
     list.addEventListener('click', (event: MouseEvent): void => {
       const target: HTMLElement = event.target as HTMLElement;
-      if (target.classList.contains('item-list')) {
-        const child: Element | null = target.querySelector('.item-list-name-user');
-        if (child) {
-          const userName: string | null = child.textContent;
-          if (userName) serverRequests.getMessageHistory(userName);
+      const nameTitle: HTMLElement | null = document.querySelector('.titleName-header-wrapper');
+      const statusTitle: HTMLElement | null = document.querySelector('.titleStatus-header-wrapper');
+      if (nameTitle && statusTitle) {
+        this.addTitleHeader(target, nameTitle, statusTitle);
+        if (target.classList.contains('item-list')) {
+          const child: Element | null = target.querySelector('.item-list-name-user');
+          if (child) {
+            const userName: string | null = child.textContent;
+            nameTitle.textContent = userName;
+            if (userName) {
+              serverRequests.getMessageHistory(userName);
+              if (target.id === 'on') {
+                statusTitle.style.color = 'green';
+                statusTitle.textContent = ' (online)';
+              } else {
+                statusTitle.textContent = ' (offline)';
+                statusTitle.style.color = 'red';
+              }
+            }
+          }
         }
-      }
-      if (target.classList.contains('item-list-name-user')) {
-        const userName: string | null = target.textContent;
-        if (userName) serverRequests.getMessageHistory(userName);
       }
     });
     const input: HTMLInputElement = this.addInputSearch();
@@ -43,6 +55,7 @@ export class Main {
 
   private addInputSearch(): HTMLInputElement {
     const input: HTMLInputElement = new InputForm('input-search', 'search').item;
+    input.placeholder = 'Search';
     input.addEventListener('input', () => {
       const allUser: NodeListOf<HTMLElement> = document.querySelectorAll('.item-list-name-user');
       allUser.forEach((elem: HTMLElement) => {
@@ -58,5 +71,34 @@ export class Main {
       });
     });
     return input;
+  }
+
+  private fillWrapperMessage() {
+    const headerWrapper = document.createElement('div');
+    headerWrapper.className = 'header-wrapper-message';
+    const titleName = document.createElement('p');
+    titleName.className = 'titleName-header-wrapper';
+    const titleStatus = document.createElement('div');
+    titleStatus.className = 'titleStatus-header-wrapper';
+    headerWrapper.append(titleName, titleStatus);
+    this.wrapperMessage.append(headerWrapper);
+  }
+
+  private addTitleHeader(target: HTMLElement, nameTitle: HTMLElement, statusTitle: HTMLElement): void {
+    if (target.classList.contains('item-list-name-user')) {
+      const userName: string | null = target.textContent;
+      const parent = target.parentElement;
+      nameTitle.textContent = userName;
+      if (userName) serverRequests.getMessageHistory(userName);
+      if (parent) {
+        if (parent.id === 'on') {
+          statusTitle.style.color = 'green';
+          statusTitle.textContent = ' (online)';
+        } else {
+          statusTitle.textContent = ' (offline)';
+          statusTitle.style.color = 'red';
+        }
+      }
+    }
   }
 }
