@@ -1,0 +1,43 @@
+.form-message{
+  display: flex;
+  gap: 1rem;
+}
+
+.input-form-message {
+  width: 80%;
+  height: 3rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid black;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  background-color: rgb(89, 171, 238);
+  outline: none;
+}
+
+.input-form-message:disabled {
+  opacity: 0.5;
+}
+
+.input-form-message::placeholder{
+  opacity: 0.5;
+  font-weight: 600;
+}
+
+.btn-form-message {
+  width: 18%;
+  height: 3rem;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  background-color: rgb(89, 171, 238);
+}
+
+.btn-form-message:hover{
+  font-size: 19px;
+  border-width: 3px;
+}

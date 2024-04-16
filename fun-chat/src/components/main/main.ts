@@ -1,5 +1,6 @@
 import { serverRequests } from '../../api/serverRequests ';
 import { InputForm } from '../forms/componentsForm';
+import { FormMessage } from '../forms/formMessage/formMessage';
 import './styleMain.css';
 
 export class Main {
@@ -9,6 +10,8 @@ export class Main {
 
   wrapperMessage: HTMLElement;
 
+  form: HTMLFormElement;
+
   constructor() {
     this.item = document.createElement('main');
     this.item.className = 'main-page-main';
@@ -16,6 +19,7 @@ export class Main {
     this.wrapperList.className = 'wrapper-user-list';
     this.wrapperMessage = document.createElement('div');
     this.wrapperMessage.className = 'wrapper-message-and-input';
+    this.form = new FormMessage().item;
     this.fillWrapperMessage();
     this.fillWrapperList();
     this.item.append(this.wrapperList, this.wrapperMessage);
@@ -30,6 +34,7 @@ export class Main {
       const statusTitle: HTMLElement | null = document.querySelector('.titleStatus-header-wrapper');
       if (nameTitle && statusTitle) {
         this.addTitleHeader(target, nameTitle, statusTitle);
+        this.unlockFormInputAndButton();
         if (target.classList.contains('item-list')) {
           const child: Element | null = target.querySelector('.item-list-name-user');
           if (child) {
@@ -55,7 +60,7 @@ export class Main {
 
   private addInputSearch(): HTMLInputElement {
     const input: HTMLInputElement = new InputForm('input-search', 'search').item;
-    input.placeholder = 'Search';
+    input.placeholder = 'Search...';
     input.addEventListener('input', () => {
       const allUser: NodeListOf<HTMLElement> = document.querySelectorAll('.item-list-name-user');
       allUser.forEach((elem: HTMLElement) => {
@@ -81,7 +86,7 @@ export class Main {
     const titleStatus = document.createElement('div');
     titleStatus.className = 'titleStatus-header-wrapper';
     headerWrapper.append(titleName, titleStatus);
-    this.wrapperMessage.append(headerWrapper);
+    this.wrapperMessage.append(headerWrapper, this.form);
   }
 
   private addTitleHeader(target: HTMLElement, nameTitle: HTMLElement, statusTitle: HTMLElement): void {
@@ -99,6 +104,15 @@ export class Main {
           statusTitle.style.color = 'red';
         }
       }
+    }
+  }
+
+  private unlockFormInputAndButton(): void {
+    const input: HTMLInputElement | null = document.querySelector('.input-form-message');
+    const button: HTMLButtonElement | null = document.querySelector('.btn-form-message');
+    if (input && button) {
+      input.disabled = false;
+      button.disabled = false;
     }
   }
 }
