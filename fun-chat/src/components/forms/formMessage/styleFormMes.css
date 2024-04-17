@@ -37,7 +37,7 @@
   background-color: rgb(89, 171, 238);
 }
 
-.btn-form-message:hover{
+.btn-form-message:not([disabled]):hover{
   font-size: 19px;
   border-width: 3px;
 }

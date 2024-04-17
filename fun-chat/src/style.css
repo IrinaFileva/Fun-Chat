@@ -8,17 +8,18 @@ body {
   font-size: 10rem;
 }
 
+.main-page{
+  display: flex;
+}
+
 .main-page-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  max-width: 70%;
+  max-width: 1200px;
   width: 100%;
   max-height: 90%;
   height: 100%;
   padding: 0.2rem;
   border-radius: 20px;
-  transform: translate(-50%, -50%);
+  margin: 0 auto;
 }
 
 .message-error {
