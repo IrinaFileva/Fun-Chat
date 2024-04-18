@@ -57,7 +57,6 @@ export class Main {
     input.addEventListener('input', () => {
       const allUser: NodeListOf<HTMLElement> = document.querySelectorAll('.item-list-name-user');
       allUser.forEach((elem: HTMLElement) => {
-        elem.classList.add('open');
         const userName: string | null = elem.textContent;
         const parent: HTMLElement | null = elem.parentElement;
         if (parent) {
@@ -84,13 +83,17 @@ export class Main {
     wrapperMes.className = 'wrapper-messages';
     wrapperMes.textContent = TextForElement.BlockMessageStart;
     wrapperMes.classList.add('wrapper-message-start');
+    this.handlerMessageBlock(wrapperMes);
     this.wrapperMessage.append(headerWrapper, wrapperMes, this.form);
   }
 
   private addTitleHeader(target: HTMLElement, nameTitle: HTMLElement, statusTitle: HTMLElement): void {
     if (target.classList.contains('item-list-name-user')) {
+      target.classList.add('open');
       const userName: string | null = target.textContent;
       const parent = target.parentElement;
+      const nextElement = target.nextSibling;
+      if (nextElement) nextElement.remove();
       nameTitle.textContent = userName;
       if (userName) serverRequests.getMessageHistory(userName);
       if (parent) {
@@ -137,5 +140,14 @@ export class Main {
         }
       });
     }
+  }
+
+  private handlerMessageBlock(elem: HTMLDivElement): void {
+    elem.addEventListener('click', () => {
+      const lineNewMessage: HTMLElement | null = elem.querySelector('.line-new-message');
+      if (lineNewMessage) {
+        lineNewMessage.remove();
+      }
+    });
   }
 }

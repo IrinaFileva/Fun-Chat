@@ -78,6 +78,23 @@ export class ServerRequests {
     const request: string = JSON.stringify(data);
     this.api.send(request);
   }
+
+  public sendMessage(msg: string, user: string): void {
+    const idRequest: string = crypto.randomUUID();
+    localStorage.setItem('IF-MSG_SEND', idRequest);
+    const data: DataRequest = {
+      id: idRequest,
+      type: RequestType.Send,
+      payload: {
+        message: {
+          to: user,
+          text: msg,
+        },
+      },
+    };
+    const request: string = JSON.stringify(data);
+    this.api.send(request);
+  }
 }
 
 export const serverRequests = new ServerRequests();

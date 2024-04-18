@@ -21,7 +21,7 @@ export class Header {
     const data: string | null = sessionStorage.getItem('IF-chat');
     if (data) {
       const text: DataRequest = JSON.parse(data);
-      if (text.payload) {
+      if (text.payload && text.payload.user) {
         h1.textContent = `${TextForElement.HeaderTitle}: ${text.payload.user.login}`;
       }
     }

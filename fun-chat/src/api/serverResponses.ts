@@ -1,4 +1,5 @@
 import { HindInput } from '../components/forms/componentsForm';
+import { START_NEW_MESSAGE } from '../const/const';
 import { TextForElement } from '../types/elementTypes';
 import { DataRequest, DataResponse, User, RequestType, Message } from '../types/serverTypes';
 
@@ -14,6 +15,8 @@ export class ServerResponses {
     this.getAllUser();
     this.CheckUserExternalLogin();
     this.CheckUserExternalLogout();
+    this.processMessageSent();
+    this.processMessageReceived();
   }
 
   private loginUser(): void {
@@ -59,7 +62,10 @@ export class ServerResponses {
               const span: HTMLSpanElement = document.createElement('span');
               span.className = 'item-list-name-user';
               span.textContent = usersAll[i].login;
-              li.append(span);
+              const unreadMessages: HTMLDivElement = document.createElement('div');
+              unreadMessages.className = 'unread-messages';
+              unreadMessages.textContent = START_NEW_MESSAGE;
+              li.append(span, unreadMessages);
               parent.append(li);
             }
           }
@@ -83,7 +89,10 @@ export class ServerResponses {
             const span: HTMLSpanElement = document.createElement('span');
             span.className = 'item-list-name-user';
             span.textContent = usersAll[i].login;
-            li.append(span);
+            const unreadMessages: HTMLDivElement = document.createElement('div');
+            unreadMessages.className = 'unread-messages';
+            unreadMessages.textContent = START_NEW_MESSAGE;
+            li.append(span, unreadMessages);
             list.append(li);
           }
         }
@@ -92,45 +101,105 @@ export class ServerResponses {
   }
 
   private CheckUserExternalLogin(): void {
-    if(this.data.id === null && this.data.type === RequestType.UserExternalLogin) {
+    if (this.data.id === null && this.data.type === RequestType.UserExternalLogin) {
       const usersName: NodeListOf<Element> = document.querySelectorAll('.item-list-name-user');
       const list: Element | null = document.querySelector('.list-users');
-      const user: User | undefined = this.data.payload.user;
+      const client: User | undefined = this.data.payload.user;
       let isUser = false;
       usersName.forEach((item: Element) => {
-        if (user && item.textContent === user.login) {
+        if (client && item.textContent === client.login) {
           const parent: HTMLElement | null = item.parentElement;
-          if (parent && user.isLogined === true) {
+          if (parent && client.isLogined === true) {
             parent.style.color = 'green';
             parent.id = 'on';
           }
-          isUser = true
+          isUser = true;
         }
-      })
-      if(list && !isUser && user) {
+      });
+      if (list && !isUser && client) {
         const li: HTMLLIElement = document.createElement('li');
         li.className = 'item-list';
         li.style.color = 'green';
         li.id = 'on';
         const span: HTMLSpanElement = document.createElement('span');
         span.className = 'item-list-name-user';
-        span.textContent = user.login;
-        li.append(span);
+        span.textContent = client.login;
+        const unreadMessages: HTMLDivElement = document.createElement('div');
+        unreadMessages.className = 'unread-messages';
+        unreadMessages.textContent = START_NEW_MESSAGE;
+        li.append(span, unreadMessages);
         list.prepend(li);
       }
-     }
+    }
   }
 
   private CheckUserExternalLogout(): void {
-    if(this.data.id === null && this.data.type === RequestType.UserExternalLogout) {
+    if (this.data.id === null && this.data.type === RequestType.UserExternalLogout) {
       const users: NodeListOf<Element> = document.querySelectorAll('.item-list-name-user');
-      const user: User | undefined = this.data.payload.user;
+      const client: User | undefined = this.data.payload.user;
       users.forEach((item: Element) => {
-        if (user && item.textContent === user.login) {
+        if (client && item.textContent === client.login) {
           const parent: HTMLElement | null = item.parentElement;
-          if (parent && user.isLogined === false) {
+          if (parent && client.isLogined === false) {
             parent.style.color = 'red';
             parent.id = '';
+          }
+        }
+      });
+    }
+  }
+
+  private createMessageBlock(item: Message, nameClass: string, parent: Element): void {
+    const message: HTMLDivElement = document.createElement('div');
+    if (item.id) message.id = item.id;
+    message.className = nameClass;
+    const nameUser: HTMLSpanElement = document.createElement('span');
+    nameUser.className = 'message-user-name';
+    if (item.datetime && item.from) {
+      const data: string = new Date(item.datetime).toLocaleString('en-GB');
+      nameUser.textContent = `${item.from} (${data.replaceAll('/', '.')})`;
+    }
+    const text: HTMLParagraphElement = document.createElement('p');
+    text.className = 'message-text';
+    text.textContent = item.text;
+    const dataMessage: HTMLParagraphElement = document.createElement('p');
+    dataMessage.className = 'message-data';
+    message.append(nameUser, text, dataMessage);
+    parent.append(message);
+    message.scrollIntoView();
+  }
+
+  private processMessageSent(): void {
+    const idLocal: string | null = localStorage.getItem('IF-MSG_SEND');
+    if (this.data.id === idLocal && this.data.type === RequestType.Send) {
+      const parent: Element | null = document.querySelector('.wrapper-messages');
+      const messageUser: Message | undefined = this.data.payload.message;
+      if (parent && messageUser) this.createMessageBlock(messageUser, 'message-user', parent);
+    }
+  }
+
+  private processMessageReceived(): void {
+    if (this.data.id === null && this.data.type === RequestType.Send) {
+      const usersName: NodeListOf<Element> = document.querySelectorAll('.item-list-name-user');
+      const parent: Element | null = document.querySelector('.wrapper-messages');
+      const messageUser: Message | undefined = this.data.payload.message;
+      usersName.forEach((item: Element) => {
+        if (messageUser && messageUser.from === item.textContent) {
+          if (item.classList.contains('open')) {
+            if (parent) {
+              const lineNewMessage: HTMLDivElement = document.createElement('div');
+              lineNewMessage.className = 'line-new-message';
+              lineNewMessage.textContent = TextForElement.lineNewMessage;
+              parent.append(lineNewMessage);
+              this.createMessageBlock(messageUser, 'message-interlocutor', parent);
+            }
+          } else {
+            const nextElement: HTMLElement | null = item.nextSibling as HTMLElement;
+            if (nextElement) {
+              const numberMessage: number = Number(nextElement.textContent);
+              nextElement.textContent = `${numberMessage + 1}`;
+              nextElement.style.display = 'inline-flex';
+            }
           }
         }
       });

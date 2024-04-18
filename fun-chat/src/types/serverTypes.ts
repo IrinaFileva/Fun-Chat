@@ -2,10 +2,11 @@ export interface DataRequest {
   id: string | null;
   type: RequestType;
   payload: {
-    user: {
+    user?: {
       login: string;
       password?: string;
     };
+    message?: Message;
   } | null;
 }
 
@@ -16,6 +17,7 @@ export interface DataResponse {
     user?: User;
     users?: User[];
     error?: string;
+    message?: Message;
     messages?: Message[];
   };
 }
@@ -42,14 +44,14 @@ export interface User {
 }
 
 export interface Message {
-  id: string;
-  from: string;
+  id?: string;
+  from?: string;
   to: string;
   text: string;
-  datetime: number;
-  status: {
-    isDelivered: boolean;
-    isReaded: boolean;
-    isEdited: boolean;
+  datetime?: number;
+  status?: {
+    isDelivered?: boolean;
+    isReaded?: boolean;
+    isEdited?: boolean;
   };
 }

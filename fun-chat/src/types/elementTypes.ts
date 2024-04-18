@@ -7,8 +7,10 @@ export enum TextForElement {
   HeaderTitle = 'User',
   HeaderAppName = 'Fun Chat &#128516',
   BlockMessageStart = 'Select the user to send the message to...',
+  BlockMessageDialog = 'Write your first message...',
   UserOnline = ' (online)',
   UserOffline = ' (offline)',
   InputSearch = 'Search...',
   inputMessage = 'Message...',
+  lineNewMessage = 'New Message',
 }

@@ -38,6 +38,11 @@ export class FormMessage {
       if (nameUser && nameUser.textContent) {
         serverRequests.sendMessage(this.input.value, nameUser.textContent);
         this.input.value = '';
+        this.button.disabled = true;
+      }
+      const lineNewMessage: HTMLElement | null = document.querySelector('.line-new-message');
+      if (lineNewMessage) {
+        lineNewMessage.remove();
       }
     });
   }
