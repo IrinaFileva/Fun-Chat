@@ -1,15 +1,19 @@
 import { HindInput } from '../components/forms/componentsForm';
 import { TextForElement } from '../types/elementTypes';
-import { DataRequest, DataResponse, User, RequestType } from '../types/serverTypes';
+import { DataRequest, DataResponse, User, RequestType, Message } from '../types/serverTypes';
 
 export class ServerResponses {
   data: DataResponse;
 
+  unreadMessages: number;
+
   constructor(data: DataResponse) {
     this.data = data;
+    this.unreadMessages = 0;
     this.loginUser();
     this.getAllUser();
-    this.CheckUser();
+    this.CheckUserExternalLogin();
+    this.CheckUserExternalLogout();
   }
 
   private loginUser(): void {
@@ -35,47 +39,28 @@ export class ServerResponses {
     }
   }
 
-  private getActiveUser(parent: HTMLUListElement): void {
+  private getActiveUser(parent: Element): void {
     const dataStorage: string | null = localStorage.getItem('IF-USER_ACTIVE');
-    if (dataStorage) {
+    const userStorage: string | null = sessionStorage.getItem('IF-chat');
+    if (dataStorage && userStorage) {
       const request: DataRequest = JSON.parse(dataStorage);
+      const user: DataRequest = JSON.parse(userStorage);
       if (request.id === this.data.id) {
+        const userLogin = user.payload;
         const usersAll: User[] | undefined = this.data.payload.users;
-        if (usersAll && this.data.type === RequestType.UserActive) {
+        if (usersAll && this.data.type === RequestType.UserActive && userLogin) {
+          const login = userLogin.user;
           for (let i = 0; i < usersAll.length; i += 1) {
-            const li = document.createElement('li');
-            li.className = 'item-list';
-            li.style.color = 'green';
-            li.id = 'on';
-            const span = document.createElement('span');
-            span.className = 'item-list-name-user';
-            span.textContent = usersAll[i].login;
-            li.append(span);
-            parent.append(li);
-          }
-        }
-      }
-    }
-  }
-
-  private getAllUser(): void {
-    const list: HTMLUListElement | null = document.querySelector('.list-users');
-    if (list) {
-      this.getActiveUser(list);
-      const dataStorage: string | null = localStorage.getItem('IF-USER_INACTIVE');
-      if (dataStorage) {
-        const request: DataRequest = JSON.parse(dataStorage);
-        if (request.id === this.data.id) {
-          const usersAll: User[] | undefined = this.data.payload.users;
-          if (usersAll && this.data.type === RequestType.UserInactive) {
-            for (let i = 0; i < usersAll.length; i += 1) {
-              const li = document.createElement('li');
+            if (login && usersAll[i].login !== login.login) {
+              const li: HTMLLIElement = document.createElement('li');
               li.className = 'item-list';
-              const span = document.createElement('span');
+              li.style.color = 'green';
+              li.id = 'on';
+              const span: HTMLSpanElement = document.createElement('span');
               span.className = 'item-list-name-user';
               span.textContent = usersAll[i].login;
               li.append(span);
-              list.append(li);
+              parent.append(li);
             }
           }
         }
@@ -83,22 +68,72 @@ export class ServerResponses {
     }
   }
 
-  private CheckUser(): void {
-    const users: NodeListOf<Element> = document.querySelectorAll('.item-list-name-user');
-    users.forEach((item) => {
-      const userLogin = this.data.payload.user;
-      if (userLogin && item.textContent === userLogin.login) {
-        const parent: HTMLElement | null = item.parentElement;
-        if (parent) {
-          if (this.data.type === RequestType.UserExternalLogin && userLogin.isLogined === true) {
-            parent.style.color = 'green';
-            parent.id = 'on';
-          }
-          if (this.data.type === RequestType.UserExternalLogout && userLogin.isLogined === false) {
-            parent.style.color = 'red';
+  private getAllUser(): void {
+    const list: Element | null = document.querySelector('.list-users');
+    const dataStorage: string | null = localStorage.getItem('IF-USER_INACTIVE');
+    if (list && dataStorage) {
+      const request: DataRequest = JSON.parse(dataStorage);
+      this.getActiveUser(list);
+      if (request.id === this.data.id) {
+        const usersAll: User[] | undefined = this.data.payload.users;
+        if (usersAll && this.data.type === RequestType.UserInactive) {
+          for (let i = 0; i < usersAll.length; i += 1) {
+            const li: HTMLLIElement = document.createElement('li');
+            li.className = 'item-list';
+            const span: HTMLSpanElement = document.createElement('span');
+            span.className = 'item-list-name-user';
+            span.textContent = usersAll[i].login;
+            li.append(span);
+            list.append(li);
           }
         }
       }
-    });
+    }
+  }
+
+  private CheckUserExternalLogin(): void {
+    if(this.data.id === null && this.data.type === RequestType.UserExternalLogin) {
+      const usersName: NodeListOf<Element> = document.querySelectorAll('.item-list-name-user');
+      const list: Element | null = document.querySelector('.list-users');
+      const user: User | undefined = this.data.payload.user;
+      let isUser = false;
+      usersName.forEach((item: Element) => {
+        if (user && item.textContent === user.login) {
+          const parent: HTMLElement | null = item.parentElement;
+          if (parent && user.isLogined === true) {
+            parent.style.color = 'green';
+            parent.id = 'on';
+          }
+          isUser = true
+        }
+      })
+      if(list && !isUser && user) {
+        const li: HTMLLIElement = document.createElement('li');
+        li.className = 'item-list';
+        li.style.color = 'green';
+        li.id = 'on';
+        const span: HTMLSpanElement = document.createElement('span');
+        span.className = 'item-list-name-user';
+        span.textContent = user.login;
+        li.append(span);
+        list.prepend(li);
+      }
+     }
+  }
+
+  private CheckUserExternalLogout(): void {
+    if(this.data.id === null && this.data.type === RequestType.UserExternalLogout) {
+      const users: NodeListOf<Element> = document.querySelectorAll('.item-list-name-user');
+      const user: User | undefined = this.data.payload.user;
+      users.forEach((item: Element) => {
+        if (user && item.textContent === user.login) {
+          const parent: HTMLElement | null = item.parentElement;
+          if (parent && user.isLogined === false) {
+            parent.style.color = 'red';
+            parent.id = '';
+          }
+        }
+      });
+    }
   }
 }
