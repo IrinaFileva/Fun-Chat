@@ -6,17 +6,15 @@ import { DataRequest, DataResponse, User, RequestType, Message } from '../types/
 export class ServerResponses {
   data: DataResponse;
 
-  unreadMessages: number;
-
   constructor(data: DataResponse) {
     this.data = data;
-    this.unreadMessages = 0;
     this.loginUser();
     this.getAllUser();
     this.CheckUserExternalLogin();
     this.CheckUserExternalLogout();
     this.processMessageSent();
     this.processMessageReceived();
+    this.processMessageHistory();
   }
 
   private loginUser(): void {
@@ -182,15 +180,18 @@ export class ServerResponses {
     if (this.data.id === null && this.data.type === RequestType.Send) {
       const usersName: NodeListOf<Element> = document.querySelectorAll('.item-list-name-user');
       const parent: Element | null = document.querySelector('.wrapper-messages');
+      const lineMessage = document.querySelector('.line-new-message');
       const messageUser: Message | undefined = this.data.payload.message;
       usersName.forEach((item: Element) => {
         if (messageUser && messageUser.from === item.textContent) {
           if (item.classList.contains('open')) {
             if (parent) {
-              const lineNewMessage: HTMLDivElement = document.createElement('div');
-              lineNewMessage.className = 'line-new-message';
-              lineNewMessage.textContent = TextForElement.lineNewMessage;
-              parent.append(lineNewMessage);
+              if (!lineMessage) {
+                const lineNewMessage: HTMLDivElement = document.createElement('div');
+                lineNewMessage.className = 'line-new-message';
+                lineNewMessage.textContent = TextForElement.lineNewMessage;
+                parent.append(lineNewMessage);
+              }
               this.createMessageBlock(messageUser, 'message-interlocutor', parent);
             }
           } else {
@@ -203,6 +204,35 @@ export class ServerResponses {
           }
         }
       });
+    }
+  }
+
+  private processMessageHistory(): void {
+    const idLocal: string | null = localStorage.getItem('IF-MSG_FROM_USER');
+    const userLocal: string | null = sessionStorage.getItem('IF-chat');
+    if (this.data.id === idLocal && userLocal) {
+      const userData: DataRequest = JSON.parse(userLocal);
+      if (userData.payload) {
+        const login = userData.payload.user;
+        const history: Message[] | undefined = this.data.payload.messages;
+        const parent: Element | null = document.querySelector('.wrapper-messages');
+        if (login && history && parent) {
+          if (history.length === 0) {
+            parent.classList.add('wrapper-message-start');
+            parent.textContent = TextForElement.BlockMessageDialog;
+          } else {
+            parent.classList.remove('wrapper-message-start');
+            parent.innerHTML = '';
+          }
+          history.forEach((elem: Message) => {
+            if (login.login === elem.from) {
+              this.createMessageBlock(elem, 'message-user', parent);
+            } else {
+              this.createMessageBlock(elem, 'message-interlocutor', parent);
+            }
+          });
+        }
+      }
     }
   }
 }
