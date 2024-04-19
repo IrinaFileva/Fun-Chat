@@ -15,6 +15,7 @@ export class ServerResponses {
     this.processMessageSent();
     this.processMessageReceived();
     this.processMessageHistory();
+    this.processMessageDeliveryStatus();
   }
 
   private loginUser(): void {
@@ -53,18 +54,7 @@ export class ServerResponses {
           const login = userLogin.user;
           for (let i = 0; i < usersAll.length; i += 1) {
             if (login && usersAll[i].login !== login.login) {
-              const li: HTMLLIElement = document.createElement('li');
-              li.className = 'item-list';
-              li.style.color = 'green';
-              li.id = 'on';
-              const span: HTMLSpanElement = document.createElement('span');
-              span.className = 'item-list-name-user';
-              span.textContent = usersAll[i].login;
-              const unreadMessages: HTMLDivElement = document.createElement('div');
-              unreadMessages.className = 'unread-messages';
-              unreadMessages.textContent = START_NEW_MESSAGE;
-              li.append(span, unreadMessages);
-              parent.append(li);
+              this.addUser(parent, usersAll[i])
             }
           }
         }
@@ -108,6 +98,12 @@ export class ServerResponses {
         if (client && item.textContent === client.login) {
           const parent: HTMLElement | null = item.parentElement;
           if (parent && client.isLogined === true) {
+            const statusMessages = document.querySelectorAll('.message-data');
+            statusMessages.forEach((elem: Element) => {
+              if (elem.textContent === 'sent') {
+                elem.textContent = 'delivered';
+              }
+            });
             parent.style.color = 'green';
             parent.id = 'on';
           }
@@ -115,18 +111,7 @@ export class ServerResponses {
         }
       });
       if (list && !isUser && client) {
-        const li: HTMLLIElement = document.createElement('li');
-        li.className = 'item-list';
-        li.style.color = 'green';
-        li.id = 'on';
-        const span: HTMLSpanElement = document.createElement('span');
-        span.className = 'item-list-name-user';
-        span.textContent = client.login;
-        const unreadMessages: HTMLDivElement = document.createElement('div');
-        unreadMessages.className = 'unread-messages';
-        unreadMessages.textContent = START_NEW_MESSAGE;
-        li.append(span, unreadMessages);
-        list.prepend(li);
+        this.addUser(list, client);
       }
     }
   }
@@ -159,9 +144,10 @@ export class ServerResponses {
     }
     const text: HTMLParagraphElement = document.createElement('p');
     text.className = 'message-text';
-    text.textContent = item.text;
+    if (item.text) text.textContent = item.text;
     const dataMessage: HTMLParagraphElement = document.createElement('p');
     dataMessage.className = 'message-data';
+    this.processMessageStatus(item, dataMessage, nameClass);
     message.append(nameUser, text, dataMessage);
     parent.append(message);
     message.scrollIntoView();
@@ -207,6 +193,20 @@ export class ServerResponses {
     }
   }
 
+  private processMessageStatus(item: Message, dataMessage: HTMLParagraphElement, nameClass: string): void {
+    if (item.status && nameClass !== 'message-interlocutor') {
+      if (item.status.isDelivered === true) {
+        dataMessage.textContent = 'delivered';
+      }
+      if (item.status.isDelivered === false) {
+        dataMessage.textContent = 'sent';
+      }
+      if (item.status.isReaded === true) {
+        dataMessage.textContent = 'read';
+      }
+    }
+  }
+
   private processMessageHistory(): void {
     const idLocal: string | null = localStorage.getItem('IF-MSG_FROM_USER');
     const userLocal: string | null = sessionStorage.getItem('IF-chat');
@@ -234,5 +234,40 @@ export class ServerResponses {
         }
       }
     }
+  }
+
+  private processMessageDeliveryStatus(): void {
+    if (this.data.id === null && this.data.type === RequestType.Deliver) {
+      console.log(this.data.id, this.data.type);
+      const dataMessage: Message | undefined = this.data.payload.message;
+      if (dataMessage) {
+        const idMessage: string | undefined = dataMessage.id;
+        const messages: NodeListOf<Element> = document.querySelectorAll('.message-user');
+        if (idMessage) {
+          messages.forEach((elem: Element) => {
+            if (elem.id === idMessage) {
+              console.log(elem.id === idMessage);
+              const parent: HTMLParagraphElement | null = elem.querySelector('.message-data');
+              if (parent) this.processMessageStatus(dataMessage, parent, 'message-user');
+            }
+          });
+        }
+      }
+    }
+  }
+
+  private addUser(list: Element, client: User ) {
+    const li: HTMLLIElement = document.createElement('li');
+    li.className = 'item-list';
+    li.style.color = 'green';
+    li.id = 'on';
+    const span: HTMLSpanElement = document.createElement('span');
+    span.className = 'item-list-name-user';
+    span.textContent = client.login;
+    const unreadMessages: HTMLDivElement = document.createElement('div');
+    unreadMessages.className = 'unread-messages';
+    unreadMessages.textContent = START_NEW_MESSAGE;
+    li.append(span, unreadMessages);
+    list.prepend(li);
   }
 }

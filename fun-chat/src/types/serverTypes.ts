@@ -46,8 +46,8 @@ export interface User {
 export interface Message {
   id?: string;
   from?: string;
-  to: string;
-  text: string;
+  to?: string;
+  text?: string;
   datetime?: number;
   status?: {
     isDelivered?: boolean;
