@@ -1,14 +1,13 @@
+import { TextForElement } from '../types/elementTypes';
 import { DataRequest, RequestType } from '../types/serverTypes';
-import { newConnection } from './Server';
+import { Server } from './Server';
 
-export class ServerRequests {
+export class ServerRequests extends Server {
   user: string;
 
-  api: WebSocket;
-
   constructor() {
+    super();
     this.user = '';
-    this.api = newConnection.socket;
   }
 
   public UserLogin(value: string, value1: string): void {
@@ -24,7 +23,7 @@ export class ServerRequests {
     };
     const request: string = JSON.stringify(user);
     sessionStorage.setItem('IF-chat', request);
-    this.api.send(request);
+    this.socket.send(request);
   }
 
   public UserLogout(): void {
@@ -33,10 +32,19 @@ export class ServerRequests {
       const user: DataRequest = JSON.parse(data);
       user.type = RequestType.UserLogout;
       const request: string = JSON.stringify(user);
-      this.api.send(request);
+      this.socket.send(request);
       sessionStorage.clear();
       const users: NodeListOf<Element> = document.querySelectorAll('.item-list');
+      const header = document.querySelector('.header-wrapper-message');
+      if (header) header.remove();
+      const wrapper = document.querySelector('wrapper-messages');
+      if (wrapper) {
+        wrapper.innerHTML = '';
+        wrapper.textContent = TextForElement.BlockMessageStart;
+      }
       users.forEach((item) => item.remove());
+      sessionStorage.clear();
+      localStorage.clear();
     }
   }
 
@@ -48,7 +56,7 @@ export class ServerRequests {
     };
     const request: string = JSON.stringify(data);
     localStorage.setItem('IF-USER_ACTIVE', request);
-    this.api.send(request);
+    this.socket.send(request);
     this.AllUnauthorizedUsers();
   }
 
@@ -60,7 +68,7 @@ export class ServerRequests {
     };
     const request: string = JSON.stringify(data);
     localStorage.setItem('IF-USER_INACTIVE', request);
-    this.api.send(request);
+    this.socket.send(request);
   }
 
   public getMessageHistory(userName: string): void {
@@ -76,7 +84,7 @@ export class ServerRequests {
       },
     };
     const request: string = JSON.stringify(data);
-    this.api.send(request);
+    this.socket.send(request);
   }
 
   public sendMessage(msg: string, user: string): void {
@@ -93,7 +101,7 @@ export class ServerRequests {
       },
     };
     const request: string = JSON.stringify(data);
-    this.api.send(request);
+    this.socket.send(request);
   }
 }
 

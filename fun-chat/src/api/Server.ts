@@ -7,6 +7,10 @@ export class Server {
 
   constructor() {
     this.socket = new WebSocket(PATH);
+    this.open();
+    this.message();
+    this.error();
+    this.close();
   }
 
   public open(): void {
@@ -32,13 +36,15 @@ export class Server {
     });
   }
 
+  private error() {
+    this.socket.addEventListener('error', () => {
+      window.location.reload();
+    });
+  }
+
   public close(): void {
     this.socket.addEventListener('close', () => {
-      this.socket = new WebSocket(PATH);
-      this.open();
-      this.message();
+      window.location.reload();
     });
   }
 }
-
-export const newConnection: Server = new Server();
