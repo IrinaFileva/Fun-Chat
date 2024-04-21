@@ -1,4 +1,5 @@
 import { serverRequests } from '../../api/serverRequests ';
+import { START_NEW_MESSAGE } from '../../const/const';
 import { TextForElement } from '../../types/elementTypes';
 import { InputForm } from '../forms/componentsForm';
 import { FormMessage } from '../forms/formMessage/formMessage';
@@ -83,6 +84,7 @@ export class Main {
     wrapperMes.className = 'wrapper-messages';
     wrapperMes.textContent = TextForElement.BlockMessageStart;
     wrapperMes.classList.add('wrapper-message-start');
+    this.controlScroll(wrapperMes);
     this.handlerMessageBlock(wrapperMes);
     this.wrapperMessage.append(headerWrapper, wrapperMes, this.form);
   }
@@ -92,13 +94,11 @@ export class Main {
       target.classList.add('open');
       const userName: string | null = target.textContent;
       const parent = target.parentElement;
-      const nextElement = target.nextSibling;
-      if (nextElement) nextElement.remove();
       nameTitle.textContent = userName;
       if (userName) serverRequests.getMessageHistory(userName);
       if (parent) {
         if (parent.id === 'on') {
-          statusTitle.style.color = 'green';
+          statusTitle.style.color = 'greenyellow';
           statusTitle.textContent = TextForElement.UserOnline;
         } else {
           statusTitle.textContent = TextForElement.UserOffline;
@@ -142,11 +142,61 @@ export class Main {
     }
   }
 
-  private handlerMessageBlock(elem: HTMLDivElement): void {
-    elem.addEventListener('click', () => {
+  private controlScroll(elem: HTMLDivElement): void {
+    elem.addEventListener('scroll', () => {
       const lineNewMessage: HTMLElement | null = elem.querySelector('.line-new-message');
       if (lineNewMessage) {
-        lineNewMessage.remove();
+        const topLine = lineNewMessage.offsetTop;
+        if (elem.scrollTop > topLine) {
+          elem.scrollTo(0, topLine);
+        }
+      }
+    });
+  }
+
+  private handlerMessageBlock(elem: HTMLDivElement): void {
+    elem.addEventListener('click', () => {
+      const children: NodeListOf<HTMLElement> = elem.childNodes as NodeListOf<HTMLElement>;
+      const arrayChildren: HTMLElement[] = [...children];
+      const lineNewMessage: HTMLElement | null = elem.querySelector('.line-new-message');
+      if (lineNewMessage) {
+        arrayChildren.forEach((item, index) => {
+          if (item.classList.contains('line-new-message')) {
+            item.remove();
+            const noReadMessage = arrayChildren.slice(index + 1);
+            noReadMessage.map((x) => serverRequests.changeReadStatusOfMessage(x.id));
+            this.removeNumberMessage();
+          }
+        });
+      }
+    });
+
+    elem.addEventListener('wheel', () => {
+      const children: NodeListOf<HTMLElement> = elem.childNodes as NodeListOf<HTMLElement>;
+      const arrayChildren: HTMLElement[] = [...children];
+      const lineNewMessage: HTMLElement | null = elem.querySelector('.line-new-message');
+      if (lineNewMessage) {
+        arrayChildren.forEach((item, index) => {
+          if (item.classList.contains('line-new-message')) {
+            item.remove();
+            const noReadMessage = arrayChildren.slice(index + 1);
+            noReadMessage.map((x) => serverRequests.changeReadStatusOfMessage(x.id));
+            this.removeNumberMessage();
+          }
+        });
+      }
+    });
+  }
+
+  private removeNumberMessage(): void {
+    const child: NodeListOf<HTMLElement> = document.querySelectorAll('.item-list-name-user');
+    child.forEach((item: HTMLElement) => {
+      if (item.classList.contains('open')) {
+        const next = item.nextElementSibling;
+        if (next) {
+          next.removeAttribute('style');
+          next.textContent = START_NEW_MESSAGE;
+        }
       }
     });
   }

@@ -1,4 +1,5 @@
 import { serverRequests } from '../../../api/serverRequests ';
+import { START_NEW_MESSAGE } from '../../../const/const';
 import { TextForElement } from '../../../types/elementTypes';
 import { ButtonForm, InputForm } from '../componentsForm';
 import './styleFormMes.css';
@@ -40,10 +41,36 @@ export class FormMessage {
         this.input.value = '';
         this.button.disabled = true;
       }
-      const lineNewMessage: HTMLElement | null = document.querySelector('.line-new-message');
-      if (lineNewMessage) {
-        lineNewMessage.remove();
-      }
+      this.removeNumberMessage();
     });
+  }
+
+  private removeNumberMessage() {
+    const messageBlock: HTMLElement | null = document.querySelector('.wrapper-messages');
+    if (messageBlock) {
+      const children: NodeListOf<HTMLElement> = messageBlock.childNodes as NodeListOf<HTMLElement>;
+      const arrayChildren: HTMLElement[] = [...children];
+      arrayChildren.forEach((item, index) => {
+        if (item.classList.contains('line-new-message')) {
+          item.remove();
+          const noReadMessage = arrayChildren.slice(index + 1);
+          noReadMessage.map((x) => serverRequests.changeReadStatusOfMessage(x.id));
+          const lineNewMessage: HTMLElement | null = document.querySelector('.line-new-message');
+          if (lineNewMessage) {
+            lineNewMessage.remove();
+            const child: NodeListOf<HTMLElement> = document.querySelectorAll('.item-list-name-user');
+            child.forEach((elem: HTMLElement) => {
+              if (elem.classList.contains('open')) {
+                const next = elem.nextElementSibling;
+                if (next) {
+                  next.removeAttribute('style');
+                  next.textContent = START_NEW_MESSAGE;
+                }
+              }
+            });
+          }
+        }
+      });
+    }
   }
 }

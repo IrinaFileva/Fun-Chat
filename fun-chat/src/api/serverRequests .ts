@@ -3,13 +3,6 @@ import { DataRequest, RequestType } from '../types/serverTypes';
 import { Server } from './Server';
 
 export class ServerRequests extends Server {
-  user: string;
-
-  constructor() {
-    super();
-    this.user = '';
-  }
-
   public UserLogin(value: string, value1: string): void {
     const user: DataRequest = {
       id: crypto.randomUUID(),
@@ -24,6 +17,7 @@ export class ServerRequests extends Server {
     const request: string = JSON.stringify(user);
     sessionStorage.setItem('IF-chat', request);
     this.socket.send(request);
+    this.requestAllUsers();
   }
 
   public UserLogout(): void {
@@ -41,10 +35,9 @@ export class ServerRequests extends Server {
       if (wrapper) {
         wrapper.innerHTML = '';
         wrapper.textContent = TextForElement.BlockMessageStart;
+        wrapper.classList.add('wrapper-messages-start');
       }
       users.forEach((item) => item.remove());
-      sessionStorage.clear();
-      localStorage.clear();
     }
   }
 
@@ -58,6 +51,9 @@ export class ServerRequests extends Server {
     localStorage.setItem('IF-USER_ACTIVE', request);
     this.socket.send(request);
     this.AllUnauthorizedUsers();
+    setTimeout(() => {
+      this.getHistoryMessagesAllUser();
+    }, 1000);
   }
 
   private AllUnauthorizedUsers(): void {
@@ -102,6 +98,32 @@ export class ServerRequests extends Server {
     };
     const request: string = JSON.stringify(data);
     this.socket.send(request);
+  }
+
+  public changeReadStatusOfMessage(idMessage: string): void {
+    const idRequest: string = crypto.randomUUID();
+    localStorage.setItem('IF-MSG_READ', idRequest);
+    const data: DataRequest = {
+      id: idRequest,
+      type: RequestType.Read,
+      payload: {
+        message: {
+          id: idMessage,
+        },
+      },
+    };
+    const request: string = JSON.stringify(data);
+    this.socket.send(request);
+  }
+
+  public getHistoryMessagesAllUser(): void {
+    const allUser: NodeListOf<HTMLElement> = document.querySelectorAll('.item-list-name-user');
+    for (let i = 0; i < allUser.length; i += 1) {
+      const login: string | null = allUser[i].textContent;
+      if (login) {
+        this.getMessageHistory(login);
+      }
+    }
   }
 }
 

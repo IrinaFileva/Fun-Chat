@@ -16,6 +16,7 @@ export class ServerResponses {
     this.processMessageReceived();
     this.processMessageHistory();
     this.processMessageDeliveryStatus();
+    this.changeStatusMessage();
   }
 
   private loginUser(): void {
@@ -35,7 +36,6 @@ export class ServerResponses {
         if (this.data.payload.error) {
           messageError.textContent = this.data.payload.error;
           document.body.appendChild(messageError);
-          setTimeout(() => document.body.removeChild(messageError), 7000);
         }
       }
     }
@@ -54,7 +54,7 @@ export class ServerResponses {
           const login = userLogin.user;
           for (let i = 0; i < usersAll.length; i += 1) {
             if (login && usersAll[i].login !== login.login) {
-              this.addUser(parent, usersAll[i])
+              this.addUser(parent, usersAll[i]);
             }
           }
         }
@@ -104,7 +104,7 @@ export class ServerResponses {
                 elem.textContent = 'delivered';
               }
             });
-            parent.style.color = 'green';
+            parent.style.color = 'greenyellow';
             parent.id = 'on';
           }
           isUser = true;
@@ -166,12 +166,12 @@ export class ServerResponses {
     if (this.data.id === null && this.data.type === RequestType.Send) {
       const usersName: NodeListOf<Element> = document.querySelectorAll('.item-list-name-user');
       const parent: Element | null = document.querySelector('.wrapper-messages');
-      const lineMessage = document.querySelector('.line-new-message');
+      const lineMessage: Element | null = document.querySelector('.line-new-message');
       const messageUser: Message | undefined = this.data.payload.message;
-      usersName.forEach((item: Element) => {
-        if (messageUser && messageUser.from === item.textContent) {
-          if (item.classList.contains('open')) {
-            if (parent) {
+      if (parent && messageUser) {
+        usersName.forEach((item: Element) => {
+          if (messageUser.from === item.textContent) {
+            if (item.classList.contains('open')) {
               if (!lineMessage) {
                 const lineNewMessage: HTMLDivElement = document.createElement('div');
                 lineNewMessage.className = 'line-new-message';
@@ -180,16 +180,17 @@ export class ServerResponses {
               }
               this.createMessageBlock(messageUser, 'message-interlocutor', parent);
             }
-          } else {
-            const nextElement: HTMLElement | null = item.nextSibling as HTMLElement;
-            if (nextElement) {
-              const numberMessage: number = Number(nextElement.textContent);
-              nextElement.textContent = `${numberMessage + 1}`;
-              nextElement.style.display = 'inline-flex';
+            if (!item.classList.contains('open')) {
+              const nextElement: HTMLElement | null = item.nextSibling as HTMLElement;
+              if (nextElement) {
+                const numberMessage: number = Number(nextElement.textContent);
+                nextElement.textContent = `${numberMessage + 1}`;
+                nextElement.style.display = 'inline-flex';
+              }
             }
           }
-        }
-      });
+        });
+      }
     }
   }
 
@@ -201,7 +202,7 @@ export class ServerResponses {
       if (item.status.isDelivered === false) {
         dataMessage.textContent = 'sent';
       }
-      if (item.status.isReaded === true) {
+      if (item.status.isReaded === true && item.status.isDelivered === true) {
         dataMessage.textContent = 'read';
       }
     }
@@ -210,6 +211,7 @@ export class ServerResponses {
   private processMessageHistory(): void {
     const idLocal: string | null = localStorage.getItem('IF-MSG_FROM_USER');
     const userLocal: string | null = sessionStorage.getItem('IF-chat');
+    const usersName: NodeListOf<Element> = document.querySelectorAll('.item-list-name-user');
     if (this.data.id === idLocal && userLocal) {
       const userData: DataRequest = JSON.parse(userLocal);
       if (userData.payload) {
@@ -217,18 +219,46 @@ export class ServerResponses {
         const history: Message[] | undefined = this.data.payload.messages;
         const parent: Element | null = document.querySelector('.wrapper-messages');
         if (login && history && parent) {
-          if (history.length === 0) {
-            parent.classList.add('wrapper-message-start');
-            parent.textContent = TextForElement.BlockMessageDialog;
-          } else {
-            parent.classList.remove('wrapper-message-start');
-            parent.innerHTML = '';
-          }
-          history.forEach((elem: Message) => {
-            if (login.login === elem.from) {
-              this.createMessageBlock(elem, 'message-user', parent);
-            } else {
-              this.createMessageBlock(elem, 'message-interlocutor', parent);
+          parent.innerHTML = '';
+          usersName.forEach((item: Element) => {
+            if (item.classList.contains('open')) {
+              if (history.length === 0) {
+                parent.classList.add('wrapper-message-start');
+                parent.textContent = TextForElement.BlockMessageDialog;
+              } else {
+                parent.classList.remove('wrapper-message-start');
+                parent.innerHTML = '';
+              }
+              history.forEach((elem: Message) => {
+                if (login.login === elem.from) {
+                  this.createMessageBlock(elem, 'message-user', parent);
+                } else {
+                  const lineMessage: Element | null = document.querySelector('.line-new-message');
+                  const statusMessage = elem.status;
+                  if (!lineMessage && statusMessage && statusMessage.isReaded !== true && login.login !== elem.from) {
+                    const lineNewMessage: HTMLDivElement = document.createElement('div');
+                    lineNewMessage.className = 'line-new-message';
+                    lineNewMessage.textContent = TextForElement.lineNewMessage;
+                    parent.append(lineNewMessage);
+                  }
+
+                  this.createMessageBlock(elem, 'message-interlocutor', parent);
+                }
+              });
+            }
+            if (!item.classList.contains('open') && history.length !== 0) {
+              history.forEach((elem: Message) => {
+                if (elem.from === item.textContent && elem.status) {
+                  if (elem.status.isReaded === false) {
+                    const nextElement: HTMLElement | null = item.nextSibling as HTMLElement;
+                    if (nextElement) {
+                      const numberMessage: number = Number(nextElement.textContent);
+                      nextElement.textContent = `${numberMessage + 1}`;
+                      nextElement.style.display = 'inline-flex';
+                    }
+                  }
+                }
+              });
             }
           });
         }
@@ -238,7 +268,6 @@ export class ServerResponses {
 
   private processMessageDeliveryStatus(): void {
     if (this.data.id === null && this.data.type === RequestType.Deliver) {
-      console.log(this.data.id, this.data.type);
       const dataMessage: Message | undefined = this.data.payload.message;
       if (dataMessage) {
         const idMessage: string | undefined = dataMessage.id;
@@ -256,10 +285,10 @@ export class ServerResponses {
     }
   }
 
-  private addUser(list: Element, client: User ) {
+  private addUser(list: Element, client: User) {
     const li: HTMLLIElement = document.createElement('li');
     li.className = 'item-list';
-    li.style.color = 'green';
+    li.style.color = 'greenyellow';
     li.id = 'on';
     const span: HTMLSpanElement = document.createElement('span');
     span.className = 'item-list-name-user';
@@ -269,5 +298,18 @@ export class ServerResponses {
     unreadMessages.textContent = START_NEW_MESSAGE;
     li.append(span, unreadMessages);
     list.prepend(li);
+  }
+
+  private changeStatusMessage() {
+    if (this.data.type === RequestType.Read) {
+      const messages = document.querySelectorAll('.message-user');
+      messages.forEach((item: Element) => {
+        const msg = this.data.payload.message;
+        if (msg && item.id === msg.id) {
+          const statusText = item.querySelector('.message-data');
+          if (statusText) statusText.textContent = 'read';
+        }
+      });
+    }
   }
 }
