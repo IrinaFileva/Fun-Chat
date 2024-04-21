@@ -7,3 +7,7 @@ export const MIN_LENGTH_INPUT_LOGIN = 4;
 export const MIN_LENGTH_INPUT_PASSWORD = 6;
 
 export const START_NEW_MESSAGE = '0';
+
+export const LINK_SCHOOL = 'https://rs.school/';
+
+export const LINK_GIT_HUB = 'https://github.com/IrinaFileva';

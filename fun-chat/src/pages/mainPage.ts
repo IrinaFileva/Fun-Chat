@@ -1,3 +1,4 @@
+import { Footer } from '../components/footer/footer';
 import { Header } from '../components/header/header';
 import { Main } from '../components/main/main';
 
@@ -17,7 +18,8 @@ export class MainPage {
   private start() {
     const header: HTMLElement = new Header().item;
     const main: HTMLElement = new Main().item;
-    this.children.append(header, main);
+    const footer: HTMLElement = new Footer().item;
+    this.children.append(header, main, footer);
     this.item.appendChild(this.children);
   }
 }
