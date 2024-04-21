@@ -32,3 +32,16 @@
   font-size: 17px;
   border: 2px solid black;
 }
+
+.header-bth-info {
+  width: 5rem;
+  height: 2rem;
+  padding: 0.2rem;
+  border-radius: 10px;
+  border: 3px solid black;
+  font-size: 20px;
+  font-weight: 600;
+  background-color: rgb(89, 171, 238);
+  outline: none;
+  cursor: pointer;
+}
