@@ -1,0 +1,37 @@
+.message-interlocutor,
+.message-user {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  text-align: right;
+  max-width: 70%;
+  border: 3px solid black;
+  border-radius: 5px;
+  font-size: 20px;
+  background-color: rgb(89, 171, 238);
+}
+
+.message-interlocutor {
+  text-align: left;
+  margin-right: auto;
+}
+
+.message-user-name {
+  padding: 0.2rem 0.5rem;
+  font-size: 16px;
+  background-color:  rgb(147, 172, 240);
+}
+
+.message-text {
+  display: block;
+  padding: 0.5rem;
+  border-left: 5px solid  rgb(147, 172, 240);
+  border-right: 5px solid  rgb(147, 172, 240);
+  word-wrap: break-word;
+}
+
+.message-data {
+  padding: 0.2rem 0.5rem;
+  font-size: 16px;
+  background-color:  rgb(147, 172, 240);
+}

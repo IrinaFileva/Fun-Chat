@@ -1,3 +1,4 @@
+import { MessageBlock } from '../components';
 import { HindInput } from '../components/forms/componentsForm';
 import { START_NEW_MESSAGE } from '../const/const';
 import { TextForElement } from '../types/elementTypes';
@@ -17,6 +18,7 @@ export class ServerResponses {
     this.processMessageHistory();
     this.processMessageDeliveryStatus();
     this.changeStatusMessage();
+    this.deleteMessage();
   }
 
   private loginUser(): void {
@@ -132,33 +134,12 @@ export class ServerResponses {
     }
   }
 
-  private createMessageBlock(item: Message, nameClass: string, parent: Element): void {
-    const message: HTMLDivElement = document.createElement('div');
-    if (item.id) message.id = item.id;
-    message.className = nameClass;
-    const nameUser: HTMLSpanElement = document.createElement('span');
-    nameUser.className = 'message-user-name';
-    if (item.datetime && item.from) {
-      const data: string = new Date(item.datetime).toLocaleString('en-GB');
-      nameUser.textContent = `${item.from} (${data.replaceAll('/', '.')})`;
-    }
-    const text: HTMLParagraphElement = document.createElement('p');
-    text.className = 'message-text';
-    if (item.text) text.textContent = item.text;
-    const dataMessage: HTMLParagraphElement = document.createElement('p');
-    dataMessage.className = 'message-data';
-    this.processMessageStatus(item, dataMessage, nameClass);
-    message.append(nameUser, text, dataMessage);
-    parent.append(message);
-    message.scrollIntoView();
-  }
-
   private processMessageSent(): void {
     const idLocal: string | null = localStorage.getItem('IF-MSG_SEND');
     if (this.data.id === idLocal && this.data.type === RequestType.Send) {
       const parent: Element | null = document.querySelector('.wrapper-messages');
       const messageUser: Message | undefined = this.data.payload.message;
-      if (parent && messageUser) this.createMessageBlock(messageUser, 'message-user', parent);
+      if (parent && messageUser) new MessageBlock(messageUser, 'message-user', parent);
     }
   }
 
@@ -178,7 +159,7 @@ export class ServerResponses {
                 lineNewMessage.textContent = TextForElement.lineNewMessage;
                 parent.append(lineNewMessage);
               }
-              this.createMessageBlock(messageUser, 'message-interlocutor', parent);
+              new MessageBlock(messageUser, 'message-interlocutor', parent);
             }
             if (!item.classList.contains('open')) {
               const nextElement: HTMLElement | null = item.nextSibling as HTMLElement;
@@ -209,58 +190,58 @@ export class ServerResponses {
   }
 
   private processMessageHistory(): void {
-    const idLocal: string | null = localStorage.getItem('IF-MSG_FROM_USER');
-    const userLocal: string | null = sessionStorage.getItem('IF-chat');
-    const usersName: NodeListOf<Element> = document.querySelectorAll('.item-list-name-user');
-    if (this.data.id === idLocal && userLocal) {
-      const userData: DataRequest = JSON.parse(userLocal);
-      if (userData.payload) {
-        const login = userData.payload.user;
-        const history: Message[] | undefined = this.data.payload.messages;
-        const parent: Element | null = document.querySelector('.wrapper-messages');
-        if (login && history && parent) {
-          parent.innerHTML = '';
-          usersName.forEach((item: Element) => {
-            if (item.classList.contains('open')) {
-              if (history.length === 0) {
-                parent.classList.add('wrapper-message-start');
-                parent.textContent = TextForElement.BlockMessageDialog;
-              } else {
-                parent.classList.remove('wrapper-message-start');
-                parent.innerHTML = '';
-              }
-              history.forEach((elem: Message) => {
-                if (login.login === elem.from) {
-                  this.createMessageBlock(elem, 'message-user', parent);
+    if (this.data.type === RequestType.FromUser) {
+      const userLocal: string | null = sessionStorage.getItem('IF-chat');
+      const usersName: NodeListOf<Element> = document.querySelectorAll('.item-list-name-user');
+      if (userLocal) {
+        const userData: DataRequest = JSON.parse(userLocal);
+        if (userData.payload) {
+          const login = userData.payload.user;
+          const history: Message[] | undefined = this.data.payload.messages;
+          const parent: Element | null = document.querySelector('.wrapper-messages');
+          if (login && history && parent) {
+            parent.innerHTML = '';
+            usersName.forEach((item: Element) => {
+              if (item.classList.contains('open')) {
+                if (history.length === 0) {
+                  parent.classList.add('wrapper-message-start');
+                  parent.textContent = TextForElement.BlockMessageDialog;
                 } else {
-                  const lineMessage: Element | null = document.querySelector('.line-new-message');
-                  const statusMessage = elem.status;
-                  if (!lineMessage && statusMessage && statusMessage.isReaded !== true && login.login !== elem.from) {
-                    const lineNewMessage: HTMLDivElement = document.createElement('div');
-                    lineNewMessage.className = 'line-new-message';
-                    lineNewMessage.textContent = TextForElement.lineNewMessage;
-                    parent.append(lineNewMessage);
-                  }
-
-                  this.createMessageBlock(elem, 'message-interlocutor', parent);
+                  parent.classList.remove('wrapper-message-start');
+                  parent.innerHTML = '';
                 }
-              });
-            }
-            if (!item.classList.contains('open') && history.length !== 0) {
-              history.forEach((elem: Message) => {
-                if (elem.from === item.textContent && elem.status) {
-                  if (elem.status.isReaded === false) {
-                    const nextElement: HTMLElement | null = item.nextSibling as HTMLElement;
-                    if (nextElement) {
-                      const numberMessage: number = Number(nextElement.textContent);
-                      nextElement.textContent = `${numberMessage + 1}`;
-                      nextElement.style.display = 'inline-flex';
+                history.forEach((elem: Message) => {
+                  if (login.login === elem.from) {
+                    new MessageBlock(elem, 'message-user', parent);
+                  } else {
+                    const lineMessage: Element | null = document.querySelector('.line-new-message');
+                    const statusMessage = elem.status;
+                    if (!lineMessage && statusMessage && statusMessage.isReaded !== true && login.login !== elem.from) {
+                      const lineNewMessage: HTMLDivElement = document.createElement('div');
+                      lineNewMessage.className = 'line-new-message';
+                      lineNewMessage.textContent = TextForElement.lineNewMessage;
+                      parent.append(lineNewMessage);
+                    }
+                    new MessageBlock(elem, 'message-interlocutor', parent);
+                  }
+                });
+              }
+              if (!item.classList.contains('open') && history.length !== 0) {
+                history.forEach((elem: Message) => {
+                  if (elem.from === item.textContent && elem.status) {
+                    if (elem.status.isReaded === false) {
+                      const nextElement: HTMLElement | null = item.nextSibling as HTMLElement;
+                      if (nextElement) {
+                        const numberMessage: number = Number(nextElement.textContent);
+                        nextElement.textContent = `${numberMessage + 1}`;
+                        nextElement.style.display = 'inline-flex';
+                      }
                     }
                   }
-                }
-              });
-            }
-          });
+                });
+              }
+            });
+          }
         }
       }
     }
@@ -308,6 +289,20 @@ export class ServerResponses {
         if (msg && item.id === msg.id) {
           const statusText = item.querySelector('.message-data');
           if (statusText) statusText.textContent = 'read';
+        }
+      });
+    }
+  }
+
+  private deleteMessage() {
+    if (this.data.id === null && this.data.type === RequestType.Delete) {
+      const messages: NodeListOf<HTMLElement> = document.querySelectorAll('.message-interlocutor');
+      messages.forEach((item: HTMLElement) => {
+        const dataMessage = this.data.payload.message;
+        if (dataMessage && dataMessage.id === item.id && dataMessage.status) {
+          if (dataMessage.status.isDeleted === true) {
+            item.remove();
+          }
         }
       });
     }

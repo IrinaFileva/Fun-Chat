@@ -53,5 +53,6 @@ export interface Message {
     isDelivered?: boolean;
     isReaded?: boolean;
     isEdited?: boolean;
+    isDeleted?: boolean;
   };
 }

@@ -1,0 +1,21 @@
+.context-menu {
+  position: absolute;
+  display: none;
+  width: 7rem;
+  height: 4rem;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: rgb(89, 171, 238);
+}
+
+.context-menu-list{
+  padding: 0.2rem;
+  list-style: none;
+}
+
+.context-menu-item {
+  text-align: left;
+  margin-top: 0.3rem;
+  border-bottom: 2px solid black;
+  cursor: pointer;
+}

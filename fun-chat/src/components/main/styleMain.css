@@ -128,14 +128,16 @@
   color: red;
 }
 
-.wrapper-messages{
+.wrapper-messages {
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: end;
   height: 100%;
+  padding-top: 0.1rem;
   padding-right: 1rem;
   overflow-y: auto;
+  overflow-x: hidden;
   scrollbar-color: black rgb(89, 171, 238);
   scrollbar-width: thin;
   scroll-behavior: smooth;
@@ -147,39 +149,4 @@
   opacity: 0.5;
 }
 
-.message-interlocutor,
-.message-user {
-  display: inline-flex;
-  flex-direction: column;
-  text-align: right;
-  max-width: 70%;
-  border: 3px solid black;
-  border-radius: 5px;
-  font-size: 20px;
-  background-color: rgb(89, 171, 238);
-}
 
-.message-interlocutor {
-  text-align: left;
-  margin-right: auto;
-}
-
-.message-user-name {
-  padding: 0.2rem 0.5rem;
-  font-size: 16px;
-  background-color:  rgb(147, 172, 240);
-}
-
-.message-text {
-  display: block;
-  padding: 0.5rem;
-  border-left: 5px solid  rgb(147, 172, 240);
-  border-right: 5px solid  rgb(147, 172, 240);
-  word-wrap: break-word;
-}
-
-.message-data {
-  padding: 0.2rem 0.5rem;
-  font-size: 16px;
-  background-color:  rgb(147, 172, 240);
-}

@@ -1,4 +1,4 @@
-import { ServerRequests, serverRequests } from '../../../api/serverRequests ';
+import { ServerRequests, serverRequests } from '../../../api/serverRequests';
 import { MIN_LENGTH_INPUT_LOGIN, MIN_LENGTH_INPUT_PASSWORD, PATTERN_INPUT_FORM } from '../../../const/const';
 import { TextForElement } from '../../../types/elementTypes';
 import { ButtonForm, HindInput, InputForm, LinkForm } from '../componentsForm';

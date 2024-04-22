@@ -1,4 +1,4 @@
-import { serverRequests } from '../../../api/serverRequests ';
+import { serverRequests } from '../../../api/serverRequests';
 import { START_NEW_MESSAGE } from '../../../const/const';
 import { TextForElement } from '../../../types/elementTypes';
 import { ButtonForm, InputForm } from '../componentsForm';

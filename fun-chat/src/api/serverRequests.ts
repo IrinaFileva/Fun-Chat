@@ -68,10 +68,8 @@ export class ServerRequests extends Server {
   }
 
   public getMessageHistory(userName: string): void {
-    const idRequest: string = crypto.randomUUID();
-    localStorage.setItem('IF-MSG_FROM_USER', idRequest);
     const data: DataRequest = {
-      id: idRequest,
+      id: crypto.randomUUID(),
       type: RequestType.FromUser,
       payload: {
         user: {
@@ -124,6 +122,20 @@ export class ServerRequests extends Server {
         this.getMessageHistory(login);
       }
     }
+  }
+
+  public deleteMessage(idMessage: string) {
+    const data: DataRequest = {
+      id: crypto.randomUUID(),
+      type: RequestType.Delete,
+      payload: {
+        message: {
+          id: idMessage,
+        },
+      },
+    };
+    const request: string = JSON.stringify(data);
+    this.socket.send(request);
   }
 }
 

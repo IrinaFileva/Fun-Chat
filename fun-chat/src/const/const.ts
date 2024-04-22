@@ -11,3 +11,5 @@ export const START_NEW_MESSAGE = '0';
 export const LINK_SCHOOL = 'https://rs.school/';
 
 export const LINK_GIT_HUB = 'https://github.com/IrinaFileva';
+
+export const EXTRA_SIZE = 20;

@@ -1,4 +1,4 @@
-import { serverRequests } from '../../api/serverRequests ';
+import { serverRequests } from '../../api/serverRequests';
 import { START_NEW_MESSAGE } from '../../const/const';
 import { TextForElement } from '../../types/elementTypes';
 import { InputForm } from '../forms/componentsForm';
@@ -155,7 +155,8 @@ export class Main {
   }
 
   private handlerMessageBlock(elem: HTMLDivElement): void {
-    elem.addEventListener('click', () => {
+    elem.addEventListener('click', (ev: MouseEvent) => {
+      const target: HTMLElement = ev.target as HTMLElement;
       const children: NodeListOf<HTMLElement> = elem.childNodes as NodeListOf<HTMLElement>;
       const arrayChildren: HTMLElement[] = [...children];
       const lineNewMessage: HTMLElement | null = elem.querySelector('.line-new-message');
@@ -168,6 +169,19 @@ export class Main {
             this.removeNumberMessage();
           }
         });
+      }
+      if(target && target.classList.contains('delete')) {
+        const parent = target.parentElement;
+        if(parent) {
+          const oldParent = parent.parentElement;
+          if(oldParent) {
+            const superParent = oldParent.parentElement;
+            if(superParent) {
+              serverRequests.deleteMessage(superParent.id);
+              superParent.remove();
+            }
+          }
+        }
       }
     });
 

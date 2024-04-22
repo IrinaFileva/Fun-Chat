@@ -14,4 +14,9 @@ export enum TextForElement {
   inputMessage = 'Message...',
   lineNewMessage = 'New Message',
   ErrorConnectMessage = `Sorry, the connection to the server has been lost...<br> We're trying to reconnect...<br> Please wait...`,
+  statusSent = 'sent',
+  statusDelivered = 'delivered',
+  statusRead = 'read',
+  listItemDelete = 'Delete',
+  listItemEdit = 'Edit',
 }
