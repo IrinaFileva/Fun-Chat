@@ -51,14 +51,14 @@ export class FormUser {
   }
 
   private handlerForm(): void {
-    this.item.addEventListener('submit', (elem) => {
-      elem.preventDefault();
+    this.item.addEventListener('submit', (el) => {
+      el.preventDefault();
+      el.stopPropagation();
       this.requests.UserLogin(this.inputLogin.value, this.inputPassword.value);
-      this.requests.requestAllUsers();
     });
   }
 
-  private handlerInputLogin() {
+  private handlerInputLogin(): void {
     this.inputLogin.addEventListener('input', () => {
       if (this.inputLogin.value !== '' && this.inputLogin.value[0] !== this.inputLogin.value[0].toUpperCase()) {
         this.inputLogin.style.borderColor = 'red';
@@ -68,6 +68,8 @@ export class FormUser {
         this.hindInputLogin.innerHTML = '';
       }
       this.unlockBtnLogin();
+      const hindError: Element | null = document.querySelector('.message-error');
+      if (hindError) hindError.remove();
     });
 
     this.inputLogin.addEventListener('change', () => {
@@ -88,6 +90,8 @@ export class FormUser {
         this.hindInputPassword.innerHTML = '';
       }
       this.unlockBtnLogin();
+      const hindError: Element | null = document.querySelector('.message-error');
+      if (hindError) hindError.remove();
     });
 
     this.inputPassword.addEventListener('change', () => {

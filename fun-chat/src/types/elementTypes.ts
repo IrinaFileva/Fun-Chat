@@ -13,4 +13,5 @@ export enum TextForElement {
   InputSearch = 'Search...',
   inputMessage = 'Message...',
   lineNewMessage = 'New Message',
+  ErrorConnectMessage = `Sorry, the connection to the server has been lost...<br> We're trying to reconnect...<br> Please wait...`,
 }
