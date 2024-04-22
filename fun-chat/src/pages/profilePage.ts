@@ -5,14 +5,14 @@ export class ProfilePage {
 
   children: HTMLFormElement;
 
-  constructor(nameClass: string) {
+  constructor() {
     this.item = document.createElement('div');
-    this.item.className = nameClass;
-    this.children = new FormUser('form-user').item;
+    this.item.className = 'profile-page';
+    this.children = new FormUser().item;
     this.start();
   }
 
   private start() {
-    this.item.appendChild(this.children);
+    this.item.append(this.children);
   }
 }
