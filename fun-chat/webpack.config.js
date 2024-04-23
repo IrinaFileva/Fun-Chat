@@ -29,7 +29,10 @@ const baseConfig = {
     extensions: ['.ts', '.js', '.json'],
   },
   plugins: [
-    new HtmlWebpackPlugin({ title: 'Fun Chat' }),
+    new HtmlWebpackPlugin({
+      title: 'Fun Chat',
+      favicon: './src/assets/dialog_vp3b1us8zzii_16.png',
+     }),
     new CleanWebpackPlugin(),
     new EslintPlugin({ extensions: 'ts' }),
   ],
