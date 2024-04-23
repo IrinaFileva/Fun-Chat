@@ -45,3 +45,24 @@
   outline: none;
   cursor: pointer;
 }
+
+@media(max-width: 610px){
+  .header-main-page{
+    padding: 0.8rem;
+  }
+  .header-title {
+    text-align: center;
+    padding-top: 0.4rem;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .header-name-app {
+    margin-right: 10px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .header-bth-info {
+    margin-right: 10px;
+  }
+}

@@ -170,13 +170,13 @@ export class Main {
           }
         });
       }
-      if(target && target.classList.contains('delete')) {
+      if (target && target.classList.contains('delete')) {
         const parent = target.parentElement;
-        if(parent) {
+        if (parent) {
           const oldParent = parent.parentElement;
-          if(oldParent) {
+          if (oldParent) {
             const superParent = oldParent.parentElement;
-            if(superParent) {
+            if (superParent) {
               serverRequests.deleteMessage(superParent.id);
               superParent.remove();
             }
