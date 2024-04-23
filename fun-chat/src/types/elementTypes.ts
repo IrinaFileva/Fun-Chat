@@ -19,4 +19,5 @@ export enum TextForElement {
   statusRead = 'read',
   listItemDelete = 'Delete',
   listItemEdit = 'Edit',
+  descriptionInfoPage = 'The application was developed by student Irina Fileva as part of the RS School JS / Front-end course',
 }
