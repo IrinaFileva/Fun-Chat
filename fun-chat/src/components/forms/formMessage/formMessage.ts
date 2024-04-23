@@ -36,10 +36,29 @@ export class FormMessage {
         messageBlock.classList.remove('wrapper-message-start');
         messageBlock.textContent = '';
       }
-      if (nameUser && nameUser.textContent) {
+      if (nameUser && nameUser.textContent && this.input.id === '') {
         serverRequests.sendMessage(this.input.value, nameUser.textContent);
         this.input.value = '';
         this.button.disabled = true;
+      }
+      if (this.input.id && this.input.value) {
+        const messages: NodeListOf<HTMLElement> = document.querySelectorAll('.message-user');
+        messages.forEach((item: HTMLElement) => {
+          if (item.id === this.input.id) {
+            const textMessage: Element | null = item.querySelector('.message-text');
+            const dataMessage: Element | null = item.querySelector('.message-data');
+            if (textMessage && dataMessage) {
+              const oldText = dataMessage.textContent;
+              textMessage.textContent = this.input.value;
+              if (oldText) dataMessage.textContent = `(edit)  ${oldText.replace('(edit)', '')}`;
+              textMessage.removeAttribute('style');
+              serverRequests.editMessage(this.input.id, this.input.value);
+              this.input.id = '';
+              this.input.value = '';
+              this.button.disabled = true;
+            }
+          }
+        });
       }
       this.removeNumberMessage();
     });

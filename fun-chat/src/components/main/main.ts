@@ -183,8 +183,30 @@ export class Main {
           }
         }
       }
-    });
 
+      if (target && target.classList.contains('edit')) {
+        const input: HTMLInputElement | null = document.querySelector('.input-form-message');
+        const button: HTMLButtonElement | null = document.querySelector('.btn-form-message');
+        const parent = target.parentElement;
+        if (parent) {
+          const oldParent = parent.parentElement;
+          if (oldParent) {
+            const superParent = oldParent.parentElement;
+            if (superParent && input && button) {
+              input.id = superParent.id;
+              const textMessage: HTMLElement | null = superParent.querySelector('.message-text');
+              if (textMessage && textMessage.textContent) {
+                const height = textMessage.clientHeight;
+                input.value = textMessage.textContent;
+                textMessage.textContent = '';
+                textMessage.style.height = `${height}px`;
+                button.disabled = false;
+              }
+            }
+          }
+        }
+      }
+    });
     elem.addEventListener('wheel', () => {
       const children: NodeListOf<HTMLElement> = elem.childNodes as NodeListOf<HTMLElement>;
       const arrayChildren: HTMLElement[] = [...children];

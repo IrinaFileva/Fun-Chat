@@ -19,6 +19,7 @@ export class ServerResponses {
     this.processMessageDeliveryStatus();
     this.changeStatusMessage();
     this.deleteMessage();
+    this.editMessage();
   }
 
   private loginUser(): void {
@@ -186,6 +187,15 @@ export class ServerResponses {
       if (item.status.isReaded === true && item.status.isDelivered === true) {
         dataMessage.textContent = 'read';
       }
+      if (item.status.isEdited === true && item.status.isDelivered === true) {
+        dataMessage.textContent = `(edit)  delivered`;
+      }
+      if (item.status.isEdited === true && item.status.isDelivered === false) {
+        dataMessage.textContent = `(edit)  sent`;
+      }
+      if (item.status.isReaded === true && item.status.isDelivered === true && item.status.isEdited === true) {
+        dataMessage.textContent = '(edit)  read';
+      }
     }
   }
 
@@ -302,6 +312,25 @@ export class ServerResponses {
         if (dataMessage && dataMessage.id === item.id && dataMessage.status) {
           if (dataMessage.status.isDeleted === true) {
             item.remove();
+          }
+        }
+      });
+    }
+  }
+
+  private editMessage() {
+    if (this.data.id === null && this.data.type === RequestType.Edit) {
+      const messages: NodeListOf<HTMLElement> = document.querySelectorAll('.message-interlocutor');
+      messages.forEach((item: HTMLElement) => {
+        const dataMessage: Message | undefined = this.data.payload.message;
+        if (dataMessage && dataMessage.id === item.id && dataMessage.status) {
+          if (dataMessage.status.isEdited === true) {
+            const textMessage: Element | null = item.querySelector('.message-text');
+            const statusMessage: Element | null = item.querySelector('.message-data');
+            if (textMessage && statusMessage) {
+              if (textMessage.textContent && dataMessage.text) textMessage.textContent = dataMessage.text;
+              if (dataMessage.status.isEdited === true) statusMessage.textContent = 'changed';
+            }
           }
         }
       });

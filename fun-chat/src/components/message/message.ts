@@ -60,6 +60,24 @@ export class MessageBlock {
       if (this.data.status.isReaded === true && this.data.status.isDelivered === true) {
         dataMessage.textContent = MessageElemText.statusRead;
       }
+      if (this.data.status.isEdited === true && this.data.status.isDelivered === true) {
+        dataMessage.textContent = `(edit)  delivered`;
+      }
+      if (this.data.status.isEdited === true && this.data.status.isDelivered === false) {
+        dataMessage.textContent = `(edit)  sent`;
+      }
+      if (
+        this.data.status.isReaded === true &&
+        this.data.status.isDelivered === true &&
+        this.data.status.isEdited === true
+      ) {
+        dataMessage.textContent = '(edit)  read';
+      }
+    }
+    if (this.data.status && this.nameClass === 'message-interlocutor') {
+      if (this.data.status.isEdited === true) {
+        dataMessage.textContent = 'changed';
+      }
     }
   }
 

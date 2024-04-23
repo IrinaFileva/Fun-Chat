@@ -137,6 +137,21 @@ export class ServerRequests extends Server {
     const request: string = JSON.stringify(data);
     this.socket.send(request);
   }
+
+  public editMessage(idMessage: string, textMessage: string) {
+    const data: DataRequest = {
+      id: crypto.randomUUID(),
+      type: RequestType.Edit,
+      payload: {
+        message: {
+          id: idMessage,
+          text: textMessage,
+        },
+      },
+    };
+    const request: string = JSON.stringify(data);
+    this.socket.send(request);
+  }
 }
 
 export const serverRequests = new ServerRequests();
