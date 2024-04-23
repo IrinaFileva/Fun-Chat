@@ -51,9 +51,7 @@ export class FormUser {
   }
 
   private handlerForm(): void {
-    this.item.addEventListener('submit', (el) => {
-      el.preventDefault();
-      el.stopPropagation();
+    this.item.addEventListener('submit', () => {
       this.requests.UserLogin(this.inputLogin.value, this.inputPassword.value);
     });
   }

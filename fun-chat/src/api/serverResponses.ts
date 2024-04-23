@@ -25,7 +25,7 @@ export class ServerResponses {
     const dataStorage: string | null = sessionStorage.getItem('IF-chat');
     if (dataStorage && this.data) {
       const storedData: DataRequest = JSON.parse(dataStorage);
-      if (this.data.id === storedData.id && this.data.type === storedData.type) {
+      if (this.data.id === storedData.id && this.data.type === RequestType.UserLogin) {
         const person: User | undefined = this.data.payload.user;
         if (person && person.isLogined === true) {
           window.location.hash = '#main';

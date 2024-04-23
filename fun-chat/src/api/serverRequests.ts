@@ -26,8 +26,8 @@ export class ServerRequests extends Server {
       const user: DataRequest = JSON.parse(data);
       user.type = RequestType.UserLogout;
       const request: string = JSON.stringify(user);
-      this.socket.send(request);
       sessionStorage.clear();
+      this.socket.send(request);
       const users: NodeListOf<Element> = document.querySelectorAll('.item-list');
       const header = document.querySelector('.header-wrapper-message');
       if (header) header.remove();

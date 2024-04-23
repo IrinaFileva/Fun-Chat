@@ -58,6 +58,9 @@ export class Server {
     ws.addEventListener('close', () => {
       this.errorMessage.add();
       this.start();
+      if (ws.readyState === ws.CLOSING) {
+        this.start();
+      }
     });
   }
 
