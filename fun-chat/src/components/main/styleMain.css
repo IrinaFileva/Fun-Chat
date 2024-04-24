@@ -169,6 +169,13 @@
   opacity: 0.5;
 }
 
+@media(max-width: 980px) {
+  .header-wrapper-message {
+    margin: 1rem 0.8rem;
+    max-width: 94%;
+  }
+}
+
 @media(max-width: 580px) {
   .wrapper-user-list {
     padding: 1rem;
@@ -187,6 +194,8 @@
   }
 
   .header-wrapper-message {
+    max-width: 92%;
+    margin: 1rem 0.7rem;
     font-size: 20px;
     flex-wrap: wrap;
   }
