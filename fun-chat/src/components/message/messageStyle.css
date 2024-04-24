@@ -16,6 +16,14 @@
   margin-right: auto;
 }
 
+.message-interlocutor:first-child {
+  margin-top: auto;
+}
+
+.message-user:first-child {
+  margin-top: auto;
+}
+
 .message-user-name {
   padding: 0.2rem 0.5rem;
   font-size: 16px;

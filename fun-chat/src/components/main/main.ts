@@ -146,8 +146,8 @@ export class Main {
     elem.addEventListener('scroll', () => {
       const lineNewMessage: HTMLElement | null = elem.querySelector('.line-new-message');
       if (lineNewMessage) {
-        const topLine = lineNewMessage.offsetTop;
-        if (elem.scrollTop > topLine) {
+        const topLine = lineNewMessage.offsetTop - 75;
+        if (elem.scrollTop >= topLine) {
           elem.scrollTo(0, topLine);
         }
       }

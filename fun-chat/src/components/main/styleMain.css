@@ -24,7 +24,7 @@
   border: 3px solid black;
   border-radius: 10px;
   backdrop-filter: blur(10px);
-  overflow: auto;
+  overflow-y: auto;
   scrollbar-color: black rgb(89, 171, 238);
   scrollbar-width: thin;
   scroll-behavior: smooth;
@@ -152,7 +152,7 @@
   flex-direction: column;
   gap: 10px;
   align-items: end;
-  height: fit-content;
+  height: 100%;
   padding-top: 0.1rem;
   padding-right: 1rem;
   overflow-y: auto;
@@ -163,6 +163,7 @@
 }
 
 .wrapper-message-start {
+  height: 100%;
   justify-content: center;
   align-items: center;
   opacity: 0.5;
