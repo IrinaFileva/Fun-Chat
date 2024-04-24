@@ -44,7 +44,6 @@ export class Server {
       const data: DataResponse = JSON.parse(event.data);
       new ServerResponses(data);
       this.userHistoryRequest(data);
-      console.log(data);
     });
   }
 
