@@ -1,4 +1,4 @@
-export class InputForm {
+export class Input {
   item: HTMLInputElement;
 
   constructor(nameClass: string, type: string) {

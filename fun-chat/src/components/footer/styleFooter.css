@@ -21,12 +21,12 @@
   cursor: pointer;
 }
 
-.year-footer{
+.year-footer {
   font-size: 32px;
   font-weight: 600px;
 }
 
-.logo-git-footer{
+.logo-git-footer {
   width: 2.5rem;
   height: 2.5rem;
   background-image: url(/src/assets/GitHubLogo.png);

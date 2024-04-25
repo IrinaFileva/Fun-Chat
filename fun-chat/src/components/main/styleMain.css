@@ -34,7 +34,7 @@
   padding: 1rem 1.5rem;
 }
 
-.input-search{
+.input-search {
   position: sticky;
   top: 0;
   width: 100%;
@@ -54,7 +54,7 @@
   opacity: 0.5;
 }
 
-.item-list{
+.item-list {
   padding: 0.3rem;
   color: red;
   font-size: 24px;
@@ -68,7 +68,7 @@
   word-wrap: break-word;
 }
 
-.line-new-message{
+.line-new-message {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -89,11 +89,11 @@
   position: relative;
 }
 
-.line-new-message::before{
+.line-new-message::before {
   left: -14px;
 }
 
-.line-new-message::after{
+.line-new-message::after {
   left: 14px;
 }
 
@@ -110,7 +110,7 @@
   border-radius: 100%;
 }
 
-.wrapper-message-and-input{
+.wrapper-message-and-input {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -189,7 +189,7 @@
     font-size: 20px;
   }
 
-  .list-users{
+  .list-users {
     padding: 0.5rem;
   }
 

@@ -1,8 +1,9 @@
 import { MessageBlock } from '../components';
-import { HindInput } from '../components/forms/componentsForm';
-import { START_NEW_MESSAGE } from '../const/const';
-import { TextForElement } from '../types/elementTypes';
-import { DataRequest, DataResponse, User, RequestType, Message } from '../types/serverTypes';
+import { HindInput } from '../shared/ui';
+import { ADDITIONAL_INDEX, START_NEW_MESSAGE } from '../shared/const/const';
+import { ColorElement, TextForElement } from '../shared/types/elementTypes';
+import { DataRequest, DataResponse, User, RequestType, Message } from '../shared/types/serverTypes';
+import { MessageStatus } from '../shared/types';
 
 export class ServerResponses {
   data: DataResponse;
@@ -16,7 +17,6 @@ export class ServerResponses {
     this.processMessageSent();
     this.processMessageReceived();
     this.processMessageHistory();
-    this.processMessageDeliveryStatus();
     this.changeStatusMessage();
     this.deleteMessage();
     this.editMessage();
@@ -98,18 +98,18 @@ export class ServerResponses {
       const usersName: NodeListOf<Element> = document.querySelectorAll('.item-list-name-user');
       const list: Element | null = document.querySelector('.list-users');
       const client: User | undefined = this.data.payload.user;
-      let isUser = false;
+      let isUser: boolean = false;
       usersName.forEach((item: Element) => {
         if (client && item.textContent === client.login) {
           const parent: HTMLElement | null = item.parentElement;
           if (parent && client.isLogined === true) {
-            const statusMessages = document.querySelectorAll('.message-data');
+            const statusMessages: NodeListOf<Element> = document.querySelectorAll('.message-data');
             statusMessages.forEach((elem: Element) => {
-              if (elem.textContent === 'sent') {
-                elem.textContent = 'delivered';
+              if (elem.textContent === MessageStatus.Sent) {
+                elem.textContent = MessageStatus.Delivered;
               }
             });
-            parent.style.color = 'greenyellow';
+            parent.style.color = ColorElement.Green;
             parent.id = 'on';
           }
           isUser = true;
@@ -129,7 +129,7 @@ export class ServerResponses {
         if (client && item.textContent === client.login) {
           const parent: HTMLElement | null = item.parentElement;
           if (parent && client.isLogined === false) {
-            parent.style.color = 'red';
+            parent.style.color = ColorElement.Red;
             parent.id = '';
           }
         }
@@ -142,7 +142,8 @@ export class ServerResponses {
     if (this.data.id === idLocal && this.data.type === RequestType.Send) {
       const parent: Element | null = document.querySelector('.wrapper-messages');
       const messageUser: Message | undefined = this.data.payload.message;
-      if (parent && messageUser) new MessageBlock(messageUser, 'message-user', parent);
+      if (parent && !parent.classList.contains('.wrapper-messages-start') && messageUser)
+        new MessageBlock(messageUser, 'message-user', parent);
     }
   }
 
@@ -168,35 +169,12 @@ export class ServerResponses {
               const nextElement: HTMLElement | null = item.nextSibling as HTMLElement;
               if (nextElement) {
                 const numberMessage: number = Number(nextElement.textContent);
-                nextElement.textContent = `${numberMessage + 1}`;
+                nextElement.textContent = `${numberMessage + ADDITIONAL_INDEX}`;
                 nextElement.style.display = 'inline-flex';
               }
             }
           }
         });
-      }
-    }
-  }
-
-  private processMessageStatus(item: Message, dataMessage: HTMLParagraphElement, nameClass: string): void {
-    if (item.status && nameClass !== 'message-interlocutor') {
-      if (item.status.isDelivered === true) {
-        dataMessage.textContent = 'delivered';
-      }
-      if (item.status.isDelivered === false) {
-        dataMessage.textContent = 'sent';
-      }
-      if (item.status.isReaded === true && item.status.isDelivered === true) {
-        dataMessage.textContent = 'read';
-      }
-      if (item.status.isEdited === true && item.status.isDelivered === true) {
-        dataMessage.textContent = `(edit)  delivered`;
-      }
-      if (item.status.isEdited === true && item.status.isDelivered === false) {
-        dataMessage.textContent = `(edit)  sent`;
-      }
-      if (item.status.isReaded === true && item.status.isDelivered === true && item.status.isEdited === true) {
-        dataMessage.textContent = '(edit)  read';
       }
     }
   }
@@ -207,81 +185,70 @@ export class ServerResponses {
       const usersName: NodeListOf<Element> = document.querySelectorAll('.item-list-name-user');
       if (userLocal) {
         const userData: DataRequest = JSON.parse(userLocal);
-        if (userData.payload) {
-          const login = userData.payload.user;
-          const history: Message[] | undefined = this.data.payload.messages;
-          const parent: Element | null = document.querySelector('.wrapper-messages');
-          if (login && history && parent) {
-            parent.innerHTML = '';
-            usersName.forEach((item: Element) => {
-              if (item.classList.contains('open')) {
-                if (history.length === 0) {
-                  parent.classList.add('wrapper-message-start');
-                  parent.textContent = TextForElement.BlockMessageDialog;
-                } else {
-                  parent.classList.remove('wrapper-message-start');
-                  parent.innerHTML = '';
-                }
-                history.forEach((elem: Message) => {
-                  if (login.login === elem.from) {
-                    new MessageBlock(elem, 'message-user', parent);
-                  } else {
-                    const lineMessage: Element | null = document.querySelector('.line-new-message');
-                    const statusMessage = elem.status;
-                    if (!lineMessage && statusMessage && statusMessage.isReaded !== true && login.login !== elem.from) {
-                      const lineNewMessage: HTMLDivElement = document.createElement('div');
-                      lineNewMessage.className = 'line-new-message';
-                      lineNewMessage.textContent = TextForElement.lineNewMessage;
-                      parent.append(lineNewMessage);
-                    }
-                    new MessageBlock(elem, 'message-interlocutor', parent);
-                  }
-                });
-              }
-              if (!item.classList.contains('open') && history.length !== 0) {
-                history.forEach((elem: Message) => {
-                  if (elem.from === item.textContent && elem.status) {
-                    if (elem.status.isReaded === false) {
-                      const nextElement: HTMLElement | null = item.nextSibling as HTMLElement;
-                      if (nextElement) {
-                        const numberMessage: number = Number(nextElement.textContent);
-                        nextElement.textContent = `${numberMessage + 1}`;
-                        nextElement.style.display = 'inline-flex';
-                      }
-                    }
-                  }
-                });
-              }
-            });
-          }
-        }
-      }
-    }
-  }
-
-  private processMessageDeliveryStatus(): void {
-    if (this.data.id === null && this.data.type === RequestType.Deliver) {
-      const dataMessage: Message | undefined = this.data.payload.message;
-      if (dataMessage) {
-        const idMessage: string | undefined = dataMessage.id;
-        const messages: NodeListOf<Element> = document.querySelectorAll('.message-user');
-        if (idMessage) {
-          messages.forEach((elem: Element) => {
-            if (elem.id === idMessage) {
-              console.log(elem.id === idMessage);
-              const parent: HTMLParagraphElement | null = elem.querySelector('.message-data');
-              if (parent) this.processMessageStatus(dataMessage, parent, 'message-user');
-            }
+        const history: Message[] | undefined = this.data.payload.messages;
+        const parent: Element | null = document.querySelector('.wrapper-messages');
+        if (history && parent) {
+          usersName.forEach((item: Element) => {
+            this.ifDialogIsOpen(item, parent, history, userData);
+            this.ifDialogIsClose(item, history);
           });
         }
       }
     }
   }
 
-  private addUser(list: Element, client: User) {
+  private ifDialogIsOpen(item: Element, parent: Element, history: Message[], userData: DataRequest): void {
+    if (userData.payload) {
+      const login = userData.payload.user;
+      if (item.classList.contains('open') && login) {
+        parent.innerHTML = '';
+        if (history.length === 0) {
+          parent.classList.add('wrapper-message-start');
+          parent.textContent = TextForElement.BlockMessageDialog;
+        } else {
+          parent.classList.remove('wrapper-message-start');
+          parent.innerHTML = '';
+        }
+        history.forEach((elem: Message) => {
+          if (login.login === elem.from) {
+            new MessageBlock(elem, 'message-user', parent);
+          } else {
+            const lineMessage: Element | null = document.querySelector('.line-new-message');
+            const statusMessage = elem.status;
+            if (!lineMessage && statusMessage && statusMessage.isReaded !== true && login.login !== elem.from) {
+              const lineNewMessage: HTMLDivElement = document.createElement('div');
+              lineNewMessage.className = 'line-new-message';
+              lineNewMessage.textContent = TextForElement.lineNewMessage;
+              parent.append(lineNewMessage);
+            }
+            new MessageBlock(elem, 'message-interlocutor', parent);
+          }
+        });
+      }
+    }
+  }
+
+  private ifDialogIsClose(item: Element, history: Message[]): void {
+    if (!item.classList.contains('open') && history.length !== 0) {
+      history.forEach((elem: Message) => {
+        if (elem.from === item.textContent && elem.status) {
+          if (elem.status.isReaded === false) {
+            const nextElement: HTMLElement | null = item.nextSibling as HTMLElement;
+            if (nextElement) {
+              const numberMessage: number = Number(nextElement.textContent);
+              nextElement.textContent = `${numberMessage + ADDITIONAL_INDEX}`;
+              nextElement.style.display = 'inline-flex';
+            }
+          }
+        }
+      });
+    }
+  }
+
+  private addUser(list: Element, client: User): void {
     const li: HTMLLIElement = document.createElement('li');
     li.className = 'item-list';
-    li.style.color = 'greenyellow';
+    li.style.color = ColorElement.Green;
     li.id = 'on';
     const span: HTMLSpanElement = document.createElement('span');
     span.className = 'item-list-name-user';
@@ -293,24 +260,24 @@ export class ServerResponses {
     list.prepend(li);
   }
 
-  private changeStatusMessage() {
+  private changeStatusMessage(): void {
     if (this.data.type === RequestType.Read) {
-      const messages = document.querySelectorAll('.message-user');
+      const messages: NodeListOf<Element> = document.querySelectorAll('.message-user');
       messages.forEach((item: Element) => {
-        const msg = this.data.payload.message;
+        const msg: Message | undefined = this.data.payload.message;
         if (msg && item.id === msg.id) {
-          const statusText = item.querySelector('.message-data');
-          if (statusText) statusText.textContent = 'read';
+          const statusText: Element | null = item.querySelector('.message-data');
+          if (statusText) statusText.textContent = MessageStatus.Read;
         }
       });
     }
   }
 
-  private deleteMessage() {
+  private deleteMessage(): void {
     if (this.data.id === null && this.data.type === RequestType.Delete) {
       const messages: NodeListOf<HTMLElement> = document.querySelectorAll('.message-interlocutor');
       messages.forEach((item: HTMLElement) => {
-        const dataMessage = this.data.payload.message;
+        const dataMessage: Message | undefined = this.data.payload.message;
         if (dataMessage && dataMessage.id === item.id && dataMessage.status) {
           if (dataMessage.status.isDeleted === true) {
             item.remove();
@@ -320,7 +287,7 @@ export class ServerResponses {
     }
   }
 
-  private editMessage() {
+  private editMessage(): void {
     if (this.data.id === null && this.data.type === RequestType.Edit) {
       const messages: NodeListOf<HTMLElement> = document.querySelectorAll('.message-interlocutor');
       messages.forEach((item: HTMLElement) => {
@@ -331,7 +298,7 @@ export class ServerResponses {
             const statusMessage: Element | null = item.querySelector('.message-data');
             if (textMessage && statusMessage) {
               if (textMessage.textContent && dataMessage.text) textMessage.textContent = dataMessage.text;
-              if (dataMessage.status.isEdited === true) statusMessage.textContent = 'changed';
+              if (dataMessage.status.isEdited === true) statusMessage.textContent = MessageStatus.Changed;
             }
           }
         }

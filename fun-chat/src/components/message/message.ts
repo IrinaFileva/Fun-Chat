@@ -1,6 +1,6 @@
-import { EXTRA_SIZE } from '../../const/const';
-import { MessageElemText } from '../../types/messageTypes';
-import { Message } from '../../types/serverTypes';
+import { EXTRA_SIZE } from '../../shared/const/const';
+import { MessageStatus } from '../../shared/types/messageTypes';
+import { Message } from '../../shared/types/serverTypes';
 import { ContextMenu } from '../contextMenu/contextMenu';
 import './messageStyle.css';
 
@@ -45,48 +45,32 @@ export class MessageBlock {
   private addStatusMessage(): void {
     const dataMessage: HTMLParagraphElement = document.createElement('p');
     dataMessage.className = 'message-data';
-    this.processMessageStatus(dataMessage);
+    this.setMessageStatus(dataMessage);
     this.item.append(dataMessage);
   }
 
-  private processMessageStatus(dataMessage: HTMLParagraphElement): void {
+  private setMessageStatus(item: HTMLParagraphElement): void {
     if (this.data.status && this.nameClass !== 'message-interlocutor') {
-      if (this.data.status.isDelivered === true) {
-        dataMessage.textContent = MessageElemText.statusDelivered;
-      }
-      if (this.data.status.isDelivered === false) {
-        dataMessage.textContent = MessageElemText.statusSent;
-      }
-      if (this.data.status.isReaded === true && this.data.status.isDelivered === true) {
-        dataMessage.textContent = MessageElemText.statusRead;
-      }
-      if (this.data.status.isEdited === true && this.data.status.isDelivered === true) {
-        dataMessage.textContent = `(edit)  delivered`;
-      }
-      if (this.data.status.isEdited === true && this.data.status.isDelivered === false) {
-        dataMessage.textContent = `(edit)  sent`;
-      }
-      if (
-        this.data.status.isReaded === true &&
-        this.data.status.isDelivered === true &&
-        this.data.status.isEdited === true
-      ) {
-        dataMessage.textContent = '(edit)  read';
-      }
+      if (this.data.status.isDelivered) item.textContent = MessageStatus.Delivered;
+      if (!this.data.status.isDelivered) item.textContent = MessageStatus.Sent;
+      if (this.data.status.isReaded && this.data.status.isDelivered) item.textContent = MessageStatus.Read;
+      if (this.data.status.isEdited && this.data.status.isDelivered)
+        item.textContent = `${MessageStatus.Edit} ${MessageStatus.Delivered}`;
+      if (this.data.status.isEdited && !this.data.status.isDelivered)
+        item.textContent = `${MessageStatus.Edit} ${MessageStatus.Sent}`;
+      if (this.data.status.isReaded && this.data.status.isDelivered && this.data.status.isEdited)
+        item.textContent = `${MessageStatus.Edit} ${MessageStatus.Read}`;
     }
-    if (this.data.status && this.nameClass === 'message-interlocutor') {
-      if (this.data.status.isEdited === true) {
-        dataMessage.textContent = 'changed';
-      }
-    }
+    if (this.data.status && this.nameClass === 'message-interlocutor' && this.data.status.isEdited)
+      item.textContent = MessageStatus.Changed;
   }
 
   private handlerContextMenu(): void {
     if (this.nameClass === 'message-user') {
       this.item.addEventListener('contextmenu', (ev: MouseEvent) => {
-        const menu = document.querySelector('.context-menu');
+        const menu: Element | null = document.querySelector('.context-menu');
         if (menu) menu.remove();
-        const contextMenu = new ContextMenu(this.item).item;
+        const contextMenu: HTMLDivElement = new ContextMenu(this.item).item;
         ev.preventDefault();
         contextMenu.style.display = 'block';
         contextMenu.style.left = `${this.item.scrollLeft + EXTRA_SIZE}px`;

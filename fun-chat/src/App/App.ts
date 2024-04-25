@@ -1,4 +1,4 @@
-import { ServerRequests, serverRequests } from '../api/serverRequests';
+import { ServerRequests, serverRequests } from '../server/serverRequests';
 import { Router } from '../routing/router';
 
 export class App {

@@ -1,4 +1,4 @@
-import { LINK_GIT_HUB, LINK_SCHOOL } from '../../const/const';
+import { LINK_GIT_HUB, LINK_SCHOOL } from '../../shared/const/const';
 import './styleFooter.css';
 
 export class Footer {
@@ -10,7 +10,7 @@ export class Footer {
     this.addChildren();
   }
 
-  private addChildren() {
+  private addChildren(): void {
     const linkSchool: HTMLAnchorElement = document.createElement('a');
     const logoSchool: HTMLDivElement = document.createElement('div');
     const year: HTMLParagraphElement = document.createElement('p');

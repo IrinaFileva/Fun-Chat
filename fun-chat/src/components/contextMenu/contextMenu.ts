@@ -1,4 +1,4 @@
-import { MessageElemText } from '../../types/messageTypes';
+import { TextForElement } from '../../shared/types';
 import './contextMenuStyle.css';
 
 export class ContextMenu {
@@ -23,14 +23,14 @@ export class ContextMenu {
   private addItemDelete(): void {
     const itemDeletion: HTMLLIElement = document.createElement('li');
     itemDeletion.className = 'context-menu-item delete';
-    itemDeletion.textContent = MessageElemText.listItemDelete;
+    itemDeletion.textContent = TextForElement.ListItemDelete;
     this.list.append(itemDeletion);
   }
 
   private addItemEdit(): void {
     const itemEditing: HTMLLIElement = document.createElement('li');
     itemEditing.className = 'context-menu-item edit';
-    itemEditing.textContent = MessageElemText.listItemEdit;
+    itemEditing.textContent = TextForElement.ListItemEdit;
     this.list.append(itemEditing);
   }
 }

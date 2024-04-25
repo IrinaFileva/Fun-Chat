@@ -1,7 +1,6 @@
-import { serverRequests } from '../../api/serverRequests';
-import { TextForElement } from '../../types/elementTypes';
-import { DataRequest } from '../../types/serverTypes';
-import { ButtonForm, LinkForm } from '../forms/componentsForm';
+import { serverRequests } from '../../server/serverRequests';
+import { DataRequest, TextForElement } from '../../shared/types';
+import { Button, Link } from '../../shared/ui';
 import './styleHeader.css';
 
 export class Header {
@@ -28,7 +27,7 @@ export class Header {
     this.item.append(h1);
   }
 
-  private addAppName() {
+  private addAppName(): void {
     const appName: HTMLParagraphElement = document.createElement('p');
     appName.className = 'header-name-app';
     appName.innerHTML = TextForElement.HeaderAppName;
@@ -36,9 +35,14 @@ export class Header {
   }
 
   private addButton(): void {
-    const btnInfo: HTMLElement = new LinkForm('header-link-infoPage', '#info', 'header-bth-info', 'button', 'Info')
-      .item;
-    const btnExit: HTMLElement = new ButtonForm('header-btn-exit', 'button', 'Logout').item;
+    const btnInfo: HTMLElement = new Link(
+      'header-link-infoPage',
+      '#info',
+      'header-bth-info',
+      'button',
+      TextForElement.BtnInfo,
+    ).item;
+    const btnExit: HTMLElement = new Button('header-btn-exit', 'button', TextForElement.BtnLogout).item;
     btnExit.addEventListener('click', () => serverRequests.UserLogout());
     this.item.append(btnInfo, btnExit);
   }

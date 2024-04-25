@@ -1,4 +1,4 @@
-export class ButtonForm {
+export class Button {
   item: HTMLButtonElement;
 
   constructor(nameClass: string, type: string, text: string) {
@@ -6,9 +6,5 @@ export class ButtonForm {
     this.item.className = nameClass;
     this.item.setAttribute('type', type);
     this.item.textContent = text;
-  }
-
-  public handlerButton(): void {
-    this.item.addEventListener('click', () => {});
   }
 }

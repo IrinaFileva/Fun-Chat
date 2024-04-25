@@ -1,5 +1,5 @@
-import { TextForElement } from '../types/elementTypes';
-import { DataRequest, RequestType } from '../types/serverTypes';
+import { TextForElement } from '../shared/types/elementTypes';
+import { DataRequest, RequestType } from '../shared/types/serverTypes';
 import { Server } from './Server';
 
 export class ServerRequests extends Server {
@@ -27,16 +27,18 @@ export class ServerRequests extends Server {
       user.type = RequestType.UserLogout;
       const request: string = JSON.stringify(user);
       this.socket.send(request);
-      const users: NodeListOf<Element> = document.querySelectorAll('.item-list');
-      const header = document.querySelector('.header-wrapper-message');
-      if (header) header.remove();
-      const wrapper = document.querySelector('wrapper-messages');
+      const users: Element | null = document.querySelector('.list-users');
+      const nameTitle: HTMLElement | null = document.querySelector('.titleName-header-wrapper');
+      const statusTitle: HTMLElement | null = document.querySelector('.titleStatus-header-wrapper');
+      if (nameTitle) nameTitle.innerHTML = '';
+      if (statusTitle) statusTitle.innerHTML = '';
+      if (users) users.innerHTML = '';
+      const wrapper: Element | null = document.querySelector('wrapper-messages');
       if (wrapper) {
         wrapper.innerHTML = '';
-        wrapper.textContent = TextForElement.BlockMessageStart;
         wrapper.classList.add('wrapper-messages-start');
+        wrapper.textContent = TextForElement.BlockMessageStart;
       }
-      users.forEach((item) => item.remove());
     }
     sessionStorage.clear();
     localStorage.clear();
@@ -53,9 +55,6 @@ export class ServerRequests extends Server {
     localStorage.setItem('IF-USER_ACTIVE', request);
     this.socket.send(request);
     this.AllUnauthorizedUsers();
-    setTimeout(() => {
-      this.getHistoryMessagesAllUser();
-    }, 1000);
   }
 
   private AllUnauthorizedUsers(): void {
@@ -116,17 +115,7 @@ export class ServerRequests extends Server {
     this.socket.send(request);
   }
 
-  public getHistoryMessagesAllUser(): void {
-    const allUser: NodeListOf<HTMLElement> = document.querySelectorAll('.item-list-name-user');
-    for (let i = 0; i < allUser.length; i += 1) {
-      const login: string | null = allUser[i].textContent;
-      if (login) {
-        this.getMessageHistory(login);
-      }
-    }
-  }
-
-  public deleteMessage(idMessage: string) {
+  public deleteMessage(idMessage: string): void {
     const data: DataRequest = {
       id: crypto.randomUUID(),
       type: RequestType.Delete,
@@ -140,7 +129,7 @@ export class ServerRequests extends Server {
     this.socket.send(request);
   }
 
-  public editMessage(idMessage: string, textMessage: string) {
+  public editMessage(idMessage: string, textMessage: string): void {
     const data: DataRequest = {
       id: crypto.randomUUID(),
       type: RequestType.Edit,

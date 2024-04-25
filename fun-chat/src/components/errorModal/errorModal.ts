@@ -1,4 +1,5 @@
-import { TextForElement } from '../../types/elementTypes';
+import { TextForElement } from '../../shared/types';
+import './errorModalStyle.css';
 
 export class ModalError {
   item: HTMLDivElement;

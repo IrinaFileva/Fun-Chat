@@ -15,7 +15,7 @@ export class MainPage {
     this.start();
   }
 
-  private start() {
+  private start(): void {
     const header: HTMLElement = new Header().item;
     const main: HTMLElement = new Main().item;
     const footer: HTMLElement = new Footer().item;

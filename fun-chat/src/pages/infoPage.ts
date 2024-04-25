@@ -1,6 +1,6 @@
-import { ButtonForm } from '../components/forms/componentsForm';
-import { LINK_GIT_HUB } from '../const/const';
-import { TextForElement } from '../types/elementTypes';
+import { Button } from '../shared/ui';
+import { LINK_GIT_HUB } from '../shared/const/const';
+import { TextForElement } from '../shared/types';
 
 export class InfoPage {
   item: HTMLElement;
@@ -15,20 +15,22 @@ export class InfoPage {
     this.start();
   }
 
-  private start() {
-    const info = document.createElement('p');
+  private start(): void {
+    const info: HTMLParagraphElement = document.createElement('p');
     info.className = 'description-info-page';
-    info.innerHTML = TextForElement.descriptionInfoPage;
-    const linkGitHub = document.createElement('a');
-    const logoGit = document.createElement('div');
+    info.innerHTML = TextForElement.DescriptionInfoPage;
+    const linkGitHub: HTMLAnchorElement = document.createElement('a');
+    const logoGit: HTMLDivElement = document.createElement('div');
     linkGitHub.className = 'link-git-info-page';
     linkGitHub.href = LINK_GIT_HUB;
     linkGitHub.target = '_blank';
-    linkGitHub.innerText = 'Link to';
+    linkGitHub.innerText = TextForElement.LinkGitHub;
     logoGit.className = 'logo-link-git-info-page';
-    const btnBack = new ButtonForm('btn-back-info-page', 'button', '').item;
-    btnBack.innerHTML = '&larr;&nbsp;Back';
-    btnBack.addEventListener('click', () => window.history.back());
+    const btnBack: HTMLButtonElement = new Button('btn-back-info-page', 'button', '').item;
+    btnBack.innerHTML = TextForElement.BtnBack;
+    btnBack.addEventListener('click', () => {
+      window.history.back();
+    });
     linkGitHub.append(logoGit);
     this.children.append(info, linkGitHub, btnBack);
     this.item.appendChild(this.children);

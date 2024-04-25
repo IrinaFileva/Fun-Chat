@@ -1,6 +1,6 @@
 import { ModalError } from '../components/errorModal/errorModal';
-import { PATH } from '../const/const';
-import { DataRequest, DataResponse, RequestType, User } from '../types/serverTypes';
+import { PATH } from '../shared/const/const';
+import { DataRequest, DataResponse, RequestType, User } from '../shared/types';
 import { ServerResponses } from './serverResponses';
 
 export class Server {
@@ -32,6 +32,7 @@ export class Server {
         this.socket.send(data);
         this.socket.send(allActiveUser);
         this.socket.send(allInactiveUser);
+        window.location.hash = '#main';
       } else {
         this.errorMessage.remove();
         window.location.hash = '';
@@ -43,11 +44,12 @@ export class Server {
     ws.addEventListener('message', (event: MessageEvent) => {
       const data: DataResponse = JSON.parse(event.data);
       new ServerResponses(data);
+      console.log(data);
       this.userHistoryRequest(data);
     });
   }
 
-  private error(ws: WebSocket) {
+  private error(ws: WebSocket): void {
     ws.addEventListener('error', () => {
       ws.close();
     });
@@ -57,7 +59,7 @@ export class Server {
     ws.addEventListener('close', () => {
       this.errorMessage.add();
       this.start();
-      if (ws.readyState === ws.CLOSING) {
+      if (ws.readyState === ws.CLOSED) {
         this.start();
       }
     });
@@ -65,7 +67,7 @@ export class Server {
 
   private userHistoryRequest(data: DataResponse): void {
     if (data.type === RequestType.UserActive || data.type === RequestType.UserInactive) {
-      const clients = data.payload.users;
+      const clients: User[] | undefined = data.payload.users;
       if (clients) {
         clients.forEach((item: User) => {
           const details: DataRequest = {

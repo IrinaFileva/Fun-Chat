@@ -1,7 +1,7 @@
-import { serverRequests } from '../../api/serverRequests';
-import { START_NEW_MESSAGE } from '../../const/const';
-import { TextForElement } from '../../types/elementTypes';
-import { InputForm } from '../forms/componentsForm';
+import { serverRequests } from '../../server/serverRequests';
+import { ADDITIONAL_INDEX, EXTRA_PADDING, START_NEW_MESSAGE } from '../../shared/const/const';
+import { ColorElement, TextForElement } from '../../shared/types/elementTypes';
+import { Input } from '../../shared/ui';
 import { FormMessage } from '../forms/formMessage/formMessage';
 import './styleMain.css';
 
@@ -27,12 +27,12 @@ export class Main {
     this.item.append(this.wrapperList, this.wrapperMessage);
   }
 
-  private fillWrapperList() {
+  private fillWrapperList(): void {
     const list: HTMLUListElement = document.createElement('ul');
     list.className = 'list-users';
     list.addEventListener('click', (event: MouseEvent): void => {
       const target: HTMLElement = event.target as HTMLElement;
-      const users = document.querySelectorAll('.item-list-name-user');
+      const users: NodeListOf<Element> = document.querySelectorAll('.item-list-name-user');
       users.forEach((elem) => {
         elem.classList.remove('open');
       });
@@ -44,7 +44,7 @@ export class Main {
         parent.innerHTML = '';
       }
       if (nameTitle && statusTitle) {
-        this.addTitleHeader(target, nameTitle, statusTitle);
+        this.titleHeader(target, nameTitle, statusTitle);
         this.unlockFormInputAndButton();
       }
     });
@@ -52,8 +52,27 @@ export class Main {
     this.wrapperList.append(input, list);
   }
 
+  private titleHeader(target: HTMLElement, nameTitle: HTMLElement, statusTitle: HTMLElement): void {
+    if (target.classList.contains('item-list-name-user')) {
+      target.classList.add('open');
+      const userName: string | null = target.textContent;
+      const parent: HTMLElement | null = target.parentElement;
+      nameTitle.textContent = userName;
+      if (userName) serverRequests.getMessageHistory(userName);
+      if (parent) {
+        if (parent.id === 'on') {
+          statusTitle.style.color = ColorElement.Green;
+          statusTitle.textContent = TextForElement.UserOnline;
+        } else {
+          statusTitle.textContent = TextForElement.UserOffline;
+          statusTitle.style.color = ColorElement.Red;
+        }
+      }
+    }
+  }
+
   private addInputSearch(): HTMLInputElement {
-    const input: HTMLInputElement = new InputForm('input-search', 'search').item;
+    const input: HTMLInputElement = new Input('input-search', 'search').item;
     input.placeholder = TextForElement.InputSearch;
     input.addEventListener('input', () => {
       const allUser: NodeListOf<HTMLElement> = document.querySelectorAll('.item-list-name-user');
@@ -72,60 +91,6 @@ export class Main {
     return input;
   }
 
-  private fillWrapperMessage() {
-    const headerWrapper = document.createElement('div');
-    headerWrapper.className = 'header-wrapper-message';
-    const titleName = document.createElement('p');
-    titleName.className = 'titleName-header-wrapper';
-    const titleStatus = document.createElement('div');
-    titleStatus.className = 'titleStatus-header-wrapper';
-    headerWrapper.append(titleName, titleStatus);
-    const wrapperMes = document.createElement('div');
-    wrapperMes.className = 'wrapper-messages';
-    wrapperMes.textContent = TextForElement.BlockMessageStart;
-    wrapperMes.classList.add('wrapper-message-start');
-    this.controlScroll(wrapperMes);
-    this.handlerMessageBlock(wrapperMes);
-    this.wrapperMessage.append(headerWrapper, wrapperMes, this.form);
-  }
-
-  private addTitleHeader(target: HTMLElement, nameTitle: HTMLElement, statusTitle: HTMLElement): void {
-    if (target.classList.contains('item-list-name-user')) {
-      target.classList.add('open');
-      const userName: string | null = target.textContent;
-      const parent = target.parentElement;
-      nameTitle.textContent = userName;
-      if (userName) serverRequests.getMessageHistory(userName);
-      if (parent) {
-        if (parent.id === 'on') {
-          statusTitle.style.color = 'greenyellow';
-          statusTitle.textContent = TextForElement.UserOnline;
-        } else {
-          statusTitle.textContent = TextForElement.UserOffline;
-          statusTitle.style.color = 'red';
-        }
-      }
-    }
-    if (target.classList.contains('item-list')) {
-      const child: Element | null = target.querySelector('.item-list-name-user');
-      if (child) {
-        child.classList.add('open');
-        const userName: string | null = child.textContent;
-        nameTitle.textContent = userName;
-        if (userName) {
-          serverRequests.getMessageHistory(userName);
-          if (target.id === 'on') {
-            statusTitle.style.color = 'green';
-            statusTitle.textContent = TextForElement.UserOnline;
-          } else {
-            statusTitle.textContent = TextForElement.UserOffline;
-            statusTitle.style.color = 'red';
-          }
-        }
-      }
-    }
-  }
-
   private unlockFormInputAndButton(): void {
     const input: HTMLInputElement | null = document.querySelector('.input-form-message');
     const button: HTMLButtonElement | null = document.querySelector('.btn-form-message');
@@ -142,11 +107,29 @@ export class Main {
     }
   }
 
+  private fillWrapperMessage(): void {
+    const headerWrapper: HTMLDivElement = document.createElement('div');
+    headerWrapper.className = 'header-wrapper-message';
+    const titleName: HTMLParagraphElement = document.createElement('p');
+    titleName.className = 'titleName-header-wrapper';
+    const titleStatus: HTMLDivElement = document.createElement('div');
+    titleStatus.className = 'titleStatus-header-wrapper';
+    headerWrapper.append(titleName, titleStatus);
+    const wrapperMes: HTMLDivElement = document.createElement('div');
+    wrapperMes.className = 'wrapper-messages';
+    wrapperMes.textContent = TextForElement.BlockMessageStart;
+    wrapperMes.classList.add('wrapper-message-start');
+    this.controlScroll(wrapperMes);
+    this.controlWheel(wrapperMes);
+    this.handlerMessageBlock(wrapperMes);
+    this.wrapperMessage.append(headerWrapper, wrapperMes, this.form);
+  }
+
   private controlScroll(elem: HTMLDivElement): void {
     elem.addEventListener('scroll', () => {
       const lineNewMessage: HTMLElement | null = elem.querySelector('.line-new-message');
       if (lineNewMessage) {
-        const topLine = lineNewMessage.offsetTop - 75;
+        const topLine: number = lineNewMessage.offsetTop - EXTRA_PADDING;
         if (elem.scrollTop >= topLine) {
           elem.scrollTo(0, topLine);
         }
@@ -164,49 +147,59 @@ export class Main {
         arrayChildren.forEach((item, index) => {
           if (item.classList.contains('line-new-message')) {
             item.remove();
-            const noReadMessage = arrayChildren.slice(index + 1);
+            const noReadMessage = arrayChildren.slice(index + ADDITIONAL_INDEX);
             noReadMessage.map((x) => serverRequests.changeReadStatusOfMessage(x.id));
             this.removeNumberMessage();
           }
         });
       }
-      if (target && target.classList.contains('delete')) {
-        const parent = target.parentElement;
-        if (parent) {
-          const oldParent = parent.parentElement;
-          if (oldParent) {
-            const superParent = oldParent.parentElement;
-            if (superParent) {
-              serverRequests.deleteMessage(superParent.id);
-              superParent.remove();
-            }
-          }
-        }
-      }
-
-      if (target && target.classList.contains('edit')) {
-        const input: HTMLInputElement | null = document.querySelector('.input-form-message');
-        const button: HTMLButtonElement | null = document.querySelector('.btn-form-message');
-        const parent = target.parentElement;
-        if (parent) {
-          const oldParent = parent.parentElement;
-          if (oldParent) {
-            const superParent = oldParent.parentElement;
-            if (superParent && input && button) {
-              input.id = superParent.id;
-              const textMessage: HTMLElement | null = superParent.querySelector('.message-text');
-              if (textMessage && textMessage.textContent) {
-                const height = textMessage.clientHeight;
-                input.value = textMessage.textContent;
-                textMessage.textContent = '';
-                textMessage.style.height = `${height}px`;
-                button.disabled = false;
-              }
-            }
-          }
-        }
-      }
+      this.clickBtnDelete(target);
+      this.clickBtnEdit(target);
     });
+  }
+
+  private clickBtnDelete(target: HTMLElement): void {
+    if (target && target.classList.contains('delete')) {
+      const parent = target.parentElement;
+      if (parent) {
+        const oldParent = parent.parentElement;
+        if (oldParent) {
+          const superParent = oldParent.parentElement;
+          if (superParent) {
+            serverRequests.deleteMessage(superParent.id);
+            superParent.remove();
+          }
+        }
+      }
+    }
+  }
+
+  private clickBtnEdit(target: HTMLElement): void {
+    if (target && target.classList.contains('edit')) {
+      const input: HTMLInputElement | null = document.querySelector('.input-form-message');
+      const button: HTMLButtonElement | null = document.querySelector('.btn-form-message');
+      const parent: HTMLElement | null = target.parentElement;
+      if (parent) {
+        const oldParent: HTMLElement | null = parent.parentElement;
+        if (oldParent) {
+          const superParent: HTMLElement | null = oldParent.parentElement;
+          if (superParent && input && button) {
+            input.id = superParent.id;
+            const textMessage: HTMLElement | null = superParent.querySelector('.message-text');
+            if (textMessage && textMessage.textContent) {
+              const height: number = textMessage.clientHeight;
+              input.value = textMessage.textContent;
+              textMessage.textContent = '';
+              textMessage.style.height = `${height}px`;
+              button.disabled = false;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  private controlWheel(elem: HTMLDivElement): void {
     elem.addEventListener('wheel', () => {
       const children: NodeListOf<HTMLElement> = elem.childNodes as NodeListOf<HTMLElement>;
       const arrayChildren: HTMLElement[] = [...children];
@@ -215,7 +208,7 @@ export class Main {
         arrayChildren.forEach((item, index) => {
           if (item.classList.contains('line-new-message')) {
             item.remove();
-            const noReadMessage = arrayChildren.slice(index + 1);
+            const noReadMessage: HTMLElement[] = arrayChildren.slice(index + ADDITIONAL_INDEX);
             noReadMessage.map((x) => serverRequests.changeReadStatusOfMessage(x.id));
             this.removeNumberMessage();
           }
@@ -228,7 +221,7 @@ export class Main {
     const child: NodeListOf<HTMLElement> = document.querySelectorAll('.item-list-name-user');
     child.forEach((item: HTMLElement) => {
       if (item.classList.contains('open')) {
-        const next = item.nextElementSibling;
+        const next: Element | null = item.nextElementSibling;
         if (next) {
           next.removeAttribute('style');
           next.textContent = START_NEW_MESSAGE;

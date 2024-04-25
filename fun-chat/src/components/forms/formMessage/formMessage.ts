@@ -1,7 +1,7 @@
-import { serverRequests } from '../../../api/serverRequests';
-import { START_NEW_MESSAGE } from '../../../const/const';
-import { TextForElement } from '../../../types/elementTypes';
-import { ButtonForm, InputForm } from '../componentsForm';
+import { serverRequests } from '../../../server/serverRequests';
+import { START_NEW_MESSAGE } from '../../../shared/const/const';
+import { MessageStatus, TextForElement } from '../../../shared/types';
+import { Button, Input } from '../../../shared/ui';
 import './styleFormMes.css';
 
 export class FormMessage {
@@ -14,14 +14,14 @@ export class FormMessage {
   constructor() {
     this.item = document.createElement('form');
     this.item.className = 'form-message';
-    this.input = new InputForm('input-form-message', 'text').item;
-    this.button = new ButtonForm('btn-form-message', 'submit', 'Send').item;
+    this.input = new Input('input-form-message', 'text').item;
+    this.button = new Button('btn-form-message', 'submit', TextForElement.BtnSent).item;
     this.addChildren();
     this.handlerForm();
   }
 
   private addChildren(): void {
-    this.input.placeholder = TextForElement.inputMessage;
+    this.input.placeholder = TextForElement.InputMessage;
     this.button.disabled = true;
     this.input.disabled = true;
     this.item.append(this.input, this.button);
@@ -48,9 +48,10 @@ export class FormMessage {
             const textMessage: Element | null = item.querySelector('.message-text');
             const dataMessage: Element | null = item.querySelector('.message-data');
             if (textMessage && dataMessage) {
-              const oldText = dataMessage.textContent;
+              const oldText: string | null = dataMessage.textContent;
               textMessage.textContent = this.input.value;
-              if (oldText) dataMessage.textContent = `(edit)  ${oldText.replace('(edit)', '')}`;
+              if (oldText)
+                dataMessage.textContent = `${MessageStatus.Edit}  ${oldText.replace(MessageStatus.Edit, '')}`;
               textMessage.removeAttribute('style');
               serverRequests.editMessage(this.input.id, this.input.value);
               this.input.id = '';
@@ -64,7 +65,7 @@ export class FormMessage {
     });
   }
 
-  private removeNumberMessage() {
+  private removeNumberMessage(): void {
     const messageBlock: HTMLElement | null = document.querySelector('.wrapper-messages');
     if (messageBlock) {
       const children: NodeListOf<HTMLElement> = messageBlock.childNodes as NodeListOf<HTMLElement>;

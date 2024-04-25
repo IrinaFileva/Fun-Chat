@@ -1,6 +1,6 @@
-import { ButtonForm } from './button';
+import { Button } from './button';
 
-export class LinkForm {
+export class Link {
   item: HTMLElement;
 
   children: HTMLButtonElement;
@@ -9,7 +9,7 @@ export class LinkForm {
     this.item = document.createElement('a');
     this.item.className = nameClass;
     this.item.setAttribute('href', href);
-    this.children = new ButtonForm(classChild, type, text).item;
+    this.children = new Button(classChild, type, text).item;
     this.addChildren();
   }
 

@@ -12,7 +12,7 @@ export class ProfilePage {
     this.start();
   }
 
-  private start() {
+  private start(): void {
     this.item.append(this.children);
   }
 }
