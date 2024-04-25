@@ -1,7 +1,7 @@
 import { serverRequests } from '../../api/serverRequests';
 import { TextForElement } from '../../types/elementTypes';
 import { DataRequest } from '../../types/serverTypes';
-import { LinkForm } from '../forms/componentsForm';
+import { ButtonForm, LinkForm } from '../forms/componentsForm';
 import './styleHeader.css';
 
 export class Header {
@@ -38,7 +38,7 @@ export class Header {
   private addButton(): void {
     const btnInfo: HTMLElement = new LinkForm('header-link-infoPage', '#info', 'header-bth-info', 'button', 'Info')
       .item;
-    const btnExit: HTMLElement = new LinkForm('header-link-exit', '', 'header-btn-exit', 'button', 'Logout').item;
+    const btnExit: HTMLElement = new ButtonForm('header-btn-exit', 'button', 'Logout').item;
     btnExit.addEventListener('click', () => serverRequests.UserLogout());
     this.item.append(btnInfo, btnExit);
   }

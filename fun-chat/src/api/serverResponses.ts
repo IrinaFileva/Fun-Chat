@@ -26,19 +26,21 @@ export class ServerResponses {
     const dataStorage: string | null = sessionStorage.getItem('IF-chat');
     if (dataStorage && this.data) {
       const storedData: DataRequest = JSON.parse(dataStorage);
-      if (this.data.id === storedData.id && this.data.type === RequestType.UserLogin) {
-        const person: User | undefined = this.data.payload.user;
-        if (person && person.isLogined === true) {
-          window.location.hash = '#main';
-          const titleHeader: Element | null = document.querySelector('.header-title');
-          if (titleHeader) titleHeader.textContent = `${TextForElement.HeaderTitle}: ${person.login}`;
+      if (this.data.id === storedData.id) {
+        if (this.data.type === RequestType.UserLogin) {
+          const person: User | undefined = this.data.payload.user;
+          if (person && person.isLogined === true) {
+            window.location.hash = '#main';
+            const titleHeader: Element | null = document.querySelector('.header-title');
+            if (titleHeader) titleHeader.textContent = `${TextForElement.HeaderTitle}: ${person.login}`;
+          }
         }
-      }
-      if (this.data.id === storedData.id && this.data.type === RequestType.Error) {
-        const messageError = new HindInput('message-error').item;
-        if (this.data.payload.error) {
-          messageError.textContent = this.data.payload.error;
-          document.body.appendChild(messageError);
+        if (this.data.type === RequestType.Error) {
+          const messageError = new HindInput('message-error').item;
+          if (this.data.payload.error) {
+            messageError.textContent = this.data.payload.error;
+            document.body.appendChild(messageError);
+          }
         }
       }
     }

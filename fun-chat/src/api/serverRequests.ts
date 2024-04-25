@@ -26,7 +26,6 @@ export class ServerRequests extends Server {
       const user: DataRequest = JSON.parse(data);
       user.type = RequestType.UserLogout;
       const request: string = JSON.stringify(user);
-      sessionStorage.clear();
       this.socket.send(request);
       const users: NodeListOf<Element> = document.querySelectorAll('.item-list');
       const header = document.querySelector('.header-wrapper-message');
@@ -39,6 +38,9 @@ export class ServerRequests extends Server {
       }
       users.forEach((item) => item.remove());
     }
+    sessionStorage.clear();
+    localStorage.clear();
+    window.location.hash = '';
   }
 
   public requestAllUsers(): void {

@@ -51,7 +51,9 @@ export class FormUser {
   }
 
   private handlerForm(): void {
-    this.item.addEventListener('submit', () => {
+    this.item.addEventListener('submit', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       this.requests.UserLogin(this.inputLogin.value, this.inputPassword.value);
     });
   }
@@ -95,7 +97,7 @@ export class FormUser {
     this.inputPassword.addEventListener('change', () => {
       if (this.inputPassword.value.length < MIN_LENGTH_INPUT_PASSWORD) {
         this.inputPassword.style.borderColor = 'red';
-        this.hindInputPassword.innerHTML = TextForElement.HindLoginLength;
+        this.hindInputPassword.innerHTML = TextForElement.HindPasswordLength;
       }
     });
   }
