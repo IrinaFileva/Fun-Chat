@@ -1,5 +1,5 @@
-import { BaseComponent } from '../../shared/utils';
 import svgCar from '../../assets/svg/car.svg';
+import { BaseComponent } from '../../shared/ui/baseComponent/baseComponent';
 
 export class NewCar {
   item: HTMLElement;

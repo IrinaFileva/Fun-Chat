@@ -18,8 +18,19 @@ export const INDEX_WINS = 3;
 
 export const INDEX_TIME = 4;
 
-export const TABLE_COLUMNS_WINNERS = ['№', 'Car', 'Name', 'Wins', 'Time(s)'];
+export const TABLE_COLUMNS_WINNERS: string[] = ['№', 'Car', 'Name', 'Wins', 'Time(s)'];
 
-export const BRANDS = ['Nissan', 'Porsche', 'Audi', 'Hyundai', 'Ford', 'Tesla', 'Honda', 'BMW', 'Kia', 'Toyota'];
+export const BRANDS: string[] = [
+  'Nissan',
+  'Porsche',
+  'Audi',
+  'Hyundai',
+  'Ford',
+  'Tesla',
+  'Honda',
+  'BMW',
+  'Kia',
+  'Toyota',
+];
 
-export const MODEL = ['X-trail', '911 R', 'Q5', 'ix35', 'Focus', 'Y', 'Accord', 'X6', 'Rio', 'RAV4'];
+export const MODEL: string[] = ['X-trail', '911 R', 'Q5', 'ix35', 'Focus', 'Y', 'Accord', 'X6', 'Rio', 'RAV4'];

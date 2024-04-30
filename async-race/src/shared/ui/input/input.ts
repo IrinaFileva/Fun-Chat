@@ -1,5 +1,5 @@
 import { ValuesAttributes } from '../../types/button';
-import { BaseComponent } from '../../utils';
+import { BaseComponent } from '../baseComponent/baseComponent';
 
 export class Input extends BaseComponent {
   item: HTMLInputElement;

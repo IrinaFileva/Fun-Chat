@@ -1,4 +1,4 @@
-import { BaseComponent } from '../../utils';
+import { BaseComponent } from '../baseComponent/baseComponent';
 
 export class TextOnPage extends BaseComponent {
   text: string;

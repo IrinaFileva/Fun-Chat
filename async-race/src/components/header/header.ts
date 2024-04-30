@@ -1,4 +1,4 @@
-import { BaseComponent } from '../../shared/utils';
+import { BaseComponent } from '../../shared/ui/baseComponent/baseComponent';
 
 export class Header extends BaseComponent {
   item: HTMLElement;

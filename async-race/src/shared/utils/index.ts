@@ -1,23 +1,5 @@
 import { COLOR_INPUT_VALUE } from '../const/const';
 
-export class BaseComponent {
-  elem: string;
-
-  className: string;
-
-  constructor(elem: string, className: string) {
-    this.elem = elem;
-    this.className = className;
-  }
-
-  public addItem(text?: string): HTMLElement {
-    const item: HTMLElement = document.createElement(this.elem);
-    item.className = this.className;
-    if (text) item.innerHTML = text;
-    return item;
-  }
-}
-
 export function setDisabled(input: HTMLInputElement, input1: HTMLInputElement, button: HTMLButtonElement): void {
   input.disabled = true;
   input.value = '';

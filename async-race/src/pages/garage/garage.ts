@@ -1,5 +1,5 @@
 import { GarageController } from '../../services/garageController';
-import { BaseComponent } from '../../shared/utils';
+import { BaseComponent } from '../../shared/ui/baseComponent/baseComponent';
 
 export class PageGarage extends BaseComponent {
   item: HTMLElement;

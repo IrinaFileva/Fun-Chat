@@ -3,11 +3,12 @@ import { Road } from '../components/containerCars/road/road';
 import { Api } from '../shared/api/api';
 import { BRANDS, LIMIT_DATE_ON_GARAGE, MODEL, NUMBER_CARS_CREATED, PAGINATION_START } from '../shared/const/const';
 import { Car, EngineStatus, PathFile, RequestParam, Speed, Winner } from '../shared/types/api';
+import { BaseComponent } from '../shared/ui/baseComponent/baseComponent';
 import { buttonsGarage } from '../shared/ui/button';
 import { inputColorCreate, inputColorUpdate, inputCreate, inputUpdate } from '../shared/ui/input';
 import { textPagingPageGarage, titlePageGarage } from '../shared/ui/text';
 import { TextOnPage } from '../shared/ui/text/text';
-import { BaseComponent, getRandomColor, removeDisabled, resetValueInput, setDisabled } from '../shared/utils';
+import { getRandomColor, removeDisabled, resetValueInput, setDisabled } from '../shared/utils';
 
 export class GarageController {
   page: number;

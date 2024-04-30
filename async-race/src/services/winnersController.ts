@@ -2,8 +2,8 @@ import { NewCar } from '../components/cars/car';
 import { Api } from '../shared/api/api';
 import { INDEX_CAR, INDEX_NUMBER, LIMIT_DATE_ON_WINNERS, PAGINATION_START } from '../shared/const/const';
 import { Car, ParamWinner, PathFile, SortAndOrderPram, Winner } from '../shared/types/api';
+import { BaseComponent } from '../shared/ui/baseComponent/baseComponent';
 import { textPagingPageWinners, titlePageWinners } from '../shared/ui/text';
-import { BaseComponent } from '../shared/utils';
 
 export class ControllerWinners {
   api: Api;

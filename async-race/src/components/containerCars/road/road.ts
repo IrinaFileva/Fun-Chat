@@ -1,8 +1,8 @@
-import { BaseComponent } from '../../../shared/utils';
 import { NewCar } from '../../cars/car';
 import { Flag } from './flag/flag';
 import { StartPoint } from './startPoint/startPoint';
 import SvgFlag from '../../../assets/svg/flag.svg';
+import { BaseComponent } from '../../../shared/ui/baseComponent/baseComponent';
 
 export class Road {
   item: HTMLElement;

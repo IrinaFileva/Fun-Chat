@@ -1,6 +1,6 @@
+import { BaseComponent } from '../../../../shared/ui/baseComponent/baseComponent';
 import { Button } from '../../../../shared/ui/button/button';
 import { TextOnPage } from '../../../../shared/ui/text/text';
-import { BaseComponent } from '../../../../shared/utils';
 
 export class StartPoint extends BaseComponent {
   item: HTMLElement;

@@ -1,4 +1,4 @@
-import { BaseComponent } from '../../../../shared/utils';
+import { BaseComponent } from '../../../../shared/ui/baseComponent/baseComponent';
 
 export class Flag extends BaseComponent {
   path: string;

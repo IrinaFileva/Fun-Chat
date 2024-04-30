@@ -1,7 +1,7 @@
 import { ControllerWinners } from '../../services/winnersController';
 import { INDEX_CAR, INDEX_NUMBER, INDEX_TIME, INDEX_WINS, TABLE_COLUMNS_WINNERS } from '../../shared/const/const';
+import { BaseComponent } from '../../shared/ui/baseComponent/baseComponent';
 import { Button } from '../../shared/ui/button/button';
-import { BaseComponent } from '../../shared/utils';
 
 export class PageWinners {
   item: HTMLElement;
@@ -52,10 +52,25 @@ export class PageWinners {
     const lineWinner = new BaseComponent('div', 'line-winner').addItem();
     for (let i = 0; i < TABLE_COLUMNS_WINNERS.length; i += 1) {
       const grid: HTMLElement = new BaseComponent('div', 'grid-table-winners head').addItem(TABLE_COLUMNS_WINNERS[i]);
-      if (i === INDEX_NUMBER) grid.style.width = '4rem';
-      if (i === INDEX_CAR) grid.style.width = '10rem';
-      if (i === INDEX_WINS) grid.classList.add('wins');
-      if (i === INDEX_TIME) grid.classList.add('time');
+      switch (i) {
+        case INDEX_NUMBER:
+          grid.style.width = '4rem';
+          break;
+
+        case INDEX_CAR:
+          grid.style.width = '10rem';
+          break;
+
+        case INDEX_WINS:
+          grid.classList.add('wins');
+          break;
+
+        case INDEX_TIME:
+          grid.classList.add('time');
+          break;
+
+        default:
+      }
       lineWinner.append(grid);
     }
     lineWinner.classList.add('head');
