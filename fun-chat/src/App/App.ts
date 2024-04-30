@@ -2,9 +2,9 @@ import { ServerRequests, serverRequests } from '../server/serverRequests';
 import { Router } from '../routing/router';
 
 export class App {
-  router: Router;
+  private router: Router;
 
-  api: ServerRequests;
+  private api: ServerRequests;
 
   constructor() {
     this.router = new Router();

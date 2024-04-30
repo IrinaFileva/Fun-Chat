@@ -1,5 +1,5 @@
 import { serverRequests } from '../../server/serverRequests';
-import { DataRequest, TextForElement } from '../../shared/types';
+import { DataRequest } from '../../shared/types';
 import { Button, Link } from '../../shared/ui';
 import './styleHeader.css';
 
@@ -21,7 +21,7 @@ export class Header {
     if (data) {
       const text: DataRequest = JSON.parse(data);
       if (text.payload && text.payload.user) {
-        h1.textContent = `${TextForElement.HeaderTitle}: ${text.payload.user.login}`;
+        h1.textContent = `User: ${text.payload.user.login}`;
       }
     }
     this.item.append(h1);
@@ -30,19 +30,13 @@ export class Header {
   private addAppName(): void {
     const appName: HTMLParagraphElement = document.createElement('p');
     appName.className = 'header-name-app';
-    appName.innerHTML = TextForElement.HeaderAppName;
+    appName.innerHTML = 'Fun Chat &#128516';
     this.item.append(appName);
   }
 
   private addButton(): void {
-    const btnInfo: HTMLElement = new Link(
-      'header-link-infoPage',
-      '#info',
-      'header-bth-info',
-      'button',
-      TextForElement.BtnInfo,
-    ).item;
-    const btnExit: HTMLElement = new Button('header-btn-exit', 'button', TextForElement.BtnLogout).item;
+    const btnInfo: HTMLElement = new Link('header-link-infoPage', '#info', 'header-bth-info', 'button', 'Info').item;
+    const btnExit: HTMLElement = new Button('header-btn-exit', 'button', 'Logout').item;
     btnExit.addEventListener('click', () => serverRequests.UserLogout());
     this.item.append(btnInfo, btnExit);
   }

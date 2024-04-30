@@ -1,6 +1,6 @@
 import { serverRequests } from '../../server/serverRequests';
 import { ADDITIONAL_INDEX, EXTRA_PADDING, START_NEW_MESSAGE } from '../../shared/const/const';
-import { ColorElement, TextForElement } from '../../shared/types/elementTypes';
+import { ColorElement } from '../../shared/types/elementTypes';
 import { Input } from '../../shared/ui';
 import { FormMessage } from '../forms/formMessage/formMessage';
 import './styleMain.css';
@@ -62,9 +62,9 @@ export class Main {
       if (parent) {
         if (parent.id === 'on') {
           statusTitle.style.color = ColorElement.Green;
-          statusTitle.textContent = TextForElement.UserOnline;
+          statusTitle.textContent = ' (online)';
         } else {
-          statusTitle.textContent = TextForElement.UserOffline;
+          statusTitle.textContent = ' (offline)';
           statusTitle.style.color = ColorElement.Red;
         }
       }
@@ -73,7 +73,7 @@ export class Main {
 
   private addInputSearch(): HTMLInputElement {
     const input: HTMLInputElement = new Input('input-search', 'search').item;
-    input.placeholder = TextForElement.InputSearch;
+    input.placeholder = 'Search...';
     input.addEventListener('input', () => {
       const allUser: NodeListOf<HTMLElement> = document.querySelectorAll('.item-list-name-user');
       allUser.forEach((elem: HTMLElement) => {
@@ -117,7 +117,7 @@ export class Main {
     headerWrapper.append(titleName, titleStatus);
     const wrapperMes: HTMLDivElement = document.createElement('div');
     wrapperMes.className = 'wrapper-messages';
-    wrapperMes.textContent = TextForElement.BlockMessageStart;
+    wrapperMes.textContent = 'Select the user to send the message to...';
     wrapperMes.classList.add('wrapper-message-start');
     this.controlScroll(wrapperMes);
     this.controlWheel(wrapperMes);

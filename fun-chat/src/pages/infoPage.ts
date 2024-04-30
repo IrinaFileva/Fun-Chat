@@ -1,6 +1,5 @@
 import { Button } from '../shared/ui';
 import { LINK_GIT_HUB } from '../shared/const/const';
-import { TextForElement } from '../shared/types';
 
 export class InfoPage {
   item: HTMLElement;
@@ -18,16 +17,17 @@ export class InfoPage {
   private start(): void {
     const info: HTMLParagraphElement = document.createElement('p');
     info.className = 'description-info-page';
-    info.innerHTML = TextForElement.DescriptionInfoPage;
+    info.innerHTML =
+      'The application was developed by student Irina Fileva as part of the RS School JS / Front-end course';
     const linkGitHub: HTMLAnchorElement = document.createElement('a');
     const logoGit: HTMLDivElement = document.createElement('div');
     linkGitHub.className = 'link-git-info-page';
     linkGitHub.href = LINK_GIT_HUB;
     linkGitHub.target = '_blank';
-    linkGitHub.innerText = TextForElement.LinkGitHub;
+    linkGitHub.innerText = 'Link to';
     logoGit.className = 'logo-link-git-info-page';
     const btnBack: HTMLButtonElement = new Button('btn-back-info-page', 'button', '').item;
-    btnBack.innerHTML = TextForElement.BtnBack;
+    btnBack.innerHTML = '&larr;&nbsp;Back';
     btnBack.addEventListener('click', () => {
       window.history.back();
     });

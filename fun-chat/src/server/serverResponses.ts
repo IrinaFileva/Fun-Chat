@@ -1,8 +1,16 @@
 import { MessageBlock } from '../components';
 import { HindInput } from '../shared/ui';
 import { ADDITIONAL_INDEX, START_NEW_MESSAGE } from '../shared/const/const';
-import { ColorElement, TextForElement } from '../shared/types/elementTypes';
-import { DataRequest, DataResponse, User, RequestType, Message } from '../shared/types/serverTypes';
+import { ColorElement } from '../shared/types/elementTypes';
+import {
+  DataRequest,
+  DataResponse,
+  User,
+  RequestType,
+  Message,
+  PayloadRequest,
+  StatusMessage,
+} from '../shared/types/serverTypes';
 import { MessageStatus } from '../shared/types';
 
 export class ServerResponses {
@@ -32,7 +40,7 @@ export class ServerResponses {
           if (person && person.isLogined === true) {
             window.location.hash = '#main';
             const titleHeader: Element | null = document.querySelector('.header-title');
-            if (titleHeader) titleHeader.textContent = `${TextForElement.HeaderTitle}: ${person.login}`;
+            if (titleHeader) titleHeader.textContent = `User: ${person.login}`;
           }
         }
         if (this.data.type === RequestType.Error) {
@@ -53,10 +61,10 @@ export class ServerResponses {
       const request: DataRequest = JSON.parse(dataStorage);
       const user: DataRequest = JSON.parse(userStorage);
       if (request.id === this.data.id) {
-        const userLogin = user.payload;
+        const userLogin: PayloadRequest | null = user.payload;
         const usersAll: User[] | undefined = this.data.payload.users;
         if (usersAll && this.data.type === RequestType.UserActive && userLogin) {
-          const login = userLogin.user;
+          const login: User | undefined = userLogin.user;
           for (let i = 0; i < usersAll.length; i += 1) {
             if (login && usersAll[i].login !== login.login) {
               this.addUser(parent, usersAll[i]);
@@ -160,7 +168,7 @@ export class ServerResponses {
               if (!lineMessage) {
                 const lineNewMessage: HTMLDivElement = document.createElement('div');
                 lineNewMessage.className = 'line-new-message';
-                lineNewMessage.textContent = TextForElement.lineNewMessage;
+                lineNewMessage.textContent = 'New Message';
                 parent.append(lineNewMessage);
               }
               new MessageBlock(messageUser, 'message-interlocutor', parent);
@@ -199,12 +207,12 @@ export class ServerResponses {
 
   private ifDialogIsOpen(item: Element, parent: Element, history: Message[], userData: DataRequest): void {
     if (userData.payload) {
-      const login = userData.payload.user;
+      const login: User | undefined = userData.payload.user;
       if (item.classList.contains('open') && login) {
         parent.innerHTML = '';
         if (history.length === 0) {
           parent.classList.add('wrapper-message-start');
-          parent.textContent = TextForElement.BlockMessageDialog;
+          parent.textContent = 'Write your first message...';
         } else {
           parent.classList.remove('wrapper-message-start');
           parent.innerHTML = '';
@@ -214,11 +222,11 @@ export class ServerResponses {
             new MessageBlock(elem, 'message-user', parent);
           } else {
             const lineMessage: Element | null = document.querySelector('.line-new-message');
-            const statusMessage = elem.status;
+            const statusMessage: StatusMessage | undefined = elem.status;
             if (!lineMessage && statusMessage && statusMessage.isReaded !== true && login.login !== elem.from) {
               const lineNewMessage: HTMLDivElement = document.createElement('div');
               lineNewMessage.className = 'line-new-message';
-              lineNewMessage.textContent = TextForElement.lineNewMessage;
+              lineNewMessage.textContent = 'New Message';
               parent.append(lineNewMessage);
             }
             new MessageBlock(elem, 'message-interlocutor', parent);

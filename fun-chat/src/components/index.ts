@@ -1,3 +1,1 @@
-import { MessageBlock } from './message/message';
-
-export { MessageBlock };
+export { MessageBlock } from './message/message';

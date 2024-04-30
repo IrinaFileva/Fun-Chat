@@ -1,12 +1,11 @@
-import { TextForElement } from '../../shared/types';
 import './contextMenuStyle.css';
 
 export class ContextMenu {
   item: HTMLDivElement;
 
-  list: HTMLUListElement;
+  private list: HTMLUListElement;
 
-  parent: HTMLDivElement;
+  private parent: HTMLDivElement;
 
   constructor(parent: HTMLDivElement) {
     this.item = document.createElement('div');
@@ -23,14 +22,14 @@ export class ContextMenu {
   private addItemDelete(): void {
     const itemDeletion: HTMLLIElement = document.createElement('li');
     itemDeletion.className = 'context-menu-item delete';
-    itemDeletion.textContent = TextForElement.ListItemDelete;
+    itemDeletion.textContent = 'Delete';
     this.list.append(itemDeletion);
   }
 
   private addItemEdit(): void {
     const itemEditing: HTMLLIElement = document.createElement('li');
     itemEditing.className = 'context-menu-item edit';
-    itemEditing.textContent = TextForElement.ListItemEdit;
+    itemEditing.textContent = 'Edit';
     this.list.append(itemEditing);
   }
 }

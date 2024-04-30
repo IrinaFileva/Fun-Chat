@@ -1,4 +1,3 @@
-import { TextForElement } from '../../shared/types';
 import './errorModalStyle.css';
 
 export class ModalError {
@@ -7,7 +6,8 @@ export class ModalError {
   constructor() {
     this.item = document.createElement('div');
     this.item.className = 'error-server-message';
-    this.item.innerHTML = TextForElement.ErrorConnectMessage;
+    this.item.innerHTML =
+      "Sorry, the connection to the server has been lost...<br> We're trying to reconnect...<br> Please wait...";
   }
 
   public add(): void {

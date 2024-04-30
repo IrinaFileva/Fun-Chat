@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config ./webpack.config.js --env mode=prod",
-    "format": "prettier --write ./",
-    "ci:format": "prettier ./",
-    "lint": "eslint ./",
-    "lint:fix": "eslint --fix ./",
+    "format": "prettier --write ./src",
+    "ci:format": "prettier ./src",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint --fix ./src",
     "deploy": "npm run build && npx gh-pages -d dist -e fun-chat",
     "start": "webpack serve --open --config ./webpack.config.js --env mode=dev"
   },

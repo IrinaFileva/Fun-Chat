@@ -1,6 +1,6 @@
 import { serverRequests } from '../../../server/serverRequests';
 import { START_NEW_MESSAGE } from '../../../shared/const/const';
-import { MessageStatus, TextForElement } from '../../../shared/types';
+import { MessageStatus } from '../../../shared/types';
 import { Button, Input } from '../../../shared/ui';
 import './styleFormMes.css';
 
@@ -15,13 +15,13 @@ export class FormMessage {
     this.item = document.createElement('form');
     this.item.className = 'form-message';
     this.input = new Input('input-form-message', 'text').item;
-    this.button = new Button('btn-form-message', 'submit', TextForElement.BtnSent).item;
+    this.button = new Button('btn-form-message', 'submit', 'Send').item;
     this.addChildren();
     this.handlerForm();
   }
 
   private addChildren(): void {
-    this.input.placeholder = TextForElement.InputMessage;
+    this.input.placeholder = 'Message...';
     this.button.disabled = true;
     this.input.disabled = true;
     this.item.append(this.input, this.button);

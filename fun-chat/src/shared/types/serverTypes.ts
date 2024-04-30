@@ -1,25 +1,26 @@
 export interface DataRequest {
   id: string | null;
   type: RequestType;
-  payload: {
-    user?: {
-      login: string;
-      password?: string;
-    };
-    message?: Message;
-  } | null;
+  payload: PayloadRequest | null;
+}
+
+export interface PayloadRequest {
+  user?: User;
+  message?: Message;
 }
 
 export interface DataResponse {
   id: string;
   type: RequestType;
-  payload: {
-    user?: User;
-    users?: User[];
-    error?: string;
-    message?: Message;
-    messages?: Message[];
-  };
+  payload: PayloadResponse;
+}
+
+export interface PayloadResponse {
+  user?: User;
+  users?: User[];
+  error?: string;
+  message?: Message;
+  messages?: Message[];
 }
 
 export enum RequestType {
@@ -40,7 +41,8 @@ export enum RequestType {
 
 export interface User {
   login: string;
-  isLogined: boolean;
+  isLogined?: boolean;
+  password?: string;
 }
 
 export interface Message {
@@ -49,10 +51,12 @@ export interface Message {
   to?: string;
   text?: string;
   datetime?: number;
-  status?: {
-    isDelivered?: boolean;
-    isReaded?: boolean;
-    isEdited?: boolean;
-    isDeleted?: boolean;
-  };
+  status?: StatusMessage;
+}
+
+export interface StatusMessage {
+  isDelivered?: boolean;
+  isReaded?: boolean;
+  isEdited?: boolean;
+  isDeleted?: boolean;
 }

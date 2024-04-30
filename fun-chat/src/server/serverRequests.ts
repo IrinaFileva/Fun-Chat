@@ -1,4 +1,3 @@
-import { TextForElement } from '../shared/types/elementTypes';
 import { DataRequest, RequestType } from '../shared/types/serverTypes';
 import { Server } from './Server';
 
@@ -37,7 +36,7 @@ export class ServerRequests extends Server {
       if (wrapper) {
         wrapper.innerHTML = '';
         wrapper.classList.add('wrapper-messages-start');
-        wrapper.textContent = TextForElement.BlockMessageStart;
+        wrapper.textContent = 'Select the user to send the message to...';
       }
     }
     sessionStorage.clear();

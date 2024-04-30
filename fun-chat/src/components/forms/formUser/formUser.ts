@@ -1,6 +1,6 @@
 import { ServerRequests, serverRequests } from '../../../server/serverRequests';
 import { MIN_LENGTH_INPUT_LOGIN, MIN_LENGTH_INPUT_PASSWORD, PATTERN_INPUT_FORM } from '../../../shared/const/const';
-import { ColorElement, TextForElement } from '../../../shared/types';
+import { ColorElement } from '../../../shared/types';
 import { Button, HindInput, Input, Link } from '../../../shared/ui';
 import './styleForm.css';
 
@@ -28,14 +28,14 @@ export class FormUser {
     this.inputPassword = new Input('input-password', 'password').item;
     this.hindInputLogin = new HindInput('hind-input-login').item;
     this.hindInputPassword = new HindInput('hind-input-password').item;
-    this.btnSubmit = new Button('button-submit', 'submit', TextForElement.BtnLogin).item;
-    this.bthInfo = new Link('link-form', '#info', 'button-info', 'button', TextForElement.BtnInfo).item;
+    this.btnSubmit = new Button('button-submit', 'submit', 'Login').item;
+    this.bthInfo = new Link('link-form', '#info', 'button-info', 'button', 'Info').item;
     this.requests = serverRequests;
     this.start();
   }
 
   private start(): void {
-    this.item.innerText = TextForElement.Form;
+    this.item.innerText = 'Welcome to Fun Chat! Please log in';
     this.btnSubmit.disabled = true;
     this.item.append(
       this.inputLogin,
@@ -62,7 +62,7 @@ export class FormUser {
     this.inputLogin.addEventListener('input', () => {
       if (this.inputLogin.value !== '' && this.inputLogin.value[0] !== this.inputLogin.value[0].toUpperCase()) {
         this.inputLogin.style.borderColor = ColorElement.Red;
-        this.hindInputLogin.innerHTML = TextForElement.HindLogin;
+        this.hindInputLogin.innerHTML = 'Login must begin with a capital letter';
       } else {
         this.inputLogin.style.borderColor = ColorElement.Black;
         this.hindInputLogin.innerHTML = '';
@@ -75,7 +75,7 @@ export class FormUser {
     this.inputLogin.addEventListener('change', () => {
       if (this.inputLogin.value.length < MIN_LENGTH_INPUT_LOGIN) {
         this.inputLogin.style.borderColor = ColorElement.Red;
-        this.hindInputLogin.innerHTML = TextForElement.HindLoginLength;
+        this.hindInputLogin.innerHTML = 'Login length is less than 4 characters';
       }
     });
   }
@@ -84,7 +84,7 @@ export class FormUser {
     this.inputPassword.addEventListener('input', () => {
       if (PATTERN_INPUT_FORM.test(this.inputPassword.value)) {
         this.inputPassword.style.borderColor = ColorElement.Red;
-        this.hindInputPassword.innerHTML = TextForElement.HindPassword;
+        this.hindInputPassword.innerHTML = 'Password must contain only numbers or English letters';
       } else {
         this.inputPassword.style.borderColor = ColorElement.Black;
         this.hindInputPassword.innerHTML = '';
@@ -97,7 +97,7 @@ export class FormUser {
     this.inputPassword.addEventListener('change', () => {
       if (this.inputPassword.value.length < MIN_LENGTH_INPUT_PASSWORD) {
         this.inputPassword.style.borderColor = ColorElement.Red;
-        this.hindInputPassword.innerHTML = TextForElement.HindPasswordLength;
+        this.hindInputPassword.innerHTML = 'Password length is less than 6 characters';
       }
     });
   }

@@ -51,18 +51,28 @@ export class MessageBlock {
 
   private setMessageStatus(item: HTMLParagraphElement): void {
     if (this.data.status && this.nameClass !== 'message-interlocutor') {
-      if (this.data.status.isDelivered) item.textContent = MessageStatus.Delivered;
-      if (!this.data.status.isDelivered) item.textContent = MessageStatus.Sent;
-      if (this.data.status.isReaded && this.data.status.isDelivered) item.textContent = MessageStatus.Read;
-      if (this.data.status.isEdited && this.data.status.isDelivered)
+      if (this.data.status.isDelivered) {
+        item.textContent = MessageStatus.Delivered;
+      }
+      if (!this.data.status.isDelivered) {
+        item.textContent = MessageStatus.Sent;
+      }
+      if (this.data.status.isReaded && this.data.status.isDelivered) {
+        item.textContent = MessageStatus.Read;
+      }
+      if (this.data.status.isEdited && this.data.status.isDelivered) {
         item.textContent = `${MessageStatus.Edit} ${MessageStatus.Delivered}`;
-      if (this.data.status.isEdited && !this.data.status.isDelivered)
+      }
+      if (this.data.status.isEdited && !this.data.status.isDelivered) {
         item.textContent = `${MessageStatus.Edit} ${MessageStatus.Sent}`;
-      if (this.data.status.isReaded && this.data.status.isDelivered && this.data.status.isEdited)
+      }
+      if (this.data.status.isReaded && this.data.status.isDelivered && this.data.status.isEdited) {
         item.textContent = `${MessageStatus.Edit} ${MessageStatus.Read}`;
+      }
     }
-    if (this.data.status && this.nameClass === 'message-interlocutor' && this.data.status.isEdited)
+    if (this.data.status && this.nameClass === 'message-interlocutor' && this.data.status.isEdited) {
       item.textContent = MessageStatus.Changed;
+    }
   }
 
   private handlerContextMenu(): void {
