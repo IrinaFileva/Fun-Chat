@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>reveal.js</title>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-background-image = "./public/start.jpg"
+				data-background-size = "95%"
+				></section>
+				<section>
+					<h3 style = "color: aquamarine;">Components Redux</h3>
+					<div style = "display: flex;  width: 100%; height: 70%;">
+						<img data-src ="./public/components.png" width="50%" height="100%">
+						<div class ="r-stack" style = "display: flex; flex-direction: column; margin-left: 20px;">
+						  <p class ="fragment" style = "font-size: 20px;"><b>Reducers</b> — These are the state that are defined inside the store. They can have action and initial value also.</p>
+						  <p class ="fragment" style = "font-size: 20px;"><b>Store</b> — This is the place where all the reducers gets stored , the value of the state is read from here and modified from here. Creating a store</p>
+						  <p class ="fragment" style = "font-size: 20px;"><b>Actions</b> — These are the values which define the behaviour of a state or how the state will be modified when the action gets dispatched</p>
+					  </div>
+					</div>
+				</section>
+        <section>
+					<h2 style = "font-size: 24px; color: aquamarine;">1.Install Redux and get started.</h2>
+					<ul class ="r-stack">
+						<li class ="fragment" style = "margin: 0; margin-left: 213px; color: rgb(64, 157, 233);">
+							- Type the command in your terminal:
+							<pre>
+								<code style ="width: 50%; color: azure;">
+							  npm install redux
+								</code>
+							</pre>
+					 </li>
+					 <li class ="fragment" style = "margin: 0; margin-left: 213px; color: rgb(64, 157, 233);">
+              - Create a folder (e.g. /src/store). <br>It is customary to store redux-related files in a separate folder.
+					 </li>
+					 <li class ="fragment" style = "margin: 0; margin-left: 213px;color: rgb(64, 157, 233); ">
+						  - Create a basic structure for the repository.<br> It should look like this:
+							<pre>
+								<code style ="width: 50%; color: azure;">
+									.store
+										├── actionCreators
+
+										│ ├── action_1.js
+										│ └── action_2.js
+
+										├── actions
+										│ ├── action_1.js
+										│ └── action_2.js
+
+										├── reducers
+										│ ├── reducer_1.js
+										│ ├── reducer_2.js
+										│ └── rootReducer.js
+
+										├── initialState.js
+
+										└── store.js
+								</code>
+							</pre>
+							In this example, primitive names for files are used for clarity.<br> In this project you should not name files in this way.
+					 </li>
+					</ul>
+				</section>
+				<section>
+					<h2 style = "font-size: 24px; color: aquamarine;">2. Redux</h2>
+					<ul class ="r-stack">
+            <li class ="fragment">createStore <br>
+							<p style = "font-size: 16px; color: grey" >Create global storage:</p>
+							<pre style = "margin-left: 0; color: grey">
+								in the .store/store.js file
+								<code style = "margin-left: 0;color: white">
+                 import { createStore } from 'redux';
+
+                 const store = createStore(reducer);
+
+                 export default store;
+							</code></pre>
+						</li>
+						<li class ="fragment">reducer()
+							<p style = "font-size: 16px; color: grey" >Create a reducer -function that will be responsible for updating the state:</p>
+							<pre style = "margin-left: 0; color: grey">
+								in the .store/store.js file
+								<code style = "margin-left: 0; color: white">
+         function reducer(state, action) {
+									  switch(action.type) {
+										  case ACTION_1: return { value: action.value_1 };
+										  case ACTION_2: return { value: action.value_2 };
+										  default: return state;
+									  }
+							  }
+							</code></pre>
+              <p class = "white">
+                <b>state</b> - value of the current state<br>
+	              <b>action</b> - event object containing two properties<br>
+	              <b>action.type</b> - event type<br>
+	              <b>action.value</b> - event value<br>
+              </p>
+              <p class = "white">example action for the onChange event:</p>
+              <pre style = "margin-left: 0; color: grey"><code style = "margin-left: 0; color: white">
+                  {
+                    type: "ACTION_1",
+                    value: "Here is the value of the form field"
+                  }
+                </code></pre>
+						</li>
+					</ul>
+				</section>
+				<section>
+					<ul class ="r-stack">
+            <li>dispatch() <br>
+							<p style = "font-size: 16px; color: grey">Example of function call to update store:</p>
+							<pre style = "margin-left: 0;">
+								<code style = "margin-left: 0; color: white">
+									store.dispatch({ type: ACTION_1, value_1: "Some text" });
+							</code></pre>
+						</li>
+						<li class ="fragment">actionCreator()
+							<p style = "font-size: 16px; color: grey">Basic syntax of the actionCreator function:</p>
+							<pre style = "margin-left: 0; color: grey">
+			                                in the .store/actionCreators/action_1.js file
+								<code style = "margin-left: 0; color: white">
+								function action_1(value) {
+									return {
+										type: ACTION_1,
+										value_1: value
+									};
+								}
+
+								export default action_1;
+							</code></pre>
+							<p class = "white">
+							The call of this function should be passed as an argument to dispatch and the required value should be passed to actionCreator.
+              </p>
+							<p style = "font-size: 12px; color: grey">Thus the dispatch call should look like this:</p>
+							<pre style = "margin-left: 0; color: grey" ><code style = "margin-left: 0; color: white">
+							  store.dispatch(action_1("Some value"));
+							</code></pre>
+						</li>
+				</section>
+				<section>
+					<ul class ="r-stack">
+						<li>Actions
+							<p style = "font-size: 15px; color: white">Actions are constants that describe the event.</p>
+							<p style = "font-size: 12px; color: grey" >For example, a constant describing event number one would look like this:</p>
+							<pre style = "margin-left: 0; color: grey">
+								in the .store/actions/action_1.js file
+								<code style = "margin-left: 0; color: white">
+									const ACTION_1 = "ACTION_1";
+
+									export default ACTION_1;
+							</code></pre>
+						</li>
+						<li class ="fragment">getState()
+							<p style = "font-size: 15px; color: white">Returns the value of the storage fields.</p>
+							<p style = "font-size: 12px; color: grey">Example call:</p>
+							<pre style = "margin-left: 0;">
+								<code style = "margin-left: 0; color: white;">
+									store.getState()
+							  </code>	</pre>
+							  <p style = "font-size: 12px; color: grey">Example of viewing the value of field value_1:</p>
+								<pre style = "margin-left: 0;"><code style = "margin-left: 0; color: white;">
+                  store.getState().value_1
+                </code></pre>
+						</li>
+					</ul>
+				</section>
+				<section>
+					<ul class ="r-stack">
+						<li>subscribe()
+							<p style = "font-size: 15px; color: white">State update monitoring method</p>
+							<p style = "font-size: 12px; color: grey" >The following code will print the new store value to the console each time it is updated (each time dispatch() is called):</p>
+							<pre style = "margin-left: 0; color: white">
+								<code>
+									store.subscribe(() => console.info(store.getState()))
+							</code></pre>
+							<p class = "white">
+							This method returns the unsubscribe() function. Which allows you to “unsubscribe from updating”.
+              </p>
+						</li>
+						<li class ="fragment">combineReducers()
+							<p style = "font-size: 15px; color: white">This method allows multiple redusers to be combined into a single redusers.</p>
+							<p style = "font-size: 12px; color: grey">For example, if the reduser updates field number one, it might look like this:</p>
+							<pre style = "margin-left: 0;">
+								<code style = "margin-left: 0; color: white">
+                function value_1(state, action) {
+                  switch(action.type) {
+                    case ACTION_1: return action.value_1;
+
+                    default: return state;
+                  }
+                }
+
+                export default value_1;
+							  </code>
+						</pre>
+            <p class = "white"><b style = "color: red">Note!</b>
+              When you split a base reduser into multiple ones, the name of each one must match the field it updates in the store.
+            </p>
+					</ul>
+				</section>
+        <section>
+          <ul>
+            <li>initialState
+							<p style = "font-size: 15px; color: white">Object representing the initial state of the store. It is the second optional argument of the createStore() method..</p>
+							<p style = "font-size: 12px; color: grey">A normal initialState object looks like the following:</p>
+							<pre style = "margin-left: 0; color: white">
+								<code>
+									const initialState = {
+                    date_1: "value...",
+                    date_2: "value..."
+                  };
+
+                  export default initialState;
+							</code></pre>
+							<p class = "white">
+                If you don't pass an initialState object to createStore you can return it from the reduser. In both cases the initial state for the store will be initialized.
+              </p>
+						</li>
+          </ul>
+        </section>
+        <section>
+          <h2 style = "font-size: 24px; color: aquamarine;">3. React-redux</h2>
+          <ul class ="r-stack">
+            <li class ="fragment">Provider<br>
+							<p style = "font-size: 16px; color: white;">To use store in a component you need to pass it to props:</p>
+							<pre style = "margin-left: 0; color: white"><code>
+      ReactDOM.render(&lt;Main store={store} /&gt;, document.getElementById('root'));
+							</code></pre>
+              <p style = "font-size: 16px; color: white;">
+                After using in the component: this.props.state.<br> For this purpose react-redux provides the Provider method:
+              </p>
+              <pre style = "margin-left: 0; color: white"><code>
+      ReactDOM.render(
+        &lt;Provider store={store}&gt;
+          &lt;Main /&gt;
+        &lt;/Provider&gt;,
+      document.getElementById('root'));
+              </code></pre>
+              <p style = "font-size: 16px; color: white;">
+                This way the connect method will be able to use store. Otherwise you will get an error
+              </p>
+						</li>
+					</ul>
+        </section>
+        <section>
+          <ul class ="r-stack">
+            <li>mapStateToProps()
+              <p style = "font-size: 16px; color: white;">This method is called whenever the store is updated and it is this method that passes the necessary properties from the store to the component. </p>
+              <p style = "font-size: 12px; color: grey"> If component one needs to receive field number one (value_1) then mapStateToProps for it will look like this:</p>
+              <pre style = "margin-left: 0; color: white"><code>
+          function (state) {
+            return {
+              value_1: state.value_1
+            };
+          }
+              </code></pre>
+              <p style = "font-size: 12px; color: grey">A single function that returns a mapStateToProps function for each component.</p>
+              <pre style = "margin-left: 0; color: white" ><code>
+          function mapStateToProps(component) {
+            switch(component) {
+              case "Component_1": {
+                return function (state) {
+                  return {
+                    value_1: state.value_1
+                  };
+                }
+              }
+              case "Component_2": {
+                return function(state) {
+                  return {
+                    value_2: state.value_2
+                  };
+                }
+              }
+              default: return undefined;
+            }
+          }
+
+          export default mapStateToProps;
+              </code></pre>
+            </li></ul>
+        </section>
+        <section>
+          <ul class ="r-stack">
+            <li> mapDispatchToProps()
+            <p style = "font-size: 16px; color: white;">This function passes methods to the component to update the required store field.</p>
+            <p style = "font-size: 12px; color: grey">For example, component number one should be able to update field number one from store.<br>
+              Then mapDispatchToProps for it will look like this:
+            </p>
+            <pre style = "margin-left: 0; color: white"><code>
+          function (dispatch) {
+            return {
+              changeValue_1: bindActionCreators(action_1, dispatch)
+            };
+          };
+                  </code></pre>
+            <p style = "font-size: 12px; color: white;"> BindActionCreators should be imported from redux. It allows dispatch and actionCreator to be wrapped in a single object.<br>
+              The bindActionCreators(actionCreator, dispatch) method takes two mandatory parameters: the actionCreator function we have already talked about and dispatch. Returns a method to change the store fields.
+            </p>
+            <p style = "font-size: 12px; color: grey">Generator function returning mapDispatchToProps function for each component:</p>
+            <pre style = "margin-left: 0; color: white"><code>
+          import { bindActionCreators } from 'redux';
+          import action_1 from './actionCreators/action_1';
+          import action_2 from './actionCreators/action_2';
+
+          function mapDispatchToProps(component) {
+            switch(component) {
+              case "Component_1": return function(dispatch) {
+                return {
+                  change_value_1: bindActionCreators(action_1, dispatch)
+                };
+              };
+              case "Component_2": return function(dispatch) {
+                return {
+                  change_value_2: bindActionCreators(action_2, dispatch)
+                };
+              };
+              default: return undefined;
+            }
+          }
+
+          export default mapDispatchToProps;
+          </code></pre>
+          </li>
+          </ul>
+        </section>
+        <section>
+          <ul class ="r-stack">
+            <li> connect()
+            <p style = "font-size: 16px; color: white;">It binds mapStateToProps and mapDispatchToProps to a component and<br> passes the necessary fields and methods to it.
+              It returns a new wrapper component for your component.
+            </p>
+            <p style = "font-size: 12px; color: grey">Connecting the component looks something like this:</p>
+            <pre style = "margin-left: 0; color: white;"><code>
+const COMPONENT_1_W = connect(mapStateToProps("Component_1"), mapDispatchToProps("Component_1"))(Component_1);
+            </code></pre>
+
+          <p style = "font-size: 12px; color: white;" >And now in ReactDOM.render() you pass not your component, but the one returned by the connect function.<br>
+            If the component does not need to pass mapStateToProps or mapDispatchToProps to it, pass undefined or null to it.</p>
+          </li>
+        </ul>
+        <p style = "font-size: 24px; color: aquamarine;">FINISH</p>
+        </section>
+      </div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
